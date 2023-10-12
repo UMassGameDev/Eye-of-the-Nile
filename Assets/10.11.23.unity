@@ -247,9 +247,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f72aa37357483f4ea55303bd038986c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transform: {fileID: 92351945}
   moveSpeed: 0.02
   jumpHeight: 0.02
+  jumpForce: 10
+  linearDrag: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!61 &92351942
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -307,7 +311,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -321,7 +325,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &92351944
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -400,7 +404,7 @@ GameObject:
   - component: {fileID: 173020986}
   - component: {fileID: 173020988}
   - component: {fileID: 173020987}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +534,7 @@ GameObject:
   - component: {fileID: 617395039}
   - component: {fileID: 617395041}
   - component: {fileID: 617395040}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +664,7 @@ GameObject:
   - component: {fileID: 885582850}
   - component: {fileID: 885582852}
   - component: {fileID: 885582851}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,7 +794,7 @@ GameObject:
   - component: {fileID: 1635274299}
   - component: {fileID: 1635274301}
   - component: {fileID: 1635274300}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +924,7 @@ GameObject:
   - component: {fileID: 1639300968}
   - component: {fileID: 1639300970}
   - component: {fileID: 1639300969}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1092,7 @@ GameObject:
   - component: {fileID: 2104673851}
   - component: {fileID: 2104673853}
   - component: {fileID: 2104673852}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1218,7 +1222,7 @@ GameObject:
   - component: {fileID: 2140137564}
   - component: {fileID: 2140137566}
   - component: {fileID: 2140137565}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground Block (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
