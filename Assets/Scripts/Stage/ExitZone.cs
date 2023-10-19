@@ -20,6 +20,7 @@ public class ExitZone : MonoBehaviour
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer(_collisionLayer))
         {
+            collider.gameObject.GetComponent<PlayerMovement>().OnWarp = true;
             switch(stageWarp.warpType)
             {
                 case StageWarpType.DirectExit:
@@ -35,6 +36,15 @@ public class ExitZone : MonoBehaviour
             
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer(_collisionLayer))
+        {
+            collider.gameObject.GetComponent<PlayerMovement>().OnWarp = false;
+        }
+    }
+
     void Awake()
     {
         if (stageWarp == null)

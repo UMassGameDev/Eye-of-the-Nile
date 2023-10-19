@@ -6,11 +6,21 @@ using UnityEngine.SceneManagement;
 public class StageLoader : MonoBehaviour
 {
     public Dictionary<string, StageWarp> StageWarps { get; set; }
+    public Animator fadeAnimator;
+
+    IEnumerator TransitionToNewStage(string newStageName)
+    {
+        // AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newStageName);
+        WarpInfo.CurrentlyWarping = true;
+        fadeAnimator.SetTrigger("Start");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(newStageName);
+        WarpInfo.CurrentlyWarping = false;
+    }
 
     public void LoadNewStage(string newStageName)
     {
-        // TODO: Perform transition between scenes
-        SceneManager.LoadScene(newStageName);
+        StartCoroutine(TransitionToNewStage(newStageName));
     }
 
     void Awake()

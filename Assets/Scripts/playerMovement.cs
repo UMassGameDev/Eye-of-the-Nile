@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     private bool grounded = true;
 
+    public bool OnWarp { get; set; } = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
         // Negative = Down
         // Positive = Up
         float verticalInput = Input.GetAxisRaw("Vertical");
-        rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
+        if (!WarpInfo.CurrentlyWarping)
+            rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
 
         /*if (Input.GetKey("a"))
         {
@@ -47,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         // the box sprite is about 1.0f high, so I set the length of the ray to 0.8f since it starts from the center
         grounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastLength, groundLayer).collider != null;
 
-        if (verticalInput > 0 || Input.GetKey("space"))
+        if ((verticalInput > 0 || Input.GetKey("space")) && OnWarp == false )
         {
             if (grounded)
             {
