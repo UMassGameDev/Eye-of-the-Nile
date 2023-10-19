@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
     public float moveSpeed = 0.02f;
+    public float moveVelocity = 12.0f;
     public float jumpForce = 10.0f;
     public float linearDrag = 1.0f;
     public float groundedRaycastLength = 1.8f;
@@ -24,19 +25,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey("a"))
+        // This is a combo of a/d inputs and left/right inputs
+        // Negative = Left
+        // Positive = Right
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        // Likewise, this is w/s and up/down
+        // Negative = Down
+        // Positive = Up
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
+
+        /*if (Input.GetKey("a"))
         {
             transform.position -= new Vector3(moveSpeed,0.0f,0.0f);
         }
         if (Input.GetKey("d"))
         {
             transform.position += new Vector3(moveSpeed,0.0f,0.0f);
-        }
+        }*/
         
         // the box sprite is about 1.0f high, so I set the length of the ray to 0.8f since it starts from the center
         grounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastLength, groundLayer).collider != null;
 
-        if (Input.GetKey("w") || Input.GetKey("space"))
+        if (verticalInput > 0 || Input.GetKey("space"))
         {
             if (grounded)
             {
