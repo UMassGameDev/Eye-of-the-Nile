@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool OnWarp { get; set; } = false;
 
+    public Animator animator;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,21 +33,22 @@ public class PlayerMovement : MonoBehaviour
         // Negative = Left
         // Positive = Right
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        animator.SetFloat("horizontalInput", Mathf.Abs(horizontalInput));
+
+        // character faces direction of movement
+        // if (horizontalInput >= 0) {
+        //     //transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+        // } else {
+        //     transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+        // }
+
         // Likewise, this is w/s and up/down
         // Negative = Down
         // Positive = Up
         float verticalInput = Input.GetAxisRaw("Vertical");
+
         if (!WarpInfo.CurrentlyWarping)
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
-
-        /*if (Input.GetKey("a"))
-        {
-            transform.position -= new Vector3(moveSpeed,0.0f,0.0f);
-        }
-        if (Input.GetKey("d"))
-        {
-            transform.position += new Vector3(moveSpeed,0.0f,0.0f);
-        }*/
         
         // the box sprite is about 1.0f high, so I set the length of the ray to 0.8f since it starts from the center
         grounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastLength, groundLayer).collider != null;
@@ -55,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             if (grounded)
             {
                 rb.AddForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+                animator.SetTrigger("Jump");
             }
         }
     }
