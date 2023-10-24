@@ -49,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (!WarpInfo.CurrentlyWarping)
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
+
+        if (horizontalInput > 0)
+            transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
+        else if (horizontalInput < 0)
+            transform.localScale = new Vector3(2, transform.localScale.y, transform.localScale.z);
         
         // the box sprite is about 1.0f high, so I set the length of the ray to 0.8f since it starts from the center
         grounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastLength, groundLayer).collider != null;
