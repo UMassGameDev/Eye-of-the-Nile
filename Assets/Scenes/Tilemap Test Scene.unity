@@ -783,7 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.02
   moveVelocity: 12
-  jumpForce: 12
+  jumpForce: 4
   linearDrag: 1
   groundedRaycastLength: 0.8
   groundLayer:
