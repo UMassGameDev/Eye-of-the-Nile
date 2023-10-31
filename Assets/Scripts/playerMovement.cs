@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
-    public float moveSpeed = 0.02f;
     public float moveVelocity = 12.0f;
     public float jumpForce = 10.0f;
     public float linearDrag = 1.0f;
@@ -34,13 +33,6 @@ public class PlayerMovement : MonoBehaviour
         // Positive = Right
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("horizontalInput", Mathf.Abs(horizontalInput));
-
-        // character faces direction of movement
-        // if (horizontalInput >= 0) {
-        //     //transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
-        // } else {
-        //     transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
-        // }
 
         // Likewise, this is w/s and up/down
         // Negative = Down
