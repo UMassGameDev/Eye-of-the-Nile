@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ObjectHealth : MonoBehaviour
 {
-   public Animator animator;
+    public Animator animator;
 
-   public int maxHealth = 100;
-   int currentHealth;
+    public bool IsDead { get { return currentHealth <= 0; } }
+
+    public int maxHealth = 100;
+    int currentHealth;
    
     void Start()
     {
