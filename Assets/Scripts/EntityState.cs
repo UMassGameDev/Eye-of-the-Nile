@@ -6,5 +6,6 @@ public enum EntityState
 {
     Patrol,
     Chase,
+    CloseAttack,
     Dead
 }

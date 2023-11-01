@@ -1376,8 +1376,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   patrolZone: {fileID: 2012610560}
+  EState: 0
   horizontalDirection: 0
-  detectionRange: 5
+  detectionRange: 6
+  attackRange: 3
   moveVelocity: 6
   linearDrag: 1
   groundedRaycastLength: 1.8
