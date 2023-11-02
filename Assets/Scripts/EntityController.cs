@@ -6,13 +6,19 @@ public class EntityController : MonoBehaviour
 {
     ObjectHealth objectHealth;
 
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public int attackDamage = 10;
+    float attackCooldown = 0.8f;
+    float cooldownEndTime = 0f;
+
     // This LayerMask includes the Player's layer so the enemy is alerted
     public LayerMask enemyLayers;
     public PatrolZone patrolZone;
     public EntityState EState { get; set; } = EntityState.Patrol;
     public float horizontalDirection = 0f;
     public float detectionRange = 6f;
-    public float attackRange = 3f;
+    public float closeAttackRange = 3f;
     bool hostileDetected = false;
     bool hostileInCloseRange = false;
 
@@ -23,7 +29,19 @@ public class EntityController : MonoBehaviour
 
     Animator animator;
 
-    void Patrol()
+    void MeleeAttack()
+    {
+        animator.SetBool("IsAttacking", true);
+
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach(Collider2D hitObject in hitObjects)
+        {
+            hitObject.GetComponent<ObjectHealth>().TakeDamage(attackDamage);
+        }
+    }
+
+    void PatrolState()
     {
         if (horizontalDirection == 0f)
             horizontalDirection = 1f;
@@ -68,7 +86,7 @@ public class EntityController : MonoBehaviour
             EState = EntityState.Chase;
     }
 
-    void Chase()
+    void ChaseState()
     {
         // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
@@ -77,7 +95,7 @@ public class EntityController : MonoBehaviour
 
         hostileDetected = hitObject != null;
         hostileInCloseRange = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
-            attackRange,
+            closeAttackRange,
             enemyLayers) != null;
 
         // If detected enemy horizontal position is within the minimum amount (0.1f), don't switch directions
@@ -127,10 +145,10 @@ public class EntityController : MonoBehaviour
             EState = EntityState.Patrol;
     }
 
-    void CloseAttack()
+    void CloseAttackState()
     {
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
-            attackRange,
+            closeAttackRange,
             enemyLayers);
 
         hostileInCloseRange = hitObject != null;
@@ -139,34 +157,36 @@ public class EntityController : MonoBehaviour
         if (hostileInCloseRange)
         {
             Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
-                Vector2.right * attackRange,
+                Vector2.right * closeAttackRange,
                 Color.cyan);
 
             Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
-                Vector2.left * attackRange,
+                Vector2.left * closeAttackRange,
                 Color.cyan);
 
             RaycastHit2D enemyFrontRay, enemyBackRay;
 
             enemyFrontRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
                 Vector2.right,
-                attackRange,
+                closeAttackRange,
                 enemyLayers);
 
             enemyBackRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
                 Vector2.left,
-                attackRange,
+                closeAttackRange,
                 enemyLayers);
 
-            if (enemyFrontRay.collider != null)
+            if (enemyFrontRay.collider != null && Time.time >= cooldownEndTime)
             {
                 horizontalDirection = 1f;
-                animator.SetBool("IsAttacking", true);
+                cooldownEndTime = Time.time + attackCooldown;
+                MeleeAttack();
             }
-            else if (enemyBackRay.collider != null)
+            else if (enemyBackRay.collider != null && Time.time >= cooldownEndTime)
             {
                 horizontalDirection = -1f;
-                animator.SetBool("IsAttacking", true);
+                cooldownEndTime = Time.time + attackCooldown;
+                MeleeAttack();
             }
             else
             {
@@ -192,7 +212,7 @@ public class EntityController : MonoBehaviour
             EState = EntityState.Dead;
             horizontalDirection = 0f;
         }
-        else if (!hostileInCloseRange)
+        else if (!hostileInCloseRange && Time.time >= cooldownEndTime)
             EState = EntityState.Chase;
     }
 
@@ -205,7 +225,14 @@ public class EntityController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), detectionRange);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), attackRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), closeAttackRange);
+
+        if (attackPoint != null)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
+            
     }
 
     private void Awake()
@@ -227,18 +254,18 @@ public class EntityController : MonoBehaviour
         switch (EState)
         {
             case EntityState.Patrol:
-                Patrol();
+                PatrolState();
                 break;
             case EntityState.Chase:
-                Chase();
+                ChaseState();
                 break;
             case EntityState.CloseAttack:
-                CloseAttack();
+                CloseAttackState();
                 break;
             case EntityState.Dead:
                 break;
             default:
-                Patrol();
+                PatrolState();
                 break;
         }
     }
