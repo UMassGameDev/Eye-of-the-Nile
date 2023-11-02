@@ -5,17 +5,24 @@ using UnityEngine;
 public class PlayerBasicMelee : MonoBehaviour
 {
     public Transform attackPoint;
+    public LayerMask attackableLayers;
+    public Animator animator;
+
     public float attackRange = 0.5f;
     public int attackDamage = 20;
-    public LayerMask attackableLayers;
-
-    public Animator animator;
+    public float attackCooldown = 1f;
+    
+    float cooldownTimer = 0f;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        cooldownTimer += Time.deltaTime; // update attack cooldown timer
+
+        // if left click is pressed and the cooldown timer has expired...
+        if (Input.GetKeyDown(KeyCode.Mouse0) && cooldownTimer >= attackCooldown)
         {
             Attack();
+            cooldownTimer = 0; // reset cooldown timer
         }
     }
 
@@ -31,6 +38,7 @@ public class PlayerBasicMelee : MonoBehaviour
         }
     }
 
+    // show a wire sphere in the edit for the attack range
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)

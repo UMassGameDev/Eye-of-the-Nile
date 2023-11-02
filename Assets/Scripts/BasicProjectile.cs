@@ -6,31 +6,46 @@ public class BasicProjectile : MonoBehaviour
 {
     public GameObject sprite;
     public GameObject thisProjectile;
-    public float speed = 100f;
+    public float speed = 0.3f;
     public int damage = 30;
     public bool facingLeft = false;
 
-    Rigidbody2D rb;
+    Vector3 spriteScaleLeft;
+    Vector3 spriteScaleRight;
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        spriteScaleRight = sprite.transform.localScale;
+        spriteScaleLeft = new Vector3(-sprite.transform.localScale.x, sprite.transform.localScale.y, sprite.transform.localScale.z);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (facingLeft) {
-            rb.AddForce(new Vector2(-speed * Time.deltaTime, 0));
+            // move projectile to the left by [speed]
+            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+            sprite.transform.localScale = spriteScaleLeft;
         } else {
-            rb.AddForce(new Vector2(speed * Time.deltaTime, 0));
+            // move projectile to the right by [speed]
+            transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
+            sprite.transform.localScale = spriteScaleRight;
         }
     }
 
+    // if projectile collides with something...
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
+        // if we collided with something we can damage, damage it
         if (collisionInfo.collider.tag == "DamagableByProjectile") {
             collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(damage);
         }
+        
+        // Destory the projectile
         Destroy(sprite);
         Destroy(thisProjectile);
+    }
+
+    public void FlipDirection()
+    {
+        facingLeft = !facingLeft;
     }
 }
