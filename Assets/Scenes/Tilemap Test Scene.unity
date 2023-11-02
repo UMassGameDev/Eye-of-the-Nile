@@ -336,6 +336,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   animator: {fileID: 0}
+  objectHealth: {fileID: 0}
 --- !u!61 &92351942
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -854,6 +855,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   animator: {fileID: 916480883}
+  objectHealth: {fileID: 916480885}
 --- !u!50 &916480879
 Rigidbody2D:
   serializedVersion: 4
@@ -1324,7 +1326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 2115542652}
   attackRange: 0.5
-  attackDamage: 10
+  attackDamage: 30
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64

@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public bool OnWarp { get; set; } = false;
 
     public Animator animator;
+    public ObjectHealth objectHealth;
 
     void Awake()
     {
@@ -42,9 +43,10 @@ public class PlayerMovement : MonoBehaviour
         if (!WarpInfo.CurrentlyWarping)
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
 
-        if (horizontalInput > 0)
+        // Flip the player to face the direction it is going
+        if (horizontalInput > 0 && objectHealth.IsDead == false)
             transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
-        else if (horizontalInput < 0)
+        else if (horizontalInput < 0 && objectHealth.IsDead == false)
             transform.localScale = new Vector3(2, transform.localScale.y, transform.localScale.z);
         
         // the box sprite is about 1.0f high, so I set the length of the ray to 0.8f since it starts from the center
