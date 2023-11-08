@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6465197716330629479}
   m_Layer: 7
   m_Name: Breakable Pot
-  m_TagString: Untagged
+  m_TagString: DamagableByProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

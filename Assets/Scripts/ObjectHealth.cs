@@ -25,6 +25,11 @@ public class ObjectHealth : MonoBehaviour
             Die();
     }
 
+    public int GetHealth()
+    {
+        return currentHealth;
+    }
+
     void Die()
     {
         animator.SetBool("IsDead", true);
@@ -33,4 +38,5 @@ public class ObjectHealth : MonoBehaviour
         GetComponent<Rigidbody2D>().simulated = false;
         this.enabled = false;
     }
+
 }
