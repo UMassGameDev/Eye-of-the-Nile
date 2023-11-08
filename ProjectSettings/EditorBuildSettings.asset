@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WarpTestScene2.unity
     guid: 20eba97e931e62f47a0708bd1ff83b63
+  - enabled: 1
+    path: Assets/Scenes/Test Dungeon/TestDungeon_Start.unity
+    guid: 07b23a031d2fcf1488f5454db5b545c0
+  - enabled: 1
+    path: Assets/Scenes/Test Dungeon/TestDungeon_Room1.unity
+    guid: 2d85fcd1795717d40b02e6009364c3a3
   m_configObjects: {}
