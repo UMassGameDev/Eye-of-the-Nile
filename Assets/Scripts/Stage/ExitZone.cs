@@ -12,7 +12,8 @@ public class ExitZone : MonoBehaviour
 
     void WarpToZone()
     {
-        WarpInfo.WarpName = stageWarp.warpName;
+        // WarpInfo.WarpName = stageWarp.warpName;
+        WarpInfo.WarpName = stageWarp.destWarpName;
         collidedEvent.Invoke(stageWarp.sceneToWarpTo);
     }
 

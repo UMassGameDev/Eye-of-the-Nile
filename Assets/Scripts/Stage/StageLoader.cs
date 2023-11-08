@@ -8,6 +8,18 @@ public class StageLoader : MonoBehaviour
     public Dictionary<string, StageWarp> StageWarps { get; set; }
     public Animator fadeAnimator;
 
+    void InitializeWarps()
+    {
+        StageWarps = new Dictionary<string, StageWarp>();
+        StageWarp[] AllWarps = FindObjectsOfType(typeof(StageWarp)) as StageWarp[];
+
+        foreach (StageWarp sWarp in AllWarps)
+        {
+            // StageWarps.Add(sWarp.warpName, sWarp);
+            StageWarps.Add(sWarp.srcWarpName, sWarp);
+        }
+    }
+
     IEnumerator TransitionToNewStage(string newStageName)
     {
         // AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newStageName);
@@ -25,13 +37,7 @@ public class StageLoader : MonoBehaviour
 
     void Awake()
     {
-        StageWarps = new Dictionary<string, StageWarp>();
-        StageWarp[] AllWarps = FindObjectsOfType(typeof(StageWarp)) as StageWarp[];
-
-        foreach (StageWarp sWarp in AllWarps)
-        {
-            StageWarps.Add(sWarp.warpName, sWarp);
-        }
+        InitializeWarps();
     }
 
     // Start is called before the first frame update

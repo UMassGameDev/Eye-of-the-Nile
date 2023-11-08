@@ -360,8 +360,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: srcWarpName
+      value: TD_Start4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: destWarpName
+      value: TD_Room2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
       value: TestDungeon_Room1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: sourceWarpName
+      value: TDG_Start4
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalScale.x
@@ -960,8 +972,20 @@ PrefabInstance:
       value: TDG_Start_1
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: srcWarpName
+      value: TD_Start1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: destWarpName
+      value: TD_Start2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
       value: TestDungeon_Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: sourceWarpName
+      value: TDG_Start1
       objectReference: {fileID: 0}
     - target: {fileID: 8632219531049447108, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: collidedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1068,7 +1092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1917272501813746359, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1115,8 +1139,20 @@ PrefabInstance:
       value: TDG_Start_1
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: srcWarpName
+      value: TD_Start2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: destWarpName
+      value: TD_Start1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
       value: TestDungeon_Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: sourceWarpName
+      value: TDG_Start2
       objectReference: {fileID: 0}
     - target: {fileID: 8632219531049447108, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: collidedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1915,23 +1951,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1488595279024163374, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_Name
-      value: StageWarp Door (2)
+      value: StageWarp Direct (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1488595279024163374, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1917272501813746359, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.67
+      value: -18.88
       objectReference: {fileID: 0}
     - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.09
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1971,15 +2007,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: warpType
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: srcWarpName
+      value: TD_Start5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: destWarpName
+      value: TD_Room1
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
-      value: TestDungeon_Start
+      value: TestDungeon_Room1
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalScale.y
@@ -6682,8 +6726,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: srcWarpName
+      value: TD_Start3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: destWarpName
+      value: TD_Room2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
       value: TestDungeon_Room1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: sourceWarpName
+      value: TDG_Start3
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalScale.x
@@ -28051,9 +28107,9 @@ SceneRoots:
   - {fileID: 1313207685}
   - {fileID: 928991694}
   - {fileID: 598981523}
+  - {fileID: 1563744652}
   - {fileID: 1790243227}
   - {fileID: 122605768}
-  - {fileID: 1563744652}
   - {fileID: 1094718269}
   - {fileID: 459876201952318559}
   - {fileID: 1237624040}

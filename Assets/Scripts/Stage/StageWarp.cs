@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StageWarp : MonoBehaviour
 {
-    public string warpName = "DEFAULT";
+    public string srcWarpName = "DEFAULT_SOURCE";
+    public string destWarpName = "DEFAULT_DESTINATION";
     public StageWarpType warpType = StageWarpType.DirectExit;
 
     // Edit this string to the name of the destination scene
