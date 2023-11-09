@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1155112950}
-  attackRange: 0.5
+  attackRange: 0.75
   attackDamage: 30
   enemyLayers:
     serializedVersion: 2
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 180770274}
-  attackRange: 0.5
+  attackRange: 0.75
   attackDamage: 30
   enemyLayers:
     serializedVersion: 2
@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1158211004}
-  attackRange: 0.5
+  attackRange: 0.75
   attackDamage: 30
   enemyLayers:
     serializedVersion: 2
@@ -2721,7 +2721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 305441819}
-  attackRange: 0.5
+  attackRange: 0.75
   attackDamage: 30
   enemyLayers:
     serializedVersion: 2
