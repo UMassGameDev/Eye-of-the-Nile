@@ -26,16 +26,19 @@ public class PlayerBasicMelee : MonoBehaviour
         }
     }
 
-    void Attack()
+    void ActivateAttack()
     {
-        animator.SetTrigger("Attack");
-
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, attackableLayers);
 
-        foreach(Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemy in hitEnemies)
         {
             enemy.GetComponent<ObjectHealth>().TakeDamage(attackDamage);
         }
+    }
+
+    void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
 
     // show a wire sphere in the edit for the attack range

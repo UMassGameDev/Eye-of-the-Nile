@@ -29,16 +29,19 @@ public class EntityController : MonoBehaviour
 
     Animator animator;
 
-    void MeleeAttack()
+    void ActivateAttack()
     {
-        animator.SetBool("IsAttacking", true);
-
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        foreach(Collider2D hitObject in hitObjects)
+        foreach (Collider2D hitObject in hitObjects)
         {
             hitObject.GetComponent<ObjectHealth>().TakeDamage(attackDamage);
         }
+    }
+
+    void MeleeAttack()
+    {
+        animator.SetBool("IsAttacking", true);
     }
 
     void PatrolState()
