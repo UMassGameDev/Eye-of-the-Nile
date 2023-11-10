@@ -26,7 +26,7 @@ public class ObjectHealth : MonoBehaviour
         Transform hurtPrefab = Instantiate(hurtEffect,
                 objectCollider.bounds.center,
                 Quaternion.identity);
-        hurtPrefab.up = transform.position - objectCollider.transform.position;
+        hurtPrefab.up = attacker.position - objectCollider.transform.position;
 
         if (currentHealth <= 0)
             Die();
