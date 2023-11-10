@@ -926,6 +926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 296954134}
+  hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   maxHealth: 100
 --- !u!114 &296954136
 MonoBehaviour:
@@ -1395,6 +1396,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Breakable Pot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6467002220597826257, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
+      propertyPath: hurtEffect
+      value: 
+      objectReference: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
     - target: {fileID: 7919926502545129023, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -2989,6 +2994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1141566427}
+  hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   maxHealth: 100
 --- !u!114 &1141566429
 MonoBehaviour:
@@ -3221,6 +3227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1218583258}
+  hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   maxHealth: 100
 --- !u!61 &1218583254
 BoxCollider2D:
@@ -3421,6 +3428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Breakable Pot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6467002220597826257, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
+      propertyPath: hurtEffect
+      value: 
+      objectReference: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
     - target: {fileID: 7919926502545129023, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -29301,6 +29312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Breakable Pot
       objectReference: {fileID: 0}
+    - target: {fileID: 6467002220597826257, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
+      propertyPath: hurtEffect
+      value: 
+      objectReference: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
     - target: {fileID: 7919926502545129023, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.95
@@ -29346,63 +29361,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
---- !u!1001 &1223323778619658166
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4015379502121862282, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_Name
-      value: BloodSplatter
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.45911485
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.88837695
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 125.34
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
 --- !u!1001 &8736193951571003386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29411,6 +29369,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4037235464814050979, guid: d5756dfb0ba67294b83579c3fcfb2a7a, type: 3}
+      propertyPath: hurtEffect
+      value: 
+      objectReference: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
     - target: {fileID: 4590190179035495267, guid: d5756dfb0ba67294b83579c3fcfb2a7a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -29493,4 +29455,3 @@ SceneRoots:
   - {fileID: 858987361}
   - {fileID: 296954140}
   - {fileID: 2057696079}
-  - {fileID: 1223323778619658166}
