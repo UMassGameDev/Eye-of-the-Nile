@@ -35,7 +35,7 @@ public class EntityController : MonoBehaviour
 
         foreach (Collider2D hitObject in hitObjects)
         {
-            hitObject.GetComponent<ObjectHealth>().TakeDamage(attackDamage);
+            hitObject.GetComponent<ObjectHealth>().TakeDamage(transform, attackDamage);
         }
     }
 

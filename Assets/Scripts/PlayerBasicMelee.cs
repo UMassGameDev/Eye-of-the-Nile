@@ -32,7 +32,7 @@ public class PlayerBasicMelee : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<ObjectHealth>().TakeDamage(attackDamage);
+            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, attackDamage);
         }
     }
 

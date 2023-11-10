@@ -36,7 +36,7 @@ public class BasicProjectile : MonoBehaviour
     {
         // if we collided with something we can damage, damage it
         if (collisionInfo.collider.tag == "DamagableByProjectile") {
-            collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(damage);
+            collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
         }
         
         // Destory the projectile

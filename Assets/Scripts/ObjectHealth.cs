@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectHealth : MonoBehaviour
 {
     public Animator animator;
+    public Transform hurtEffect;
 
     public bool IsDead { get { return currentHealth <= 0; } }
 
@@ -16,10 +17,16 @@ public class ObjectHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(Transform attacker, int damage)
     {
         currentHealth -= damage;
         animator.SetTrigger("Hurt");
+        Collider2D objectCollider = transform.GetComponent<Collider2D>();
+
+        Transform hurtPrefab = Instantiate(hurtEffect,
+                objectCollider.bounds.center,
+                Quaternion.identity);
+        hurtPrefab.up = transform.position - objectCollider.transform.position;
 
         if (currentHealth <= 0)
             Die();
