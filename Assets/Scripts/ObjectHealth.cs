@@ -8,6 +8,7 @@ public class ObjectHealth : MonoBehaviour
     public Transform hurtEffect;
 
     public bool IsDead { get { return currentHealth <= 0; } }
+    public bool enableDamageParticles = true;
 
     public int maxHealth = 100;
     int currentHealth;
@@ -23,11 +24,15 @@ public class ObjectHealth : MonoBehaviour
         animator.SetTrigger("Hurt");
         Collider2D objectCollider = transform.GetComponent<Collider2D>();
 
-        Transform hurtPrefab = Instantiate(hurtEffect,
-                objectCollider.bounds.center,
-                Quaternion.identity);
-        hurtPrefab.up = attacker.position - objectCollider.transform.position;
-
+        // generate hurt particles (if enabled)
+        if (enableDamageParticles)
+        {
+            Transform hurtPrefab = Instantiate(hurtEffect,
+                    objectCollider.bounds.center,
+                    Quaternion.identity);
+            hurtPrefab.up = attacker.position - objectCollider.transform.position;
+        }
+   
         if (currentHealth <= 0)
             Die();
     }
