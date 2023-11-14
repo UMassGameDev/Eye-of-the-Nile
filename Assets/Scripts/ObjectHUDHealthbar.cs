@@ -10,6 +10,11 @@ public class PlayerHealthbarGUI : MonoBehaviour
     public float healthbarXLoc;  // this is where the healthbar's x should be "pinned" to
     float healthMultiplier = 5f;
 
+    void Awake()
+    {
+        playerHealth = GameObject.Find("Player").GetComponent<ObjectHealth>();
+    }
+
     void Start()
     {
         healthMultiplier = healthbarTransform.sizeDelta.x/playerHealth.maxHealth;
