@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ObjectHealth : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ObjectHealth : MonoBehaviour
 
     public int maxHealth = 100;
     int currentHealth;
-   
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -32,7 +33,7 @@ public class ObjectHealth : MonoBehaviour
                     Quaternion.identity);
             hurtPrefab.up = attacker.position - objectCollider.transform.position;
         }
-   
+
         if (currentHealth <= 0)
             Die();
     }
@@ -45,6 +46,14 @@ public class ObjectHealth : MonoBehaviour
     void Die()
     {
         animator.SetBool("IsDead", true);
+        if (gameObject.name == "Player")
+        {
+            AudioManager.Instance.PlaySFX("player_death");
+        }
+        else if (gameObject.name.Contains("Breakable Pot"))
+        {
+            AudioManager.Instance.PlaySFX("breakable_pot_destroy");
+        }
 
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().simulated = false;
