@@ -23,11 +23,9 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
-        Debug.Log("playing music" + s.name);
 
         if (s == null)
         {
@@ -43,7 +41,6 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == name);
-        Debug.Log("playing sfx" + s.name);
         if (s == null)
         {
             Debug.Log("ERROR PLAYING SFX");

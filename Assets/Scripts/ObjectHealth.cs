@@ -34,6 +34,11 @@ public class ObjectHealth : MonoBehaviour
             hurtPrefab.up = attacker.position - objectCollider.transform.position;
         }
 
+        if (gameObject.name == "Player")
+        {
+            AudioManager.Instance.PlaySFX("player_take_damage");
+        }
+
         if (currentHealth <= 0)
             Die();
     }
@@ -53,6 +58,10 @@ public class ObjectHealth : MonoBehaviour
         else if (gameObject.name.Contains("Breakable Pot"))
         {
             AudioManager.Instance.PlaySFX("breakable_pot_destroy");
+        }
+        else if (gameObject.name.Contains("Bad Guy"))
+        {
+            AudioManager.Instance.PlaySFX("enemy_death");
         }
 
         GetComponent<Collider2D>().enabled = false;
