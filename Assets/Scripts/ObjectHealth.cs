@@ -8,6 +8,7 @@ public class ObjectHealth : MonoBehaviour
     public SpriteRenderer sRenderer;
     public Animator animator;
     public Transform hurtEffect;
+    public string deathSfxName;
 
     public bool IsDead { get { return currentHealth <= 0; } }
     public bool enableDamageParticles = true;
@@ -96,6 +97,8 @@ public class ObjectHealth : MonoBehaviour
     void Die()
     {
         animator.SetBool("IsDead", true);
+        AudioManager.Instance.PlaySFX(deathSfxName);
+        /*
         if (gameObject.name == "Player")
         {
             AudioManager.Instance.PlaySFX("player_death");
@@ -108,7 +111,7 @@ public class ObjectHealth : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX("enemy_death");
         }
-
+        */
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().simulated = false;
         this.enabled = false;

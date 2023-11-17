@@ -253,7 +253,7 @@ MonoBehaviour:
   attackPoint: {fileID: 5938859454111977853}
   attackableLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   animator: {fileID: 2371901272311279201}
   attackRange: 1
   attackDamage: 40
@@ -288,9 +288,11 @@ MonoBehaviour:
   sRenderer: {fileID: 8400089797164572280}
   animator: {fileID: 2371901272311279201}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  deathSfxName: player_death
   enableDamageParticles: 1
   maxHealth: 100
   canBeInvincible: 1
+  invincibleDuration: 3
 --- !u!1001 &9094092834200276590
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3138815962420434356}
   - component: {fileID: 6467002220597826257}
   - component: {fileID: 6465197716330629479}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Breakable Pot
   m_TagString: DamagableByProjectile
   m_Icon: {fileID: 0}
@@ -121,10 +121,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sRenderer: {fileID: 0}
   animator: {fileID: 6465197716330629479}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  deathSfxName: breakable_pot_destroy
   enableDamageParticles: 0
   maxHealth: 50
+  canBeInvincible: 0
+  invincibleDuration: 3
 --- !u!95 &6465197716330629479
 Animator:
   serializedVersion: 5
