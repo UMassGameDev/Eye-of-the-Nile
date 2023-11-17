@@ -231,10 +231,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sRenderer: {fileID: 8163688818717136423}
   animator: {fileID: 1876220294241534405}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   enableDamageParticles: 1
   maxHealth: 100
+  canBeInvincible: 0
 --- !u!95 &1876220294241534405
 Animator:
   serializedVersion: 5
