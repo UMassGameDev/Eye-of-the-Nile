@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public bool OnWarp { get; set; } = false;
 
     public Animator animator;
-    public ObjectHealth objectHealth;
+    public PlayerHealth objectHealth;
 
     void Awake()
     {

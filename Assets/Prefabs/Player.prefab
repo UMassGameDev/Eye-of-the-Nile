@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 9059773960713517870}
   - component: {fileID: 6110134618196982225}
   - component: {fileID: 6638524437479847596}
-  - component: {fileID: 4037235464814050979}
+  - component: {fileID: 1203306737245432797}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -237,7 +237,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   animator: {fileID: 2371901272311279201}
-  objectHealth: {fileID: 4037235464814050979}
+  objectHealth: {fileID: 1203306737245432797}
 --- !u!114 &6110134618196982225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
   attackPoint: {fileID: 5938859454111977853}
   attackCooldown: 1
---- !u!114 &4037235464814050979
+--- !u!114 &1203306737245432797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4590190179035495267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
+  m_Script: {fileID: 11500000, guid: f0d0af3e993fb604cbe615f7770bf47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sRenderer: {fileID: 8400089797164572280}
@@ -292,7 +292,7 @@ MonoBehaviour:
   enableDamageParticles: 1
   maxHealth: 100
   canBeInvincible: 1
-  invincibleDuration: 3
+  invincibleDuration: 1
 --- !u!1001 &9094092834200276590
 PrefabInstance:
   m_ObjectHideFlags: 0

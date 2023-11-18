@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerHealthbarGUI : MonoBehaviour
 {
     public RectTransform healthbarTransform;
-    public ObjectHealth playerHealth;
+    PlayerHealth playerHealth;
 
     public float healthbarXLoc;  // this is where the healthbar's x should be "pinned" to
     float healthMultiplier = 5f;
 
     void Awake()
     {
-        playerHealth = GameObject.Find("Player").GetComponent<ObjectHealth>();
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
     }
 
     void Start()
