@@ -14,7 +14,8 @@ public class DataManager : MonoBehaviour
 
     static bool gameStarted = false;
 
-    TimeOfDay currTimeOfDay = TimeOfDay.Day;
+    public TimeOfDay defaultTimeOfDay = TimeOfDay.Day;
+    static TimeOfDay currTimeOfDay;
     int playerHealth = 100;
 
     void Awake()
@@ -37,6 +38,7 @@ public class DataManager : MonoBehaviour
         if (!gameStarted)
         {
             playerHealth = playerObjHealth.maxHealth;
+            currTimeOfDay = defaultTimeOfDay;
             gameStarted = true;
         }
 
@@ -45,6 +47,10 @@ public class DataManager : MonoBehaviour
     
     public void setTimeOfDay(TimeOfDay newTime)
     {
+        // For some reason, the ToDController sometimes gets unassigned. This will ensure that won't happen
+        if (ToDController == null)
+            ToDController = GameObject.Find("BackgroundCanvas").GetComponent<TimeOfDayController>();
+
         currTimeOfDay = newTime;
         switch (newTime)
         {

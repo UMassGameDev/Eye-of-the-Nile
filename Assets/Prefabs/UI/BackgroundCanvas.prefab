@@ -116,10 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb65dfb69c0c7b640a932d01fa93baaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTOD: 0
-  DayBckgrnd: {fileID: 2174118717429651769}
-  NightBckgrnd: {fileID: 1424987074552518529}
-  BckgrndCanvas: {fileID: 4642835469322478596}
+  DayBckgrnd: {fileID: 7645154856102993545}
+  NightBckgrnd: {fileID: 7831562826442426783}
 --- !u!1 &7645154856102993545
 GameObject:
   m_ObjectHideFlags: 0
