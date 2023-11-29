@@ -18,6 +18,11 @@ public class BasicProjectile : MonoBehaviour
         spriteScaleLeft = new Vector3(-sprite.transform.localScale.x, sprite.transform.localScale.y, sprite.transform.localScale.z);
     }
 
+    void Start()
+    {
+        AudioManager.Instance.PlaySFX("bullet_fire");
+    }
+
     void Update()
     {
         if (facingLeft) {
@@ -37,6 +42,8 @@ public class BasicProjectile : MonoBehaviour
         // if we collided with something we can damage, damage it
         if (collisionInfo.collider.tag == "DamagableByProjectile") {
             collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
+        } else if (collisionInfo.collider.tag == "Player") {
+            collisionInfo.collider.GetComponent<PlayerHealth>().TakeDamage(transform, damage);
         }
         
         // Destory the projectile
