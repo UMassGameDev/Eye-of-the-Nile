@@ -32,6 +32,8 @@ public class StageLoader : MonoBehaviour
 
     public void LoadNewStage(string newStageName)
     {
+        if (newStageName == "this")
+            newStageName = SceneManager.GetActiveScene().name;
         StartCoroutine(TransitionToNewStage(newStageName));
     }
 
