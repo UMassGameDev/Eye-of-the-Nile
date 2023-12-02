@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityController : MonoBehaviour
+public class MeleeEntityController : MonoBehaviour
 {
     ObjectHealth objectHealth;
 
@@ -219,7 +219,7 @@ public class EntityController : MonoBehaviour
             EState = EntityState.Chase;
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         // Purely for debugging purposes
         // This displays the radius of the detection circle

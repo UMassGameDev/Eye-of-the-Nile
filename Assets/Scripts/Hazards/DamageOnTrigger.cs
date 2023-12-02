@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageOnColision : MonoBehaviour
+public class DamageOnTrigger : MonoBehaviour
 {
     public int colisionDamage = 40;
     public bool damageNonPlayers = true;
