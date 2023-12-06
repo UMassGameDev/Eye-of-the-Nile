@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 4940986101444858984}
   m_Layer: 0
   m_Name: StageWarp
-  m_TagString: Untagged
+  m_TagString: Warp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b00051fb1995448dc828853aa543f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warpName: MTS_WTS_1
+  srcWarpName: DEFAULT_SOURCE
+  destWarpName: DEFAULT_DESTINATION
   warpType: 0
   sceneToWarpTo: WarpTestScene

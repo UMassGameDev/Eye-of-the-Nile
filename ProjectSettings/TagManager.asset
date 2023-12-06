@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DamagableByProjectile
   - Projectile
+  - Warp
   layers:
   - Default
   - TransparentFX

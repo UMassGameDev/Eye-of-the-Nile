@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,19 +6,18 @@ public class PlayerMovement : MonoBehaviour
     public float moveVelocity = 12.0f;
     public float jumpForce = 10.0f;
     public float linearDrag = 1.0f;
-    public float groundedRaycastLength = 1.8f;
+    public bool OnWarp {get; set;} = false;
 
-    public LayerMask groundLayer;
-    private bool grounded = true;
-
-    public bool OnWarp { get; set; } = false;
+    bool canJump = false;
 
     public Animator animator;
     public PlayerHealth objectHealth;
+    GroundDetector groundDetector;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        groundDetector = transform.GetComponentInChildren<GroundDetector>();
     }
     void Start()
     {
@@ -48,19 +45,20 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
         else if (horizontalInput < 0 && objectHealth.IsDead == false)
             transform.localScale = new Vector3(2, transform.localScale.y, transform.localScale.z);
+        
+        // Player must be coming down from previous jump before jumping again
+        if (rb.velocity.y < 0f)
+            canJump = true;
 
-        // the box sprite is about 1.0f high, so I set the length of the ray to 0.8f since it starts from the center
-        grounded = Physics2D.Raycast(transform.position, Vector2.down, groundedRaycastLength, groundLayer).collider != null;
-
-        if ((verticalInput > 0 || Input.GetKey("space")) && OnWarp == false)
+        if ((verticalInput > 0 || Input.GetKey("space")) && !OnWarp)
         {
-            if (grounded)
+            if (groundDetector.isGrounded && canJump)
             {
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
+                canJump = false;
             }
-
         }
     }
 }
