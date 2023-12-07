@@ -98,6 +98,13 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(Invincibility());
     }
 
+    public void HealInstant(int healValue)
+    {
+        if (IsDead)
+            return;
+        currentHealth = currentHealth + healValue > maxHealth ? maxHealth : currentHealth + healValue;
+    }
+
     public int GetHealth()
     {
         return currentHealth;

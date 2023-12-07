@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03b998d5e6684c4ca31496f380e798a, type: 3}
+  m_Name: ActiveAbilities
+  m_EditorClassIdentifier: 
+  offenseSlot: {fileID: 0}
+  defenseSlot: {fileID: 11400000, guid: 57cb900281e0d864db78f3fedb5812f3, type: 2}
+  utilitySlot: {fileID: 11400000, guid: fa6abf266e0e338419371ad39dbe1364, type: 2}
+  passiveSlot: {fileID: 11400000, guid: dba7daa7bd674184aa21b104c88d5df5, type: 2}
