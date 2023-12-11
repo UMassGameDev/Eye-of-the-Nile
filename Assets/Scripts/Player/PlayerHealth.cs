@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class PlayerHealth : MonoBehaviour
     private float flashDuration = 0.25f;
     WaitForSeconds invincibleFlash;
     private bool isInvincible = false;
+
+    public static event Action onPlayerDeath;
+    public static event Action<int> onPlayerDamage;
+    public static event Action<int> onPlayerHealthChange;
 
     DataManager dataManager;
 
@@ -65,11 +70,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = dataManager.GetPlayerHealth();
-    }
-
-    void OnDisable()
-    {
-        dataManager.savePlayerHealth(currentHealth);
+        onPlayerHealthChange?.Invoke(currentHealth);
     }
 
     public void TakeDamage(Transform attacker, int damage)
@@ -90,6 +91,10 @@ public class PlayerHealth : MonoBehaviour
         }
 
         AudioManager.Instance.PlaySFX("player_take_damage");
+
+        // Let any other objects subscribed to this event know that it has happened
+        onPlayerDamage?.Invoke(currentHealth);
+        onPlayerHealthChange?.Invoke(currentHealth);
 
         if (currentHealth <= 0)
             Die();
@@ -119,6 +124,9 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Rigidbody2D>().simulated = false;
         GetComponent<PlayerMovement>().enabled = false;
 
+        // Let any other objects subscribed to this event know that it has happened
+        onPlayerDeath?.Invoke();
+
         StartCoroutine(AfterDeath());
     }
 
@@ -132,6 +140,8 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Rigidbody2D>().simulated = true;
         GetComponent<PlayerMovement>().enabled = true;
         currentHealth = maxHealth;
-        dataManager.savePlayerHealth(currentHealth);
+
+        // Let any other objects subscribed to this event know that it has happened
+        onPlayerHealthChange?.Invoke(maxHealth);
     }
 }

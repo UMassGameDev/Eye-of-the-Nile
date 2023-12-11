@@ -16,6 +16,18 @@ public class DataManager : MonoBehaviour
     public TimeOfDay defaultTimeOfDay = TimeOfDay.Day;
     static TimeOfDay currTimeOfDay;
     int playerHealth = 100;
+    int souls = 0;
+    int godSouls = 0;
+
+    void OnEnable()
+    {
+        PlayerHealth.onPlayerHealthChange += updatePlayerHealth;
+    }
+
+    void OnDisable()
+    {
+        PlayerHealth.onPlayerHealthChange -= updatePlayerHealth;
+    }
 
     void Awake()
     {
@@ -64,19 +76,21 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public TimeOfDay GetTimeOfDay()
-    {
-        return currTimeOfDay;
-    }
+    void updatePlayerHealth(int newHealth) { playerHealth = newHealth; }
 
-    public void savePlayerHealth(int newHealth)
-    {
-        playerHealth = newHealth;
-    }
+    public TimeOfDay GetTimeOfDay() { return currTimeOfDay; }
 
-    public int GetPlayerHealth()
-    {
-        return playerHealth;
-    }
+    public int GetPlayerHealth() { return playerHealth; }
 
+    public int GetSouls() { return souls; }
+
+    public int GetGodSouls() { return godSouls; }
+
+    public void AddSouls(int numSouls) { souls += numSouls; }
+
+    public void SubtractSouls(int numSouls) { souls -= numSouls; }
+
+    public void AddGodSouls(int numSouls) { godSouls += numSouls; }
+
+    public void SubtractGodSouls(int numSouls) { godSouls -= numSouls; }
 }
