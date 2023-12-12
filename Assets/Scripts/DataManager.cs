@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,14 +20,23 @@ public class DataManager : MonoBehaviour
     int souls = 0;
     int godSouls = 0;
 
+    public static event Action<int> newSoulTotal;
+    public static event Action<int> newGodSoulTotal;
+
     void OnEnable()
     {
         PlayerHealth.onPlayerHealthChange += updatePlayerHealth;
+        ObjectHealth.soulsDropped += AddSouls;
+        ObjectHealth.godSoulsDropped += AddGodSouls;
+        CurrencyWidget.onStart += invokeEvents;
     }
 
     void OnDisable()
     {
         PlayerHealth.onPlayerHealthChange -= updatePlayerHealth;
+        ObjectHealth.soulsDropped -= AddSouls;
+        ObjectHealth.godSoulsDropped -= AddGodSouls;
+        CurrencyWidget.onStart -= invokeEvents;
     }
 
     void Awake()
@@ -52,8 +62,15 @@ public class DataManager : MonoBehaviour
             currTimeOfDay = defaultTimeOfDay;
             gameStarted = true;
         }
-
+        
+        invokeEvents();
         setTimeOfDay(currTimeOfDay);
+    }
+
+    void invokeEvents()
+    {
+        newSoulTotal?.Invoke(souls);
+        newGodSoulTotal?.Invoke(godSouls);
     }
     
     public void setTimeOfDay(TimeOfDay newTime)
@@ -86,11 +103,27 @@ public class DataManager : MonoBehaviour
 
     public int GetGodSouls() { return godSouls; }
 
-    public void AddSouls(int numSouls) { souls += numSouls; }
+    public void AddSouls(int numSouls)
+    {
+        souls += numSouls;
+        newSoulTotal?.Invoke(souls);
+    }
 
-    public void SubtractSouls(int numSouls) { souls -= numSouls; }
+    public void SubtractSouls(int numSouls)
+    {
+        souls -= numSouls;
+        newSoulTotal?.Invoke(souls);
+    }
 
-    public void AddGodSouls(int numSouls) { godSouls += numSouls; }
+    public void AddGodSouls(int numSouls)
+    {
+        godSouls += numSouls;
+        newGodSoulTotal?.Invoke(godSouls);
+    }
 
-    public void SubtractGodSouls(int numSouls) { godSouls -= numSouls; }
+    public void SubtractGodSouls(int numSouls)
+    {
+        godSouls -= numSouls;
+        newGodSoulTotal?.Invoke(godSouls);
+    }
 }

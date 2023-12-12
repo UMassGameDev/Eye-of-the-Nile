@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 708775005310256816}
   - component: {fileID: 4262299547566610537}
   - component: {fileID: 2518540126083788814}
+  - component: {fileID: 869247767369258482}
   m_Layer: 5
   m_Name: Currencies Panel
   m_TagString: Untagged
@@ -292,6 +293,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &869247767369258482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847153124531842929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375c57394eaea6143850394b3f455983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soulText: {fileID: 3081576415080717122}
+  godSoulText: {fileID: 1195893490001446256}
 --- !u!1 &2119289352170462044
 GameObject:
   m_ObjectHideFlags: 0

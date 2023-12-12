@@ -207,18 +207,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 8796674571218177284}
-  attackRange: 0.75
   attackDamage: 30
+  attackCooldown: 0.8
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
   patrolZone: {fileID: 1683485089595367978}
   horizontalDirection: 0
   detectionRange: 6
-  closeAttackRange: 3
+  activateAttackRange: 3
   moveVelocity: 6
   linearDrag: 1
   groundedRaycastLength: 1.8
+  attackRange: 0.75
 --- !u!114 &7425645471533004215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +238,8 @@ MonoBehaviour:
   deathSfxName: enemy_death
   enableDamageParticles: 1
   maxHealth: 100
+  soulsDroppedOnDeath: 1
+  godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
 --- !u!95 &1876220294241534405

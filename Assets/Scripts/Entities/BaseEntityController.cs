@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEntityController : MonoBehaviour
+public abstract class BaseEntityController : MonoBehaviour
 {
-    ObjectHealth objectHealth;
+    protected ObjectHealth objectHealth;
 
     public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public int attackDamage = 10;
-    float attackCooldown = 0.8f;
-    float cooldownEndTime = 0f;
+    public int attackDamage = 30;
+    public float attackCooldown = 0.8f;
+    protected float cooldownEndTime = 0f;
 
     // This LayerMask includes the Player's layer so the enemy is alerted
     public LayerMask enemyLayers;
@@ -18,33 +15,26 @@ public class MeleeEntityController : MonoBehaviour
     public EntityState EState { get; set; } = EntityState.Patrol;
     public float horizontalDirection = 0f;
     public float detectionRange = 6f;
-    public float closeAttackRange = 3f;
-    bool hostileDetected = false;
-    bool hostileInCloseRange = false;
+    public float activateAttackRange = 3f;  // range which entity will activate attack
+    protected bool hostileDetected = false;
+    protected bool hostileInCloseRange = false;
 
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     public float moveVelocity = 6.0f;
     public float linearDrag = 1.0f;
     public float groundedRaycastLength = 1.8f;
 
-    Animator animator;
+    protected Animator animator;
 
-    void ActivateAttack()
-    {
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+    // Triggered by attack animation
+    protected abstract void ActivateAttack();
 
-        foreach (Collider2D hitObject in hitObjects)
-        {
-            hitObject.GetComponent<PlayerHealth>().TakeDamage(transform, attackDamage);
-        }
-    }
-
-    void MeleeAttack()
+    protected virtual void TriggerAttack()
     {
         animator.SetBool("IsAttacking", true);
     }
 
-    void PatrolState()
+    protected virtual void PatrolState()
     {
         if (horizontalDirection == 0f)
             horizontalDirection = 1f;
@@ -89,7 +79,7 @@ public class MeleeEntityController : MonoBehaviour
             EState = EntityState.Chase;
     }
 
-    void ChaseState()
+    protected virtual void ChaseState()
     {
         // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
@@ -98,7 +88,7 @@ public class MeleeEntityController : MonoBehaviour
 
         hostileDetected = hitObject != null;
         hostileInCloseRange = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
-            closeAttackRange,
+            activateAttackRange,
             enemyLayers) != null;
 
         // If detected enemy horizontal position is within the minimum amount (0.1f), don't switch directions
@@ -148,10 +138,10 @@ public class MeleeEntityController : MonoBehaviour
             EState = EntityState.Patrol;
     }
 
-    void CloseAttackState()
+    protected virtual void CloseAttackState()
     {
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
-            closeAttackRange,
+            activateAttackRange,
             enemyLayers);
 
         hostileInCloseRange = hitObject != null;
@@ -160,36 +150,36 @@ public class MeleeEntityController : MonoBehaviour
         if (hostileInCloseRange)
         {
             Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
-                Vector2.right * closeAttackRange,
+                Vector2.right * activateAttackRange,
                 Color.cyan);
 
             Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
-                Vector2.left * closeAttackRange,
+                Vector2.left * activateAttackRange,
                 Color.cyan);
 
             RaycastHit2D enemyFrontRay, enemyBackRay;
 
             enemyFrontRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
                 Vector2.right,
-                closeAttackRange,
+                activateAttackRange,
                 enemyLayers);
 
             enemyBackRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
                 Vector2.left,
-                closeAttackRange,
+                activateAttackRange,
                 enemyLayers);
 
             if (enemyFrontRay.collider != null && Time.time >= cooldownEndTime)
             {
                 horizontalDirection = 1f;
                 cooldownEndTime = Time.time + attackCooldown;
-                MeleeAttack();
+                TriggerAttack();
             }
             else if (enemyBackRay.collider != null && Time.time >= cooldownEndTime)
             {
                 horizontalDirection = -1f;
                 cooldownEndTime = Time.time + attackCooldown;
-                MeleeAttack();
+                TriggerAttack();
             }
             else
             {
@@ -228,13 +218,7 @@ public class MeleeEntityController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), detectionRange);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), closeAttackRange);
-
-        if (attackPoint != null)
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), activateAttackRange);
             
     }
 
@@ -272,4 +256,5 @@ public class MeleeEntityController : MonoBehaviour
                 break;
         }
     }
+
 }

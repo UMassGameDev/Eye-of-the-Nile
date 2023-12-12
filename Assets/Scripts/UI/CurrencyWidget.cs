@@ -1,19 +1,38 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class CurrencyWidget : MonoBehaviour
 {
     public TMP_Text soulText;
     public TMP_Text godSoulText;
-    DataManager dataManager;
 
-    void Awake()
+    public static event Action onStart;
+
+    void OnEnable()
     {
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        DataManager.newSoulTotal += updateSoulText;
+        DataManager.newGodSoulTotal += updateGodSoulText;
     }
 
-    void Update()
+    void OnDisable()
     {
-        dataManager.GetSouls();
+        DataManager.newSoulTotal -= updateSoulText;
+        DataManager.newGodSoulTotal -= updateGodSoulText;
+    }
+
+    void Start()
+    {
+        onStart?.Invoke();
+    }
+
+    void updateSoulText(int newTotal)
+    {
+        soulText.text = newTotal.ToString();
+    }
+
+    void updateGodSoulText(int newTotal)
+    {
+        godSoulText.text = newTotal.ToString();
     }
 }

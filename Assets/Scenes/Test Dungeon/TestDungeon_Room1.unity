@@ -27108,6 +27108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Breakable Pot
       objectReference: {fileID: 0}
+    - target: {fileID: 6467002220597826257, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
+      propertyPath: godSoulsDroppedOnDeath
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7919926502545129023, guid: 241d5a8969848c44296f5984d9a338ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.16

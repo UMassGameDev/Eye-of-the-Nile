@@ -209,7 +209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 358435564850521452}
-  projectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
   attackDamage: 30
   attackCooldown: 2
   enemyLayers:
@@ -218,10 +217,11 @@ MonoBehaviour:
   patrolZone: {fileID: 8011614290770033766}
   horizontalDirection: 0
   detectionRange: 9
-  attackRange: 7
+  activateAttackRange: 7
   moveVelocity: 6
   linearDrag: 1
   groundedRaycastLength: 1.8
+  projectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
 --- !u!114 &810580329863801679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +240,8 @@ MonoBehaviour:
   deathSfxName: enemy_death
   enableDamageParticles: 1
   maxHealth: 100
+  soulsDroppedOnDeath: 2
+  godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
 --- !u!95 &2521853032938061410

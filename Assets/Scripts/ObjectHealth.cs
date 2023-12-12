@@ -14,7 +14,14 @@ public class ObjectHealth : MonoBehaviour
     public bool enableDamageParticles = true;
 
     public int maxHealth = 100;
-    int currentHealth;
+    public int currentHealth { get; private set; }
+
+    public int soulsDroppedOnDeath = 0;
+    public int godSoulsDroppedOnDeath = 0;
+    public static event Action<int> soulsDropped;
+    public static event Action<int> godSoulsDropped;
+    bool attackedByPlayer = false;
+
     public bool canBeInvincible = false;
     public float invincibleDuration = 3f;
     private float flashDuration = 0.25f;
@@ -64,6 +71,7 @@ public class ObjectHealth : MonoBehaviour
     {
         if (isInvincible)
             return;
+        
         currentHealth -= damage;
         animator.SetTrigger("Hurt");
         Collider2D objectCollider = transform.GetComponent<Collider2D>();
@@ -77,11 +85,6 @@ public class ObjectHealth : MonoBehaviour
             hurtPrefab.up = new Vector3(attacker.position.x - objectCollider.transform.position.x, 0f, 0f);
         }
 
-        if (gameObject.name == "Player")
-        {
-            AudioManager.Instance.PlaySFX("player_take_damage");
-        }
-
         if (currentHealth <= 0)
             Die();
 
@@ -89,29 +92,17 @@ public class ObjectHealth : MonoBehaviour
             StartCoroutine(Invincibility());
     }
 
-    public int GetHealth()
-    {
-        return currentHealth;
-    }
-
     void Die()
     {
         animator.SetBool("IsDead", true);
         AudioManager.Instance.PlaySFX(deathSfxName);
-        /*
-        if (gameObject.name == "Player")
-        {
-            AudioManager.Instance.PlaySFX("player_death");
-        }
-        else if (gameObject.name.Contains("Breakable Pot"))
-        {
-            AudioManager.Instance.PlaySFX("breakable_pot_destroy");
-        }
-        else if (gameObject.name.Contains("Bad Guy"))
-        {
-            AudioManager.Instance.PlaySFX("enemy_death");
-        }
-        */
+
+        if (soulsDroppedOnDeath > 0)
+            soulsDropped?.Invoke(soulsDroppedOnDeath);
+        
+        if (godSoulsDroppedOnDeath > 0)
+            godSoulsDropped?.Invoke(godSoulsDroppedOnDeath);
+
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().simulated = false;
         this.enabled = false;

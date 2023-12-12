@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     private bool isInvincible = false;
 
     public static event Action onPlayerDeath;
+    public static event Action onPlayerRespawn;
     public static event Action<int> onPlayerDamage;
     public static event Action<int> onPlayerHealthChange;
 
@@ -142,6 +143,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
 
         // Let any other objects subscribed to this event know that it has happened
+        onPlayerRespawn?.Invoke();
         onPlayerHealthChange?.Invoke(maxHealth);
     }
 }
