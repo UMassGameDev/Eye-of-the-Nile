@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AbilityEffectType { Immediate, Continuous, Constant };
+
 public abstract class AbilityEffect : ScriptableObject // MonoBehaviour
 {
-    public enum AbilityEffectType { Immediate, Continuous, Constant };
-
-    public AbilityEffectType abilityEffectType;
+    public AbilityEffectType AbilityEffectType { get; set; }
     public abstract void Apply(AbilityOwner abilityOwner);
+    public virtual void Disable(AbilityOwner abilityOwner) { }
 
     // Start is called before the first frame update
     void Start()

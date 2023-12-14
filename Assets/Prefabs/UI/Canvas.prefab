@@ -1735,6 +1735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12180ab30d8b0574b8777fdf56e7bf4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthbarUnder: {fileID: 5825236803045701502}
   healthbarTransform: {fileID: 3970304472651511946}
   healthText: {fileID: 8922489591646464923}
   healthbarXLoc: 500

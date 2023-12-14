@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da5d21b37d58604d979247c97b6565c, type: 3}
+  m_Name: ExEffectAbility1
+  m_EditorClassIdentifier: 
+  abilityID: 0
+  abilityName: EXEFFECT_ABILITY_1
+  overlapIcon: {fileID: 21300000, guid: 39f73968a5d6cbf42960e94106efbe06, type: 3}
+  abilityIcons:
+  - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  currentForm: 1
+  baseCost: 0
+  duration: 2
+  tickRate: 0.4
+  chargeUp: 0
+  cooldown: 0
+  damage: 20
+  offenseEffects:
+  - {fileID: 11400000, guid: e16bab3ec27dc2c46ba325480033f535, type: 2}
+  defenseEffects:
+  - {fileID: 11400000, guid: 02fe0914053572f4398aae5e3a72312a, type: 2}
+  - {fileID: 11400000, guid: 9389496069d5cbc4097900e2d9b0567b, type: 2}
+  utilityEffects:
+  - {fileID: 11400000, guid: 163dac7c44bc24b4d9563e185b34eef4, type: 2}
+  passiveEffects:
+  - {fileID: 11400000, guid: 02fe0914053572f4398aae5e3a72312a, type: 2}

@@ -12,8 +12,18 @@ public class PlayerHealth : MonoBehaviour
 
     public bool IsDead { get { return currentHealth <= 0; } }
     public bool enableDamageParticles = true;
-
-    public int maxHealth = 100;
+    public PlayerStatHolder PStats { get; set; }
+    public int MaxHealth { get {
+            if (PStats == null)
+                PStats = GetComponent<PlayerStatHolder>();
+            if (!PStats.IsInitialized)
+                return PStats.GetValue("MaxHealth");
+            else
+            {
+                PStats.InitializeDictionary();
+                return PStats.GetValue("MaxHealth");
+            }
+        }}
     int currentHealth;
 
     public float deadFadeDelay = 1f;
@@ -64,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         invincibleFlash = new WaitForSeconds(flashDuration);
-
+        PStats = GetComponent<PlayerStatHolder>();
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
     }
 
@@ -73,6 +83,22 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = dataManager.GetPlayerHealth();
         onPlayerHealthChange?.Invoke(currentHealth);
     }
+
+    /*void Update()
+    {
+        // This was for testing purposes
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            PStats.GetStat("MaxHealth").BaseValue += 25;
+            onPlayerHealthChange?.Invoke(currentHealth);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            PStats.GetStat("MaxHealth").BaseValue -= 25;
+            onPlayerHealthChange?.Invoke(currentHealth);
+        }
+
+    }*/
 
     public void TakeDamage(Transform attacker, int damage)
     {
@@ -108,12 +134,21 @@ public class PlayerHealth : MonoBehaviour
     {
         if (IsDead)
             return;
-        currentHealth = currentHealth + healValue > maxHealth ? maxHealth : currentHealth + healValue;
+        currentHealth = currentHealth + healValue > MaxHealth ? MaxHealth : currentHealth + healValue;
+        onPlayerDamage?.Invoke(currentHealth);
+        onPlayerHealthChange?.Invoke(currentHealth);
     }
 
     public int GetHealth()
     {
         return currentHealth;
+    }
+
+    public void InvokeHealthChange()
+    {
+        if (currentHealth > MaxHealth)
+            currentHealth = MaxHealth;
+        onPlayerHealthChange?.Invoke(currentHealth);
     }
 
     void Die()
@@ -140,10 +175,10 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().simulated = true;
         GetComponent<PlayerMovement>().enabled = true;
-        currentHealth = maxHealth;
+        currentHealth = MaxHealth;
 
         // Let any other objects subscribed to this event know that it has happened
         onPlayerRespawn?.Invoke();
-        onPlayerHealthChange?.Invoke(maxHealth);
+        onPlayerHealthChange?.Invoke(MaxHealth);
     }
 }

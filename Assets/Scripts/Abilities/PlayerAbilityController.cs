@@ -34,11 +34,17 @@ public class PlayerAbilityController : MonoBehaviour
         StartCoroutine(abilityOwner.CoolingDown());
     }
 
+    public void UseAbilityUpdate(AbilityOwner abilityOwner)
+    {
+        StartCoroutine(abilityOwner.UpdateWithinDuration());
+    }
+
     // Subscribes to both events in AbilityOwner
     void SubscribeToAbility(AbilityOwner someAbility)
     {
         someAbility.ChargeUp += UseAbilityChargingUp;
         someAbility.CoolDown += UseAbilityCoolingDown;
+        someAbility.AbilityUpdate += UseAbilityUpdate;
     }
 
     // Unsubscribes to both events in AbilityOwner
@@ -46,6 +52,7 @@ public class PlayerAbilityController : MonoBehaviour
     {
         someAbility.ChargeUp -= UseAbilityChargingUp;
         someAbility.CoolDown -= UseAbilityCoolingDown;
+        someAbility.AbilityUpdate -= UseAbilityUpdate;
     }
 
     // Attempts to change an ability

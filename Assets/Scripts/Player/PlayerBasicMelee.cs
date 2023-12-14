@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerBasicMelee : MonoBehaviour
 {
+    PlayerStatHolder playerStats;
     public Transform attackPoint;
     public LayerMask attackableLayers;
     public Animator animator;
 
     public float attackRange = 0.5f;
-    public int attackDamage = 20;
+    // public int attackDamage = 20;
     public float attackCooldown = 1f;
     
     float cooldownTimer = 0f;
+
+    void Awake()
+    {
+        playerStats = GetComponent<PlayerStatHolder>();
+    }
 
     void Update()
     {
@@ -32,7 +38,7 @@ public class PlayerBasicMelee : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, attackDamage);
+            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, playerStats.GetValue("Damage"));
         }
     }
 

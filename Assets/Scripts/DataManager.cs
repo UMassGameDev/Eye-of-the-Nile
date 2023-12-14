@@ -58,13 +58,19 @@ public class DataManager : MonoBehaviour
         // set default values. Only do this once!
         if (!gameStarted)
         {
-            playerHealth = playerObjHealth.maxHealth;
+            // playerHealth = playerObjHealth.maxHealth;
+            playerHealth = playerObjHealth.MaxHealth;
             currTimeOfDay = defaultTimeOfDay;
             gameStarted = true;
         }
-        
+
         invokeEvents();
         setTimeOfDay(currTimeOfDay);
+    }
+
+    void Start()
+    {
+        
     }
 
     void invokeEvents()

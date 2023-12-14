@@ -5,6 +5,7 @@ using TMPro;
 
 public class PlayerHealthbarGUI : MonoBehaviour
 {
+    public RectTransform healthbarUnder;
     public RectTransform healthbarTransform;
     public TMP_Text healthText;
     PlayerHealth playerHealth;
@@ -29,20 +30,21 @@ public class PlayerHealthbarGUI : MonoBehaviour
 
     void Start()
     {
-        healthMultiplier = healthbarTransform.sizeDelta.x/playerHealth.maxHealth;
+        healthMultiplier = healthbarUnder.sizeDelta.x/playerHealth.MaxHealth;
     }
     
     void updateHealthBar(int newHealth)
     {
+        healthMultiplier = healthbarUnder.sizeDelta.x / playerHealth.MaxHealth;
         healthbarTransform.sizeDelta = new Vector2(newHealth * healthMultiplier, healthbarTransform.sizeDelta.y);
 
-        float XOffset = (playerHealth.maxHealth - newHealth)  * healthMultiplier/2;
-        healthbarTransform.anchoredPosition = new Vector2(healthbarXLoc + XOffset, healthbarTransform.anchoredPosition.y);
+        float XOffset = (playerHealth.MaxHealth - newHealth)  * healthMultiplier/2;
+        healthbarTransform.anchoredPosition = new Vector2(healthbarXLoc - XOffset, healthbarTransform.anchoredPosition.y);
 
         if (newHealth > 0) {
-            healthText.text = newHealth + "/" + playerHealth.maxHealth;
+            healthText.text = newHealth + "/" + playerHealth.MaxHealth;
         } else {
-            healthText.text = "0/" + playerHealth.maxHealth;
+            healthText.text = "0/" + playerHealth.MaxHealth;
         }
     }
 }

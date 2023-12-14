@@ -13,12 +13,16 @@ public class AbilityOwner // : MonoBehaviour
     public delegate void CooldownEvent(AbilityOwner abilityOwner);
     public event CooldownEvent CoolDown;
 
+    public delegate void UpdateEvent(AbilityOwner abilityOwner);
+    public event UpdateEvent AbilityUpdate;
+
     public Transform OwnerTransform { get; set; }
     public UnityEvent OnActivateAbility;
     public BaseAbilityInfo abilityInfo;
     public OwnerState currentState = OwnerState.ReadyToUse;
 
     float cooldownEnd = 0f;
+    float updateEnd = 0f;
 
     public AbilityOwner(Transform ownerTransform,
         UnityEvent onActivateAbility,
@@ -38,6 +42,8 @@ public class AbilityOwner // : MonoBehaviour
         currentState = OwnerState.OnCooldown;
         /*cooldownEnd = Time.time + abilityInfo.cooldown;*/
         // StartCoroutine(CoolingDown());
+        updateEnd = Time.time + abilityInfo.duration;
+        AbilityUpdate(this);
         CoolDown(this);
     }
 
@@ -46,6 +52,20 @@ public class AbilityOwner // : MonoBehaviour
         Debug.Log("Cool Down");
         yield return new WaitForSeconds(abilityInfo.cooldown);
         currentState = OwnerState.ReadyToUse;
+    }
+
+    public IEnumerator UpdateWithinDuration()
+    {
+        while (Time.time < updateEnd)
+        {
+            // Use the update method
+            abilityInfo.AbilityUpdate(this);
+            yield return new WaitForSeconds(abilityInfo.tickRate);
+        }
+        // After the ability's duration is over
+        abilityInfo.AbilityDisable(this, AbilityEffectType.Immediate);
+        abilityInfo.AbilityDisable(this, AbilityEffectType.Constant);
+        abilityInfo.AbilityDisable(this, AbilityEffectType.Continuous);
     }
 
     public void ActivateAbility()

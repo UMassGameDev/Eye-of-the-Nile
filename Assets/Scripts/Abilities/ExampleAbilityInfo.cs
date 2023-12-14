@@ -87,7 +87,18 @@ public class ExampleAbilityInfo : BaseAbilityInfo
     }
 
     public override void AbilityUpdate(AbilityOwner abilityOwner) {
+        Debug.Log("Update : " + Time.time);
+        PlayerHealth playerHealth = abilityOwner.OwnerTransform.GetComponent<PlayerHealth>();
+        Debug.Log("Health : " + playerHealth.GetHealth());
+        if (playerHealth != null)
+        {
+            playerHealth.HealInstant(damage);
+        }
+    }
 
+    public override void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType)
+    {
+        base.AbilityDisable(abilityOwner, effectType);
     }
 
     // Covered by the virtual method in BaseAbilityInfo

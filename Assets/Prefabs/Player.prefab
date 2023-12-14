@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 9059773960713517870}
   - component: {fileID: 6110134618196982225}
   - component: {fileID: 6638524437479847596}
+  - component: {fileID: 7786489261086880885}
   - component: {fileID: 1203306737245432797}
   - component: {fileID: 5681915771319918555}
   m_Layer: 6
@@ -370,7 +371,6 @@ MonoBehaviour:
     m_Bits: 1152
   animator: {fileID: 2371901272311279201}
   attackRange: 1
-  attackDamage: 40
   attackCooldown: 1
 --- !u!114 &6638524437479847596
 MonoBehaviour:
@@ -387,6 +387,25 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
   attackPoint: {fileID: 5938859454111977853}
   attackCooldown: 1
+--- !u!114 &7786489261086880885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590190179035495267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc4dd635bf9c664ea1fda9452f24798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats:
+  - _statName: MaxHealth
+    _baseValue: 100
+  - _statName: Damage
+    _baseValue: 20
+  - _statName: Speed
+    _baseValue: 1
 --- !u!114 &1203306737245432797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +423,6 @@ MonoBehaviour:
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   deathSfxName: player_death
   enableDamageParticles: 1
-  maxHealth: 100
   deadFadeDelay: 1
   deadFadeLength: 1
   canBeInvincible: 1
