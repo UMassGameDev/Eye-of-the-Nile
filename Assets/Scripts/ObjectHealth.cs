@@ -20,7 +20,6 @@ public class ObjectHealth : MonoBehaviour
     public int godSoulsDroppedOnDeath = 0;
     public static event Action<int> soulsDropped;
     public static event Action<int> godSoulsDropped;
-    bool attackedByPlayer = false;
 
     public bool canBeInvincible = false;
     public float invincibleDuration = 3f;

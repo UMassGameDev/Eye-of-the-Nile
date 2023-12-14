@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveVelocity = 12.0f;
     public float jumpForce = 10.0f;
     public float linearDrag = 1.0f;
+    public float coyoteTime = 0.5f;
     public bool OnWarp {get; set;} = false;
 
     bool canJump = false;
@@ -52,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
         if ((verticalInput > 0 || Input.GetKey("space")) && !OnWarp)
         {
-            if (groundDetector.isGrounded && canJump)
+            if ((groundDetector.isGrounded || (rb.velocity.x == 0 && rb.velocity.y == 0) ) && canJump)
             {
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
