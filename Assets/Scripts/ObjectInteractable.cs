@@ -10,6 +10,6 @@ public class ObjectInteractable : MonoBehaviour
 
     public void triggerInteraction()
     {
-        InvokeOnInteract.Invoke();
+        InvokeOnInteract?.Invoke();
     }
 }

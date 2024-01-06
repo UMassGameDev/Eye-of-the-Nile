@@ -11,12 +11,6 @@ public class ExampleAbilityInfo : BaseAbilityInfo
     public Transform effectPrefab;
     GameObject tempAbilitySpawn;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     private void PlaceholderEffect(AbilityOwner abilityOwner)
     {
         Instantiate(effectPrefab, abilityOwner.OwnerTransform.position, Quaternion.identity);
@@ -58,7 +52,7 @@ public class ExampleAbilityInfo : BaseAbilityInfo
 
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
-        Debug.Log("Example Utility.");
+        Debug.Log("Example Utility");
 
         Transform ownerTransform = abilityOwner.OwnerTransform;
 
@@ -73,7 +67,7 @@ public class ExampleAbilityInfo : BaseAbilityInfo
 
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
-        Debug.Log("Example Passive.");
+        Debug.Log("Example Passive");
 
         Transform ownerTransform = abilityOwner.OwnerTransform;
 

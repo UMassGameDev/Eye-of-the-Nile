@@ -148,13 +148,6 @@ public class PlayerAbilityController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         // Checks against possible keys and activates the ability for the key

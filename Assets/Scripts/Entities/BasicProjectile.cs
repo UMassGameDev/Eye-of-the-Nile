@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
     public GameObject sprite;
-    public GameObject thisProjectile;
     public float speed = 0.3f;
     public int damage = 30;
     public bool facingLeft = false;
+    public string spawnSFX = "bullet_fire";
 
     Vector3 spriteScaleLeft;
     Vector3 spriteScaleRight;
@@ -20,7 +18,7 @@ public class BasicProjectile : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.PlaySFX("bullet_fire");
+        AudioManager.Instance.PlaySFX(spawnSFX);
     }
 
     void Update()
@@ -48,7 +46,7 @@ public class BasicProjectile : MonoBehaviour
         
         // Destory the projectile
         Destroy(sprite);
-        Destroy(thisProjectile);
+        Destroy(gameObject);
     }
 
     public void FlipDirection()

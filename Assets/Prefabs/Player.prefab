@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 7786489261086880885}
   - component: {fileID: 1203306737245432797}
   - component: {fileID: 5681915771319918555}
+  - component: {fileID: 6090076525925026504}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -351,6 +352,7 @@ MonoBehaviour:
   moveVelocity: 12
   jumpForce: 175
   linearDrag: 1
+  coyoteTime: 0.5
   animator: {fileID: 2371901272311279201}
   objectHealth: {fileID: 1203306737245432797}
 --- !u!114 &6110134618196982225
@@ -384,9 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a56641af5cd5046ad871f0b3707044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
+  projectilePrefab: {fileID: 7514528624249247598, guid: dbd3b7dd93618024e87e16d7202df172, type: 3}
   attackPoint: {fileID: 5938859454111977853}
   attackCooldown: 1
+  playerAttackManager: {fileID: 6090076525925026504}
 --- !u!114 &7786489261086880885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +449,19 @@ MonoBehaviour:
   interactRange: 0.5
   interactCooldown: 1
   interactKey: e
+--- !u!114 &6090076525925026504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590190179035495267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d27fa78477ef9741bed27763c319028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 5938859454111977853}
 --- !u!1001 &9094092834200276590
 PrefabInstance:
   m_ObjectHideFlags: 0

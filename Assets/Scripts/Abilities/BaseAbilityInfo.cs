@@ -12,6 +12,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
     public string abilityName = "DEFAULT_ABILITY";
     public Sprite overlapIcon;
     public List<Sprite> abilityIcons;
+    public string onCooldownSound = "incorrect_buzzer";
 
     [Header("Advanced Ability Info")]
     public AbilityForm currentForm;

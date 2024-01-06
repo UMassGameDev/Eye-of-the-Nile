@@ -33,6 +33,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             musicSource.clip = s.clip;
+            musicSource.volume = s.volume;
             musicSource.Play();
         }
     }
@@ -44,8 +45,9 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log("ERROR PLAYING SFX");
         }
-        else if (!sfxSource.isPlaying)
+        else
         {
+            sfxSource.volume = s.volume;
             sfxSource.PlayOneShot(s.clip);
         }
     }

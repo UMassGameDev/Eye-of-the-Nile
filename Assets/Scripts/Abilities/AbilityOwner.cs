@@ -71,7 +71,10 @@ public class AbilityOwner // : MonoBehaviour
     public void ActivateAbility()
     {
         if (currentState != OwnerState.ReadyToUse)
+        {
+            AudioManager.Instance.PlaySFX(abilityInfo.onCooldownSound);
             return;
+        }
 
         currentState = OwnerState.Activation;
         // Charge up ability
@@ -79,10 +82,9 @@ public class AbilityOwner // : MonoBehaviour
         ChargeUp(this);
     }
 
-    // Update is called once per frame
     /*void Update()
     {
-        *//*if (Time.time > cooldownEnd && currentState == OwnerState.OnCooldown)
+        if (Time.time > cooldownEnd && currentState == OwnerState.OnCooldown)
             currentState = OwnerState.ReadyToUse;*//*
     }*/
 }

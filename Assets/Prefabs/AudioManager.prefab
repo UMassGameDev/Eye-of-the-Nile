@@ -178,12 +178,22 @@ MonoBehaviour:
   sfxSounds:
   - name: jump
     clip: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
+    volume: 1
   - name: breakable_pot_destroy
     clip: {fileID: 8300000, guid: 8209609053f964c3f88a337032cb8991, type: 3}
+    volume: 1
   - name: player_death
     clip: {fileID: 8300000, guid: ffebbf1aa48bb4612b5869b179534406, type: 3}
+    volume: 1
   - name: bullet_fire
     clip: {fileID: 8300000, guid: 2de1cb7347cb5994495bbbb1bd1dca14, type: 3}
+    volume: 0.5
+  - name: fireball_fire
+    clip: {fileID: 8300000, guid: 59ecafead20cf2f4e90d2ff160919a05, type: 3}
+    volume: 0.5
+  - name: incorrect_buzzer
+    clip: {fileID: 8300000, guid: d40a0a84b16ddd24ab18688c547f9c50, type: 3}
+    volume: 0.25
   musicSource: {fileID: 7035221238318218006}
   sfxSource: {fileID: 8493699743168849151}
 --- !u!1 &956156105209492867

@@ -9,32 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a23f91d4fd17f54781246b9f52597b2, type: 3}
-  m_Name: StatAbility1
+  m_Script: {fileID: 11500000, guid: 214ae252101578e4598155a9a5fa667c, type: 3}
+  m_Name: FireAbilityInfo
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: STAT_ABILITY_1
-  overlapIcon: {fileID: 21300000, guid: caa01d80473c2b842b7e0a28e5668d90, type: 3}
+  abilityName: FIRE_ABILITY
+  overlapIcon: {fileID: 21300000, guid: 2e218950662a69b408c04b5585015083, type: 3}
   abilityIcons:
   - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  currentForm: 1
+  onCooldownSound: incorrect_buzzer
+  currentForm: 0
   baseCost: 0
-  duration: 2
-  tickRate: 0.5
+  duration: 0
+  tickRate: 0
   chargeUp: 0
-  cooldown: 0
-  damage: 20
+  cooldown: 10
+  damage: 0
   offenseEffects: []
   defenseEffects: []
   utilityEffects: []
   passiveEffects: []
-  statMods:
-  - _targetStat: MaxHealth
-    _modValue: 50
-  - _targetStat: Damage
-    _modValue: 10
-  - _targetStat: Speed
-    _modValue: 1
+  projectilePrefab: {fileID: 7514528624249247598, guid: dbd3b7dd93618024e87e16d7202df172, type: 3}
+  numFireballs: 3
+  fireballDelay: 0.333
