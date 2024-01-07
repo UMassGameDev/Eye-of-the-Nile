@@ -127,8 +127,12 @@ MonoBehaviour:
   deathSfxName: breakable_pot_destroy
   enableDamageParticles: 0
   maxHealth: 50
+  soulsDroppedOnDeath: 0
+  godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
+  onFireSprite: {fileID: 0}
+  canBeOnFire: 0
 --- !u!95 &6465197716330629479
 Animator:
   serializedVersion: 5

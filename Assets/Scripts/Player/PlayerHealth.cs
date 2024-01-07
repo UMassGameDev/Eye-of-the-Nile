@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : ObjectHealth
 {
-    public SpriteRenderer sRenderer;
-    public Animator animator;
-    public Transform hurtEffect;
-    public string deathSfxName;
-
-    public bool IsDead { get { return currentHealth <= 0; } }
-    public bool enableDamageParticles = true;
     public PlayerStatHolder PStats { get; set; }
     public int MaxHealth { get {
             if (PStats == null)
@@ -24,16 +17,9 @@ public class PlayerHealth : MonoBehaviour
                 return PStats.GetValue("MaxHealth");
             }
         }}
-    int currentHealth;
 
     public float deadFadeDelay = 1f;
     public float deadFadeLength = 1f;
-
-    public bool canBeInvincible = false;
-    public float invincibleDuration = 3f;
-    private float flashDuration = 0.25f;
-    WaitForSeconds invincibleFlash;
-    private bool isInvincible = false;
 
     public static event Action onPlayerDeath;
     public static event Action onPlayerRespawn;
@@ -41,35 +27,6 @@ public class PlayerHealth : MonoBehaviour
     public static event Action<int> onPlayerHealthChange;
 
     DataManager dataManager;
-
-    IEnumerator Invincibility()
-    {
-        isInvincible = true;
-        float invincibleElapsed = 0f;
-        bool inFlash = true;
-        while (invincibleElapsed < invincibleDuration)
-        {
-            ToggleTransparency(inFlash);
-            yield return invincibleFlash;
-            invincibleElapsed += flashDuration;
-            inFlash = !inFlash;
-        }
-        isInvincible = false;
-    }
-
-    void ToggleTransparency(bool isOn)
-    {
-        if (isOn)
-        {
-            Color cColor = sRenderer.color;
-            sRenderer.color = new Color(cColor.r, cColor.g, cColor.b, 0.30f);
-        }
-        else
-        {
-            Color cColor = sRenderer.color;
-            sRenderer.color = new Color(cColor.r, cColor.g, cColor.b, 1f);
-        }
-    }
 
     void Awake()
     {
@@ -84,23 +41,7 @@ public class PlayerHealth : MonoBehaviour
         onPlayerHealthChange?.Invoke(currentHealth);
     }
 
-    /*void Update()
-    {
-        // This was for testing purposes
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PStats.GetStat("MaxHealth").BaseValue += 25;
-            onPlayerHealthChange?.Invoke(currentHealth);
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            PStats.GetStat("MaxHealth").BaseValue -= 25;
-            onPlayerHealthChange?.Invoke(currentHealth);
-        }
-
-    }*/
-
-    public void TakeDamage(Transform attacker, int damage)
+    public override void TakeDamage(Transform attacker, int damage)
     {
         if (isInvincible)
             return;
@@ -130,6 +71,30 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(Invincibility());
     }
 
+    protected override void FireDamage(int damage)
+    {
+        currentHealth -= damage;
+        Collider2D objectCollider = transform.GetComponent<Collider2D>();
+
+        // generate hurt particles (if enabled)
+        if (enableDamageParticles)
+        {
+            Transform hurtPrefab = Instantiate(hurtEffect,
+                    objectCollider.bounds.center,
+                    Quaternion.identity);
+            hurtPrefab.up = new Vector3(gameObject.transform.position.x - objectCollider.transform.position.x, 0f, 0f);
+        }
+
+        AudioManager.Instance.PlaySFX("player_take_damage");
+
+        // Let any other objects subscribed to this event know that it has happened
+        onPlayerDamage?.Invoke(currentHealth);
+        onPlayerHealthChange?.Invoke(currentHealth);
+
+        if (currentHealth <= 0)
+            Die();
+    }
+
     public void HealInstant(int healValue)
     {
         if (IsDead)
@@ -151,7 +116,7 @@ public class PlayerHealth : MonoBehaviour
         onPlayerHealthChange?.Invoke(currentHealth);
     }
 
-    void Die()
+    protected override void Die()
     {
         animator.SetBool("IsDead", true);
         AudioManager.Instance.PlaySFX(deathSfxName);

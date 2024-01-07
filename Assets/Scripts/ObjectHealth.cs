@@ -14,7 +14,7 @@ public class ObjectHealth : MonoBehaviour
     public bool enableDamageParticles = true;
 
     public int maxHealth = 100;
-    public int currentHealth { get; private set; }
+    public int currentHealth { get; protected set; }
 
     public int soulsDroppedOnDeath = 0;
     public int godSoulsDroppedOnDeath = 0;
@@ -23,11 +23,15 @@ public class ObjectHealth : MonoBehaviour
 
     public bool canBeInvincible = false;
     public float invincibleDuration = 3f;
-    private float flashDuration = 0.25f;
-    WaitForSeconds invincibleFlash;
-    private bool isInvincible = false;
+    protected float flashDuration = 0.25f;
+    protected WaitForSeconds invincibleFlash;
+    protected bool isInvincible = false;
 
-    IEnumerator Invincibility()
+    public SpriteRenderer onFireSprite;
+    public bool canBeOnFire = true;
+    protected bool onFire = false;
+
+    protected IEnumerator Invincibility()
     {
         isInvincible = true;
         float invincibleElapsed = 0f;
@@ -42,7 +46,7 @@ public class ObjectHealth : MonoBehaviour
         isInvincible = false;
     }
 
-    void ToggleTransparency(bool isOn)
+    protected void ToggleTransparency(bool isOn)
     {
         if (isOn)
         {
@@ -66,7 +70,7 @@ public class ObjectHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(Transform attacker, int damage)
+    public virtual void TakeDamage(Transform attacker, int damage)
     {
         if (isInvincible)
             return;
@@ -91,7 +95,25 @@ public class ObjectHealth : MonoBehaviour
             StartCoroutine(Invincibility());
     }
 
-    void Die()
+    protected virtual void FireDamage(int damage)
+    {
+        currentHealth -= damage;
+        Collider2D objectCollider = transform.GetComponent<Collider2D>();
+
+        // generate hurt particles (if enabled)
+        if (enableDamageParticles)
+        {
+            Transform hurtPrefab = Instantiate(hurtEffect,
+                    objectCollider.bounds.center,
+                    Quaternion.identity);
+            hurtPrefab.up = new Vector3(gameObject.transform.position.x - objectCollider.transform.position.x, 0f, 0f);
+        }
+
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    protected virtual void Die()
     {
         animator.SetBool("IsDead", true);
         AudioManager.Instance.PlaySFX(deathSfxName);
@@ -107,4 +129,22 @@ public class ObjectHealth : MonoBehaviour
         this.enabled = false;
     }
 
+    public IEnumerator SetOnFire(int damageCount, float damageSpeed, int damage)
+    {
+        if (canBeOnFire && !onFire && !isInvincible)
+        {
+            AudioManager.Instance.PlaySFX("set_on_fire");
+            onFire = true;
+            if (onFireSprite != null)
+                onFireSprite.enabled = true;
+            for (int i = 0; i < damageCount && !IsDead; i++)
+            {
+                FireDamage(damage);
+                yield return new WaitForSeconds(damageSpeed);
+            }
+            onFire = false;
+            if (onFireSprite != null)
+                onFireSprite.enabled = false;
+        }
+    }
 }
