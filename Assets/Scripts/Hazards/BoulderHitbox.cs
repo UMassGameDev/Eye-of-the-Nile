@@ -13,10 +13,6 @@ public class BoulderHitbox : MonoBehaviour
             ObjectHealth collisionObjHealth = collision.transform.GetComponent<ObjectHealth>();
             if (collisionObjHealth != null)
                 collisionObjHealth.TakeDamage(transform, boulderHazard.damage);
-            
-            PlayerHealth collisionPlayerHealth = collision.transform.GetComponent<PlayerHealth>();
-            if (collisionPlayerHealth != null)
-                collisionPlayerHealth.TakeDamage(transform, boulderHazard.damage);
 
             boulderHazard.BreakBoulder();
         }

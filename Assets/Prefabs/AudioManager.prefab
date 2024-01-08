@@ -193,7 +193,7 @@ MonoBehaviour:
     volume: 0.5
   - name: incorrect_buzzer
     clip: {fileID: 8300000, guid: d40a0a84b16ddd24ab18688c547f9c50, type: 3}
-    volume: 0.25
+    volume: 0.5
   - name: set_on_fire
     clip: {fileID: 8300000, guid: e0a2696a4b8e2df45a906b322012aa59, type: 3}
     volume: 0.5

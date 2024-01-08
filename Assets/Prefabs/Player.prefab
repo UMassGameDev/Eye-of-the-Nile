@@ -410,6 +410,8 @@ MonoBehaviour:
     _baseValue: 20
   - _statName: Speed
     _baseValue: 1
+  - _statName: FireResistance
+    _baseValue: 0
 --- !u!114 &1203306737245432797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +435,7 @@ MonoBehaviour:
   canBeInvincible: 1
   invincibleDuration: 1
   onFireSprite: {fileID: 8623649031616025542}
+  canBeOnFire: 1
   deadFadeDelay: 1
   deadFadeLength: 1
 --- !u!114 &5681915771319918555

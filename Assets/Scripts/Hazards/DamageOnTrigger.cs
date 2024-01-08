@@ -11,11 +11,14 @@ public class DamageOnTrigger : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         ObjectHealth health = col.GetComponent<ObjectHealth>();
-        if (health != null && damageNonPlayers)
-            health.TakeDamage(this.transform, colisionDamage);
         
-        PlayerHealth pHealth = col.GetComponent<PlayerHealth>();
-        if (pHealth != null && damagePlayer)
-            pHealth.TakeDamage(this.transform, colisionDamage);
+        if (health != null)
+        {
+            if (!col.CompareTag("Player") && damageNonPlayers) {
+                health.TakeDamage(this.transform, colisionDamage);
+            } else if (col.CompareTag("Player") && damagePlayer) {
+                health.TakeDamage(this.transform, colisionDamage);
+            }
+        }
     }
 }

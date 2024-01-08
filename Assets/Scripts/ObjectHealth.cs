@@ -30,6 +30,7 @@ public class ObjectHealth : MonoBehaviour
     public SpriteRenderer onFireSprite;
     public bool canBeOnFire = true;
     protected bool onFire = false;
+    protected bool fireImmune = false;
 
     protected IEnumerator Invincibility()
     {
@@ -97,6 +98,9 @@ public class ObjectHealth : MonoBehaviour
 
     protected virtual void FireDamage(int damage)
     {
+        if (fireImmune || !canBeOnFire)
+            return;
+        
         currentHealth -= damage;
         Collider2D objectCollider = transform.GetComponent<Collider2D>();
 
@@ -146,5 +150,14 @@ public class ObjectHealth : MonoBehaviour
             if (onFireSprite != null)
                 onFireSprite.enabled = false;
         }
+    }
+
+    public void FireImmunity(float seconds) { StartCoroutine(FireImmunityTimer(seconds)); }
+
+    protected IEnumerator FireImmunityTimer(float seconds)
+    {
+        fireImmune = true;
+        yield return new WaitForSeconds(seconds);
+        fireImmune = false;
     }
 }

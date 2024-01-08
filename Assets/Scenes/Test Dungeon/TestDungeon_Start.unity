@@ -276,7 +276,7 @@ Transform:
   m_GameObject: {fileID: 36004101}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8900003, y: -2.2715213, z: -10}
+  m_LocalPosition: {x: -2.8900006, y: -2.2715213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -753,6 +753,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1998504452}
     m_Modifications:
+    - target: {fileID: 3262494263374374269, guid: c421bade865a28a41b01efa4d3853e8d, type: 3}
+      propertyPath: damagePlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3783851388675857434, guid: c421bade865a28a41b01efa4d3853e8d, type: 3}
       propertyPath: m_Name
       value: Spikes
@@ -2746,7 +2750,7 @@ Transform:
   m_GameObject: {fileID: 1285489176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8900003, y: -2.2715213, z: -10}
+  m_LocalPosition: {x: -2.8900006, y: -2.2715213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -17,6 +17,17 @@ public class PlayerHealth : ObjectHealth
                 return PStats.GetValue("MaxHealth");
             }
         }}
+    public int FireResistance { get {
+            if (PStats == null)
+                PStats = GetComponent<PlayerStatHolder>();
+            if (!PStats.IsInitialized)
+                return PStats.GetValue("FireResistance");
+            else
+            {
+                PStats.InitializeDictionary();
+                return PStats.GetValue("FireResistance");
+            }
+        }}  // negative fire resistance will give total immunity to fire damage
 
     public float deadFadeDelay = 1f;
     public float deadFadeLength = 1f;
@@ -73,7 +84,10 @@ public class PlayerHealth : ObjectHealth
 
     protected override void FireDamage(int damage)
     {
-        currentHealth -= damage;
+        if (FireResistance < 0 || fireImmune || !canBeOnFire)
+            return;
+
+        currentHealth -= damage - FireResistance;
         Collider2D objectCollider = transform.GetComponent<Collider2D>();
 
         // generate hurt particles (if enabled)

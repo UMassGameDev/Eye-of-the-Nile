@@ -25,12 +25,15 @@ public class FireObject : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         ObjectHealth health = col.GetComponent<ObjectHealth>();
-        if (health != null && damageNonPlayers)
-            StartCoroutine(health.SetOnFire(damageCount, damageSpeed, damage));
-        
-        PlayerHealth pHealth = col.GetComponent<PlayerHealth>();
-        if (pHealth != null && damagePlayer)
-            StartCoroutine(pHealth.SetOnFire(damageCount, damageSpeed, damage));
+
+        if (health != null)
+        {
+            if (!col.CompareTag("Player") && damageNonPlayers) {
+                StartCoroutine(health.SetOnFire(damageCount, damageSpeed, damage));
+            } else if (col.CompareTag("Player") && damagePlayer) {
+                StartCoroutine(health.SetOnFire(damageCount, damageSpeed, damage));
+            }
+        }
     }
 
     IEnumerator BurnoutTimer()

@@ -12,24 +12,39 @@ public class FireAbility : BaseAbilityInfo
     public int numFireballs = 3;
     public float fireballDelay = 0.5f;
 
-    PlayerAttackManager playerAttackManager;
+    [Header("Defense Ability Info")]
+    public GameObject firewallPrefab;
+    public float firewallXOffset = 1.5f;
+    public float firewallYOffset = 0.5f;
 
+    [Header("Utility Ability Info")]
+    public float fireImmunityTimer = 3f;
+
+    // Shoot burst of fireballs
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
-        playerAttackManager = GameObject.Find("Player").GetComponent<PlayerAttackManager>();
-        playerAttackManager.ShootProjectileBurst(projectilePrefab, numFireballs, fireballDelay);
+        abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectileBurst(projectilePrefab, numFireballs, fireballDelay);
     }
 
+    // Spawn a tall fires on each side of the player
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
-        //
+        Instantiate(firewallPrefab, new Vector2(
+            abilityOwner.OwnerTransform.position.x + firewallXOffset,
+            abilityOwner.OwnerTransform.position.y + firewallYOffset), Quaternion.identity);
+
+        Instantiate(firewallPrefab, new Vector2(
+            abilityOwner.OwnerTransform.position.x - firewallXOffset,
+            abilityOwner.OwnerTransform.position.y + firewallYOffset), Quaternion.identity);
     }
 
+    // Makes the player immune to fire for a short time
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
-        //
+        abilityOwner.OwnerTransform.GetComponent<PlayerHealth>().FireImmunity(fireImmunityTimer);
     }
 
+    // Makes the player take less fire damage
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
         //
