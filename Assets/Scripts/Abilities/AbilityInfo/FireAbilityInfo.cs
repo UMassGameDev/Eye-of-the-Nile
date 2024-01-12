@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.Scripting;
 
 [CreateAssetMenu(fileName = "New FireAbilityInfo", menuName = "Abilities/Create New FireAbilityInfo")]
-public class FireAbility : BaseAbilityInfo
+public class FireAbilityInfo : BaseAbilityInfo
 {
     [Header("Offense Ability Info")]
     public GameObject projectilePrefab;
@@ -19,6 +19,35 @@ public class FireAbility : BaseAbilityInfo
 
     [Header("Utility Ability Info")]
     public float fireImmunityTimer = 3f;
+
+    [Header("Passive Ability Info")]
+    public List<StatModifier> statMods;
+    private string currentStat = "FireResistance";
+    private Dictionary<string, StatModifier> _statModDictField;
+    private Dictionary<string, StatModifier> _StatModDict
+    {
+        get
+        {
+            if (_statModDictField != null)
+                return _statModDictField;
+            else
+            {
+                StatModDictInitializer();
+                return _statModDictField;
+            }
+        }
+        set { _statModDictField = value; }
+    }
+
+    private void StatModDictInitializer()
+    {
+        _statModDictField = new Dictionary<string, StatModifier>();
+        foreach (StatModifier statMod in statMods)
+        {
+            // Debug.Log(statMod.TargetStat);
+            _statModDictField.Add(statMod.TargetStat, statMod);
+        }
+    }
 
     // Shoot burst of fireballs
     protected override void AbilityOffense(AbilityOwner abilityOwner)
@@ -47,6 +76,9 @@ public class FireAbility : BaseAbilityInfo
     // Makes the player take less fire damage
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
-        //
+        Transform ownerTransform = abilityOwner.OwnerTransform;
+        PlayerStatHolder playerStats = ownerTransform.GetComponent<PlayerStatHolder>();
+        playerStats.GetStat(currentStat).RemoveModifier(_StatModDict[currentStat]);
+        playerStats.GetStat(currentStat).AddModifier(_StatModDict[currentStat]);
     }
 }

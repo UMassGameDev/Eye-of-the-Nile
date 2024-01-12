@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float coyoteTime = 0.5f;
     public bool OnWarp {get; set;} = false;
 
-    bool canJump = false;
+    bool isFalling = false;
+    public int maxJumpChain = 1;
+    int jumpsAvailable;
 
     public Animator animator;
     public PlayerHealth objectHealth;
@@ -23,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb.drag = linearDrag;
+        jumpsAvailable = maxJumpChain;
     }
 
     void Update()
@@ -49,16 +52,23 @@ public class PlayerMovement : MonoBehaviour
         
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
-            canJump = true;
+            isFalling = true;
 
-        if ((verticalInput > 0 || Input.GetKey("space")) && !OnWarp)
+        if ((verticalInput > 0 || Input.GetKey(KeyCode.Space)) && !OnWarp)
         {
-            if ((groundDetector.isGrounded || (rb.velocity.x == 0 && rb.velocity.y == 0) ) && canJump)
+            if ((groundDetector.isGrounded || (rb.velocity.x == 0 && rb.velocity.y == 0)) && isFalling)
             {
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
-                canJump = false;
+                isFalling = false;
+                jumpsAvailable = maxJumpChain;
+            } else if (isFalling && jumpsAvailable != 0) {
+                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+                animator.SetTrigger("Jump");
+                AudioManager.Instance.PlaySFX("jump");
+                isFalling = false;
+                jumpsAvailable--;
             }
         }
     }

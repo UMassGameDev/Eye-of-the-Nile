@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03b998d5e6684c4ca31496f380e798a, type: 3}
   m_Name: ActiveAbilities
   m_EditorClassIdentifier: 
-  offenseSlot: {fileID: 11400000, guid: 8a30bdd27977fe247afc605df38b5c8b, type: 2}
-  defenseSlot: {fileID: 11400000, guid: dba7daa7bd674184aa21b104c88d5df5, type: 2}
-  utilitySlot: {fileID: 11400000, guid: fa6abf266e0e338419371ad39dbe1364, type: 2}
-  passiveSlot: {fileID: 11400000, guid: ea0473d90b23acc448667fd4fe217e0e, type: 2}
+  offenseSlot: {fileID: 11400000, guid: fa6abf266e0e338419371ad39dbe1364, type: 2}
+  defenseSlot: {fileID: 11400000, guid: 8a30bdd27977fe247afc605df38b5c8b, type: 2}
+  utilitySlot: {fileID: 11400000, guid: ea0473d90b23acc448667fd4fe217e0e, type: 2}
+  passiveSlot: {fileID: 11400000, guid: c18f0cc6122693444b0416854afa7c60, type: 2}

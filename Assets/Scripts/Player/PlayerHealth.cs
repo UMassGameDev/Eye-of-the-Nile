@@ -69,7 +69,7 @@ public class PlayerHealth : ObjectHealth
             hurtPrefab.up = new Vector3(attacker.position.x - objectCollider.transform.position.x, 0f, 0f);
         }
 
-        AudioManager.Instance.PlaySFX("player_take_damage");
+        // AudioManager.Instance.PlaySFX("player_take_damage");
 
         // Let any other objects subscribed to this event know that it has happened
         onPlayerDamage?.Invoke(currentHealth);
@@ -99,7 +99,7 @@ public class PlayerHealth : ObjectHealth
             hurtPrefab.up = new Vector3(gameObject.transform.position.x - objectCollider.transform.position.x, 0f, 0f);
         }
 
-        AudioManager.Instance.PlaySFX("player_take_damage");
+        // AudioManager.Instance.PlaySFX("player_take_damage");
 
         // Let any other objects subscribed to this event know that it has happened
         onPlayerDamage?.Invoke(currentHealth);

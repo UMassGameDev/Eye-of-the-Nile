@@ -34,12 +34,6 @@ public abstract class BaseAbilityInfo : ScriptableObject
 
     /*[Header("Advanced Ability Info")]*/
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     protected abstract void AbilityOffense(AbilityOwner abilityOwner);
 
     protected abstract void AbilityDefense(AbilityOwner abilityOwner);

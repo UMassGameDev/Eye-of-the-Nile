@@ -81,20 +81,9 @@ public class TotalAbilityUI : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        // InitializeAllSlots();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         InitializeAllSlots();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

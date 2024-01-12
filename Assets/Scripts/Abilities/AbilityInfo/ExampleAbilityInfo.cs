@@ -68,16 +68,6 @@ public class ExampleAbilityInfo : BaseAbilityInfo
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Passive");
-
-        Transform ownerTransform = abilityOwner.OwnerTransform;
-
-        // Placeholder Effect below
-        if (tempAbilitySpawn != null)
-            Destroy(tempAbilitySpawn);
-        tempAbilitySpawn = Instantiate(projectilePrefab,
-            ownerTransform.position + new Vector3(0f, 1f, 0f),
-            Quaternion.identity).gameObject;
-        tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Passive";
     }
 
     public override void AbilityUpdate(AbilityOwner abilityOwner) {

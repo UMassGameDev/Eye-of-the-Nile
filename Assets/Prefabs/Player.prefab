@@ -354,6 +354,7 @@ MonoBehaviour:
   jumpForce: 175
   linearDrag: 1
   coyoteTime: 0.5
+  maxJumpChain: 1
   animator: {fileID: 2371901272311279201}
   objectHealth: {fileID: 1203306737245432797}
 --- !u!114 &6110134618196982225
