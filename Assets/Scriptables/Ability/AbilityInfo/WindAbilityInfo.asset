@@ -21,16 +21,20 @@ MonoBehaviour:
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   onCooldownSound: incorrect_buzzer
-  currentForm: 3
+  currentForm: 0
   baseCost: 0
   duration: 0
   tickRate: 0
   chargeUp: 0
-  cooldown: 0
+  cooldown: 5
   damage: 0
   offenseEffects: []
   defenseEffects: []
   utilityEffects: []
   passiveEffects: []
+  meleeAnimName: Attack
+  attackCooldown: 1
+  offenseRange: 1
+  offenseKnockback: 500
   newMaxJumpChain: 2
   defaultMaxJumpChain: 1

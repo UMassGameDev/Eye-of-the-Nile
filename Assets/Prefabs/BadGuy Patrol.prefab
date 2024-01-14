@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 4445377517804369560}
   - component: {fileID: 7425645471533004215}
   - component: {fileID: 1876220294241534405}
+  - component: {fileID: 8118484467645448812}
   m_Layer: 7
   m_Name: Bad Guy
   m_TagString: DamagableByProjectile
@@ -328,6 +329,7 @@ MonoBehaviour:
   canBeInvincible: 0
   invincibleDuration: 3
   onFireSprite: {fileID: 8962690107364953842}
+  canBeOnFire: 1
 --- !u!95 &1876220294241534405
 Animator:
   serializedVersion: 5
@@ -349,6 +351,50 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8118484467645448812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317227177379120015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e654d1431cd65489675f549085be95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5976336990521122581}
+  defaultStrength: 50
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4445377517804369560}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDone:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4445377517804369560}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &2617595255964690828
 GameObject:
   m_ObjectHideFlags: 0

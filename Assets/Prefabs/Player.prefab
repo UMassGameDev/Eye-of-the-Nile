@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 1203306737245432797}
   - component: {fileID: 5681915771319918555}
   - component: {fileID: 6090076525925026504}
+  - component: {fileID: 2459246896311221739}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4590190179035495267}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7506885288caf7f478d5663c2ed317a2, type: 3}
   m_Name: 
@@ -383,7 +384,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4590190179035495267}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8a56641af5cd5046ad871f0b3707044, type: 3}
   m_Name: 
@@ -471,6 +472,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 5938859454111977853}
+  attackableLayers:
+    serializedVersion: 2
+    m_Bits: 1152
+  animator: {fileID: 2371901272311279201}
+  meleeKey: 323
+  meleeAnimation: Attack
+  meleeRange: 0.5
+  meleeCooldown: 1
+  meleeKnockback: 75
+  projectileKey: 324
+  defaultProjectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
+  ProjCooldown: 1
+--- !u!114 &2459246896311221739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590190179035495267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e654d1431cd65489675f549085be95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5547159279268901696}
+  defaultStrength: 150
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9059773960713517870}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDone:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9059773960713517870}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &5461568540287452229
 GameObject:
   m_ObjectHideFlags: 0

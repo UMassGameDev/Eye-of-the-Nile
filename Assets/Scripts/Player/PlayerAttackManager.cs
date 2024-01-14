@@ -1,10 +1,66 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
 {
+    PlayerStatHolder playerStats;
     public Transform attackPoint;
+    public LayerMask attackableLayers;
+    public Animator animator;
 
+    bool onCooldown = false;
+
+    [Header("Default Melee Attack")]
+    public KeyCode meleeKey = KeyCode.Mouse0;
+    public string meleeAnimation = "Attack";
+    public float meleeRange = 0.5f;
+    public float meleeCooldown = 1f;
+    public float meleeKnockback = 50f;
+    float curRange;
+    float curKnockback;
+
+    [Header("Default Projectile Attack")]
+    public KeyCode projectileKey = KeyCode.Mouse1;
+    public GameObject defaultProjectilePrefab;
+    public float ProjCooldown = 1f;
+
+    void Awake()
+    {
+        playerStats = GetComponent<PlayerStatHolder>();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(meleeKey))
+            Melee(meleeAnimation, meleeCooldown);
+        if (Input.GetKeyDown(projectileKey))
+            ShootProjectile(defaultProjectilePrefab, ProjCooldown);
+    }
+
+    public void Melee(string animName, float cooldown)
+    {
+        if (onCooldown)
+            return;
+
+        animator.SetTrigger(animName);
+        curRange = meleeRange;
+        curKnockback = meleeKnockback;
+        StartCoroutine(CooldownWait(cooldown));
+    }
+
+    public void Melee(string animName, float cooldown, float range, float kbStrength)
+    {
+        if (onCooldown)
+            return;
+
+        animator.SetTrigger(animName);
+        curRange = range;
+        curKnockback = kbStrength;
+        StartCoroutine(CooldownWait(cooldown));
+    }
+
+    // no cooldown overload. This will not start a cooldown and will ignore the current cooldown
     public void ShootProjectile(GameObject projectilePrefab)
     {
         // create projectile object
@@ -16,17 +72,52 @@ public class PlayerAttackManager : MonoBehaviour
         }
     }
 
-    public void ShootProjectileBurst(GameObject projectilePrefab, int numProjectiles, float delay)
+    public void ShootProjectile(GameObject projectilePrefab, float cooldown)
     {
-        StartCoroutine(projectileBurst(projectilePrefab, numProjectiles, delay));
+        if (onCooldown)
+            return;
+
+        // create projectile object
+        GameObject projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
+
+        // if we're facing left, flip the direction (projectile faces right by default)
+        if (transform.localScale.x > 0) {
+            projectile.GetComponent<BasicProjectile>().FlipDirection();
+        }
+
+        // start cooldown
+        StartCoroutine(CooldownWait(cooldown));
     }
 
-    IEnumerator projectileBurst(GameObject projectilePrefab, int numProjectiles, float delay)
+    public void ShootProjectileBurst(GameObject projectilePrefab, int numProjectiles, float delay)
     {
-        Debug.Log("Firing Projectile Burst");
+        StartCoroutine(ProjectileBurst(projectilePrefab, numProjectiles, delay));
+    }
+
+    // This function is triggered by the animation (when the sword swings)
+    void MeleeTrigger()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, meleeRange, attackableLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, playerStats.GetValue("Damage"));
+            if (enemy.TryGetComponent<KnockbackFeedback>(out var kb))
+                kb.ApplyKnockback(gameObject, curKnockback);
+        }
+    }
+
+    IEnumerator CooldownWait(float seconds)
+    {
+        onCooldown = true;
+        yield return new WaitForSeconds(seconds);
+        onCooldown = false;
+    }
+
+    IEnumerator ProjectileBurst(GameObject projectilePrefab, int numProjectiles, float delay)
+    {
         for (int i = 0; i < numProjectiles; i++)
         {
-            Debug.Log("Firing Projectile #" + i);
             ShootProjectile(projectilePrefab);
             yield return new WaitForSeconds(delay);
         }
