@@ -72,4 +72,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    // A special jump can be triggered regardless of the normal jump requirements
+    public void SpecialJump(float jumpForce)
+    {
+        rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+        animator.SetTrigger("Jump");
+        AudioManager.Instance.PlaySFX("jump");
+        isFalling = false;
+    }
 }

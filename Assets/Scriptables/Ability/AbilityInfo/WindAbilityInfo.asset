@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   onCooldownSound: incorrect_buzzer
-  currentForm: 0
+  currentForm: 2
   baseCost: 0
   duration: 0
   tickRate: 0
@@ -36,5 +36,7 @@ MonoBehaviour:
   attackCooldown: 1
   offenseRange: 1
   offenseKnockback: 500
+  tornadoProjectilePrefab: {fileID: 8236663649348585776, guid: 4a6b5e2f62349764d8868b5b81cc421b, type: 3}
+  jumpForce: 350
   newMaxJumpChain: 2
   defaultMaxJumpChain: 1

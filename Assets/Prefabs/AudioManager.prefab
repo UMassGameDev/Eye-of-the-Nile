@@ -181,7 +181,7 @@ MonoBehaviour:
     volume: 1
   - name: breakable_pot_destroy
     clip: {fileID: 8300000, guid: 8209609053f964c3f88a337032cb8991, type: 3}
-    volume: 1
+    volume: 0.5
   - name: player_death
     clip: {fileID: 8300000, guid: ffebbf1aa48bb4612b5869b179534406, type: 3}
     volume: 1
@@ -196,6 +196,9 @@ MonoBehaviour:
     volume: 0.5
   - name: set_on_fire
     clip: {fileID: 8300000, guid: e0a2696a4b8e2df45a906b322012aa59, type: 3}
+    volume: 0.5
+  - name: wind_blow
+    clip: {fileID: 8300000, guid: 56e446d70b7e7ec4d93b79d88f9391ba, type: 3}
     volume: 0.5
   musicSource: {fileID: 7035221238318218006}
   sfxSource: {fileID: 8493699743168849151}

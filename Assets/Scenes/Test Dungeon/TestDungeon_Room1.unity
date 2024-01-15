@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 36004101}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.63, y: 14.018479, z: -10}
+  m_LocalPosition: {x: 4.6299996, y: 14.018479, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -680,6 +680,18 @@ PrefabInstance:
     - target: {fileID: 893264459802031870, guid: 01cf3a6eb7b639143aa5c6f0f889bb4e, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218395829683411617, guid: 01cf3a6eb7b639143aa5c6f0f889bb4e, type: 3}
+      propertyPath: sfxSounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e0a2696a4b8e2df45a906b322012aa59, type: 3}
+    - target: {fileID: 2218395829683411617, guid: 01cf3a6eb7b639143aa5c6f0f889bb4e, type: 3}
+      propertyPath: sfxSounds.Array.data[8].name
+      value: set_on_fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2218395829683411617, guid: 01cf3a6eb7b639143aa5c6f0f889bb4e, type: 3}
+      propertyPath: sfxSounds.Array.data[8].volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4743490652306071570, guid: 01cf3a6eb7b639143aa5c6f0f889bb4e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2251,7 +2263,7 @@ Transform:
   m_GameObject: {fileID: 1285489176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.63, y: 14.018479, z: -10}
+  m_LocalPosition: {x: 4.6299996, y: 14.018479, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

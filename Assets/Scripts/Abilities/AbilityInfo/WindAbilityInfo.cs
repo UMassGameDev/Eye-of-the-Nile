@@ -12,29 +12,35 @@ public class WindAbilityInfo : BaseAbilityInfo
     public float offenseRange = 1f;
     public float offenseKnockback = 150f;
 
+    [Header("Defense Ability Info")]
+    public GameObject tornadoProjectilePrefab;
+
+    [Header("Utility Ability Info")]
+    public float jumpForce;
+
     [Header("Passive Ability Info")]
     public int newMaxJumpChain = 2;
     public int defaultMaxJumpChain = 1;
 
-    // Gives Player's Melee Attack Knockback
+    // Does a melee attack with more knockback and range
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().Melee(meleeAnimName, attackCooldown, offenseRange, offenseKnockback);
     }
 
-    // Fires Wind Projectile that pushes enemies back
+    // Shoots a wind projectile that pushes enemies back
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
-        //
+        abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(tornadoProjectilePrefab);
     }
 
-    // ???
+    // Does a really high jump
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
-        //
+        abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().SpecialJump(jumpForce);
     }
 
-    // Triple Jump
+    // Allows the player to triple jump
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().maxJumpChain = newMaxJumpChain;
