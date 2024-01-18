@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoulderHazard : MonoBehaviour
@@ -28,11 +26,5 @@ public class BoulderHazard : MonoBehaviour
     void Start()
     {
         boulderBody.AddForce(transform.up * initialForce, ForceMode2D.Impulse);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

@@ -35,7 +35,7 @@ public class AbilityOwner // : MonoBehaviour
 
     public IEnumerator ChargingUp()
     {
-        Debug.Log("Charge Up");
+        // Debug.Log("Charge Up");
         yield return new WaitForSeconds(abilityInfo.chargeUp);
         abilityInfo.AbilityActivate(this);
         OnActivateAbility?.Invoke();
@@ -49,7 +49,7 @@ public class AbilityOwner // : MonoBehaviour
 
     public IEnumerator CoolingDown()
     {
-        Debug.Log("Cool Down");
+        // Debug.Log("Cool Down");
         yield return new WaitForSeconds(abilityInfo.cooldown);
         currentState = OwnerState.ReadyToUse;
     }

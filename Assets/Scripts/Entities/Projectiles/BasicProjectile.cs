@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
-    public GameObject sprite;
+    public GameObject sprite;  // OPTIONAL
     public float speed = 0.3f;
     public int damage = 30;
     public bool facingLeft = false;
+    public bool damagePlayers = true;
+    public bool damageNonPlayers = true;
     public string spawnSFX = "bullet_fire";
 
     Vector3 spriteScaleLeft;
@@ -38,9 +40,9 @@ public class BasicProjectile : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         // if we collided with something we can damage, damage it
-        if (collisionInfo.collider.tag == "DamagableByProjectile") {
+        if (collisionInfo.collider.CompareTag("DamagableByProjectile") && damageNonPlayers) {
             collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
-        } else if (collisionInfo.collider.tag == "Player") {
+        } else if (collisionInfo.collider.CompareTag("Player") && damagePlayers) {
             collisionInfo.collider.GetComponent<PlayerHealth>().TakeDamage(transform, damage);
         }
         

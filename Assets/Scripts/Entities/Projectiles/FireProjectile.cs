@@ -10,9 +10,9 @@ public class FireProjectile : BasicProjectile
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         // if we collided with something we can damage, damage it
-        if (collisionInfo.collider.tag == "DamagableByProjectile") {
+        if (collisionInfo.collider.tag == "DamagableByProjectile" && damageNonPlayers) {
             collisionInfo.collider.GetComponent<ObjectHealth>().SetOnFire(damageCount, damageSpeed, damage);
-        } else if (collisionInfo.collider.tag == "Player") {
+        } else if (collisionInfo.collider.tag == "Player" && damagePlayers) {
             collisionInfo.collider.GetComponent<PlayerHealth>().SetOnFire(damageCount, damageSpeed, damage);
         }
         

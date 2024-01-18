@@ -66,9 +66,9 @@ public class PlayerAttackManager : MonoBehaviour
         // create projectile object
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
-        // if we're facing left, flip the direction (projectile faces right by default)
-        if (transform.localScale.x > 0) {
-            projectile.GetComponent<BasicProjectile>().FlipDirection();
+        // if we're facing left (and this is a projectile object), flip the direction (projectile faces right by default)
+        if (transform.localScale.x > 0 && projectile.TryGetComponent<BasicProjectile>(out var basicProj)) {
+            basicProj.FlipDirection();
         }
     }
 
@@ -80,9 +80,9 @@ public class PlayerAttackManager : MonoBehaviour
         // create projectile object
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
-        // if we're facing left, flip the direction (projectile faces right by default)
-        if (transform.localScale.x > 0) {
-            projectile.GetComponent<BasicProjectile>().FlipDirection();
+        // if we're facing left (and this is a projectile object), flip the direction (projectile faces right by default)
+        if (transform.localScale.x > 0 && projectile.TryGetComponent<BasicProjectile>(out var basicProj)) {
+            basicProj.FlipDirection();
         }
 
         // start cooldown

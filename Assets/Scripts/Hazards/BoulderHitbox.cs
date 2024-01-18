@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoulderHitbox : MonoBehaviour
@@ -10,8 +8,7 @@ public class BoulderHitbox : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & boulderHazard.collisionLayers.value) > 0)
         {
-            ObjectHealth collisionObjHealth = collision.transform.GetComponent<ObjectHealth>();
-            if (collisionObjHealth != null)
+            if (collision.transform.TryGetComponent<ObjectHealth>(out var collisionObjHealth))
                 collisionObjHealth.TakeDamage(transform, boulderHazard.damage);
 
             boulderHazard.BreakBoulder();
@@ -21,17 +18,5 @@ public class BoulderHitbox : MonoBehaviour
     void Awake()
     {
         boulderHazard = transform.parent.GetComponent<BoulderHazard>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

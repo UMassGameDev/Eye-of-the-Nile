@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6322523300403418490}
   m_Layer: 0
   m_Name: Tornado Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,5 +147,7 @@ MonoBehaviour:
   speed: 0.03
   damage: 30
   facingLeft: 0
+  damagePlayers: 1
+  damageNonPlayers: 1
   spawnSFX: wind_blow
   despawnTime: 1

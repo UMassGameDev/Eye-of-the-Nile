@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 1408007760182588464}
   - component: {fileID: 1877474240895880539}
   - component: {fileID: 1340622255813915164}
-  - component: {fileID: 6676222386618506105}
-  - component: {fileID: 52791044803514186}
+  - component: {fileID: 2795422776635407753}
+  - component: {fileID: 8084528081796266691}
   m_Layer: 9
-  m_Name: Boulder
-  m_TagString: Untagged
+  m_Name: Boulder Projectile
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,11 +31,11 @@ Transform:
   m_GameObject: {fileID: 1712921479663479192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.88, y: -2.44, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8429518500788989165}
+  - {fileID: 329105993495972810}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3885061972842777291
@@ -203,7 +203,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6676222386618506105
+--- !u!114 &2795422776635407753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,15 +212,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1712921479663479192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d19e57dee3b22dc4b855cabefaa947f2, type: 3}
+  m_Script: {fileID: 11500000, guid: e35864cb2ea03d549b7a247784e7e704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1712921479663479192}
+  speed: 0.3
+  damage: 40
+  facingLeft: 0
+  damagePlayers: 0
+  damageNonPlayers: 1
+  spawnSFX: '[no functionality]'
   boulderParticles: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
-  damage: 30
+  initialForce: 100
+  boulderDespawnTime: 5
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 576
---- !u!114 &52791044803514186
+    m_Bits: 1152
+--- !u!114 &8084528081796266691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,12 +241,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seconds: 5
-  destroyGameObject: 0
   onDespawn:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6676222386618506105}
-        m_TargetAssemblyTypeName: BoulderHazard, Assembly-CSharp
+      - m_Target: {fileID: 2795422776635407753}
+        m_TargetAssemblyTypeName: BoulderProjectile, Assembly-CSharp
         m_MethodName: BreakBoulder
         m_Mode: 1
         m_Arguments:
@@ -249,7 +256,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &4222585875740617192
+  destroyGameObject: 0
+--- !u!1 &7133642867099233194
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,9 +265,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8429518500788989165}
-  - component: {fileID: 5506093159473837122}
-  - component: {fileID: 304699501090094028}
+  - component: {fileID: 329105993495972810}
+  - component: {fileID: 6338750762920233683}
+  - component: {fileID: 5663171533562451945}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -267,28 +275,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8429518500788989165
+--- !u!4 &329105993495972810
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4222585875740617192}
+  m_GameObject: {fileID: 7133642867099233194}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5657154373612796423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &5506093159473837122
+--- !u!58 &6338750762920233683
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4222585875740617192}
+  m_GameObject: {fileID: 7133642867099233194}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 11ad16cd88b61d849a09d1f91cb83583, type: 2}
@@ -317,15 +325,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &304699501090094028
+--- !u!114 &5663171533562451945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4222585875740617192}
+  m_GameObject: {fileID: 7133642867099233194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c2237a538fcf0244b26be46a3e00209, type: 3}
+  m_Script: {fileID: 11500000, guid: cf99a7d568d75324682374b0ceaf2c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
