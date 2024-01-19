@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   onCooldownSound: incorrect_buzzer
-  currentForm: 1
+  currentForm: 2
   baseCost: 0
   duration: 0
   tickRate: 0
@@ -36,3 +36,9 @@ MonoBehaviour:
   rockWallPrefab: {fileID: 412478105100610930, guid: 10ad70d9c84e4824b9db5c511e9b2789, type: 3}
   wallXOffset: -3
   wallYOffset: 1.5
+  rockPlatformPrefab: {fileID: 6773262323076030984, guid: a6c86d9b20da29b47ab4b38508f6fa04, type: 3}
+  platformXOffset: 0
+  platformYOffset: -0.5
+  passiveModifier:
+    _targetStat: DamageResistance
+    _modValue: 10

@@ -375,6 +375,8 @@ MonoBehaviour:
     _baseValue: 20
   - _statName: Speed
     _baseValue: 1
+  - _statName: DamageResistance
+    _baseValue: 0
   - _statName: FireResistance
     _baseValue: 0
 --- !u!114 &1203306737245432797
