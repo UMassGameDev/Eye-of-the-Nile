@@ -68,7 +68,7 @@ public class PlayerHealth : ObjectHealth
     public override void TakeDamage(Transform attacker, int damage)
     {
         // damage can only be applied if the player is not invincible and the damage is more than the damage resistance
-        if (!isInvincible && damage < DamageResistance)
+        if (!isInvincible && damage > DamageResistance)
         {
             currentHealth -= damage - DamageResistance;
             animator.SetTrigger("Hurt");

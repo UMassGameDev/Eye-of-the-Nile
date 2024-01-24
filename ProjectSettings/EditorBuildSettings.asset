@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test Dungeon/TestDungeon_Trap.unity
     guid: f6b7d248df3e8524b8d4e98692b7baeb
+  - enabled: 1
+    path: Assets/Scenes/Club Fair/ClubFair_1.unity
+    guid: 462e52a8a1682f2428f34ebb743be669
+  - enabled: 1
+    path: Assets/Scenes/Club Fair/ClubFair_2.unity
+    guid: db0bf77c82b5c7747b78ddf60d679eea
   m_configObjects: {}

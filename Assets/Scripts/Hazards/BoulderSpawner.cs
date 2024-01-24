@@ -36,10 +36,4 @@ public class BoulderSpawner : MonoBehaviour
     {
         StartCoroutine(BoulderSpawnTimer());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
