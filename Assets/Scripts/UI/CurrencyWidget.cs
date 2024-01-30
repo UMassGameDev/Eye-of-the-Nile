@@ -1,3 +1,8 @@
+/**************************************************
+Updates the text for the souls and godsouls when the player's soul amount changes.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 using TMPro;
 using System;

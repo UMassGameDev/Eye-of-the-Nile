@@ -1,5 +1,9 @@
+/**************************************************
+Handles changing the background image when the time of day is updated in the DataManager.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TimeOfDayController : MonoBehaviour
 {

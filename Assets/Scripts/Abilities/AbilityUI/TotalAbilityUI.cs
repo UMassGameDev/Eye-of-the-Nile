@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Updates ActiveAbilityData when the Ability UI changes.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,3 +1,9 @@
+/**************************************************
+Loads a given Unity scene when a player goes through a warp/door or dies.
+This also handles the black fade transition.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

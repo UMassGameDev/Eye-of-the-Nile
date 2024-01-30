@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+When a particle spawned, this script will despawn it after its duration is up.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class SpawnedEffect : MonoBehaviour
@@ -13,13 +16,7 @@ public class SpawnedEffect : MonoBehaviour
         effectDuration = spawnedParticles.main.duration;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    // timer before effect expires
     void Update()
     {
         if (spawnedParticles.totalTime >= effectDuration)

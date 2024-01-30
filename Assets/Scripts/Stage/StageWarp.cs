@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Basic information for a warp or door that can then be used by other scripts.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StageWarp : MonoBehaviour
 {

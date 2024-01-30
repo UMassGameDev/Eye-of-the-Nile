@@ -1,5 +1,11 @@
-using System;
-using System.Collections;
+/**************************************************
+This is an abstract scriptable object that all abilities inherit from.
+Important: as of writing, passive abilities work the same as all other abilities, rather than always being active.
+This contains the basic functionality for abilities. If you want to make your own ability, inherit from this!
+Every ability info must replace the four abstract functions, and can optionally add to the virtual functions too.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
 

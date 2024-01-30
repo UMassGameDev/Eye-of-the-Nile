@@ -1,5 +1,10 @@
+/**************************************************
+Stores and manages the set of active ability sets.
+You can manage this in the unity editor with the ActiveAbilityData scriptable object.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

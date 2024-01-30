@@ -1,3 +1,8 @@
+/**************************************************
+Put this script on any object you want to automatically despawn after a certain amount of time.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;

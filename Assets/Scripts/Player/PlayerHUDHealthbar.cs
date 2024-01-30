@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Updates the player's healthbar display in the corner of the screen.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 using TMPro;
 

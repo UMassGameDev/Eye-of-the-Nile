@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+--- DEPRECATED ---
+Script for a basic projectile object created from an ability.
+I recommend using a different projectile script that inherits from BasicProjectile
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class AbilityProjectile : MonoBehaviour

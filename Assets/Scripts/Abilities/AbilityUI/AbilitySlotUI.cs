@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Handles swapping ability icons when one is moved to a different slot.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 using UnityEngine.EventSystems;
 

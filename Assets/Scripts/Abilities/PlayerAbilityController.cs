@@ -1,4 +1,8 @@
-using System.Collections;
+/**************************************************
+Handles player input related to activating abilities
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;

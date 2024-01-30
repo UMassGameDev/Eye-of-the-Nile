@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/**************************************************
+Simple enum for the BaseEntityController for handling state.
+
+Documentation updated 1/29/2024
+**************************************************/
 
 public enum EntityState
 {

@@ -1,3 +1,9 @@
+/**************************************************
+This goes on day/night shrines.
+If the player interacts with this object, it will tell the DataManager to update the time of day.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class DayNight_Shrine : MonoBehaviour

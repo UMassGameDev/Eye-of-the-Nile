@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Put this script on objects you want to damage entities upon colliding with them.
+Useful for stage hazards, such as the falling spike.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class DamageOnCollision : MonoBehaviour

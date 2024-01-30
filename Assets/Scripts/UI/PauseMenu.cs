@@ -1,5 +1,9 @@
+/**************************************************
+Handles pausing the game and the functionality of the buttons in the pause menu.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {

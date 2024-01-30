@@ -1,6 +1,10 @@
+/**************************************************
+This is where crucial data that needs to be saved is stored.
+The DataManager object will not be destroyed when a new Unity scene is loaded, such as when going through a door.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -23,6 +27,7 @@ public class DataManager : MonoBehaviour
     public static event Action<int> newSoulTotal;
     public static event Action<int> newGodSoulTotal;
 
+    // subscribe to events that tell us data has changed
     void OnEnable()
     {
         PlayerHealth.onPlayerHealthChange += updatePlayerHealth;
@@ -31,6 +36,7 @@ public class DataManager : MonoBehaviour
         CurrencyWidget.onStart += invokeEvents;
     }
 
+    // unsubscribe from all events when this object or script is disabled
     void OnDisable()
     {
         PlayerHealth.onPlayerHealthChange -= updatePlayerHealth;
@@ -52,6 +58,7 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // find components of other game ojbects we need to acccess
         ToDController = GameObject.Find("BackgroundCanvas").GetComponent<TimeOfDayController>();
         playerObjHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
 
@@ -66,11 +73,6 @@ public class DataManager : MonoBehaviour
 
         invokeEvents();
         setTimeOfDay(currTimeOfDay);
-    }
-
-    void Start()
-    {
-        
     }
 
     void invokeEvents()

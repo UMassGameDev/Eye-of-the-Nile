@@ -1,3 +1,9 @@
+/**************************************************
+This script is used by a small trigger zone beneath the player's feet.
+When the player is on the ground, isGrounded will be true.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class GroundDetector : MonoBehaviour

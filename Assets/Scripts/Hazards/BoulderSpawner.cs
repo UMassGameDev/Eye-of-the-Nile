@@ -1,5 +1,10 @@
+/**************************************************
+Spawns boulders at a consistent rate in the game object's "up" direction.
+Rotate the game object to change which direction "up" is to be to the left (90 degrees) or right (-90 degrees)
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoulderSpawner : MonoBehaviour

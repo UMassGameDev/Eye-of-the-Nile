@@ -1,5 +1,10 @@
-using UnityEngine;
+/**************************************************
+Script for a boulder that rolls until its hitbox tells it to break.
+BoulderHitbox is responsible for detecting collisions and dealing damage.
 
+Documentation updated 1/29/2024
+**************************************************/
+using UnityEngine;
 public class BoulderHazard : MonoBehaviour
 {
     Rigidbody2D boulderBody;

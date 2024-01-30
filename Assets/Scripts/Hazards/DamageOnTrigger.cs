@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Put this script on objects you want to damage entities upon touching with them.
+The difference between this and DamageOnCollision is this is for objects whose Collider2D has isTrigger checked off in the editor.
+Useful for stage hazards, such as the spikes tile.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class DamageOnTrigger : MonoBehaviour

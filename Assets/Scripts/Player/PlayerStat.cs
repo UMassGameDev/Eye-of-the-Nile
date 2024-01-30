@@ -1,5 +1,10 @@
+/**************************************************
+Basic properties of a player stat that can be modified by abilities using StatModifiers.
+Each stat has a name and a base value, set in the editor.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

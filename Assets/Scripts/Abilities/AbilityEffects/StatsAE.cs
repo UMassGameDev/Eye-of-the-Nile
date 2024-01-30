@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+ALlows an ability to apply a stat change to the player.
+Which stat to change and by how much can be changed in the editor.
+This is a scriptable object, meaning you can make and instance of it in the editor.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 // This is applies a stat modifier that occurs during the duration

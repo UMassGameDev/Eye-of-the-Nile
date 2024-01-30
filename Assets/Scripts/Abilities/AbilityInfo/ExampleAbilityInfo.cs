@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+This is an example ability with placeholder functionality.
+Useful for understanding the syntax for the ability system.
+This is a scriptable object, meaning you can make and instance of it in the editor.
+
+Documentation updated 1/29/2024
+**************************************************/
 using TMPro;
 using UnityEngine;
 

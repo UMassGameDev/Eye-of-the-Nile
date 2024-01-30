@@ -1,4 +1,9 @@
-using System.Collections;
+/**************************************************
+Script for a boulder that the player can throw as a projectile.
+Inherits from BasicProjectile.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class BoulderProjectile : BasicProjectile

@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+When the player presses the interactKey, this script will search for nearby interactable objects.
+If an interactable object is within range, this script will tell that object to trigger its functionality.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour

@@ -1,6 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+/**************************************************
+This is the info for the wind ability set made for the club fair build.
+The offense ability triggers a melee attack with more knockback and range.
+The defense ability shoots a wind projectile that pushes enemies back.
+The utility ability triggers a really high jump (regardless of if the player is normally allowed to jump).
+The passive ability allows the player to triple jump.
+This is a scriptable object, meaning you can make and instance of it in the editor.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New WindAbilityInfo", menuName = "Abilities/Create New WindAbilityInfo")]
@@ -22,7 +29,7 @@ public class WindAbilityInfo : BaseAbilityInfo
     public int newMaxJumpChain = 2;
     public int defaultMaxJumpChain = 1;
 
-    // Does a melee attack with more knockback and range
+    // Triggers a melee attack with more knockback and range
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().Melee(meleeAnimName, attackCooldown, offenseRange, offenseKnockback);
@@ -34,7 +41,7 @@ public class WindAbilityInfo : BaseAbilityInfo
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(tornadoProjectilePrefab);
     }
 
-    // Does a really high jump
+    // Triggers a really high jump (regardless of if the player is normally allowed to jump)
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().SpecialJump(jumpForce);

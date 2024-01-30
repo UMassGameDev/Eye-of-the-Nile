@@ -1,3 +1,8 @@
+/**************************************************
+Stores the data and properties of a given sound
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 [System.Serializable]

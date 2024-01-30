@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Script for a basic projectile that sets a target on fire rather than dealing a flat damage amount.
+Inherits from BasicProjectile.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class FireProjectile : BasicProjectile

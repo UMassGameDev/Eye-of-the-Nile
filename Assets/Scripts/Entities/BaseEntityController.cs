@@ -1,3 +1,15 @@
+/**************************************************
+Basic functionality for any entities that are hostile towards other entities.
+This script is abstract so it must be inherited by another script to be used.
+Every script inheriting from this must override ActivateAttack().
+
+Patrol State (default): The entity will patrol an area (PatrolZone.cs) until an enemy (something on the enemyLayers) is within range.
+Chase State: The entity will chase the enemy it detected until it's close enough to attack.
+CloseAttack State: The entity will attack the enemy until it's no longer in range (either because it left or because it died)
+Dead State: This script won't do anything if the entity dies.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public abstract class BaseEntityController : MonoBehaviour
@@ -9,8 +21,7 @@ public abstract class BaseEntityController : MonoBehaviour
     public float attackCooldown = 0.8f;
     protected float cooldownEndTime = 0f;
 
-    // This LayerMask includes the Player's layer so the enemy is alerted
-    public LayerMask enemyLayers;
+    public LayerMask enemyLayers;  // This LayerMask includes the Player's layer so the enemy is alerted
     public PatrolZone patrolZone;
     public EntityState EState { get; set; } = EntityState.Patrol;
     public float horizontalDirection = 0f;
@@ -26,7 +37,36 @@ public abstract class BaseEntityController : MonoBehaviour
 
     protected Animator animator;
 
-    // Triggered by attack animation
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb.drag = linearDrag;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        switch (EState)
+        {
+            case EntityState.Patrol:
+                PatrolState();
+                break;
+            case EntityState.Chase:
+                ChaseState();
+                break;
+            case EntityState.CloseAttack:
+                CloseAttackState();
+                break;
+            case EntityState.Dead:
+                break;
+            default:
+                PatrolState();
+                break;
+        }
+    }
+
+    // Triggered by an event in the attack animation
+    // (or you can override TriggerAttack() if there is not attack animation)
     protected abstract void ActivateAttack();
 
     protected virtual void TriggerAttack()
@@ -209,6 +249,8 @@ public abstract class BaseEntityController : MonoBehaviour
             EState = EntityState.Chase;
     }
 
+    // display ranges in the editor
+    // must be commented out to export the game
     private void OnDrawGizmosSelected()
     {
         // Purely for debugging purposes
@@ -227,34 +269,6 @@ public abstract class BaseEntityController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         objectHealth = GetComponent<ObjectHealth>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb.drag = linearDrag;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        switch (EState)
-        {
-            case EntityState.Patrol:
-                PatrolState();
-                break;
-            case EntityState.Chase:
-                ChaseState();
-                break;
-            case EntityState.CloseAttack:
-                CloseAttackState();
-                break;
-            case EntityState.Dead:
-                break;
-            default:
-                PatrolState();
-                break;
-        }
     }
 
 }

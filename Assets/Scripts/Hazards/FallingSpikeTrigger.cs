@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Script for the falling spike hazard.
+When a player enters the trigger zone beneath the falling spike, it will unfreeze the spike's gravity.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class FallingSpike : MonoBehaviour

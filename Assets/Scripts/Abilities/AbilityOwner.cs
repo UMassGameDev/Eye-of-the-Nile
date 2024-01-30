@@ -1,5 +1,11 @@
+/**************************************************
+Handles many functions related to using abilities.
+Specifically, charge ups, activating the ability, repeated events during duration time (such as healing over time), and cooldowns.
+Note that this script is not a monobehavior, so it does not have many of the default unity functions like Start() and Update().
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 

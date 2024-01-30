@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Script for a zone which entities that inherit from BaseEntityController will patrol until a player is in range.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEditor;
 using UnityEngine;
 

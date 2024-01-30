@@ -1,10 +1,16 @@
+/**************************************************
+Functionality of ObjectHealth.cs specifically for the player.
+Inherits from ObjectHealth.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 public class PlayerHealth : ObjectHealth
 {
+    // The following variable have to be obtained from PlayerStatHolder.cs
     public PlayerStatHolder PStats { get; set; }
     public int MaxHealth { get {
             if (PStats == null)
@@ -45,6 +51,7 @@ public class PlayerHealth : ObjectHealth
     public float deadFadeDelay = 1f;
     public float deadFadeLength = 1f;
 
+    // When these events occur, other scripts subscribed to these events can be notified and trigger their functionality
     public static event Action onPlayerDeath;
     public static event Action onPlayerRespawn;
     public static event Action<int> onPlayerDamage;

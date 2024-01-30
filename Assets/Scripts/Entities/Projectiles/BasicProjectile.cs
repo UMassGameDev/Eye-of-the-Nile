@@ -1,8 +1,14 @@
+/**************************************************
+Basic projectile functionality that every other projectile type must inherit from to be compatible with other systems (like the attack manager).
+You can also put this script onto any object or prefab to give it normal projectile functionality.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
-    public GameObject sprite;  // OPTIONAL
+    public GameObject sprite;
     public float speed = 0.3f;
     public int damage = 30;
     public bool facingLeft = false;
@@ -12,8 +18,10 @@ public class BasicProjectile : MonoBehaviour
 
     Vector3 spriteScaleLeft;
     Vector3 spriteScaleRight;
+
     void Awake()
     {
+        // determine ahead of time how to display the sprite depending on the direction the projectile is facing
         spriteScaleRight = sprite.transform.localScale;
         spriteScaleLeft = new Vector3(-sprite.transform.localScale.x, sprite.transform.localScale.y, sprite.transform.localScale.z);
     }
@@ -25,6 +33,7 @@ public class BasicProjectile : MonoBehaviour
 
     void Update()
     {
+        // move in the direction the projectile is set to face, and ensure the sprite is facing that direction
         if (facingLeft) {
             // move projectile to the left by [speed]
             transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);

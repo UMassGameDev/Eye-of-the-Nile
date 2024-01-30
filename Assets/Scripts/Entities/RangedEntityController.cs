@@ -1,3 +1,9 @@
+/**************************************************
+Functionality for entities with a ranged attack.
+Inherits from BaseEntityController.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class RangedEntityController : BaseEntityController

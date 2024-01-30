@@ -1,4 +1,11 @@
-using System.Collections;
+/**************************************************
+Used in the soft collider prefab, which is put as a child onto other objects.
+Allows for other objects to pass through the this object, but push them out if they stay inside this object.
+For example, a player can pass through a pot or an enemy, but will be pushed away if they try to stand inside it.
+Think of how animals in Minecraft push each other around when there's too many in a small area.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
 

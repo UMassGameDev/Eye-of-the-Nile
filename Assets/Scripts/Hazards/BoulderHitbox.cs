@@ -1,3 +1,9 @@
+/**************************************************
+Detects collisions for the boulder hazard (BoulderHazard.cs).
+When colliding with something on the boulder's collision layers, it will damage it and break the boulder.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class BoulderHitbox : MonoBehaviour

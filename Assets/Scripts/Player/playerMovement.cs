@@ -1,3 +1,8 @@
+/**************************************************
+Handles the player movement, such as walking and jumping, when the user presses the corresponding keys.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour

@@ -1,5 +1,9 @@
+/**************************************************
+Put this script on an object to allow it to take knockback.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Events;
 

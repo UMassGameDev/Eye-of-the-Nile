@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/**************************************************
+Remembers the warp the player last entered, and if the player is currently being warped.
+
+Documentation updated 1/29/2024
+**************************************************/
 
 public static class WarpInfo
 {

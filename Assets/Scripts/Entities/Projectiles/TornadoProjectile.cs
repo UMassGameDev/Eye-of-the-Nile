@@ -1,3 +1,9 @@
+/**************************************************
+Script for a tornado projectile that deals no damage, instead pushing targets away with its hitbox.
+Inherits from BasicProjectile.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
 using UnityEngine;
 
@@ -21,6 +27,7 @@ public class TornadoProjectile : BasicProjectile
         }
     }
 
+    // this was made before the DespawnTimer script was written
     IEnumerator DespawnTimer()
     {
         // Wait for despawn time to be up

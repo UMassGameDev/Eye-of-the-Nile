@@ -1,6 +1,9 @@
+/**************************************************
+StatModifiers are a variable type that can be used by abilities to modify player stats.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // public enum StatModType { PreMultiplier, Additive, PostMultiplier }

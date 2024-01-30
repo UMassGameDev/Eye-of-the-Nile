@@ -1,5 +1,9 @@
+/**************************************************
+Handles health, damage, and death of an object/entity.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 

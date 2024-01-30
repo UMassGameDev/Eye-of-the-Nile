@@ -1,5 +1,11 @@
+/**************************************************
+Script for a fire object, such a big fire, wall of fire, anything that's fire.
+If enabled, the fire will "burnout" (despawn) after burnoutTime has passed.
+If an entity collides with the fire, it will be set on fire and take fire damage.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireObject : MonoBehaviour
@@ -24,13 +30,12 @@ public class FireObject : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D col)
     {
-        ObjectHealth health = col.GetComponent<ObjectHealth>();
-
-        if (health != null)
+        // if the object in the fire has health...
+        if (col.TryGetComponent<ObjectHealth>(out var health))
         {
-            if (!col.CompareTag("Player") && damageNonPlayers) {
+            if (!col.CompareTag("Player") && damageNonPlayers) {  // if it's not a player (and damageNonPlayers is enabled), set it on fire.
                 StartCoroutine(health.SetOnFire(damageCount, damageSpeed, damage));
-            } else if (col.CompareTag("Player") && damagePlayer) {
+            } else if (col.CompareTag("Player") && damagePlayer) {  // if it is a player (and damagePlayer is enabled), set it on fire.
                 StartCoroutine(health.SetOnFire(damageCount, damageSpeed, damage));
             }
         }

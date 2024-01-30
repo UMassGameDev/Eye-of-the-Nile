@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+If the player is inside a warp/door, this script will warp them to the corresponding exit door.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class ExitZone : MonoBehaviour
 {

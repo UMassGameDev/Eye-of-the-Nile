@@ -1,3 +1,9 @@
+/**************************************************
+Functionality for entities with a melee attack.
+Inherits from BaseEntityController.
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class MeleeEntityController : BaseEntityController

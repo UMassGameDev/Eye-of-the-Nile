@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+--- DEPRECATED ---
+Please use PlayerAttackManager.cs
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 
 public class PlayerBasicMelee : MonoBehaviour

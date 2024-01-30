@@ -1,8 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+/**************************************************
+Responsible for storing and playing the game's music and sound effects.
+To trigger a sound effect from a script, use "AudioManager.Instance.PlaySFX(SOUND_EFFECT_NAME);"
+
+Documentation updated 1/29/2024
+**************************************************/
 using UnityEngine;
 using System;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {

@@ -1,8 +1,15 @@
-using System.Collections;
+/**************************************************
+This is the info for the fire ability set made for the club fair build.
+The offense ability shoots burst of fireballs.
+The defense ability spawns a tall fire on each side of the player.
+The utility ability makes the player immune to fire for a short time.
+The passive ability makes the player take less fire damage.
+This is a scriptable object, meaning you can make and instance of it in the editor.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Scripting;
 
 [CreateAssetMenu(fileName = "New FireAbilityInfo", menuName = "Abilities/Create New FireAbilityInfo")]
 public class FireAbilityInfo : BaseAbilityInfo
@@ -55,7 +62,7 @@ public class FireAbilityInfo : BaseAbilityInfo
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectileBurst(projectilePrefab, numFireballs, fireballDelay);
     }
 
-    // Spawn a tall fires on each side of the player
+    // Spawn a tall fire on each side of the player
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         Instantiate(firewallPrefab, new Vector2(

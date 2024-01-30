@@ -1,5 +1,11 @@
+/**************************************************
+Handles all the attacks the player can perform, including both standard attacks and all ability attacks.
+This script contains multiple overloads of some functions to provide more functionality if desired.
+Abilities can access these functions via the "abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>()".
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
@@ -97,7 +103,7 @@ public class PlayerAttackManager : MonoBehaviour
     // This function is triggered by the animation (when the sword swings)
     void MeleeTrigger()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, meleeRange, attackableLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, curRange, attackableLayers);
 
         foreach (Collider2D enemy in hitEnemies)
         {

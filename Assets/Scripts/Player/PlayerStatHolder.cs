@@ -1,4 +1,10 @@
-using System.Collections;
+/**************************************************
+Contains all the player's stats that can be modified by abilities using StatModifiers.
+You can add new player stats using the editor, but make sure you implement the corresponding functionality into the proper script.
+To link a value in another script to a player stat, see PlayerHealth.cs.
+
+Documentation updated 1/29/2024
+**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
 
