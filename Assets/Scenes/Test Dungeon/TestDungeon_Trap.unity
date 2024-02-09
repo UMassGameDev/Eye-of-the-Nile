@@ -401,6 +401,95 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+--- !u!1001 &239651453
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1488595279024163374, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_Name
+      value: Respawn Point
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917272501813746359, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -102.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917272501813746359, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -100.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900935861245674263, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: warpName
+      value: TDG_Start_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: srcWarpName
+      value: RESPAWN
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: destWarpName
+      value: TD_Start1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: sceneToWarpTo
+      value: TestDungeon_Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: sourceWarpName
+      value: TDG_Start2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632219531049447108, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: collidedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
 --- !u!1 &334072793
 GameObject:
   m_ObjectHideFlags: 0
@@ -23494,3 +23583,4 @@ SceneRoots:
   - {fileID: 532997035}
   - {fileID: 8736193951571003386}
   - {fileID: 7404504423110743544}
+  - {fileID: 239651453}

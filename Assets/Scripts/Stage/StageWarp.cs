@@ -15,7 +15,7 @@ public class StageWarp : MonoBehaviour
     public string sceneToWarpTo;
     // Every StageWarp has an "EntryPoint" as a child which serves as a spawn point
     public Vector2 EntryPos { get { return entryPoint.position; } }
-    private Transform entryPoint;
+    protected Transform entryPoint;
 
     void Awake()
     {

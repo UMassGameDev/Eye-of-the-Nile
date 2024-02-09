@@ -6,6 +6,7 @@ Documentation updated 1/29/2024
 **************************************************/
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
@@ -20,9 +21,15 @@ public class DataManager : MonoBehaviour
 
     public TimeOfDay defaultTimeOfDay = TimeOfDay.Day;
     static TimeOfDay currTimeOfDay;
+
     int playerHealth = 100;
     int souls = 0;
     int godSouls = 0;
+    static int currSceneIndex;
+    static int prevSceneIndex;
+
+    static string currSceneName;
+    static string prevSceneName;
 
     public static event Action<int> newSoulTotal;
     public static event Action<int> newGodSoulTotal;
@@ -58,7 +65,7 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // find components of other game ojbects we need to acccess
+        // find components of other game objects we need to acccess
         ToDController = GameObject.Find("BackgroundCanvas").GetComponent<TimeOfDayController>();
         playerObjHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
 
@@ -72,6 +79,8 @@ public class DataManager : MonoBehaviour
         }
 
         invokeEvents();
+        updateSceneName();
+        updateSceneIndex();
         setTimeOfDay(currTimeOfDay);
     }
 
@@ -105,11 +114,38 @@ public class DataManager : MonoBehaviour
 
     public TimeOfDay GetTimeOfDay() { return currTimeOfDay; }
 
+    void updateSceneIndex()
+    {
+        if (currSceneIndex != SceneManager.GetActiveScene().buildIndex)
+        {
+            prevSceneIndex = currSceneIndex;
+            currSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        }
+        // Debug.Log("Current Scene Index: " + currSceneIndex + ", Previous Scene Index: " + prevSceneIndex);
+    }
+
+    void updateSceneName()
+    {
+        if (currSceneName != SceneManager.GetActiveScene().name)
+        {
+            prevSceneName = currSceneName;
+            currSceneName = SceneManager.GetActiveScene().name;
+        }
+    }
+
     public int GetPlayerHealth() { return playerHealth; }
 
     public int GetSouls() { return souls; }
 
     public int GetGodSouls() { return godSouls; }
+
+    public int GetPrevSceneIndex() { return prevSceneIndex; }
+
+    public int GetCurrSceneIndex() { return currSceneIndex; }
+
+    public string GetPrevSceneName() { return prevSceneName; }
+
+    public string GetCurrSceneName() { return currSceneName; }
 
     public void AddSouls(int numSouls)
     {

@@ -38,8 +38,17 @@ public class StageLoader : MonoBehaviour
 
     public void LoadNewStage(string newStageName)
     {
-        if (newStageName == "this")
+        if (newStageName == "this") {
             newStageName = SceneManager.GetActiveScene().name;
+        } else if (newStageName == "RESPAWN") {
+            newStageName = GameObject.Find("DataManager").GetComponent<DataManager>().GetPrevSceneName();
+        }
+        
+        if (newStageName == null) {
+            Debug.LogError("Can't load new stage. New stage name:" + newStageName);
+            return;
+        }
+
         StartCoroutine(TransitionToNewStage(newStageName));
     }
 
@@ -65,11 +74,5 @@ public class StageLoader : MonoBehaviour
             GameObject player = GameObject.Find("Player");
             player.transform.position = StageWarps[WarpInfo.WarpName].EntryPos;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

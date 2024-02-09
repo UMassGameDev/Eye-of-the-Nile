@@ -51,6 +51,8 @@ public class PlayerHealth : ObjectHealth
     public float deadFadeDelay = 1f;
     public float deadFadeLength = 1f;
 
+    public string deathSceneName = "Anubis";
+
     // When these events occur, other scripts subscribed to these events can be notified and trigger their functionality
     public static event Action onPlayerDeath;
     public static event Action onPlayerRespawn;
@@ -170,7 +172,7 @@ public class PlayerHealth : ObjectHealth
     IEnumerator AfterDeath()
     {
         yield return new WaitForSeconds(deadFadeDelay);
-        GameObject.Find("StageLoader").GetComponent<StageLoader>().LoadNewStage("this");
+        GameObject.Find("StageLoader").GetComponent<StageLoader>().LoadNewStage(deathSceneName);
 
         yield return new WaitForSeconds(deadFadeLength);
         GetComponent<Collider2D>().enabled = true;
