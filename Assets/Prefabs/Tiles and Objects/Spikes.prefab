@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8592251926627588395}
   - component: {fileID: 3713380425941318969}
   - component: {fileID: 3262494263374374269}
+  - component: {fileID: -339944979211040802}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -144,3 +145,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colisionDamage: 20
+  damageNonPlayers: 1
+  damagePlayer: 1
+--- !u!114 &-339944979211040802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3783851388675857434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8604568d68ce7446a031dc8406140d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customAnubisJokes:
+  - "I\u2019d tell you a joke about a spike, but you might get the point too sharply."
+  - That spike totally nailed it.
+  - Spikes can be quite riveting, if you catch my point.

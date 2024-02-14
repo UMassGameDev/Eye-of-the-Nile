@@ -30,6 +30,7 @@ public class DataManager : MonoBehaviour
 
     static string currSceneName;
     static string prevSceneName;
+    static string anubisDeathMessage;
 
     public static event Action<int> newSoulTotal;
     public static event Action<int> newGodSoulTotal;
@@ -41,6 +42,7 @@ public class DataManager : MonoBehaviour
         ObjectHealth.soulsDropped += AddSouls;
         ObjectHealth.godSoulsDropped += AddGodSouls;
         CurrencyWidget.onStart += invokeEvents;
+        PlayerHealth.deathMessageChange += updateAnubisDeathMessage;
     }
 
     // unsubscribe from all events when this object or script is disabled
@@ -50,6 +52,7 @@ public class DataManager : MonoBehaviour
         ObjectHealth.soulsDropped -= AddSouls;
         ObjectHealth.godSoulsDropped -= AddGodSouls;
         CurrencyWidget.onStart -= invokeEvents;
+        PlayerHealth.deathMessageChange -= updateAnubisDeathMessage;
     }
 
     void Awake()
@@ -75,6 +78,8 @@ public class DataManager : MonoBehaviour
             // playerHealth = playerObjHealth.maxHealth;
             playerHealth = playerObjHealth.MaxHealth;
             currTimeOfDay = defaultTimeOfDay;
+            anubisDeathMessage = "[DEFAULT]";
+            
             gameStarted = true;
         }
 
@@ -133,6 +138,8 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    void updateAnubisDeathMessage(string newDeathMessage) { anubisDeathMessage = newDeathMessage; }
+
     public int GetPlayerHealth() { return playerHealth; }
 
     public int GetSouls() { return souls; }
@@ -146,6 +153,8 @@ public class DataManager : MonoBehaviour
     public string GetPrevSceneName() { return prevSceneName; }
 
     public string GetCurrSceneName() { return currSceneName; }
+
+    public string GetAnubisDeathMessage() { return anubisDeathMessage; }
 
     public void AddSouls(int numSouls)
     {

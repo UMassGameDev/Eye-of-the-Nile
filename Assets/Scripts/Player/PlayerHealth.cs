@@ -7,6 +7,7 @@ Documentation updated 1/29/2024
 using System.Collections;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerHealth : ObjectHealth
 {
@@ -52,12 +53,16 @@ public class PlayerHealth : ObjectHealth
     public float deadFadeLength = 1f;
 
     public string deathSceneName = "Anubis";
+    public string defaultDeathMessage = "[DEFAULT]";
+    public string fireDeathMessage = "[FIRE]";
+    public string currentDeathMessage { get; private set; }
 
     // When these events occur, other scripts subscribed to these events can be notified and trigger their functionality
     public static event Action onPlayerDeath;
     public static event Action onPlayerRespawn;
     public static event Action<int> onPlayerDamage;
     public static event Action<int> onPlayerHealthChange;
+    public static event Action<string> deathMessageChange;
 
     DataManager dataManager;
 
@@ -98,8 +103,21 @@ public class PlayerHealth : ObjectHealth
             onPlayerDamage?.Invoke(currentHealth);
             onPlayerHealthChange?.Invoke(currentHealth);
 
+            // If the player is at 0 health, they are dead
             if (currentHealth <= 0)
+            {
+                // using the transform of the attacker passed as a parameter,
+                // see if there's a custom death message for Anubis to say
+                if (attacker.TryGetComponent<CustomDeathMessage>(out var cdm)) {
+                    currentDeathMessage = cdm.GetRandomJoke();
+                } else {
+                    currentDeathMessage = defaultDeathMessage;
+                }
+                deathMessageChange?.Invoke(currentDeathMessage);
+                
+                // Then, trigger the sequence of events that happens when the player dies
                 Die();
+            }
 
             if (currentHealth > 0 && canBeInvincible)
                 StartCoroutine(Invincibility());
@@ -130,7 +148,11 @@ public class PlayerHealth : ObjectHealth
         onPlayerHealthChange?.Invoke(currentHealth);
 
         if (currentHealth <= 0)
+        {
+            currentDeathMessage = fireDeathMessage;
+            deathMessageChange?.Invoke(currentDeathMessage);
             Die();
+        }
     }
 
     public void HealInstant(int healValue)
