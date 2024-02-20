@@ -16,10 +16,10 @@ public class DayNight_Shrine : MonoBehaviour
         switch (shrineType)
         {
             case ShrineType.Day:
-                GameObject.Find("DataManager").GetComponent<DataManager>().setTimeOfDay(DataManager.TimeOfDay.Day);
+                GameObject.Find("DataManager").GetComponent<DataManager>().SetTimeOfDay(DataManager.TimeOfDay.Day);
                 break;
             case ShrineType.Night:
-                GameObject.Find("DataManager").GetComponent<DataManager>().setTimeOfDay(DataManager.TimeOfDay.Night);
+                GameObject.Find("DataManager").GetComponent<DataManager>().SetTimeOfDay(DataManager.TimeOfDay.Night);
                 break;
         }
     }

@@ -405,6 +405,9 @@ MonoBehaviour:
   canBeOnFire: 1
   deadFadeDelay: 1
   deadFadeLength: 1
+  deathSceneName: Anubis
+  defaultDeathMessage: '[DEFAULT]'
+  fireDeathMessage: '[FIRE]'
 --- !u!114 &5681915771319918555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +442,7 @@ MonoBehaviour:
   attackPoint: {fileID: 5938859454111977853}
   attackableLayers:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 3200
   animator: {fileID: 2371901272311279201}
   meleeKey: 323
   meleeAnimation: Attack

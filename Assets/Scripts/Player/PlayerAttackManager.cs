@@ -66,6 +66,24 @@ public class PlayerAttackManager : MonoBehaviour
         StartCoroutine(CooldownWait(cooldown));
     }
 
+    // This function is triggered by the animation (when the sword swings)
+    void MeleeTrigger()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, curRange, attackableLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (enemy.TryGetComponent<ObjectHealth>(out var objHealth))
+                objHealth.TakeDamage(transform, playerStats.GetValue("Damage"));
+
+            if (enemy.TryGetComponent<KnockbackFeedback>(out var kb))
+                kb.ApplyKnockback(gameObject, curKnockback);
+            
+            if (enemy.TryGetComponent<ObjectInteractable>(out var objInteractable))
+                objInteractable.triggerMelee();
+        }
+    }
+
     // no cooldown overload. This will not start a cooldown and will ignore the current cooldown
     public void ShootProjectile(GameObject projectilePrefab)
     {
@@ -98,19 +116,6 @@ public class PlayerAttackManager : MonoBehaviour
     public void ShootProjectileBurst(GameObject projectilePrefab, int numProjectiles, float delay)
     {
         StartCoroutine(ProjectileBurst(projectilePrefab, numProjectiles, delay));
-    }
-
-    // This function is triggered by the animation (when the sword swings)
-    void MeleeTrigger()
-    {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, curRange, attackableLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, playerStats.GetValue("Damage"));
-            if (enemy.TryGetComponent<KnockbackFeedback>(out var kb))
-                kb.ApplyKnockback(gameObject, curKnockback);
-        }
     }
 
     IEnumerator CooldownWait(float seconds)

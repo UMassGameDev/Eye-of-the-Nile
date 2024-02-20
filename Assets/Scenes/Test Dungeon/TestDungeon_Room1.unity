@@ -1811,6 +1811,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4633666904397607283, guid: c421bade865a28a41b01efa4d3853e8d, type: 3}
   m_PrefabInstance: {fileID: 942950297}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1005265060
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1310375812006645657, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_Name
+      value: Warp Obelisk
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 48.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
 --- !u!1001 &1074657836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2656,6 +2713,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4633666904397607283, guid: c421bade865a28a41b01efa4d3853e8d, type: 3}
   m_PrefabInstance: {fileID: 1512007289}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1539415785
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1310375812006645657, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_Name
+      value: Warp Obelisk
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941826149509520049, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
 --- !u!1001 &1590002314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27395,3 +27509,5 @@ SceneRoots:
   - {fileID: 4505879468399733568}
   - {fileID: 114313310}
   - {fileID: 336336207}
+  - {fileID: 1539415785}
+  - {fileID: 1005265060}

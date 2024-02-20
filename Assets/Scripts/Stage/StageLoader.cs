@@ -38,14 +38,18 @@ public class StageLoader : MonoBehaviour
 
     public void LoadNewStage(string newStageName)
     {
+        if (WarpInfo.CurrentlyWarping == true)
+            return;
+
         if (newStageName == "this") {
             newStageName = SceneManager.GetActiveScene().name;
         } else if (newStageName == "RESPAWN") {
-            newStageName = GameObject.Find("DataManager").GetComponent<DataManager>().GetPrevSceneName();
+            newStageName = GameObject.Find("DataManager").GetComponent<DataManager>().GetRespawnSceneName();
+            Debug.Log("Respawning in scene \"" + newStageName + '\"');
         }
         
         if (newStageName == null) {
-            Debug.LogError("Can't load new stage. New stage name:" + newStageName);
+            Debug.LogError("Can't load new stage. NewStageName is NULL");
             return;
         }
 
@@ -60,17 +64,20 @@ public class StageLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (WarpInfo.WarpName == "NONE")
-        {
+        if (WarpInfo.WarpName == "NONE") {
             // do nothing
             // possibly more
-        }
-        else
-        {
+        } else if (WarpInfo.WarpName == "RESPAWN") {
+            // If the warp name is RESPAWN, it should spawn the player to their respawn point
+            // The respawn point is stored in the data manager
+            GameObject player = GameObject.Find("Player");
+            DataManager dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+            player.transform.position = dataManager.respawnPoint;
+            Debug.Log("Spawning at position " + dataManager.respawnPoint);
+        } else {
             // This occurs when this GameObject loads into the scene
             // It finds the name of the warp to spawn the player at
             // Then it uses the position of the entry point of that warp to spawn the player
-            StageWarp currentWarp = StageWarps[WarpInfo.WarpName];
             GameObject player = GameObject.Find("Player");
             player.transform.position = StageWarps[WarpInfo.WarpName].EntryPos;
         }

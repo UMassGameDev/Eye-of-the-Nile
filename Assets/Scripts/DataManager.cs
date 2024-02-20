@@ -16,6 +16,7 @@ public class DataManager : MonoBehaviour
 
     TimeOfDayController ToDController;
     PlayerHealth playerObjHealth;
+    GameObject player;
 
     static bool gameStarted = false;
 
@@ -25,17 +26,23 @@ public class DataManager : MonoBehaviour
     int playerHealth = 100;
     int souls = 0;
     int godSouls = 0;
-    static int currSceneIndex;
-    static int prevSceneIndex;
+    
+    public static int currSceneIndex { get; private set; }
+    public static int prevSceneIndex { get; private set; }
 
-    static string currSceneName;
-    static string prevSceneName;
-    static string anubisDeathMessage;
+    public static string currSceneName { get; private set; }
+    public static string prevSceneName { get; private set; }
+    public static string anubisDeathMessage { get; private set; }
+
+    public static string respawnSceneName { get; private set; }
+    public Vector2 respawnPoint {get; set;}
 
     public static event Action<int> newSoulTotal;
     public static event Action<int> newGodSoulTotal;
 
-    // subscribe to events that tell us data has changed
+    /******************************
+    SUBSCRIBE/UNSUBSCRIBE FROM EVENTS
+    ******************************/
     void OnEnable()
     {
         PlayerHealth.onPlayerHealthChange += updatePlayerHealth;
@@ -55,6 +62,10 @@ public class DataManager : MonoBehaviour
         PlayerHealth.deathMessageChange -= updateAnubisDeathMessage;
     }
 
+    /******************************
+    INTERNAL FUNCTIONALITY
+    ******************************/
+
     void Awake()
     {
         // Make sure this instance of the DataManager persists across scenes 
@@ -69,8 +80,9 @@ public class DataManager : MonoBehaviour
         }
 
         // find components of other game objects we need to acccess
+        player = GameObject.Find("Player");
         ToDController = GameObject.Find("BackgroundCanvas").GetComponent<TimeOfDayController>();
-        playerObjHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+        playerObjHealth = player.GetComponent<PlayerHealth>();
 
         // set default values. Only do this once!
         if (!gameStarted)
@@ -83,10 +95,19 @@ public class DataManager : MonoBehaviour
             gameStarted = true;
         }
 
+        // Things to do when a new scene loads
         invokeEvents();
         updateSceneName();
         updateSceneIndex();
-        setTimeOfDay(currTimeOfDay);
+        SetTimeOfDay(currTimeOfDay);
+
+        if (respawnSceneName == null) {
+            respawnSceneName = currSceneName;
+            respawnPoint = player.transform.position;
+            Debug.Log("RespawnSceneName is null! Defaulting to \"" + respawnSceneName + "\" at " + respawnPoint);
+        } else if (respawnPoint == null) {
+            respawnPoint = player.transform.position;
+        }
     }
 
     void invokeEvents()
@@ -94,30 +115,12 @@ public class DataManager : MonoBehaviour
         newSoulTotal?.Invoke(souls);
         newGodSoulTotal?.Invoke(godSouls);
     }
-    
-    public void setTimeOfDay(TimeOfDay newTime)
-    {
-        // For some reason, the ToDController sometimes gets unassigned. This will ensure that won't happen
-        if (ToDController == null)
-            ToDController = GameObject.Find("BackgroundCanvas").GetComponent<TimeOfDayController>();
 
-        currTimeOfDay = newTime;
-        switch (newTime)
-        {
-            case TimeOfDay.Day:
-                ToDController.setToD(0);
-                currTimeOfDay = newTime;
-                break;
-            case TimeOfDay.Night:
-                ToDController.setToD(1);
-                currTimeOfDay = newTime;
-                break;
-        }
-    }
+    /******************************
+    PRIVATE UPDATE FUNCTIONS
+    ******************************/
 
     void updatePlayerHealth(int newHealth) { playerHealth = newHealth; }
-
-    public TimeOfDay GetTimeOfDay() { return currTimeOfDay; }
 
     void updateSceneIndex()
     {
@@ -140,6 +143,12 @@ public class DataManager : MonoBehaviour
 
     void updateAnubisDeathMessage(string newDeathMessage) { anubisDeathMessage = newDeathMessage; }
 
+    /******************************
+    PUBLIC GETTERS
+    ******************************/
+
+    public TimeOfDay GetTimeOfDay() { return currTimeOfDay; }
+
     public int GetPlayerHealth() { return playerHealth; }
 
     public int GetSouls() { return souls; }
@@ -153,8 +162,41 @@ public class DataManager : MonoBehaviour
     public string GetPrevSceneName() { return prevSceneName; }
 
     public string GetCurrSceneName() { return currSceneName; }
+    
+    public string GetRespawnSceneName() { return respawnSceneName; }
 
     public string GetAnubisDeathMessage() { return anubisDeathMessage; }
+
+    /******************************
+    PUBLIC UPDATE FUNCTIONS
+    ******************************/
+
+    public void SetTimeOfDay(TimeOfDay newTime)
+    {
+        // For some reason, the ToDController sometimes gets unassigned. This will ensure that won't happen
+        if (ToDController == null)
+            ToDController = GameObject.Find("BackgroundCanvas").GetComponent<TimeOfDayController>();
+
+        currTimeOfDay = newTime;
+        switch (newTime)
+        {
+            case TimeOfDay.Day:
+                ToDController.setToD(0);
+                currTimeOfDay = newTime;
+                break;
+            case TimeOfDay.Night:
+                ToDController.setToD(1);
+                currTimeOfDay = newTime;
+                break;
+        }
+    }
+
+    public void UpdateRespawnPoint(Vector2 newRespawnPoint)
+    {
+        respawnPoint = newRespawnPoint;
+        respawnSceneName = currSceneName;
+        Debug.Log("New Respawn Point: " + respawnPoint + " in \"" + respawnSceneName + '\"');
+    }
 
     public void AddSouls(int numSouls)
     {
