@@ -12,6 +12,9 @@ public class WarpObelisk : MonoBehaviour
     GameObject activated;
     Vector2 respawnPoint;
     DataManager dataManager;
+    StageLoader stageLoader;
+
+    public bool canSetSpawn = true;
 
     void Awake()
     {
@@ -19,6 +22,7 @@ public class WarpObelisk : MonoBehaviour
         activated = transform.GetChild(1).gameObject;
         respawnPoint = transform.GetChild(2).position;
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        stageLoader = GameObject.Find("StageLoader").GetComponent<StageLoader>();
 
         if (respawnPoint == dataManager.respawnPoint) {
             unactivated.SetActive(false);
@@ -31,6 +35,9 @@ public class WarpObelisk : MonoBehaviour
 
     public void SetSpawnpoint()
     {
+        if (!canSetSpawn)
+            return;
+
         dataManager.UpdateRespawnPoint(respawnPoint);
         unactivated.SetActive(false);
         activated.SetActive(true);
@@ -38,6 +45,10 @@ public class WarpObelisk : MonoBehaviour
 
     public void WarpToSkyhub()
     {
-        Debug.Log("Warping to Skyhub");
+        if (dataManager.GetCurrSceneName() == "Skyhub") {
+            stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
+        } else {
+            stageLoader.LoadNewStage("Skyhub");
+        }
     }
 }

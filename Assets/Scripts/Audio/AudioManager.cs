@@ -13,6 +13,11 @@ public class AudioManager : MonoBehaviour
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
 
+    void Start()
+    {
+        PlayMusic("default_theme");
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -37,6 +42,7 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = s.clip;
             musicSource.volume = s.volume;
+            musicSource.loop = true;
             musicSource.Play();
         }
     }

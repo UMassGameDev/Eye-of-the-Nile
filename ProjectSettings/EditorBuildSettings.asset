@@ -6,19 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Skyhub.unity
+    guid: ee9ef4c1f1da33c49a6456bede72b0d8
+  - enabled: 1
     path: Assets/Scenes/Anubis.unity
     guid: 3a250fe90124c8e4b990e4fce9bb5696
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Test Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Movement Test Scene.unity
+    path: Assets/Scenes/Test Scenes/Movement Test Scene.unity
     guid: 97d6532afcbccf24692688f7b7f29cf5
   - enabled: 1
-    path: Assets/Scenes/WarpTestScene.unity
+    path: Assets/Scenes/Test Scenes/WarpTestScene.unity
     guid: 2b7ebb05e82c89745a2f2286d359f14c
   - enabled: 1
-    path: Assets/Scenes/WarpTestScene2.unity
+    path: Assets/Scenes/Test Scenes/WarpTestScene2.unity
     guid: 20eba97e931e62f47a0708bd1ff83b63
   - enabled: 1
     path: Assets/Scenes/Test Dungeon/TestDungeon_Start.unity
