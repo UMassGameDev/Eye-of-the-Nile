@@ -7,7 +7,7 @@ public class PrototypeSpawnerEntity : PrototypeBaseEntity
     public PrototypeMinionEntity minionPrefab;
     List<PrototypeMinionEntity> minionPool = new List<PrototypeMinionEntity>();
     Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f);
-    float minionLimit = 1;
+    float minionLimit = 4;
     public float LivingMinions { get; set; } = 0;
     public float spawnCooldown = 2f;
     float spawnCooldownEndTime = 0f;
