@@ -11,13 +11,13 @@ public class TornadoProjectile : BasicProjectile
 {
     public float despawnTime = 5f;  // in seconds
 
-    void Start()
+    protected override void StartMethods()
     {
         AudioManager.Instance.PlaySFX(spawnSFX);
         StartCoroutine(DespawnTimer());
     }
 
-    void Update()
+    protected override void UpdateMethods()
     {
         // move projectile to the left/right by [speed]. Don't flip sprite
         if (facingLeft) {

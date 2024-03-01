@@ -20,7 +20,10 @@ public class AbilityProjectile : MonoBehaviour
 
     public virtual void Impact(Collider2D other)
     {
-
+        if (other.gameObject.tag == "DamageableByProjectile")
+        {
+            other.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -35,6 +38,8 @@ public class AbilityProjectile : MonoBehaviour
     void Awake()
     {
         projRb = GetComponent<Rigidbody2D>();
+        if (projSprite != null)
+            GetComponent<SpriteRenderer>().sprite = projSprite;
     }
 
     // Start is called before the first frame update

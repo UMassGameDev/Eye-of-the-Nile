@@ -21,6 +21,11 @@ public class BasicProjectile : MonoBehaviour
 
     void Awake()
     {
+        AwakeMethods();
+    }
+
+    protected virtual void AwakeMethods()
+    {
         // determine ahead of time how to display the sprite depending on the direction the projectile is facing
         spriteScaleRight = sprite.transform.localScale;
         spriteScaleLeft = new Vector3(-sprite.transform.localScale.x, sprite.transform.localScale.y, sprite.transform.localScale.z);
@@ -28,17 +33,30 @@ public class BasicProjectile : MonoBehaviour
 
     void Start()
     {
+        StartMethods();
+    }
+
+    protected virtual void StartMethods()
+    {
         AudioManager.Instance.PlaySFX(spawnSFX);
     }
 
     void Update()
     {
+        UpdateMethods();
+    }
+
+    protected virtual void UpdateMethods()
+    {
         // move in the direction the projectile is set to face, and ensure the sprite is facing that direction
-        if (facingLeft) {
+        if (facingLeft)
+        {
             // move projectile to the left by [speed]
             transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
             sprite.transform.localScale = spriteScaleLeft;
-        } else {
+        }
+        else
+        {
             // move projectile to the right by [speed]
             transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
             sprite.transform.localScale = spriteScaleRight;
@@ -56,8 +74,12 @@ public class BasicProjectile : MonoBehaviour
         }
         
         // Destory the projectile
-        Destroy(sprite);
-        Destroy(gameObject);
+        if (collisionInfo.gameObject.layer == LayerMask.NameToLayer("Default") ||
+            collisionInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Destroy(sprite);
+            Destroy(gameObject);
+        }
     }
 
     public void FlipDirection()

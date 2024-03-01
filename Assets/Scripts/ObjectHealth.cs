@@ -75,6 +75,11 @@ public class ObjectHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public virtual void ResetHealth()
+    {
+        currentHealth = maxHealth;
+    }
+
     public virtual void TakeDamage(Transform attacker, int damage)
     {
         if (isInvincible)

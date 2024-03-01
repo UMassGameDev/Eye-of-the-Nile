@@ -22,14 +22,16 @@ public class BoulderProjectile : BasicProjectile
         Destroy(gameObject);
     }
 
-    void Awake()
+    protected override void AwakeMethods()
     {
         boulderBody = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void StartMethods()
     {
+        base.StartMethods();
+
         if (facingLeft) {
             boulderBody.AddForce(new Vector2(-initialForce, initialForce), ForceMode2D.Impulse);
         } else {
@@ -42,8 +44,15 @@ public class BoulderProjectile : BasicProjectile
         // Collision is handled by the hitbox!
     }
 
+    /*
     void Update()
     {
         // Don't propell the projectile continuously!
+    }
+    */
+
+    protected override void UpdateMethods()
+    {
+        // Don't do anything
     }
 }
