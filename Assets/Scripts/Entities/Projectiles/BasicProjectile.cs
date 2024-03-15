@@ -63,23 +63,37 @@ public class BasicProjectile : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        OnTriggerEnterMethods(collision);
+    }
+
+    protected virtual void OnTriggerEnterMethods(Collider2D collision)
+    {
+
+    }
+
     // if projectile collides with something...
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
+        OnCollisionEnterMethods(collisionInfo);
+    }
+
+    protected virtual void OnCollisionEnterMethods(Collision2D collisionInfo)
+    {
         // if we collided with something we can damage, damage it
-        if (collisionInfo.collider.CompareTag("DamagableByProjectile") && damageNonPlayers) {
+        if (collisionInfo.collider.CompareTag("DamagableByProjectile") && damageNonPlayers)
+        {
             collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
-        } else if (collisionInfo.collider.CompareTag("Player") && damagePlayers) {
+        }
+        else if (collisionInfo.collider.CompareTag("Player") && damagePlayers)
+        {
             collisionInfo.collider.GetComponent<PlayerHealth>().TakeDamage(transform, damage);
         }
-        
+
         // Destory the projectile
-        if (collisionInfo.gameObject.layer == LayerMask.NameToLayer("Default") ||
-            collisionInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            Destroy(sprite);
-            Destroy(gameObject);
-        }
+        Destroy(sprite);
+        Destroy(gameObject);
     }
 
     public void FlipDirection()

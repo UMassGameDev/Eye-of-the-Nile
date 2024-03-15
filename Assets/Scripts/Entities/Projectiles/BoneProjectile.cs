@@ -31,12 +31,12 @@ public class BoneProjectile : BasicProjectile
     protected override void UpdateMethods()
     {
         if (facingLeft)
-            transform.Rotate(0f, 0f, 5f);
+            transform.Rotate(0f, 0f, 500f * Time.deltaTime);
         else
-            transform.Rotate(0f, 0f, -5f);
+            transform.Rotate(0f, 0f, -500f * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D collisionInfo)
+    protected override void OnTriggerEnterMethods(Collider2D collisionInfo)
     {
         // if we collided with something we can damage, damage it
         if (collisionInfo.GetComponent<Collider2D>().CompareTag("DamagableByProjectile") && damageNonPlayers)
@@ -56,4 +56,27 @@ public class BoneProjectile : BasicProjectile
             Destroy(gameObject);
         }
     }
+
+    protected override void OnCollisionEnterMethods(Collision2D collisionInfo)
+    {
+        // if we collided with something we can damage, damage it
+        if (collisionInfo.collider.CompareTag("DamagableByProjectile") && damageNonPlayers)
+        {
+            collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
+        }
+        else if (collisionInfo.collider.CompareTag("Player") && damagePlayers)
+        {
+            collisionInfo.collider.GetComponent<PlayerHealth>().TakeDamage(transform, damage);
+        }
+
+        if (collisionInfo.gameObject.layer == LayerMask.NameToLayer("Default") ||
+            collisionInfo.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Destroy(sprite);
+            Destroy(gameObject);
+        }
+
+    }
+
+
 }

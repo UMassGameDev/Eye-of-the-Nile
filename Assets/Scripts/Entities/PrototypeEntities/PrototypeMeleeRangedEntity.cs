@@ -17,8 +17,6 @@ public class PrototypeMeleeRangedEntity : PrototypeBaseEntity
 
         BasicProjectile projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
-        Debug.Log("THIS HAPPENED!");
-
         // if we're facing left, flip the direction (projectile faces right by default)
         if (transform.localScale.x > 0)
         {
