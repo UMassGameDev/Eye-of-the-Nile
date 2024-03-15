@@ -1,7 +1,7 @@
 /**************************************************
-Handles swapping ability icons when one is moved to a different slot.
+Handles displaying ability icons and swapping icons when drag and dropping.
 
-Documentation updated 1/29/2024
+Documentation updated 3/14/2024
 **************************************************/
 using UnityEngine;
 using UnityEngine.EventSystems;

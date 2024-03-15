@@ -1,5 +1,11 @@
+/**************************************************
+Animates the progress bar for a long press interact.
+This is when the user holds E for 1 second next to an interactable object to trigger its functionality.
+(In game example: warp obelisks)
+
+Documentation updated 3/14/2024
+**************************************************/
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class InteractProgressBar : MonoBehaviour
 {
@@ -29,7 +35,7 @@ public class InteractProgressBar : MonoBehaviour
     void UpdateProgressBar(float progress)
     {
         if (Input.GetKey(KeyCode.E))
-            Debug.Log(progress);
+            //Debug.Log(progress);
             
         if (progress >= (1 - minDisplayProgress) || progress <= 0 || progress >= 1) {
             progressbar.SetActive(false);

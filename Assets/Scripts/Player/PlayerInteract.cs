@@ -42,7 +42,10 @@ public class PlayerInteract : MonoBehaviour
                 if (Time.time >= cooldownTimer)
                 {
                     enemy.GetComponent<ObjectInteractable>().triggerInteraction();
-                    interactUsed = true;
+
+                    // if object has any long press interaction events, allow the long press timer to start
+                    if (enemy.GetComponent<ObjectInteractable>().InvokeOnLongPress != null)
+                        interactUsed = true;
                 }
                 if (Time.time >= interactTimer)
                 {

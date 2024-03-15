@@ -19,6 +19,8 @@ public abstract class BaseAbilityInfo : ScriptableObject
     public Sprite overlapIcon;
     public List<Sprite> abilityIcons;
     public string onCooldownSound = "incorrect_buzzer";
+    public int abilityLevel = 0;
+    public int maxLevel = 3;
 
     [Header("Advanced Ability Info")]
     public AbilityForm currentForm;
@@ -140,5 +142,13 @@ public abstract class BaseAbilityInfo : ScriptableObject
 
     public virtual void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType) {
         DisableEffects(abilityOwner, currentForm, effectType);
+    }
+
+    public void UpgradeAbility() {
+        if (abilityLevel < maxLevel) {
+            abilityLevel++;
+        } else {
+            Debug.Log("Ability already at max level (" + abilityLevel + " >= " + maxLevel + ")");
+        }
     }
 }

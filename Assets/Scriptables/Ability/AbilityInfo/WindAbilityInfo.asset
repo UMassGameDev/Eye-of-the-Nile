@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WindAbilityInfo
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: WIND_ABILITY
+  abilityName: Wind Ability Set
   overlapIcon: {fileID: 21300000, guid: 155b0fde73e0dca459871eed2a1d8199, type: 3}
   abilityIcons:
   - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
@@ -21,6 +21,8 @@ MonoBehaviour:
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   onCooldownSound: incorrect_buzzer
+  abilityLevel: 0
+  maxLevel: 3
   currentForm: 2
   baseCost: 0
   duration: 0
