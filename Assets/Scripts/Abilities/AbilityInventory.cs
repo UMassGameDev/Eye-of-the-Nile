@@ -11,8 +11,8 @@ using UnityEngine;
 [Serializable]
 public class AbilityInventory : ScriptableObject
 {
-    public ActiveAbilityData activeAbilityData;
-    public BaseAbilityInfo[] AbilitySets;  // All abilities the player can use are stored in here
+    [SerializeField] ActiveAbilityData activeAbilityData;
+    [SerializeField] BaseAbilityInfo[] AbilitySets;  // All abilities the player can use are stored in here
 
     public void UpgradeAbility(int index)
     {
@@ -35,4 +35,19 @@ public class AbilityInventory : ScriptableObject
             Debug.LogError("Ability Index \"" + index + "\" is invalid.");
         }
     }
+
+    public BaseAbilityInfo GetAbilitySet(int abilityKey) { return AbilitySets[abilityKey]; }
+    public BaseAbilityInfo GetAbilitySet(string abilityName)
+    {
+        foreach (BaseAbilityInfo ability in AbilitySets)
+        {
+            if (ability.abilityName == abilityName)
+            {
+                return ability;
+            }
+        }
+        return null;
+    }
+
+    public int GetNumAbilities() { return AbilitySets.Length; }
 }
