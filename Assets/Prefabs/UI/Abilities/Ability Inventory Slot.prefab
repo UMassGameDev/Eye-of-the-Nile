@@ -89,3 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: 
+  slotNum: -1
+  acceptsOnlyOneItem: 1
+  acceptedItem: {fileID: 0}

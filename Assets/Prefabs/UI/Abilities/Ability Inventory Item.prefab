@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: 
-  overlapIcon: {fileID: 0}
+  startingSlotKey: 0
