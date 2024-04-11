@@ -220,6 +220,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 3
       objectReference: {fileID: 0}
@@ -1365,6 +1369,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 3
       objectReference: {fileID: 0}
@@ -2293,6 +2301,7 @@ MonoBehaviour:
   - {fileID: 985961101}
   - {fileID: 1179236823}
   - {fileID: 1484426852}
+  emptyAbilityInfo: {fileID: 11400000, guid: 51239dbb8a25294458687ac00e13eda9, type: 2}
 --- !u!1001 &1069168046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2451,6 +2460,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 2
       objectReference: {fileID: 0}
@@ -2574,7 +2587,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.530369, y: 20.38}
+  m_Size: {x: 16, y: 20.38}
   m_EdgeRadius: 0
 --- !u!212 &1176689841
 SpriteRenderer:
@@ -2740,6 +2753,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 3
       objectReference: {fileID: 0}
@@ -2859,6 +2876,10 @@ PrefabInstance:
     - target: {fileID: 6510070155552095954, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: acceptedItem
@@ -3095,6 +3116,10 @@ PrefabInstance:
     - target: {fileID: 6510070155552095954, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: acceptedItem
@@ -3396,6 +3421,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 3
       objectReference: {fileID: 0}
@@ -3517,6 +3546,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 3
       objectReference: {fileID: 0}
@@ -3636,6 +3669,10 @@ PrefabInstance:
     - target: {fileID: 6510070155552095954, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
@@ -3819,6 +3856,10 @@ PrefabInstance:
     - target: {fileID: 6510070155552095954, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: acceptedItem
@@ -4413,6 +4454,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: abilityKey
       value: 1
       objectReference: {fileID: 0}
@@ -4576,6 +4621,10 @@ PrefabInstance:
     - target: {fileID: 6510070155552095954, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: acceptedItem
@@ -10973,6 +11022,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510070155552095954, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}
+      propertyPath: slotNum
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8541292052158442300, guid: 3afbb5e78b16e654fa192e1aeac4c05e, type: 3}

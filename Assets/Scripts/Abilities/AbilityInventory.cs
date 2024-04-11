@@ -41,7 +41,7 @@ public class AbilityInventory : ScriptableObject
     {
         foreach (BaseAbilityInfo ability in AbilitySets)
         {
-            if (ability.abilityName == abilityName)
+            if (ability != null && ability.abilityName == abilityName)
             {
                 return ability;
             }

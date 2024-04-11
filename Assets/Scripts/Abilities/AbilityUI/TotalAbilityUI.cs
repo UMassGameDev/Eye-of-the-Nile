@@ -1,7 +1,8 @@
 /**************************************************
-Updates ActiveAbilityData when the Ability UI changes.
+Governs the ability hotbar in the corner of the screen.
+Updates ActiveAbilityData when the icons are moved.
 
-Documentation updated 1/29/2024
+Documentation updated 4/11/2024
 **************************************************/
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,17 @@ public class TotalAbilityUI : MonoBehaviour
     public AbilityImageUI abilityImageUIPrefab;
     AbilitySlotUI[] abilitySlotsUI;
     int MAX_SLOTS = 4;
+
+    // Re-initalize slots when the ability inventory UI closes
+    void OnEnable()
+    {
+        AbilityInventoryUI.abilityInventoryClosed += InitializeAllSlots;
+    }
+
+    void OnDisable()
+    {
+        AbilityInventoryUI.abilityInventoryClosed -= InitializeAllSlots;
+    }
 
     // Subscribes to the Drop event of each AbilitySlotUI
     // When an ability is dropped into that slot,
@@ -71,6 +83,7 @@ public class TotalAbilityUI : MonoBehaviour
             foreach(AbilitySlotUI abilitySlot in abilitySlotsUI)
             {
                 abilitySlot.UnsubscribeFromDrop(this);
+                Destroy(abilitySlot.gameObject);
             }
         }
         abilitySlotsUI = new AbilitySlotUI[MAX_SLOTS];
