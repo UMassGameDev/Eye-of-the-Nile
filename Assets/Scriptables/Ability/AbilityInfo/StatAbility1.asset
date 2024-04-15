@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: StatAbility1
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: STAT_ABILITY_1
-  overlapIcon: {fileID: 21300000, guid: caa01d80473c2b842b7e0a28e5668d90, type: 3}
+  abilityName: Khonsu
+  overlapIcon: {fileID: 21300000, guid: 4c806c915774e284ea0c5e8f2e69b9b8, type: 3}
   abilityIcons:
   - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  onCooldownSound: incorrect_buzzer
+  abilityLevel: 1
+  maxLevel: 3
   currentForm: 1
   baseCost: 0
   duration: 2

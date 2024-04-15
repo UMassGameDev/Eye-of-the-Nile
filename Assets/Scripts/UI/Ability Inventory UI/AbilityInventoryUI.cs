@@ -14,6 +14,7 @@ public class AbilityInventoryUI : MonoBehaviour
 
     [SerializeField] GameObject inventoryPanel;
     [SerializeField] GameObject mainCanvas;
+    [SerializeField] GameObject detailsPanel;
 
     [SerializeField] Image[] abilityIcons;
     [SerializeField] AbilityInventoryItemData[] iconData;
@@ -25,6 +26,7 @@ public class AbilityInventoryUI : MonoBehaviour
 
     public static event Action abilityInventoryOpened;
     public static event Action abilityInventoryClosed;
+    public static event Action abilityInventorySlotInitialized;
     
     bool inventoryOpen = false;
 
@@ -63,6 +65,17 @@ public class AbilityInventoryUI : MonoBehaviour
         abilityInventoryClosed?.Invoke();
     }
 
+    public void OpenDetailsPanel(AbilityInventorySlot inventorySlot)
+    {
+        detailsPanel.SetActive(true);
+        detailsPanel.GetComponent<DetailsPanel>().Initialize(inventorySlot.slotData);
+    }
+
+    public void ExitDetailsPanel()
+    {
+        detailsPanel.SetActive(false);
+    }
+
     void Update()
     {
         // if the inventory is open and the user presses escape, close the game
@@ -79,10 +92,14 @@ public class AbilityInventoryUI : MonoBehaviour
         {
             if (abilityInventory.GetAbilitySet(i) != null)
             {
-                abilityInventorySlots[i].abilityName = abilityInventory.GetAbilitySet(i).abilityName;
                 abilityIcons[i].sprite = abilityInventory.GetAbilitySet(i).overlapIcon;
                 iconData[i].abilityName = abilityInventory.GetAbilitySet(i).abilityName;
+                iconData[i].abilityLevel = abilityInventory.GetAbilitySet(i).abilityLevel;
+                iconData[i].sprite = abilityInventory.GetAbilitySet(i).overlapIcon;
+                abilityInventorySlots[i].slotData = iconData[i];
             }
+
+            abilityInventorySlotInitialized?.Invoke();
         }
 
         // move already active abilities to the active slot
@@ -94,10 +111,10 @@ public class AbilityInventoryUI : MonoBehaviour
                 string currAbilityName = activeAbilityData.AbilityAt(i).abilityName;
                 for (int n = 0; n < abilityInventorySlots.Length; n++)
                 {
-                    if (abilityInventorySlots[n].abilityName == currAbilityName)
+                    if (abilityInventorySlots[n].slotData.abilityName == currAbilityName)
                     {
                         iconData[n].MoveIcon(activeAbilitySlots[i].GetPosition());
-                        activeAbilitySlots[i].abilityName = currAbilityName;
+                        activeAbilitySlots[i].slotData = abilityInventorySlots[n].slotData;
                     }
                 }
             }
@@ -110,9 +127,16 @@ public class AbilityInventoryUI : MonoBehaviour
         // update active ability data with new active abilities
         for (int i = 0; i < activeAbilitySlots.Length; i++)
         {
-            BaseAbilityInfo newAbilityInfo = abilityInventory.GetAbilitySet(activeAbilitySlots[i].abilityName);
-            if (newAbilityInfo == null || newAbilityInfo.abilityName == emptyAbilityInfo.abilityName)
+            BaseAbilityInfo newAbilityInfo;
+
+            if (activeAbilitySlots[i].slotData == null) {
                 newAbilityInfo = emptyAbilityInfo;
+            } else {
+                newAbilityInfo = abilityInventory.GetAbilitySet(activeAbilitySlots[i].slotData.abilityName);
+                if (newAbilityInfo == null || newAbilityInfo.abilityName == emptyAbilityInfo.abilityName)
+                    newAbilityInfo = emptyAbilityInfo;
+            }
+
             activeAbilityData.SetAbilityAt(i, newAbilityInfo);
             Debug.Log("Ability #" + i + " set to \"" + newAbilityInfo.abilityName + '\"');
         }

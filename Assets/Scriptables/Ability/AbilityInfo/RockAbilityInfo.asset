@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RockAbilityInfo
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: Rock Ability Set
+  abilityName: Geb
   overlapIcon: {fileID: 21300000, guid: 64d26b5b64f66f54cbfaf3e510a6c960, type: 3}
   abilityIcons:
   - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   onCooldownSound: incorrect_buzzer
-  abilityLevel: 0
+  abilityLevel: 1
   maxLevel: 3
   currentForm: 2
   baseCost: 0

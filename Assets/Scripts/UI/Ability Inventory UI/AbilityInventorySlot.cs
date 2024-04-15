@@ -7,24 +7,30 @@ Documentation updated 4/2/2024
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class AbilityInventorySlot : MonoBehaviour, IDropHandler
 {
-    public string abilityName;
+    public AbilityInventoryItemData slotData;
+
     [SerializeField] int slotNum = -1;
+    [SerializeField] bool enableDetailsButton = true;
+
     [SerializeField] bool acceptsOnlyOneItem = true;  // if enabled, the user can only drop acceptedItem into this slot
     [SerializeField] AbilityInventoryItemData acceptedItem;
 
-    public static event Action<string, int> receivedItem;
+    public static event Action<AbilityInventoryItemData, int> receivedItem;
 
     void OnEnable()
     {
         receivedItem += checkDuplicateName;
+        AbilityInventoryUI.abilityInventorySlotInitialized += setTextboxes;
     }
 
     void OnDisable()
     {
         receivedItem -= checkDuplicateName;
+        AbilityInventoryUI.abilityInventorySlotInitialized -= setTextboxes;
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -48,14 +54,39 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
 
         // update abilityName and check for duplicate ability names
-        abilityName = itemData.abilityName;
-        receivedItem?.Invoke(abilityName, slotNum);
+        slotData = itemData;
+        receivedItem?.Invoke(slotData, slotNum);
+
+        // update name and level text boxes
+        setTextboxes();
     }
 
-    void checkDuplicateName(string thisName, int thisSlotNum)
+    void setTextboxes()
     {
-        if (thisName == abilityName && thisSlotNum != slotNum)
-            abilityName = null;
+        if (enableDetailsButton)
+            transform.GetChild(2).gameObject.SetActive(true);
+
+        if (slotData == null || slotData.abilityName == "EMPTY" || slotData.abilityName == "") {
+            transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+            transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+            transform.GetChild(2).gameObject.SetActive(false);
+        } else {
+            transform.GetChild(0).GetComponent<TMP_Text>().text = slotData.abilityName;
+            if (slotData.abilityLevel == 0) {
+                transform.GetChild(1).GetComponent<TMP_Text>().text = "Locked";
+            } else {
+                transform.GetChild(1).GetComponent<TMP_Text>().text = "Level " + slotData.abilityLevel;
+            }
+        }
+    }
+
+    void checkDuplicateName(AbilityInventoryItemData thisSlot, int thisSlotNum)
+    {
+        if (thisSlot == slotData && thisSlotNum != slotNum && !acceptsOnlyOneItem)
+        {
+            slotData = null;
+            setTextboxes();
+        }
     }
 
     public Vector2 GetPosition() { return gameObject.transform.position; }

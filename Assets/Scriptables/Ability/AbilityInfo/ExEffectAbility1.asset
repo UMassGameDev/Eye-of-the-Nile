@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: ExEffectAbility1
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: EXEFFECT_ABILITY_1
-  overlapIcon: {fileID: 21300000, guid: 39f73968a5d6cbf42960e94106efbe06, type: 3}
+  abilityName: Isis
+  overlapIcon: {fileID: 21300000, guid: 9b585900cd68bbc439d2d0cf0a02b608, type: 3}
   abilityIcons:
   - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  onCooldownSound: incorrect_buzzer
+  abilityLevel: 1
+  maxLevel: 3
   currentForm: 1
   baseCost: 0
   duration: 2
