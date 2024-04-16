@@ -16,14 +16,27 @@ MonoBehaviour:
   abilityName: Shu
   overlapIcon: {fileID: 21300000, guid: 155b0fde73e0dca459871eed2a1d8199, type: 3}
   abilityIcons:
-  - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
+  - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}
+  - {fileID: 21300000, guid: 809063749f0722f479417893792677ce, type: 3}
+  - {fileID: 21300000, guid: 467c50d2ddef9ef4395a103eb50d95cd, type: 3}
+  abilityNames:
+  - Blowback
+  - Cyclone
+  - Great Leap
+  - Triple Jump
+  abilityDescriptions:
+  - Triggers a normal melee attack but with extra knockback.
+  - Summons a tornado that pushes enemies back, but does no damage. I know a tornado
+    isn't' a cyclone, but cyclone sounds cooler.
+  - Jump very high into the sky, regardless if you would normally be able to jump.
+  - Permanently allows the player to jump up to three times in a row (instead of
+    two).
+  godQuote: '"It''s gonna be a windy day today. idk I couldn''t think of a good line"'
   onCooldownSound: incorrect_buzzer
   abilityLevel: 1
   maxLevel: 3
-  currentForm: 2
+  currentForm: 3
   baseCost: 0
   duration: 0
   tickRate: 0

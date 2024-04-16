@@ -16,10 +16,22 @@ MonoBehaviour:
   abilityName: Geb
   overlapIcon: {fileID: 21300000, guid: 64d26b5b64f66f54cbfaf3e510a6c960, type: 3}
   abilityIcons:
-  - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
+  - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}
+  - {fileID: 21300000, guid: 809063749f0722f479417893792677ce, type: 3}
+  - {fileID: 21300000, guid: 467c50d2ddef9ef4395a103eb50d95cd, type: 3}
+  abilityNames:
+  - Rock Throw
+  - Rock Wall
+  - Rock Platform
+  - Rock Protection
+  abilityDescriptions:
+  - Hurls a boulder in the direction you're facing.
+  - Summons a temporary rock wall to block your opponents.
+  - Summons a temporary platform directly beneath you.
+  - Decreases the amount of non-fire damage you take by 10. If the damage is less
+    than 10, non will be dealt.
+  godQuote: '"Rock Smash"'
   onCooldownSound: incorrect_buzzer
   abilityLevel: 1
   maxLevel: 3

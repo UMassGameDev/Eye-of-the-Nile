@@ -16,14 +16,27 @@ MonoBehaviour:
   abilityName: Ra
   overlapIcon: {fileID: 21300000, guid: 2e218950662a69b408c04b5585015083, type: 3}
   abilityIcons:
-  - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
+  - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}
+  - {fileID: 21300000, guid: 809063749f0722f479417893792677ce, type: 3}
+  - {fileID: 21300000, guid: 467c50d2ddef9ef4395a103eb50d95cd, type: 3}
+  abilityNames:
+  - Fireball Barrage
+  - Firewalls
+  - Fire Immunity
+  - Fire Protection
+  abilityDescriptions:
+  - Shoots three fireballs in rapid succession.
+  - Spawns a wall of fire to your left and right, setting anyone who comes too close
+    on fire.
+  - Grants you temporary immunity to fire damage
+  - Grants you a permanent reduction in the amount of fire damage you take.
+  godQuote: '"I''m not actually in the game, I just already made fire abilities and
+    didn''t know who to give them to"'
   onCooldownSound: incorrect_buzzer
   abilityLevel: 1
   maxLevel: 3
-  currentForm: 1
+  currentForm: 0
   baseCost: 0
   duration: 1
   tickRate: 0.2

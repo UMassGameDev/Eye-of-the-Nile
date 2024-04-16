@@ -92,10 +92,22 @@ public class AbilityInventoryUI : MonoBehaviour
         {
             if (abilityInventory.GetAbilitySet(i) != null)
             {
-                abilityIcons[i].sprite = abilityInventory.GetAbilitySet(i).overlapIcon;
-                iconData[i].abilityName = abilityInventory.GetAbilitySet(i).abilityName;
-                iconData[i].abilityLevel = abilityInventory.GetAbilitySet(i).abilityLevel;
-                iconData[i].sprite = abilityInventory.GetAbilitySet(i).overlapIcon;
+                // Each ability's icon and each inventory slot holds an AbilityInventoryItemData object.
+                // This holds all the information about the ability that needs to be displayed.
+                // It also holds what inventory slot that ability's icon is in before a drag and drop occurs.
+
+                BaseAbilityInfo thisAbility = abilityInventory.GetAbilitySet(i);
+                abilityIcons[i].sprite = thisAbility.overlapIcon;
+
+                iconData[i].abilityName = thisAbility.abilityName;
+                iconData[i].abilityLevel = thisAbility.abilityLevel;
+                iconData[i].sprite = thisAbility.overlapIcon;
+                iconData[i].quote = thisAbility.GetQuote();
+                iconData[i].abilityIcons = thisAbility.abilityIcons;
+                iconData[i].abilityNames = thisAbility.GetAllAbilityNames();
+                iconData[i].abilityDescriptions = thisAbility.GetAllAbilityDescriptions();
+
+                // store this data in the inventory slot
                 abilityInventorySlots[i].slotData = iconData[i];
             }
 

@@ -7,6 +7,7 @@ Every ability info must replace the four abstract functions, and can optionally 
 Documentation updated 1/29/2024
 **************************************************/
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public enum AbilityForm { Offense, Defense, Utility, Passive };
@@ -18,6 +19,9 @@ public abstract class BaseAbilityInfo : ScriptableObject
     public string abilityName = "DEFAULT_ABILITY";
     public Sprite overlapIcon;
     public List<Sprite> abilityIcons;
+    [SerializeField] string[] abilityNames;
+    [SerializeField] string[] abilityDescriptions;
+    [SerializeField] string godQuote;
     public string onCooldownSound = "incorrect_buzzer";
     public int abilityLevel = 0;
     public int maxLevel = 3;
@@ -151,4 +155,32 @@ public abstract class BaseAbilityInfo : ScriptableObject
             Debug.Log("Ability already at max level (" + abilityLevel + " >= " + maxLevel + ")");
         }
     }
+
+    public string GetAbilityName(AbilityForm form)
+    {
+        switch (form)
+        {
+            case (AbilityForm.Offense): return abilityNames[0];
+            case (AbilityForm.Defense): return abilityNames[1];
+            case (AbilityForm.Utility): return abilityNames[2];
+            case (AbilityForm.Passive): return abilityNames[3];
+            default: return "Error: Invalid input into BaseAbilityInfo.GetAbilityName()";
+        }
+    }
+
+    public string GetAbilityDescription(AbilityForm form)
+    {
+        switch (form)
+        {
+            case (AbilityForm.Offense): return abilityDescriptions[0];
+            case (AbilityForm.Defense): return abilityDescriptions[1];
+            case (AbilityForm.Utility): return abilityDescriptions[2];
+            case (AbilityForm.Passive): return abilityDescriptions[3];
+            default: return "Error: Invalid input into BaseAbilityInfo.GetAbilityName()";
+        }
+    }
+
+    public string[] GetAllAbilityNames() { return abilityNames; }
+    public string[] GetAllAbilityDescriptions() { return abilityDescriptions; }
+    public string GetQuote() { return godQuote; }
 }

@@ -13,19 +13,32 @@ MonoBehaviour:
   m_Name: StatAbility1
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: Khonsu
-  overlapIcon: {fileID: 21300000, guid: 4c806c915774e284ea0c5e8f2e69b9b8, type: 3}
+  abilityName: Sobek
+  overlapIcon: {fileID: 21300000, guid: f47510b0cdf734c4cb26bb64eb162c24, type: 3}
   abilityIcons:
-  - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
-  - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
+  - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}
+  - {fileID: 21300000, guid: 809063749f0722f479417893792677ce, type: 3}
+  - {fileID: 21300000, guid: 467c50d2ddef9ef4395a103eb50d95cd, type: 3}
+  abilityNames:
+  - Go Berserk
+  - Muscle Flex
+  - Quick Getaway
+  - Pretend this one last forever
+  abilityDescriptions:
+  - Increases damage by 10 for 5 seconds.
+  - Increases max health by 50 for 5 seconds.
+  - Increases speed for 5 seconds.
+  - This is the health increase again. Passive abilties are supposed to be applied
+    permanently instead of being triggerd by the player, but this has no been implemented
+    yet.
+  godQuote: '"All of my abilities are examples."'
   onCooldownSound: incorrect_buzzer
   abilityLevel: 1
   maxLevel: 3
-  currentForm: 1
+  currentForm: 2
   baseCost: 0
-  duration: 2
+  duration: 5
   tickRate: 0.5
   chargeUp: 0
   cooldown: 0
