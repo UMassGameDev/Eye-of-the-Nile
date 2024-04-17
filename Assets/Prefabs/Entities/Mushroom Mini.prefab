@@ -203,7 +203,6 @@ MonoBehaviour:
   attackPoint: {fileID: 961968663856929287}
   objectHealth: {fileID: 6999136710579681116}
   attackVariant: 0
-  cooldownEndTime: 0
 --- !u!114 &5530103059882757298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +222,6 @@ MonoBehaviour:
   attackPoint: {fileID: 961968663856929287}
   objectHealth: {fileID: 6999136710579681116}
   attackVariant: 0
-  cooldownEndTime: 0
 --- !u!114 &6999136710579681116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +239,7 @@ MonoBehaviour:
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   deathSfxName: enemy_death
   enableDamageParticles: 1
-  maxHealth: 100
+  maxHealth: 30
   soulsDroppedOnDeath: 1
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
