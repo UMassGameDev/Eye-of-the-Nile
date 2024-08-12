@@ -1,8 +1,10 @@
 /**************************************************
-This is where crucial data that needs to be saved is stored.
-The DataManager object will not be destroyed when a new Unity scene is loaded, such as when going through a door.
+This is the script on the DataManager prefab, which is responsible for storing critical data that needs to persist across scene reloads.
+The DataManager is persistent - it can never be destroyed, and there can only be one.
+This way, if the player loads a new scene by going through a door, the player object can get its health from the DataManager,
+thus “remembering what health it had.”
 
-Documentation updated 1/29/2024
+Documentation updated 8/12/2024
 **************************************************/
 using System;
 using UnityEngine;
@@ -10,35 +12,38 @@ using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
-    public static DataManager Instance;
+    public static DataManager Instance;  // To make the object persistent, it needs a reference to itself.
 
     public enum TimeOfDay {Day, Night, Eclipse, BloodMoon};
 
-    TimeOfDayController ToDController;
-    PlayerHealth playerObjHealth;
-    GameObject player;
+    TimeOfDayController ToDController;  // Reference to the TimeOfDayController. Used to update the time of day after a scene reload.
+    PlayerHealth playerObjHealth;  // Reference to the player’s health. Used to get the MaxHealth of the player on first load.
+    GameObject player;  // Reference to the player itself. Used to set the initial respawn point to the player’s position.
 
+    // true if this is not the first time the game has been loaded.
+    // This is used to determine if old data should be restored or if the default data should be used.
     static bool gameStarted = false;
 
-    public TimeOfDay defaultTimeOfDay = TimeOfDay.Day;
-    static TimeOfDay currTimeOfDay;
+    public TimeOfDay defaultTimeOfDay = TimeOfDay.Day;  // Default time of day when the game is first loaded.
+    static TimeOfDay currTimeOfDay;  // Time of day that should be restored when a new scene is loaded.
 
-    int playerHealth = 100;
-    int souls = 0;
-    int godSouls = 0;
+    int playerHealth = 100;  // Player health that should be restored when a new scene is loaded.
+    int souls = 0;  // Current amount of souls.
+    int godSouls = 0;  // Current amount of god souls.
     
-    public static int currSceneIndex { get; private set; }
-    public static int prevSceneIndex { get; private set; }
+    public static int currSceneIndex { get; private set; }  // The index of the scene that is currently loaded.
+    public static int prevSceneIndex { get; private set; }  // The index of the scene that was previously loaded.
 
-    public static string currSceneName { get; private set; }
-    public static string prevSceneName { get; private set; }
-    public static string anubisDeathMessage { get; private set; }
+    public static string currSceneName { get; private set; }  // The name of the scene that is currently loaded.
+    public static string prevSceneName { get; private set; }  // The name of the scene that was previously loaded.
 
-    public static string respawnSceneName { get; private set; }
-    public Vector2 respawnPoint {get; set;}
+    public static string anubisDeathMessage { get; private set; }  // The joke Anubis will tell when the player dies.
 
-    public static event Action<int> newSoulTotal;
-    public static event Action<int> newGodSoulTotal;
+    public static string respawnSceneName { get; private set; }  // The name of the scene the player’s respawn point is in.
+    public Vector2 respawnPoint {get; set;}  // The coordinates of the player’s respawn point.
+
+    public static event Action<int> newSoulTotal;  // When the amount of souls the player has changes, this event is invoked.
+    public static event Action<int> newGodSoulTotal;  // When the amount of god souls the player has changes, this event is invoked.
 
     /******************************
     SUBSCRIBE/UNSUBSCRIBE FROM EVENTS
@@ -110,6 +115,9 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    // Invokes all events the DataManager has. Usually used when a new scene loads and all these values are updated.
+    // Right now, DataManager only has events related to the soul counts,
+    // which the display uses to know what number to put on the screen (that’s why it needs to be called when loading a new scene).
     void invokeEvents()
     {
         newSoulTotal?.Invoke(souls);
@@ -120,8 +128,10 @@ public class DataManager : MonoBehaviour
     PRIVATE UPDATE FUNCTIONS
     ******************************/
 
+    // Updates the DataManager’s record of player health. Subscribed to the onPlayerHealthChange event.
     void updatePlayerHealth(int newHealth) { playerHealth = newHealth; }
 
+    // If the currSceneIndex no longer matches the index of the actual current scene, update currSceneIndex and prevSceneIndex.
     void updateSceneIndex()
     {
         if (currSceneIndex != SceneManager.GetActiveScene().buildIndex)
@@ -132,6 +142,7 @@ public class DataManager : MonoBehaviour
         // Debug.Log("Current Scene Index: " + currSceneIndex + ", Previous Scene Index: " + prevSceneIndex);
     }
 
+    // If the currSceneName no longer matches the index of the actual current scene, update currSceneName and prevSceneName.
     void updateSceneName()
     {
         if (currSceneName != SceneManager.GetActiveScene().name)
@@ -191,6 +202,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    // Set the time of day to be either Day, Night, Eclipse, or BloodMoon. (Eclipse and BloodMoon not yet implemented).
     public void UpdateRespawnPoint(Vector2 newRespawnPoint)
     {
         respawnPoint = newRespawnPoint;

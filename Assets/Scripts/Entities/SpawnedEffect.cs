@@ -1,7 +1,8 @@
 /**************************************************
 When a particle spawned, this script will despawn it after its duration is up.
+Ideally, despawn timer should be used instead.
 
-Documentation updated 1/29/2024
+Documentation updated 8/12/2024
 **************************************************/
 using UnityEngine;
 
