@@ -1,9 +1,9 @@
 /**************************************************
-ALlows an ability to apply a stat change to the player.
+Allows an ability to apply a stat change to the player.
 Which stat to change and by how much can be changed in the editor.
 This is a scriptable object, meaning you can make and instance of it in the editor.
 
-Documentation updated 1/29/2024
+Documentation updated 8/13/2024
 **************************************************/
 using UnityEngine;
 
@@ -15,6 +15,7 @@ public class StatsAE : AbilityEffect
     public StatModifier statMod;
     // public int magnitude;
 
+    // Get player stats holder and add statMod to it. Then invoke the health change.
     public override void Apply(AbilityOwner abilityOwner)
     {
         PlayerStatHolder pStats = abilityOwner.OwnerTransform.GetComponent<PlayerStatHolder>();
@@ -36,6 +37,7 @@ public class StatsAE : AbilityEffect
         // abilityOwner.OwnerTransform.GetComponent<PlayerHealth>().HealInstant(magnitude);
     }
 
+    // Get player stats holder and remove statMod from it. Then invoke the health change.
     public override void Disable(AbilityOwner abilityOwner)
     {
         PlayerStatHolder pStats = abilityOwner.OwnerTransform.GetComponent<PlayerStatHolder>();
@@ -53,20 +55,9 @@ public class StatsAE : AbilityEffect
         }*/
     }
 
+    // Set AbilityEffectType to Immediate.
     void Awake()
     {
         AbilityEffectType = AbilityEffectType.Immediate;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
