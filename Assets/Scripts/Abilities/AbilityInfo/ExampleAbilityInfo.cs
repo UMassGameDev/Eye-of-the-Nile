@@ -1,9 +1,9 @@
 /**************************************************
 This is an example ability with placeholder functionality.
 Useful for understanding the syntax for the ability system.
-This is a scriptable object, meaning you can make and instance of it in the editor.
+This is a scriptable object, meaning you can make an instance of it in the editor.
 
-Documentation updated 1/29/2024
+Documentation updated 8/13/2024
 **************************************************/
 using TMPro;
 using UnityEngine;
@@ -12,15 +12,17 @@ using UnityEngine;
 public class ExampleAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]
-    public Transform projectilePrefab;
+    public Transform projectilePrefab;  // projectile that each a
     public Transform effectPrefab;
     GameObject tempAbilitySpawn;
 
+    // Unused function that spawns an effect where the player is standing.
     private void PlaceholderEffect(AbilityOwner abilityOwner)
     {
         Instantiate(effectPrefab, abilityOwner.OwnerTransform.position, Quaternion.identity);
     }
 
+    // Spawns a red textbox where the player is standing that says “Offense.”
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Offense");
@@ -35,6 +37,7 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Offense";
     }
 
+    // Heals the player instantly by damage (from BaseAbilityInfo). Spawns a red textbox where the player is standing that says “Defense.”
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Defense");
@@ -55,6 +58,7 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Defense";
     }
 
+    // Spawns a red textbox where the player is standing that says “Utility.”
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Utility");
@@ -70,12 +74,15 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Utility";
     }
 
+    // Writes "Example Passive" to the console.
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Passive");
     }
 
-    public override void AbilityUpdate(AbilityOwner abilityOwner) {
+    // Heals the player instantly by damage (from BaseAbilityInfo) repeatedly.
+    public override void AbilityUpdate(AbilityOwner abilityOwner)
+    {
         Debug.Log("Update : " + Time.time);
         PlayerHealth playerHealth = abilityOwner.OwnerTransform.GetComponent<PlayerHealth>();
         Debug.Log("Health : " + playerHealth.GetHealth());
@@ -85,31 +92,9 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         }
     }
 
+    // Calls base version of this function (doesn’t need to be included)
     public override void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType)
     {
         base.AbilityDisable(abilityOwner, effectType);
     }
-
-    // Covered by the virtual method in BaseAbilityInfo
-    // Can override the function here for more specific functionality
-    /*public override void AbilityActivate(AbilityOwner abilityOwner)
-    {
-        switch (currentForm)
-        {
-            case AbilityForm.Offense:
-                AbilityOffense(abilityOwner);
-                break;
-            case AbilityForm.Defense:
-                AbilityDefense(abilityOwner);
-                break;
-            case AbilityForm.Utility:
-                AbilityUtility(abilityOwner);
-                break;
-            case AbilityForm.Passive:
-                AbilityPassive(abilityOwner);
-                break;
-            default:
-                break;
-        }
-    }*/
 }
