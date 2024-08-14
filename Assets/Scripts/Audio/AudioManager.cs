@@ -9,15 +9,18 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance;
-    public Sound[] musicSounds, sfxSounds;
-    public AudioSource musicSource, sfxSource;
+    public static AudioManager Instance;  // To make the object persistent, it needs a reference to itself.
+    public Sound[] musicSounds, sfxSounds;  // List of all music sound objects, List of all sfx sound objects.
+    public AudioSource musicSource, sfxSource; // Object that plays a sound under its sound object’s settings. Loops vs does not loop the sound.
 
+    // Starts playing the default music.
     void Start()
     {
         PlayMusic("default_theme");
     }
 
+    // Makes this object persistent.
+    // If this is the only AudioManager in the scene, don’t destroy it on reload. If there’s another AudioManager in the scene, destroy it.
     private void Awake()
     {
         if (Instance == null)
@@ -30,6 +33,8 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    // Plays a sound object using musicSource.
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicSounds, x => x.name == name);
@@ -47,6 +52,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Plays a sound object using sfxSource.
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == name);

@@ -1,13 +1,15 @@
 /**************************************************
 This is an example of an ability set that uses stat modifiers for each ability.
-The code looks complicated, but you can simple copy-paste most of it for your own ability.
-This is a scriptable object, meaning you can make and instance of it in the editor.
+This script is useful for copy-pasting into your own ability info if you want the same functionality.
+This is a scriptable object, meaning you can make an instance of it in the editor.
 
-I (Stephen) am not the person who wrote this code, so I'm not sure if the initializing part at the top is necessary.
-If you're looking to make your own ability, you can just use the stat modifier object like in RockAbilityInfo.
-You should still remove any previous stat modifiers if your using multiple in a given ability set.
+The initializing part at the top is only necessary if you expect to be applying multiple effects,
+but do not want them applied at the same time. Honestly, it can probably be made to be much simpler.
 
-Documentation updated 1/29/2024
+For now, if you're looking to make your own ability, you can probably get away with copying the passive
+ability in RockAbilityInfo. You can make the effect expire by using RemoveModifier() in AbilityDisable().
+
+Documentation updated 8/14/2024
 **************************************************/
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +18,9 @@ using UnityEngine;
 public class StatAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]
-    public List<StatModifier> statMods;  // unitialized StatModifiers
-    private Dictionary<string, StatModifier> _statModDictField;  // this is where we store our StatModifiers after initializing them
-    private Dictionary<string, StatModifier> _StatModDict  // this initalizes all of our StatModifiers
+    public List<StatModifier> statMods;  // List of references to the stat modifiers these abilities will apply.
+    private Dictionary<string, StatModifier> _statModDictField;  // Used to initialize _StatModDict.
+    private Dictionary<string, StatModifier> _StatModDict  // Maps stat modifier names to their corresponding stat modifier objects.
     {
         get
         {
@@ -32,8 +34,9 @@ public class StatAbilityInfo : BaseAbilityInfo
         }
         set { _statModDictField = value; }
     }
-    private string currentStat = "Damage";  // remembers what the current stat we're modifying is
+    private string currentStat = "Damage";  // Stat modifier currently in use.
 
+    // Populates _StatModDict with the stat modifiers from statMods.
     private void StatModDictInitializer()
     {
         _statModDictField = new Dictionary<string, StatModifier>();
@@ -44,12 +47,13 @@ public class StatAbilityInfo : BaseAbilityInfo
         }
     }
 
+    // Runs StatModDictInitializer() as soon as the object is loaded.
     void Awake()
     {
         StatModDictInitializer();
     }
 
-    // increase player damage
+    // Increases player damage.
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Offense");
@@ -67,7 +71,7 @@ public class StatAbilityInfo : BaseAbilityInfo
 
     }
 
-    // increase player's max health
+    // Increases player's max health.
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Defense");
@@ -94,7 +98,7 @@ public class StatAbilityInfo : BaseAbilityInfo
         playerHealth.InvokeHealthChange();
     }
 
-    // increase player speed
+    // Increases player speed.
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Utility.");
@@ -108,8 +112,8 @@ public class StatAbilityInfo : BaseAbilityInfo
         playerStats.GetStat(currentStat).AddModifier(_StatModDict[currentStat]);
     }
 
-    // increase player's max health
-    // this is the same code as the defense ability, but without the debug messages
+    // Increases player's max health.
+    // this is the same code as the defense ability, but without the debug messages.
     protected override void AbilityPassive(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Passive.");
@@ -126,11 +130,7 @@ public class StatAbilityInfo : BaseAbilityInfo
         playerHealth.InvokeHealthChange();
     }
 
-    public override void AbilityUpdate(AbilityOwner abilityOwner)
-    {
-        
-    }
-
+    // Removes all active effects.
     public override void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType)
     {
         // get transform and stats
