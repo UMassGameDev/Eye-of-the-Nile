@@ -1,24 +1,27 @@
-/**************************************************
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
+
+/*!<summary>
 Handles timed events related to abilities. Specifically, charge ups, activating the ability, repeated events during
 duration time (such as healing over time), and cooldowns.
 It also holds useful data, namely the OwnerTransform (player’s transform), the ability info this ability is using,
 and the current ability state (ready to use vs on cooldown).
 
-Note that this script is not a monobehavior, so it does not have many of the default unity functions like Start() and Update().
-
 Documentation updated 8/11/2024
-**************************************************/
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
-
+</summary>
+\note This script does not inherit from monobehavior, so it does not have many of the default unity functions like Start() and Update().*/
 public class AbilityOwner // : MonoBehaviour
 {
     public enum OwnerState { ReadyToUse, Activation, OnCooldown };
 
-    // These events trigger a function subscribed to them PlayerAbilityController.cs, which then triggers the corresponding function in this script.
-    // This allows for these IEnumerator functions to trigger each other.
-    // Pro-tip: Press F12 in Visual Studio Code to go to where a variable is defined, and press F12 again to see everywhere where it's used.
+    /*!
+    \page abilityOwnerEvents Explanation of the events in AbilityOwner.cs
+    These events trigger a function subscribed to them PlayerAbilityController.cs, which then triggers the corresponding function in this script.
+    This allows for these IEnumerator functions to trigger each other.
+    
+    Pro-tip: Press F12 in Visual Studio Code to go to where a variable is defined, and press F12 again to see everywhere where it's used.
+    */
 
     // When triggered, a function subscribed to it in PlayerAbilityController.cs will run ChargingUp().
     public delegate void ChargeUpEvent(AbilityOwner abilityOwner);

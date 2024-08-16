@@ -1,15 +1,15 @@
-/**************************************************
-Stores and manages the set of active ability sets. These are the 4 abilities on the hotbar the player has equipped and can use.
-You can manage this in the unity editor with the ActiveAbilityData scriptable object.
-
-Documentation updated 8/11/2024
-**************************************************/
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New ActiveAbilityData", menuName = "Create New ActiveAbilityData")]
 [Serializable]
+/*!<summary>
+Stores and manages the set of active ability sets. These are the 4 abilities on the hotbar the player has equipped and can use.
+You can manage this in the unity editor with the ActiveAbilityData scriptable object.
+
+Documentation updated 8/11/2024
+</summary>*/
 public class ActiveAbilityData : ScriptableObject
 {
     public BaseAbilityInfo offenseSlot;

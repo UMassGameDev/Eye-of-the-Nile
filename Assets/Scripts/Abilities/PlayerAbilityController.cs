@@ -1,12 +1,12 @@
-/**************************************************
-Handles player input related to activating abilities and manages AbilityOwner objects for each of the 4 active abilities.
-
-Documentation updated 8/11/2024
-**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/*!<summary>
+Handles player input related to activating abilities and manages AbilityOwner objects for each of the 4 active abilities.
+
+Documentation updated 8/11/2024
+</summary>*/
 public class PlayerAbilityController : MonoBehaviour
 {
     public ActiveAbilityData activeAbilities;  // Reference to the ActiveAbilityData object.

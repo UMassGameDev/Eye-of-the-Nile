@@ -1,17 +1,22 @@
-/**************************************************
-Add this script to any object which you want custom Anubis jokes for when the player dies to it.
-For example, this is used on fire to make Anubis tell a fire pun after you burn to death.
-
-Documentation updated 8/12/2024
-**************************************************/
 using UnityEngine;
 
+/// <summary>
+/// Add this script to any object which you want custom Anubis jokes for when the player dies to it.
+/// For example, this is used on fire to make Anubis tell a fire pun after you burn to death.
+/// 
+/// Documentation updated 8/16/2024
+/// </summary>
 public class CustomDeathMessage : MonoBehaviour
 {
-    // Stores the possible jokes that Anubis can tell. These can be added in the Unity Editor.
+    /// <summary>
+    /// Stores the possible jokes that Anubis can tell. These can be added in the Unity Editor.
+    /// </summary>
     public string[] customAnubisJokes = new string[1];
 
-    // Returns a random joke from the array.
+    /// <summary>
+    /// Returns a random joke from the array of custom jokes added in the Unity Editor.
+    /// </summary>
+    /// <returns> A string containing a randomly chosen joke. </returns>
     public string GetRandomJoke()
     {
         // if there's only one joke, just choose that joke

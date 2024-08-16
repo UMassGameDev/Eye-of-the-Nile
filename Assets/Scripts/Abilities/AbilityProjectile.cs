@@ -1,12 +1,9 @@
-/**************************************************
---- DEPRECATED ---
-Script for a basic projectile object created from an ability.
-I recommend using a different projectile script that inherits from BasicProjectile
-
-Documentation updated 1/29/2024
-**************************************************/
 using UnityEngine;
 
+/*!<summary>
+Script for a basic projectile object created from an ability.
+</summary>
+\deprecated This script obsolete does not work properly. Use a script that inherits from BasicProjectile instead.*/
 public class AbilityProjectile : MonoBehaviour
 {
     Rigidbody2D projRb;
@@ -42,14 +39,12 @@ public class AbilityProjectile : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = projSprite;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         initialTime = Time.time;
         projRb.AddForce(transform.up * initialForce, ForceMode2D.Impulse);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.time > initialTime + lifetime)
