@@ -12,14 +12,33 @@ Documentation updated 8/11/2024
 </summary>*/
 public class ActiveAbilityData : ScriptableObject
 {
+    /// <summary> Ability info representing the ability set in offense slot </summary>
     public BaseAbilityInfo offenseSlot;
+    /// <summary> Ability info representing the ability set in defense slot </summary>
     public BaseAbilityInfo defenseSlot;
+    /// <summary> Ability info representing the ability set in utility slot </summary>
     public BaseAbilityInfo utilitySlot;
+    /// <summary> Ability info representing the ability set in passive slot </summary>
     public BaseAbilityInfo passiveSlot;
+
+    /// <summary>
+    /// True is a change has been made to the active abilities.
+    /// This allows PlayerAbilityController.cs to know it should update the ability hotbar display in the bottom left.
+    /// </summary>
+    /// \note Might replace with an event someday.
     public bool QueueRefresh { get; set; } = false;
+    /// <summary>
+    /// Containers all slots that have been changed since the last QueueRefresh.
+    /// This allows PlayerAbilityController.cs to know what slots it needs to update in the ability hotbar display.
+    /// </summary>
+    /// \note Might replace with an event someday.
     public List<int> RefreshSlots { get; set; } = new List<int>();
 
-    // returns the ability info at the given slot number.
+    /// <summary>
+    /// returns the ability info at the given slot number.
+    /// </summary>
+    /// <param name="slotNumber"></param>
+    /// <returns></returns>
     public BaseAbilityInfo AbilityAt(int slotNumber)
     {
         switch (slotNumber)
@@ -32,8 +51,12 @@ public class ActiveAbilityData : ScriptableObject
         }
     }
 
-    // Sets the ability info at the given slot number to the provided BaseAbilityInfo.
-    // The currentForm of the ability info is updated to reflect the slot it’s now in.
+    /// <summary>
+    /// Sets the ability info at the given slot number to the provided BaseAbilityInfo.
+    /// The currentForm of the ability info is updated to reflect the slot it’s now in.
+    /// </summary>
+    /// <param name="slotNumber"></param>
+    /// <param name="newAbilityInfo"></param>
     public void SetAbilityAt(int slotNumber, BaseAbilityInfo newAbilityInfo)
     {
         switch (slotNumber)

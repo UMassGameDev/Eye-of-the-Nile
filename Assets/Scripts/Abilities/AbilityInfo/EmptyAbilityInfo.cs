@@ -1,13 +1,14 @@
-/**************************************************
-This is an empty ability that does nothing.
-This allows for there to be empty slots in the active ability data.
-
-Documentation updated 4/11/2024
-**************************************************/
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New EmptyAbilityInfo", menuName = "Abilities/Create New EmptyAbilityInfo")]
+/*!<summary>
+This is an empty ability that does nothing.
+This allows for there to be empty slots in the active ability data.
+Each of the abstract functions just write “This ability does nothing” to the console.
+
+Documentation updated 8/21/2024
+</summary>*/
 public class EmptyAbilityInfo : BaseAbilityInfo
 {
     protected override void AbilityOffense(AbilityOwner abilityOwner) { Debug.Log("This ability does nothing"); }

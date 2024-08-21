@@ -1,4 +1,8 @@
-/**************************************************
+using System;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New RockAbilityInfo", menuName = "Abilities/Create New RockAbilityInfo")]
+/*!<summary>
 This is the info for the rock ability set made for the club fair build.
 The offense ability throws a big boulder projectile.
 The defense ability spawns a rock wall in front of the player.
@@ -7,11 +11,7 @@ The passive ability is a simple defense stat increase. The player takes a set am
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/14/2024
-**************************************************/
-using System;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "New RockAbilityInfo", menuName = "Abilities/Create New RockAbilityInfo")]
+</summary>*/
 public class RockAbilityInfo : BaseAbilityInfo
 {
     [Header("Offense Ability Info")]

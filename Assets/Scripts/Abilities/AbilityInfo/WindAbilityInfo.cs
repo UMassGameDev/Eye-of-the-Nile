@@ -1,4 +1,7 @@
-/**************************************************
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New WindAbilityInfo", menuName = "Abilities/Create New WindAbilityInfo")]
+/*!<summary>
 This is the info for the wind ability set made for the club fair build.
 The offense ability triggers a melee attack with more knockback and range.
 The defense ability shoots a wind projectile that pushes enemies back.
@@ -7,10 +10,7 @@ The passive ability allows the player to triple jump.
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/14/2024
-**************************************************/
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "New WindAbilityInfo", menuName = "Abilities/Create New WindAbilityInfo")]
+</summary>*/
 public class WindAbilityInfo : BaseAbilityInfo
 {
     [Header("Offense Ability Info")]

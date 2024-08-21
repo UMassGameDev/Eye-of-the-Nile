@@ -8,41 +8,50 @@ duration time (such as healing over time), and cooldowns.
 It also holds useful data, namely the OwnerTransform (player’s transform), the ability info this ability is using,
 and the current ability state (ready to use vs on cooldown).
 
-Documentation updated 8/11/2024
+Documentation updated 8/21/2024
 </summary>
 \note This script does not inherit from monobehavior, so it does not have many of the default unity functions like Start() and Update().*/
 public class AbilityOwner // : MonoBehaviour
 {
     public enum OwnerState { ReadyToUse, Activation, OnCooldown };
 
-    /*!
-    \page abilityOwnerEvents Explanation of the events in AbilityOwner.cs
-    These events trigger a function subscribed to them PlayerAbilityController.cs, which then triggers the corresponding function in this script.
-    This allows for these IEnumerator functions to trigger each other.
-    
-    Pro-tip: Press F12 in Visual Studio Code to go to where a variable is defined, and press F12 again to see everywhere where it's used.
-    */
-
-    // When triggered, a function subscribed to it in PlayerAbilityController.cs will run ChargingUp().
+    /// \brief delegate used to create the ChargeUp event.
     public delegate void ChargeUpEvent(AbilityOwner abilityOwner);
+    /// \brief When triggered, a function subscribed to it in PlayerAbilityController.cs will run ChargingUp().
+    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs)
     public event ChargeUpEvent ChargeUp;
 
-    // When triggered, a function subscribed to it in PlayerAbilityController.cs will run CoolingDown().
+    /// \brief delegate used to create the CoolDown event.
     public delegate void CooldownEvent(AbilityOwner abilityOwner);
+    /// \brief When triggered, a function subscribed to it in PlayerAbilityController.cs will run CoolingDown().
+    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs)
     public event CooldownEvent CoolDown;
 
-    // When triggered, a function subscribed to it in PlayerAbilityController.cs will run UpdateWithinDuration().
+    /// \brief delegate used to create the AbilityUpdate event.
     public delegate void UpdateEvent(AbilityOwner abilityOwner);
+    /// \brief When triggered, a function subscribed to it in PlayerAbilityController.cs will run UpdateWithinDuration().
+    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs)
     public event UpdateEvent AbilityUpdate;
 
-    public Transform OwnerTransform { get; set; }  // transform of the ability owner (the player's transform).
-    public UnityEvent OnActivateAbility;  // generic event that is called when an ability is activated.
-    public BaseAbilityInfo abilityInfo;  // ability info that this ability uses
-    public OwnerState currentState = OwnerState.ReadyToUse;  // whether this ability is ready to use, activating, or on cooldown
+    /// \brief Transform of the ability owner (usually the player's transform).
+    public Transform OwnerTransform { get; set; }
+    /// \brief A generic event that is called when an ability is activated. Assigned in the Unity Editor under PlayerAbilityController.cs.
+    public UnityEvent OnActivateAbility;
+    /// \brief The ability info that this ability uses.
+    public BaseAbilityInfo abilityInfo;
+    /// \brief Whether this ability is ready to use, activating, or on cooldown.
+    public OwnerState currentState = OwnerState.ReadyToUse;
 
-    float updateEnd = 0f;  // Time until ability duration is up.
+    /// \brief Time until ability duration is up.
+    float updateEnd = 0f;
 
-    // Constructor
+    /// <summary>
+    /// When a new abilityOwner object is created in another class, this function automatically runs.
+    /// It assigns the three variables to the given parameters, which must be given in order to create this object.
+    /// </summary>
+    /// <param name="ownerTransform"> The transform of the player. </param>
+    /// <param name="onActivateAbility"> A generic event that is called when an ability is activated. </param>
+    /// <param name="newAbilityInfo"> The ability info that this ability uses. </param>
     public AbilityOwner(Transform ownerTransform,
         UnityEvent onActivateAbility,
         BaseAbilityInfo newAbilityInfo)
@@ -52,7 +61,9 @@ public class AbilityOwner // : MonoBehaviour
         abilityInfo = newAbilityInfo;
     }
 
-    // Waits [abilityInfo.chargeUp] seconds, before triggering the ability, prepares for cooldown, and then triggers AbilityUpdate and CoolDown.
+    /// <summary>
+    /// Waits [abilityInfo.chargeUp] seconds, before triggering the ability, prepares for cooldown, and then triggers AbilityUpdate and CoolDown.
+    /// </summary>
     public IEnumerator ChargingUp()
     {
         // Debug.Log("Charge Up");
@@ -67,7 +78,9 @@ public class AbilityOwner // : MonoBehaviour
         CoolDown(this);
     }
 
-    // Waits [abilityInfo.cooldown] seconds before resetting currentState to ReadyToUse.
+    /// <summary>
+    /// Waits [abilityInfo.cooldown] seconds before resetting currentState to ReadyToUse.
+    /// </summary>
     public IEnumerator CoolingDown()
     {
         // Debug.Log("Cool Down");
@@ -75,8 +88,10 @@ public class AbilityOwner // : MonoBehaviour
         currentState = OwnerState.ReadyToUse;
     }
 
-    // Runs abilityInfo.AbilityUpdate() repeatedly (waiting abilityInfo.tickRate second each time) until the ability ends.
-    // Then running abilityInfo.AbilityDisable() for each effect type.
+    /// <summary>
+    /// Runs abilityInfo.AbilityUpdate() repeatedly (waiting abilityInfo.tickRate second each time) until the ability ends.
+    /// Then running abilityInfo.AbilityDisable() for each effect type.
+    /// </summary>
     public IEnumerator UpdateWithinDuration()
     {
         while (Time.time < updateEnd)
@@ -90,7 +105,9 @@ public class AbilityOwner // : MonoBehaviour
         abilityInfo.AbilityDisable(this, AbilityEffectType.Continuous);
     }
 
-    // If the ability is ready to use, start the charge up.
+    /// <summary>
+    /// If the ability is ready to use, start the charge up.
+    /// </summary>
     public void ActivateAbility()
     {
         if (currentState != OwnerState.ReadyToUse)

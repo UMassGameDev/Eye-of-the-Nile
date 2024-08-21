@@ -10,20 +10,25 @@ using UnityEngine.SceneManagement;
 /// 
 /// Documentation updated 8/12/2024
 /// </summary>
+/// \todo Saving & auto-saving. Writing data to a file so it can restored after the game is closed.
 public class DataManager : MonoBehaviour
 {
-    /// <summary> To make the object persistent, it needs a reference to itself. </summary>
-    public static DataManager Instance;
-
     /// <summary> Possible values for the time of day. Eclipse and BloodMoon not yet implemented. </summary>
     public enum TimeOfDay {Day, Night, Eclipse, BloodMoon};
-
-    /// <summary> Reference to the TimeOfDayController. Used to update the time of day after a scene reload. <summary>
+    
+    /** @name Reference Variables
+    *  These are references to other objects this script needs to get information from.
+    */
+    ///@{
+    /// <summary> To make the object persistent, it needs a reference to itself. </summary>
+    public static DataManager Instance;
+    /// <summary> Reference to the TimeOfDayController. Used to update the time of day after a scene reload. </summary>
     TimeOfDayController ToDController;
-    /// <summary> Reference to the player’s health. Used to get the MaxHealth of the player on first load. <summary>
+    /// <summary> Reference to the player’s health. Used to get the MaxHealth of the player on first load. </summary>
     PlayerHealth playerObjHealth;
-    /// <summary> Reference to the player itself. Used to set the initial respawn point to the player’s position. <summary>
+    /// <summary> Reference to the player itself. Used to set the initial respawn point to the player’s position. </summary>
     GameObject player;
+    ///@}
 
     /// <summary>
     /// True if this is not the first time the game has been loaded. <summary>
@@ -74,8 +79,12 @@ public class DataManager : MonoBehaviour
     public static event Action<int> newGodSoulTotal;
 
     /******************************
-    SUBSCRIBE/UNSUBSCRIBE FROM EVENTS
+    INTERNAL FUNCTIONALITY
     ******************************/
+    /** @name Internal Functionality
+    *  These functions handle the inner workings of the data manager, ensuring all the data is recorded and restored correctly after a scene reload.
+    */
+    ///@{
     
     /// <summary>
     /// Subscribe all functions that need to monitor other functionality to the corresponding events.
@@ -100,10 +109,6 @@ public class DataManager : MonoBehaviour
         CurrencyWidget.onStart -= invokeEvents;
         PlayerHealth.deathMessageChange -= updateAnubisDeathMessage;
     }
-
-    /******************************
-    INTERNAL FUNCTIONALITY
-    ******************************/
 
     /// <summary>
     /// This is where most of the functionality of the DataManager happens, since Awake() is called right as the scene loads. Here are the steps that run when Awake() is called:
@@ -167,10 +172,15 @@ public class DataManager : MonoBehaviour
         newSoulTotal?.Invoke(souls);
         newGodSoulTotal?.Invoke(godSouls);
     }
+    ///@}
 
     /******************************
     PRIVATE UPDATE FUNCTIONS
     ******************************/
+    /** @name Private Update Functions
+    *  These functions are helper functions that update data when called by Awake().
+    */
+    ///@{
 
     /// <summary>
     /// Updates the DataManager’s record of player health. Subscribed to the onPlayerHealthChange event.
@@ -211,10 +221,15 @@ public class DataManager : MonoBehaviour
     /// </summary>
     /// <param name="newDeathMessage"></param>
     void updateAnubisDeathMessage(string newDeathMessage) { anubisDeathMessage = newDeathMessage; }
+    ///@}
 
     /******************************
     PUBLIC GETTERS
     ******************************/
+    /** @name Public Getters
+    *  These functions allow other scripts to access (but not change) the data stored in the data manager.
+    */
+    ///@{
 
     /// <summary>
     /// Returns current time of day as a TimeOfDay enum.
@@ -265,10 +280,15 @@ public class DataManager : MonoBehaviour
     /// Returns the joke Anubis will tell when the player dies.
     /// </summary>
     public string GetAnubisDeathMessage() { return anubisDeathMessage; }
+    ///@}
 
     /******************************
     PUBLIC UPDATE FUNCTIONS
     ******************************/
+    /** @name Public Update Functions
+    *  These functions allow other scripts to update data stored in the data manager.
+    */
+    ///@{
 
     /// <summary>
     /// Set the time of day to be either Day, Night, Eclipse, or BloodMoon. (Eclipse and BloodMoon not yet implemented).
@@ -295,7 +315,7 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the time of day to be either Day, Night, Eclipse, or BloodMoon. (Eclipse and BloodMoon not yet implemented).
+    /// Sets the player’s respawn point the given position in the current scene.
     /// </summary>
     /// <param name="newRespawnPoint"></param>
     public void UpdateRespawnPoint(Vector2 newRespawnPoint)
@@ -344,4 +364,5 @@ public class DataManager : MonoBehaviour
         godSouls -= numSouls;
         newGodSoulTotal?.Invoke(godSouls);
     }
+    ///@}
 }

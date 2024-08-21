@@ -9,10 +9,14 @@ Documentation updated 8/11/2024
 </summary>*/
 public class PlayerAbilityController : MonoBehaviour
 {
-    public ActiveAbilityData activeAbilities;  // Reference to the ActiveAbilityData object.
+    /// \brief Reference to the ActiveAbilityData object.
+    public ActiveAbilityData activeAbilities;
+    /// \brief Runs the [i]th event when the [i]th ability is activated. Max size of 4 (0 - 3).
     public List<UnityEvent> abilityEvents;
 
+    /// \brief Maximum number of active ability slots.
     private const int MAX_ABILITIES = 4;
+    /// \brief Maps the ints 0 - 3 to the keyboard keys 1 - 4.
     Dictionary<int, KeyCode> intToKey = new Dictionary<int, KeyCode>()
     {
         { 0, KeyCode.Alpha1 },
@@ -20,29 +24,44 @@ public class PlayerAbilityController : MonoBehaviour
         { 2, KeyCode.Alpha3 },
         { 3, KeyCode.Alpha4 }
     };
+    /// \brief Map of all 4 ability keys, and if they’re being pressed or not.
     Dictionary<KeyCode, bool> AbilityInputs;
+    /// \brief Maps each ability key to an AbilityOwner, which contains some information about ability and handles charge ups/cooldowns.
     Dictionary<KeyCode, AbilityOwner> StoredAbilities;
+    /// \brief List of each of the 4 ability keybinds (1, 2, 3, and 4).
     List<KeyCode> keyList;
 
-    // This ability is subscribed to the AbilityOwner.ChargeUp event, and triggers the AbilityOwner.ChargingUp() coroutine.
+    /// <summary>
+    /// This ability is subscribed to the AbilityOwner.ChargeUp event, and triggers the AbilityOwner.ChargingUp() coroutine.
+    /// </summary>
+    /// <param name="abilityOwner"></param>
     public void UseAbilityChargingUp(AbilityOwner abilityOwner)
     {
         StartCoroutine(abilityOwner.ChargingUp());
     }
 
-    // This ability is subscribed to the AbilityOwner.CoolDown event, and triggers the AbilityOwner.CoolingDown() coroutine.
+    /// <summary>
+    /// This ability is subscribed to the AbilityOwner.CoolDown event, and triggers the AbilityOwner.CoolingDown() coroutine.
+    /// </summary>
+    /// <param name="abilityOwner"></param>
     public void UseAbilityCoolingDown(AbilityOwner abilityOwner)
     {
         StartCoroutine(abilityOwner.CoolingDown());
     }
 
-    // This ability is subscribed to the AbilityOwner.AbilityUpdate event, and triggers the AbilityOwner.UpdateWithinDuration() coroutine.
+    /// <summary>
+    /// This ability is subscribed to the AbilityOwner.AbilityUpdate event, and triggers the AbilityOwner.UpdateWithinDuration() coroutine.
+    /// </summary>
+    /// <param name="abilityOwner"></param>
     public void UseAbilityUpdate(AbilityOwner abilityOwner)
     {
         StartCoroutine(abilityOwner.UpdateWithinDuration());
     }
 
-    // Subscribes a function to each event in AbilityOwner to run a corresponding conroutine in AbilityOwner.
+    /// <summary>
+    /// Subscribes a function to each event in AbilityOwner to run a corresponding conroutine in AbilityOwner.
+    /// </summary>
+    /// <param name="someAbility"></param>
     void SubscribeToAbility(AbilityOwner someAbility)
     {
         someAbility.ChargeUp += UseAbilityChargingUp;
@@ -50,7 +69,10 @@ public class PlayerAbilityController : MonoBehaviour
         someAbility.AbilityUpdate += UseAbilityUpdate;
     }
 
-    // Unsubscribes from each event in AbilityOwner
+    /// <summary>
+    /// Unsubscribes from each event in AbilityOwner
+    /// </summary>
+    /// <param name="someAbility"></param>
     void UnsubscribeFromAbility(AbilityOwner someAbility)
     {
         someAbility.ChargeUp -= UseAbilityChargingUp;
@@ -58,7 +80,11 @@ public class PlayerAbilityController : MonoBehaviour
         someAbility.AbilityUpdate -= UseAbilityUpdate;
     }
 
-    // Attempts to change the AbilityOwner for the given key.
+    /// <summary>
+    /// Attempts to change the AbilityOwner for the given key.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="newAbility"></param>
     void TryChangeAbility(KeyCode key, AbilityOwner newAbility)
     {
         // Get stored ability
@@ -74,7 +100,10 @@ public class PlayerAbilityController : MonoBehaviour
         StoredAbilities[key] = newAbility;  // Store the new ability in the Dictionary
     }
 
-    // Refreshes the AbilityOwner.abilityInfo for all slots at the defined positions to match up with the active abilities.
+    /// <summary>
+    /// Refreshes the AbilityOwner.abilityInfo for all slots at the defined positions to match up with the active abilities.
+    /// </summary>
+    /// <param name="slotNumbers"></param>
     void RefreshSlots(int[] slotNumbers)
     {
         foreach (int slotNum in slotNumbers)
@@ -84,6 +113,9 @@ public class PlayerAbilityController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initializes AbilityInputs and keyList. Initializes StoredAbilities and adds a new AbilityOwner for each keycode.
+    /// </summary>
     void Awake()
     {
         // initialize AbilityInputs and keyList
@@ -114,6 +146,10 @@ public class PlayerAbilityController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check if any of the ability keybinds are pressed. If so, activate the corresponding ability.
+    /// Check if a change to ActiveAbilityData was made. If so, refresh the AbilityOwners that were affected.
+    /// </summary>
     void Update()
     {
         // If any of the ability keybinds are pressed, activate the corresponding ability.

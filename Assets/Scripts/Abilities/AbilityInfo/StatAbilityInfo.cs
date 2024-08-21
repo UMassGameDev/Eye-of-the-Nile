@@ -1,4 +1,8 @@
-/**************************************************
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New StatAbilityInfo", menuName = "Abilities/Create New StatAbilityInfo")]
+/*!<summary>
 This is an example of an ability set that uses stat modifiers for each ability.
 This script is useful for copy-pasting into your own ability info if you want the same functionality.
 This is a scriptable object, meaning you can make an instance of it in the editor.
@@ -10,11 +14,7 @@ For now, if you're looking to make your own ability, you can probably get away w
 ability in RockAbilityInfo. You can make the effect expire by using RemoveModifier() in AbilityDisable().
 
 Documentation updated 8/14/2024
-**************************************************/
-using System.Collections.Generic;
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "New StatAbilityInfo", menuName = "Abilities/Create New StatAbilityInfo")]
+</summary>*/
 public class StatAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]

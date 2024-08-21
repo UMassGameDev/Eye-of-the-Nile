@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['canbeinvincible_0',['canBeInvincible',['../class_object_health.html#a4c50e1b9051bec672bf2d65ab95fe82a',1,'ObjectHealth']]],
+  ['canbeonfire_1',['canBeOnFire',['../class_object_health.html#a826568e7e69993523d1ff6f68b0f795c',1,'ObjectHealth']]],
+  ['cansetspawn_2',['canSetSpawn',['../class_warp_obelisk.html#a864227682e069415969711473d159199',1,'WarpObelisk']]],
+  ['canvas_3',['canvas',['../class_drag_and_drop.html#aa7e7e6c51a4a79e6f5227d2e87dc8134',1,'DragAndDrop']]],
+  ['canvasgroup_4',['canvasGroup',['../class_drag_and_drop.html#a73e91f12592d19746513131098cd2dac',1,'DragAndDrop']]],
+  ['chargeup_5',['chargeUp',['../class_base_ability_info.html#a62657e5e9d5dc490967f1984dc3d5f41',1,'BaseAbilityInfo']]],
+  ['checkdeadflag_6',['checkDeadFlag',['../class_prototype_minion_entity.html#ac7f512243c7f3723f776cfbc09e79b55',1,'PrototypeMinionEntity']]],
+  ['clip_7',['clip',['../class_sound.html#ab7878c271c13d5e8fbdf25714e363b77',1,'Sound']]],
+  ['colisiondamage_8',['colisionDamage',['../class_damage_on_collision.html#a7cfb6079b8a83aa73fa50dbc7aadc018',1,'DamageOnCollision.colisionDamage'],['../class_damage_on_trigger.html#adb0d7a1179d82bc599c4ec03696f25b7',1,'DamageOnTrigger.colisionDamage']]],
+  ['collidedevent_9',['collidedEvent',['../class_exit_zone.html#abd975f555d76961dbe10a94ffc4635a8',1,'ExitZone']]],
+  ['collisionlayers_10',['collisionLayers',['../class_ability_projectile.html#a164be46c81cfaa3f39bd326e7a59cd39',1,'AbilityProjectile.collisionLayers'],['../class_boulder_projectile.html#a14d139fd33b43f5b6d3da79a7be60dad',1,'BoulderProjectile.collisionLayers'],['../class_boulder_hazard.html#a3254849e4877d9bffc6d1d72e0d88c30',1,'BoulderHazard.collisionLayers']]],
+  ['cooldown_11',['cooldown',['../class_base_ability_info.html#a82f4db7da03624b79ca495f07d7496d4',1,'BaseAbilityInfo']]],
+  ['cooldownendtime_12',['cooldownEndTime',['../class_base_entity_controller.html#a826e5b9af6b443f57ff786c6ee63f6b2',1,'BaseEntityController.cooldownEndTime'],['../class_prototype_base_entity.html#a631d9734243fbcb146bd5fa9e32d4ff8',1,'PrototypeBaseEntity.cooldownEndTime']]],
+  ['cooldowntimer_13',['cooldownTimer',['../class_spawn_on_trigger.html#ad0c2884fbf07681b141f468c23beaf00',1,'SpawnOnTrigger.cooldownTimer'],['../class_player_basic_melee.html#ac0d181a0785f88be530befdee1fa86ce',1,'PlayerBasicMelee.cooldownTimer'],['../class_player_basic_projectile_attack.html#a84cd818a8a38c5b2632c29380e190e2e',1,'PlayerBasicProjectileAttack.cooldownTimer'],['../class_player_interact.html#aa8e1da18854b3e1969d4d23536ca9c3f',1,'PlayerInteract.cooldownTimer']]],
+  ['coyotetime_14',['coyoteTime',['../class_player_movement.html#a11da9ddf57790171832fd265e15919f8',1,'PlayerMovement']]],
+  ['curknockback_15',['curKnockback',['../class_player_attack_manager.html#a332820f0c738c50c53feb1bdd6d99940',1,'PlayerAttackManager']]],
+  ['currange_16',['curRange',['../class_player_attack_manager.html#a9cf8b15dd69520036b65b223bf19198c',1,'PlayerAttackManager']]],
+  ['currentform_17',['currentForm',['../class_base_ability_info.html#a44edc827b7526a95ae5ef193d434441a',1,'BaseAbilityInfo']]],
+  ['currenthitobject_18',['currentHitObject',['../class_prototype_base_entity.html#ac5e6c552442f980a55c3498a4ee990e1',1,'PrototypeBaseEntity']]],
+  ['currentstat_19',['currentStat',['../class_fire_ability_info.html#ac045670ccf3d6a45508c29391d68d032',1,'FireAbilityInfo.currentStat'],['../class_stat_ability_info.html#a2f8053dc481a1baa97184b1aca07f290',1,'StatAbilityInfo.currentStat']]],
+  ['currentstate_20',['currentState',['../class_ability_owner.html#ab276282dfd6d662a7c1362c8326dea62',1,'AbilityOwner']]],
+  ['currtimeofday_21',['currTimeOfDay',['../class_data_manager.html#a3f836ccfb46d32a04a853090fb46f1ae',1,'DataManager']]],
+  ['customanubisjokes_22',['customAnubisJokes',['../class_custom_death_message.html#a4365fb1f6a28ac201ce906723f937b22',1,'CustomDeathMessage']]]
+];
