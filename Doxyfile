@@ -74,7 +74,7 @@ PROJECT_ICON           =
 # entered, it will be relative to the location where Doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = C:/Users/stephen.nuttall/Documents/GitHub/Game-1/Documentation
+OUTPUT_DIRECTORY       = docs
 
 # If the CREATE_SUBDIRS tag is set to YES then Doxygen will create up to 4096
 # sub-directories (in 2 levels) under the output directory of each output format
@@ -953,7 +953,7 @@ WARN_LINE_FORMAT       = "at line $line of file $file"
 # specified the warning and error messages are written to standard output
 # (stdout).
 
-WARN_LOGFILE           = "C:/Users/stephen.nuttall/Documents/Doxygen Logs.txt"
+WARN_LOGFILE           = "docs/Doxygen Logs.txt"
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -965,7 +965,7 @@ WARN_LOGFILE           = "C:/Users/stephen.nuttall/Documents/Doxygen Logs.txt"
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = C:/Users/stephen.nuttall/Documents/GitHub/Game-1/Assets/Scripts
+INPUT                  = Assets/Scripts
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
