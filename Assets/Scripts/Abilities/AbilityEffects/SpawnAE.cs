@@ -5,6 +5,7 @@ Allows an ability to spawn a projectile where the ability owner (player) is.
 
 Documentation updated 8/13/2024
 </summary>
+\author Roy Pascual
 \deprecated This script does not spawn the projectile the standard way the PlayerAttackManager does.
 Because of this, it’s recommended that you use the PlayerAttackManager's ShootProjectile() function (see fire/wind/rock ability info for an example).
 This is a scriptable object, meaning you can make an instance of it in the editor.

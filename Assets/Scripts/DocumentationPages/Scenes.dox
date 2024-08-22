@@ -1,0 +1,62 @@
+/**
+\page Scenes Scenes
+
+
+
+\section Scenes_General General
+
+\subsubsection Scenes_Anubis Anubis.unity
+When the player dies, this scene is automatically loaded. The player falls for a short amount of time before landing in front of Anubis. Based on how
+you died, a random joke is selected for Anubis to tell you. There’s a portal on the left that will respawn the player at the last warp obelisk they touched.
+
+\subsubsection Scenes_Skyhub Skyhub.unity
+If the player holds the interact button (E) at warp obelisk instead of just pressing it, they will be brought to the Skyhub. There are more features that
+will be added to the Skyhub, but in its current form, the player can talk to Ma’at using the interact key, opening up the ability inventory. In this UI,
+the player can manage their abilities, deciding which ones they want to use and reading up on what each one does. The player can then use another warp
+obelisk to return to where they were before. This warp obelisk does not let you set your respawn point, but only teleports back.
+
+\section Scenes_ClubFair Club Fair
+This is the level created to demo at promotional events. These events include the Spring Engagement Fair, Spring Carnival, and the Fall Engagement Fair
+(all 2024)
+
+\subsubsection Scenes_ClubFair_1 ClubFair_1.unity
+“Outside” portion of the level. A Minecraft desert with the entrance and exit to the dungeon, as well as the signs.
+
+\subsubsection Scenes_ClubFair_2 ClubFair_2.unity
+“Inside” portion of the level. Made of Minecraft stone bricks, it’s a basic dungeon that demonstrates many of the game’s features. This scene was expanded for the Spring Carnival to include access to the Skyhub, the improved “test entities” with greater functionality, and more.
+
+
+
+\section Scenes_TestDungeon Test Dungeon
+The test dungeon is a testing environment for new features.
+
+\subsubsection Scenes_TestDungeon_Room1 TestDungeon_Room1.unity
+A more vertical room, great for testing controls and ranged attacks.
+
+\subsubsection Scenes_TestDungeon_Start TestDungeon_Start.unity
+Intended to be the starting room of the dungeon that connects to all other rooms.
+
+\subsubsection Scenes_TestDungeon_Trap TestDungeon_Trap.unity
+Test environment for the rolling boulder trap.
+
+\subsubsection Scenes_TestDungeon_TrapTemp TestDungeon_Trap_Temp.unity
+Test environment for the test entities (a revamped system for enemies) built on a copy of TestDungeon_Trap.
+
+
+
+\section Scenes_TestScenes Test Scenes
+These are mostly unused scenes used to test specific mechanics before the Test Dungeon was built.
+
+\subsubsection Scenes_MovementTest Movement Test Scene.unity
+First scene in the project, used to create basic movement.
+
+\subsubsection Scenes_TilemapTest Tilemap Test Scene.unity
+Used to test the tilemap system.
+
+\subsubsection Scenes_WarpTest WarpTestScene.unity
+Used to test \ref Prefabs_StageWarp.
+
+\subsubsection Scenes_WarpTest2 WarpTestScene2.unity
+Used to test \ref Prefabs_StageWarp.
+
+*/

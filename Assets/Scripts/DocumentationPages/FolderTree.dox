@@ -1,0 +1,109 @@
+/**
+\page FolderTree Classes by File Path
+
+This is a handy list of all classes based on their location in the file structure. This list needs to be manually updated, but you can also find files
+this way by going to Files -> File List -> Assets -> Scripts on the side bar.
+
+Last updated 8/22/2024.
+
+\section Folder_General General
+- \subpage CustomDeathMessage
+- \subpage DataManager
+- \subpage ObjectHealth
+- \subpage ObjectInteractable
+- \subpage SoftCollider
+\section Folder_Abilities Abilities
+- \subpage AbilityInventory
+- \subpage AbilityOwner
+- \subpage AbilityProjectile
+- \subpage ActiveAbilityData
+- \subpage PlayerAbilityController
+    \subsection Folder_AbilityEffects Ability Effects
+    - \subpage AbilityEffect
+    - \subpage BuffAE
+    - \subpage SpawnAE
+    - \subpage StatsAE
+    \subsection Folder_AbilityInfo Ability Info
+    - \subpage BaseAbilityInfo
+    - \subpage EmptyAbilityInfo
+    - \subpage ExampleAbilityInfo
+    - \subpage ExEffectAbilityInfo
+    - \subpage FireAbilityInfo
+    - \subpage RockAbilityInfo
+    - \subpage StatAbilityInfo
+    - \subpage WindAbilityInfo
+\section Folder_Audio Audio
+- \subpage AudioManager
+- \subpage Sound
+\section Folder_Entities Entities
+- \subpage BaseEntityController
+- \subpage DespawnTimer
+- \subpage EntityState
+- \subpage KnockbackFeedback
+- \subpage MeleeEntityController
+- \subpage PatrolZone
+- \subpage RangedEntityController
+- \subpage SpawnedEffect
+    \subsection Folder_Projectiles Projectiles
+    - \subpage BasicProjectile
+    - \subpage BoneProjectile
+    - \subpage BoulderProjectile
+    - \subpage BoulderProjectileHitbox
+    - \subpage FireProjectile
+    - \subpage TornadoProjectile
+    \subsection Folder_PrototypeEntities Prototype Entities
+    - \subpage PatrolZoneProto
+    - \subpage PrototypeBaseEntity
+    - \subpage PrototypeEntityAnimatorHandler
+    - \subpage PrototypeEntityInfo
+    - \subpage PrototypeMeleeRangedEntity
+    - \subpage PrototypeMinionEntity
+    - \subpage PrototypeSpawnerEntity
+\section Folder_Hazards Hazards
+- \subpage BoulderHazard
+- \subpage BoulderHitbox
+- \subpage BoulderSpawner
+- \subpage DamageOnCollision
+- \subpage DamageOnTrigger
+- \subpage FallingSpike
+- \subpage FireObject
+- \subpage SpawnOnTrigger
+\section Folder_Player Player
+- \subpage GroundDetector
+- \subpage PlayerAttackManager
+- \subpage PlayerBasicMelee
+- \subpage PlayerBasicProjectileAttack
+- \subpage PlayerHealth
+- \subpage PlayerInteract
+- \subpage PlayerMovement
+- \subpage PlayerStat
+- \subpage PlayerStatHolder
+- \subpage StatModifier
+\section Folder_Stage Stage
+- \subpage AnubisJokeTextbox
+- \subpage DayNight_Shrine
+- \subpage ExitZone
+- \subpage StageLoader
+- \subpage StageWarp
+- \subpage StageWarpType
+- \subpage TimeOfDayController
+- \subpage WarpInfo
+- \subpage WarpObelisk
+\section Folder_UI UI
+- \subpage DragAndDrop
+- \subpage InventorySlot
+- \subpage PauseMenu
+    \subsection Folder_AbilityHotbar Ability Hotbar
+    - \subpage AbilityImageUI
+    - \subpage AbilitySlotUI
+    - \subpage TotalAbilityUI
+    \subsection Folder_AbilityInventoryUI Ability Inventory UI
+    - \subpage AbilityInventoryItemData
+    - \subpage AbilityInventorySlot
+    - \subpage AbilityInventoryUI
+    - \subpage DetailsPanel
+    \subsection Folder_HUD HUD
+    - \subpage CurrencyWidget
+    - \subpage InteractProgressBar
+    - \subpage PlayerHealthbarGUI
+*/

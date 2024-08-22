@@ -14,7 +14,8 @@ For now, if you're looking to make your own ability, you can probably get away w
 ability in RockAbilityInfo. You can make the effect expire by using RemoveModifier() in AbilityDisable().
 
 Documentation updated 8/14/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public class StatAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]

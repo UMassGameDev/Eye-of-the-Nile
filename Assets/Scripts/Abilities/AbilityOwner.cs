@@ -10,6 +10,7 @@ and the current ability state (ready to use vs on cooldown).
 
 Documentation updated 8/21/2024
 </summary>
+\author Roy Pascual
 \note This script does not inherit from monobehavior, so it does not have many of the default unity functions like Start() and Update().*/
 public class AbilityOwner // : MonoBehaviour
 {

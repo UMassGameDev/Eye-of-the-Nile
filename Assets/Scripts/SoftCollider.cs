@@ -10,6 +10,7 @@ using UnityEngine;
 /// 
 /// Documentation updated 8/12/2024
 /// </summary>
+/// \author Roy Pascual
 /// \note Only applies to objects on the "Push" layer.
 public class SoftCollider : MonoBehaviour
 {

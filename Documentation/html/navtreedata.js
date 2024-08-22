@@ -25,18 +25,84 @@
 var NAVTREE =
 [
   [ "Game-1", "index.html", [
-    [ "Welcome to the Game 1 Codebase Documentation!", "index.html", null ],
-    [ "Classes by File Path", "folder_tree.html", [
-      [ "General", "folder_tree.html#Folder_General", null ],
-      [ "Abilities", "folder_tree.html#Folder_Abilities", null ],
-      [ "Audio", "folder_tree.html#Folder_Audio", null ],
-      [ "Entities", "folder_tree.html#Folder_Entities", null ],
-      [ "Hazards", "folder_tree.html#Folder_Hazards", null ],
-      [ "Player", "folder_tree.html#Folder_Player", null ],
-      [ "Stage", "folder_tree.html#Folder_Stage", null ],
-      [ "UI", "folder_tree.html#Folder_UI", null ]
+    [ "Welcome!", "index.html", null ],
+    [ "Detailed Explanations", "_detailed_explanations.html", "_detailed_explanations" ],
+    [ "Classes by File Path", "_folder_tree.html", [
+      [ "General", "_folder_tree.html#Folder_General", null ],
+      [ "Abilities", "_folder_tree.html#Folder_Abilities", [
+        [ "Ability Effects", "_folder_tree.html#Folder_AbilityEffects", null ],
+        [ "Ability Info", "_folder_tree.html#Folder_AbilityInfo", null ]
+      ] ],
+      [ "Audio", "_folder_tree.html#Folder_Audio", null ],
+      [ "Entities", "_folder_tree.html#Folder_Entities", [
+        [ "Projectiles", "_folder_tree.html#Folder_Projectiles", null ],
+        [ "Prototype Entities", "_folder_tree.html#Folder_PrototypeEntities", null ]
+      ] ],
+      [ "Hazards", "_folder_tree.html#Folder_Hazards", null ],
+      [ "Player", "_folder_tree.html#Folder_Player", null ],
+      [ "Stage", "_folder_tree.html#Folder_Stage", null ],
+      [ "UI", "_folder_tree.html#Folder_UI", [
+        [ "Ability Hotbar", "_folder_tree.html#Folder_AbilityHotbar", null ],
+        [ "Ability Inventory UI", "_folder_tree.html#Folder_AbilityInventoryUI", null ],
+        [ "HUD", "_folder_tree.html#Folder_HUD", null ]
+      ] ]
     ] ],
-    [ "Explanation of the events in AbilityOwner.cs", "ability_owner_events.html", null ],
+    [ "Prefabs", "_prefabs.html", [
+      [ "General", "_prefabs.html#Prefabs_General", null ],
+      [ "Entities", "_prefabs.html#Prefabs_Entities", null ],
+      [ "Prefabs_Particles", "_prefabs.html#Prefabs_Particles", null ],
+      [ "Tiles and Objects", "_prefabs.html#Prefabs_TilesAndObjects", null ],
+      [ "UI", "_prefabs.html#Prefabs_UI", [
+        [ "General", "_prefabs.html#Prefabs_UI_General", [
+          [ "BackgroundCanvas.prefab", "_prefabs.html#Prefabs_BackgroundCanvas", null ],
+          [ "Canvas.prefab", "_prefabs.html#Prefabs_Canvas", null ]
+        ] ],
+        [ "Abilities", "_prefabs.html#Prefabs_UI_Abilities", [
+          [ "Ability Inventory Item.prefab", "_prefabs.html#Prefabs_Abilities_AbilityInventoryItem", null ],
+          [ "Ability Inventory Slot.prefab", "_prefabs.html#Prefabs_Abilities_AbilityInventorySlot", null ],
+          [ "AbilityImageUI.prefab", "_prefabs.html#Prefabs_Abilities_AbilityImageUI", null ],
+          [ "AbilitySlotUI.prefab", "_prefabs.html#Prefabs_Abilities_AbilitySlotUI", null ],
+          [ "AbilitySlots.prefab", "_prefabs.html#Prefabs_Abilities_AbilitySlots", null ],
+          [ "InventorySlot.prefab", "_prefabs.html#Prefabs_Abilities_InventorySlot", null ],
+          [ "TempAEffect.prefab", "_prefabs.html#Prefabs_Abilities_TempAEffect", null ]
+        ] ]
+      ] ]
+    ] ],
+    [ "Scenes", "_scenes.html", [
+      [ "General", "_scenes.html#Scenes_General", null ],
+      [ "Club Fair", "_scenes.html#Scenes_ClubFair", null ],
+      [ "Test Dungeon", "_scenes.html#Scenes_TestDungeon", null ],
+      [ "Test Scenes", "_scenes.html#Scenes_TestScenes", null ]
+    ] ],
+    [ "Scriptables", "_scriptables.html", [
+      [ "Abilities", "_scriptables.html#Scriptables_Abilities", [
+        [ "General", "_scriptables.html#Scriptables_General", [
+          [ "AbilityInventory.asset", "_scriptables.html#Scriptables_AbilityInventory", null ],
+          [ "ActiveAbilties.asset", "_scriptables.html#Scriptables_ActiveAbilties", null ]
+        ] ],
+        [ "Ability Effect", "_scriptables.html#Scriptables_AbilityEffect", [
+          [ "HealthBuffAE.asset", "_scriptables.html#Scriptables_HealthBuffAE", null ],
+          [ "DamageResistanceStatAE.asset", "_scriptables.html#Scriptables_DamageResistanceStatAE", null ],
+          [ "DamageStatAE.asset", "_scriptables.html#Scriptables_DamageStatAE", null ],
+          [ "FireResistanceStatAE.asset", "_scriptables.html#Scriptables_FireResistanceStatAE", null ],
+          [ "MaxHealthStatAE.asset", "_scriptables.html#Scriptables_MaxHealthStatAE", null ],
+          [ "SpeedStatAE.asset", "_scriptables.html#Scriptables_SpeedStatAE", null ]
+        ] ],
+        [ "Ability Info", "_scriptables.html#Scriptables_AbilityInfo", [
+          [ "EmptyAbilityInfo.asset", "_scriptables.html#Scriptables_EmptyAbilityInfo", null ],
+          [ "ExampleAbility1.asset", "_scriptables.html#Scriptables_ExampleAbility1", null ],
+          [ "ExampleAbility2.asset", "_scriptables.html#Scriptables_ExampleAbility2", null ],
+          [ "ExampleAbility3.asset", "_scriptables.html#Scriptables_ExampleAbility3", null ],
+          [ "ExampleAbility4.asset", "_scriptables.html#Scriptables_ExampleAbility4", null ],
+          [ "ExEffectAbility1.asset", "_scriptables.html#Scriptables_ExEffectAbility1", null ],
+          [ "FireAbilityInfo.asset", "_scriptables.html#Scriptables_FireAbilityInfo", null ],
+          [ "RockAbilityInfo.asset", "_scriptables.html#Scriptables_RockAbilityInfo", null ],
+          [ "StatAbility1.asset", "_scriptables.html#Scriptables_StatAbility1", null ],
+          [ "WindAbilityInfo.asset", "_scriptables.html#Scriptables_WindAbilityInfo", null ]
+        ] ]
+      ] ],
+      [ "Entities", "_scriptables.html#Scriptables_Entities", null ]
+    ] ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
@@ -65,10 +131,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_ability_effect_8cs.html",
-"class_base_ability_info.html#a414e115a4a8976d5436d474c7e7d0862",
-"class_ex_effect_ability_info.html#a04e7206a565c0c9286fe0711c2a9c15e",
-"class_player_healthbar_g_u_i.html#a06c0da9991e3ed38a2c2ccede0cc3aeb",
-"class_total_ability_u_i.html#a8e6a819cbe48184e41122eed74a1dda1"
+"class_ability_owner.html#ab8bb93301ca80b6c615b90d2a6c16a35",
+"class_data_manager.html#ac808410d494f4ce28074ea95e7d5c6d1",
+"class_player_attack_manager.html#a62201d3fe09f554f5de61e4230f98b53",
+"class_spawn_on_trigger.html#af2eca84bf22f5700083d39f1d4bd032a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

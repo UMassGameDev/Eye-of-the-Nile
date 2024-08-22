@@ -9,6 +9,7 @@ using UnityEngine.Events;
 /// 
 /// Documentation updated 1/21/2024
 /// </summary>
+/// \author Stephen Nuttall
 /// \note for InvokeOnMelee to work, the object needs a Collider2D AND be on the interactable layer (set in the top right corner of the inspector).
 public class ObjectInteractable : MonoBehaviour
 {

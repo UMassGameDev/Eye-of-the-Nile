@@ -106,21 +106,28 @@ $(function(){initNavTree('class_audio_manager.html',''); initResizable(true); })
   <div class="headertitle"><div class="title">AudioManager Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Responsible for storing and playing the game's music and sound effects. To trigger a sound effect from a script, use "AudioManager.Instance.PlaySFX(SOUND_EFFECT_NAME);".  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abed72b570e0a4491a807125b56f5f6de" id="r_abed72b570e0a4491a807125b56f5f6de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abed72b570e0a4491a807125b56f5f6de">PlayMusic</a> (string name)</td></tr>
+<tr class="memdesc:abed72b570e0a4491a807125b56f5f6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays a sound object using musicSource.  <br /></td></tr>
 <tr class="separator:abed72b570e0a4491a807125b56f5f6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a582ba182637653f39029116111c2f856" id="r_a582ba182637653f39029116111c2f856"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a582ba182637653f39029116111c2f856">PlaySFX</a> (string name)</td></tr>
+<tr class="memdesc:a582ba182637653f39029116111c2f856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays a sound object using sfxSource.  <br /></td></tr>
 <tr class="separator:a582ba182637653f39029116111c2f856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a49ddc4162f701325028d8fdf2584b9ac" id="r_a49ddc4162f701325028d8fdf2584b9ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_sound.html">Sound</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49ddc4162f701325028d8fdf2584b9ac">musicSounds</a></td></tr>
+<tr class="memdesc:a49ddc4162f701325028d8fdf2584b9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all music sound objects, List of all sfx sound objects.  <br /></td></tr>
 <tr class="separator:a49ddc4162f701325028d8fdf2584b9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a861799f7e81d8dd793a361424ceae330" id="r_a861799f7e81d8dd793a361424ceae330"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_sound.html">Sound</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a861799f7e81d8dd793a361424ceae330">sfxSounds</a></td></tr>
 <tr class="separator:a861799f7e81d8dd793a361424ceae330"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54db9f2d0d9838c238a56cc82b222773" id="r_a54db9f2d0d9838c238a56cc82b222773"><td class="memItemLeft" align="right" valign="top">AudioSource&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54db9f2d0d9838c238a56cc82b222773">musicSource</a></td></tr>
+<tr class="memdesc:a54db9f2d0d9838c238a56cc82b222773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object that plays a sound under its sound object’s settings. Loops vs does not loop the sound.  <br /></td></tr>
 <tr class="separator:a54db9f2d0d9838c238a56cc82b222773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20e9441762e9b8086842802fd93fd69" id="r_af20e9441762e9b8086842802fd93fd69"><td class="memItemLeft" align="right" valign="top">AudioSource&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af20e9441762e9b8086842802fd93fd69">sfxSource</a></td></tr>
 <tr class="separator:af20e9441762e9b8086842802fd93fd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,16 +135,22 @@ Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:af96f8bc4f9a0ad3f1a63a028bb31f790" id="r_af96f8bc4f9a0ad3f1a63a028bb31f790"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_audio_manager.html">AudioManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af96f8bc4f9a0ad3f1a63a028bb31f790">Instance</a></td></tr>
+<tr class="memdesc:af96f8bc4f9a0ad3f1a63a028bb31f790"><td class="mdescLeft">&#160;</td><td class="mdescRight">To make the object persistent, it needs a reference to itself.  <br /></td></tr>
 <tr class="separator:af96f8bc4f9a0ad3f1a63a028bb31f790"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ab333270dca5bf5c039de3d70ca111ba9" id="r_ab333270dca5bf5c039de3d70ca111ba9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab333270dca5bf5c039de3d70ca111ba9">Start</a> ()</td></tr>
+<tr class="memdesc:ab333270dca5bf5c039de3d70ca111ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts playing the default music.  <br /></td></tr>
 <tr class="separator:ab333270dca5bf5c039de3d70ca111ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a631d7d42b921bcbd82bd1baec2ec3ea7" id="r_a631d7d42b921bcbd82bd1baec2ec3ea7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a631d7d42b921bcbd82bd1baec2ec3ea7">Awake</a> ()</td></tr>
+<tr class="memdesc:a631d7d42b921bcbd82bd1baec2ec3ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes this object persistent. If this is the only <a class="el" href="class_audio_manager.html" title="Responsible for storing and playing the game&#39;s music and sound effects. To trigger a sound effect fro...">AudioManager</a> in the scene, don’t destroy it on reload. If there’s another <a class="el" href="class_audio_manager.html" title="Responsible for storing and playing the game&#39;s music and sound effects. To trigger a sound effect fro...">AudioManager</a> in the scene, destroy it.  <br /></td></tr>
 <tr class="separator:a631d7d42b921bcbd82bd1baec2ec3ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Responsible for storing and playing the game's music and sound effects. To trigger a sound effect from a script, use "AudioManager.Instance.PlaySFX(SOUND_EFFECT_NAME);". </p>
+<p>Documentation updated 1/29/2024 </p><dl class="section author"><dt>Author</dt><dd>Nick Bottari, Stephen Nuttall </dd></dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a631d7d42b921bcbd82bd1baec2ec3ea7" name="a631d7d42b921bcbd82bd1baec2ec3ea7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a631d7d42b921bcbd82bd1baec2ec3ea7">&#9670;&#160;</a></span>Awake()</h2>
 
@@ -161,6 +174,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Makes this object persistent. If this is the only <a class="el" href="class_audio_manager.html" title="Responsible for storing and playing the game&#39;s music and sound effects. To trigger a sound effect fro...">AudioManager</a> in the scene, don’t destroy it on reload. If there’s another <a class="el" href="class_audio_manager.html" title="Responsible for storing and playing the game&#39;s music and sound effects. To trigger a sound effect fro...">AudioManager</a> in the scene, destroy it. </p>
+
 </div>
 </div>
 <a id="abed72b570e0a4491a807125b56f5f6de" name="abed72b570e0a4491a807125b56f5f6de"></a>
@@ -178,6 +193,14 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Plays a sound object using musicSource. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a582ba182637653f39029116111c2f856" name="a582ba182637653f39029116111c2f856"></a>
@@ -194,6 +217,14 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Plays a sound object using sfxSource. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -220,6 +251,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Starts playing the default music. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -243,6 +276,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>To make the object persistent, it needs a reference to itself. </p>
+
 </div>
 </div>
 <a id="a49ddc4162f701325028d8fdf2584b9ac" name="a49ddc4162f701325028d8fdf2584b9ac"></a>
@@ -257,6 +292,8 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>List of all music sound objects, List of all sfx sound objects. </p>
+
 </div>
 </div>
 <a id="a54db9f2d0d9838c238a56cc82b222773" name="a54db9f2d0d9838c238a56cc82b222773"></a>
@@ -270,6 +307,8 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Object that plays a sound under its sound object’s settings. Loops vs does not loop the sound. </p>
 
 </div>
 </div>
@@ -302,7 +341,7 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Assets/Scripts/Audio/<a class="el" href="_audio_manager_8cs.html">AudioManager.cs</a></li>
+<li>Audio/<a class="el" href="_audio_manager_8cs.html">AudioManager.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

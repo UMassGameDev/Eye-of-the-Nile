@@ -5,7 +5,8 @@ Base class for stat effects for abilities.
 StatsAE.cs and BuffAE.cs inherit from this.
 
 Documentation updated 8/13/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public enum AbilityEffectType { Immediate, Continuous, Constant };
 
 public abstract class AbilityEffect : ScriptableObject // MonoBehaviour

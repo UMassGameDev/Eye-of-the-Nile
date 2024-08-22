@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 /// 
 /// Documentation updated 8/12/2024
 /// </summary>
+/// \author Stephen Nuttall
 /// \todo Saving & auto-saving. Writing data to a file so it can restored after the game is closed.
 public class DataManager : MonoBehaviour
 {

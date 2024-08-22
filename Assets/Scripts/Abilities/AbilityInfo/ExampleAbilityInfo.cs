@@ -8,7 +8,8 @@ Useful for understanding the syntax for the ability system.
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/13/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public class ExampleAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]

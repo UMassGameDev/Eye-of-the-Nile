@@ -4,14 +4,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New FireAbilityInfo", menuName = "Abilities/Create New FireAbilityInfo")]
 /*!<summary>
 This is the info for the fire ability set made for the club fair build.
-The offense ability shoots bursts of fireballs.
-The defense ability spawns a tall fire on each side of the player.
-The utility ability makes the player immune to fire for a short time.
-The passive ability makes the player take less fire damage.
+- The offense ability shoots bursts of fireballs.
+- The defense ability spawns a tall fire on each side of the player.
+- The utility ability makes the player immune to fire for a short time.
+- The passive ability makes the player take less fire damage.
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/14/2024
-</summary>*/
+</summary>
+\author Stephen Nuttall*/
 public class FireAbilityInfo : BaseAbilityInfo
 {
     [Header("Offense Ability Info")]

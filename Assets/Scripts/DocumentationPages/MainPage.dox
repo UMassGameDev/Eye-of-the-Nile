@@ -1,0 +1,21 @@
+/**
+\mainpage Welcome!
+
+Welcome to the Game 1 Documentation!
+Here you will find all you need to know about the underlying systems this game runs on. Every script, prefab, scene, scriptable object, and more is
+documented here, giving you easy access to all the information you need to start developing!
+
+This is automatically generated using Doxygen, which takes code comments formatted in a specific way and creates an HTML page that's easy to
+read an navigate. Whether you're confused on how a script or system works or just need to reference a specific variable name, this page is very helpful.
+It's worth noting this automatic updating only applies to the scripts (any file that ends in .cs), and anything else is still manually documented.
+
+The prefabs, scenes, and scriptables tabs can also be found in this Google Doc (at least as of the start of the fall semester. We might stop updating it):
+https://docs.google.com/document/d/19QBQ7h_pu8xe1ZAPgEQJj8Z77NwPePQkKF9CdKGLVXs/edit?usp=sharing
+
+When you write your own scripts or edit pre-existing ones, it's very appreciated if you write similar comments (or at least comments in general) to the
+ones found in the rest of the scripts. Explain the functionality and purpose of each variable, function, and script you make.  It's not as important that
+you follow the correct syntax (I can always reformat it later to fit what Doxygen wants), as long as the information is there. If you do want to format it
+properly, use the other scripts as an example or reference the Doxygen documentation (https://www.doxygen.nl/manual/).
+
+If you have any questions, feel free to ask in the Discord!
+*/

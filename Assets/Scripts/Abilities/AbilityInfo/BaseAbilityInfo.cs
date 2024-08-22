@@ -14,7 +14,8 @@ This contains the basic functionality for abilities. If you want to make your ow
 Every ability info must replace the four abstract functions, and can optionally add to the virtual functions too.
 
 Documentation updated 8/13/2024
-</summary>*/
+</summary>
+\author Roy Pascual, Stephen Nuttall*/
 public abstract class BaseAbilityInfo : ScriptableObject
 {
     [Header("Basic Ability Info")]

@@ -9,7 +9,8 @@ Stores all the abilities the player has unlocked.
 You can manage this in the unity editor with the AbilityInventory scriptable object.
 
 Documentation updated 8/11/2024
-</summary>*/
+</summary>
+\author Stephen Nuttall*/
 public class AbilityInventory : ScriptableObject
 {
     [SerializeField] ActiveAbilityData activeAbilityData;  // Reference to the ActiveAbilityData scriptable object, containing the 4 in use ability info objects.

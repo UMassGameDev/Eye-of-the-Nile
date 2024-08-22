@@ -9,7 +9,8 @@ Which stat to change and by how much can be changed in the editor.
 This is a scriptable object, meaning you can make and instance of it in the editor.
 
 Documentation updated 8/13/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public class StatsAE : AbilityEffect
 {
     // public string affectedStat;

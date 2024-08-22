@@ -7,7 +7,8 @@ Right now, this script only supports increasing the player's max health.
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/13/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public class BuffAE : AbilityEffect
 {
     /// \brief Reference to the player’s health.

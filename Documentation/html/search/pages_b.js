@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['path_0',['Classes by File Path',['../folder_tree.html',1,'']]]
+  ['welcome_0',['Welcome!',['../index.html',1,'']]]
 ];

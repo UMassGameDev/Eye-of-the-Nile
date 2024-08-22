@@ -9,7 +9,8 @@ Stores and manages the set of active ability sets. These are the 4 abilities on 
 You can manage this in the unity editor with the ActiveAbilityData scriptable object.
 
 Documentation updated 8/11/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public class ActiveAbilityData : ScriptableObject
 {
     /// <summary> Ability info representing the ability set in offense slot </summary>

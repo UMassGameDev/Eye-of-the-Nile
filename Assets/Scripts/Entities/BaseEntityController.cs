@@ -1,19 +1,22 @@
-/**************************************************
+using UnityEngine;
+
+/*! \brief
 Basic functionality for any entities that are hostile towards other entities.
 This script is abstract so it must be inherited by another script to be used.
 Every script inheriting from this must override ActivateAttack().
 
-Patrol State (default): The entity will patrol an area (PatrolZone.cs) until an enemy (something on the enemyLayers) is within range.
-Chase State: The entity will chase the enemy it detected until it's close enough to attack.
-CloseAttack State: The entity will attack the enemy until it's no longer in range (either because it left or because it died)
-Dead State: This script won't do anything if the entity dies.
+- Patrol State (default): The entity will patrol an area (PatrolZone.cs) until an enemy (something on the enemyLayers) is within range.
+- Chase State: The entity will chase the enemy it detected until it's close enough to attack.
+- CloseAttack State: The entity will attack the enemy until it's no longer in range (either because it left or because it died)
+- Dead State: This script won't do anything if the entity dies.
 
 Documentation updated 1/29/2024
-**************************************************/
-using UnityEngine;
 
+\author Stephen Nuttall
+*/
 public abstract class BaseEntityController : MonoBehaviour
 {
+    /// \brief
     protected ObjectHealth objectHealth;
 
     public Transform attackPoint;

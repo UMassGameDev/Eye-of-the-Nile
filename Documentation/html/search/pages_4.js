@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['deprecated_20list_0',['Deprecated List',['../deprecated.html',1,'']]],
-  ['documentation_1',['Welcome to the Game 1 Codebase Documentation!',['../index.html',1,'']]]
+  ['events_20in_20abilityowner_20cs_0',['Events in AbilityOwner.cs',['../_ability_owner_events.html',1,'DetailedExplanations']]],
+  ['explanations_1',['Detailed Explanations',['../_detailed_explanations.html',1,'']]]
 ];

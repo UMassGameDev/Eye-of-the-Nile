@@ -3,6 +3,7 @@ using UnityEngine;
 /*!<summary>
 Script for a basic projectile object created from an ability.
 </summary>
+\author Roy Pascual
 \deprecated This script obsolete does not work properly. Use a script that inherits from BasicProjectile instead.*/
 public class AbilityProjectile : MonoBehaviour
 {

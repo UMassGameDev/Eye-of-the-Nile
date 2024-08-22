@@ -6,6 +6,7 @@ using UnityEngine;
 /// 
 /// Documentation updated 8/16/2024
 /// </summary>
+/// \author Stephen Nuttall
 public class CustomDeathMessage : MonoBehaviour
 {
     /// <summary>

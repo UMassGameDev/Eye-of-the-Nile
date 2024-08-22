@@ -9,7 +9,8 @@ When the duration runs out, the effects(s) are automatically removed.
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/14/2024
-</summary>*/
+</summary>
+\author Roy Pascual*/
 public class ExEffectAbilityInfo : BaseAbilityInfo
 {
     /// <summary>

@@ -186,6 +186,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles timed events related to abilities. Specifically, charge ups, activating the ability, repeated events during duration time (such as healing over time), and cooldowns. It also holds useful data, namely the OwnerTransform (player’s transform), the ability info this ability is using, and the current ability state (ready to use vs on cooldown). </p>
 <p>Documentation updated 8/21/2024</p>
+<dl class="section author"><dt>Author</dt><dd>Roy Pascual </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This script does not inherit from monobehavior, so it does not have many of the default unity functions like Start() and Update(). </dd></dl>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a5ce3c0d65105984f567513dd9b56510d" name="a5ce3c0d65105984f567513dd9b56510d"></a>
@@ -490,7 +491,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>When triggered, a function subscribed to it in <a class="el" href="_player_ability_controller_8cs.html">PlayerAbilityController.cs</a> will run <a class="el" href="#aa660c0cd4cb6913cbc5cb185c81f2db8" title="Runs abilityInfo.AbilityUpdate() repeatedly (waiting abilityInfo.tickRate second each time) until the...">UpdateWithinDuration()</a>. </p>
-<dl class="section note"><dt>Note</dt><dd>For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or <a class="el" href="_documentation_pages_8cs.html">DocumentationPages.cs</a>) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs) </dd></dl>
 
 </div>
 </div>
@@ -507,7 +508,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>When triggered, a function subscribed to it in <a class="el" href="_player_ability_controller_8cs.html">PlayerAbilityController.cs</a> will run <a class="el" href="#ae9b430c50ddbb2ca8ec6b728ffdd1aaa" title="Waits [abilityInfo.chargeUp] seconds, before triggering the ability, prepares for cooldown,...">ChargingUp()</a>. </p>
-<dl class="section note"><dt>Note</dt><dd>For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or <a class="el" href="_documentation_pages_8cs.html">DocumentationPages.cs</a>) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs) </dd></dl>
 
 </div>
 </div>
@@ -524,12 +525,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>When triggered, a function subscribed to it in <a class="el" href="_player_ability_controller_8cs.html">PlayerAbilityController.cs</a> will run <a class="el" href="#a811ec5f1408019cd42146a22e67e8860" title="Waits [abilityInfo.cooldown] seconds before resetting currentState to ReadyToUse.">CoolingDown()</a>. </p>
-<dl class="section note"><dt>Note</dt><dd>For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or <a class="el" href="_documentation_pages_8cs.html">DocumentationPages.cs</a>) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs) </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Assets/Scripts/Abilities/<a class="el" href="_ability_owner_8cs.html">AbilityOwner.cs</a></li>
+<li>Abilities/<a class="el" href="_ability_owner_8cs.html">AbilityOwner.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

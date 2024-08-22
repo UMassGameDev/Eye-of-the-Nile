@@ -1,0 +1,132 @@
+/**
+\page Scriptables Scriptables
+Scriptables are objects that are created by scripts and live in this folder. They usually represent abilities, but can also be components for entities.
+
+
+
+\section Scriptables_Abilities Abilities
+
+\subsection Scriptables_General General
+
+\subsubsection Scriptables_AbilityInventory AbilityInventory.asset
+Created with \ref AbilityInventory.
+
+Stores all the abilities the player can have access to. These abilities can then be displayed in the ability inventory.
+
+\subsubsection Scriptables_ActiveAbilties ActiveAbilties.asset
+Created with \ref ActiveAbilityData.
+
+Stores and manages the 4 abilties the player is currently using and can activate.
+
+\subsection Scriptables_AbilityEffect Ability Effect
+
+\subsubsection Scriptables_HealthBuffAE HealthBuffAE.asset
+Created with \ref BuffAE.
+
+Applies a permanent max health increase to the player. The difference between this one and MaxHealthStatAE.asset is it heals the player to the new max health.
+
+\subsubsection Scriptables_DamageResistanceStatAE DamageResistanceStatAE.asset
+Created with \ref StatsAE.
+
+Decreases how much damage the player takes from most sources.
+
+\subsubsection Scriptables_DamageStatAE DamageStatAE.asset
+Created with \ref StatsAE.
+
+Increases the amount of damage the player’s melee attack deals.
+
+\subsubsection Scriptables_FireResistanceStatAE FireResistanceStatAE.asset
+Created with \ref StatsAE.
+
+Decreases how much damage the player takes from fire.
+
+\subsubsection Scriptables_MaxHealthStatAE MaxHealthStatAE.asset
+Created with \ref StatsAE.
+
+Increases the player’s max health. The difference between this one and HealthBuffAE.asset is it does not heal the player to the new max health.
+
+\subsubsection Scriptables_SpeedStatAE SpeedStatAE.asset
+Created with \ref StatsAE.
+
+Increases the player’s movement speed.
+
+\subsection Scriptables_AbilityInfo Ability Info
+
+\subsubsection Scriptables_EmptyAbilityInfo EmptyAbilityInfo.asset
+Created with \ref EmptyAbilityInfo.
+
+This is an empty ability that does nothing. This allows for there to be empty slots in the active ability data. Each of the abstract functions just write “This ability does nothing” to the console.
+
+\subsubsection Scriptables_ExampleAbility1 ExampleAbility1.asset
+Created with \ref ExampleAbilityInfo.
+
+This is an example ability with placeholder functionality. Useful for understanding the syntax for the ability system.
+
+\subsubsection Scriptables_ExampleAbility2 ExampleAbility2.asset
+Created with \ref ExampleAbilityInfo.
+
+This is an example ability with placeholder functionality. Useful for understanding the syntax for the ability system.
+
+\subsubsection Scriptables_ExampleAbility3 ExampleAbility3.asset
+Created with \ref ExampleAbilityInfo.
+
+This is an example ability with placeholder functionality. Useful for understanding the syntax for the ability system.
+
+\subsubsection Scriptables_ExampleAbility4 ExampleAbility4.asset
+Created with \ref ExampleAbilityInfo.
+
+This is an example ability with placeholder functionality. Useful for understanding the syntax for the ability system.
+
+\subsubsection Scriptables_ExEffectAbility1 ExEffectAbility1.asset
+Created with \ref ExEffectAbilityInfo.
+
+This is Isis’s ability set made for the club fair build. Each ability applies a different effect to demonstrate their functionality. The offense ability
+increases damage for 5 seconds. The defense ability increases max health by 50 for 5 seconds, and heals you by 50. The utility ability increases your
+speed for 5 seconds. The passive ability increases max health by 50 for 5 seconds, but does not heal you like the defense ability.
+
+\subsubsection Scriptables_FireAbilityInfo FireAbilityInfo.asset
+Created with \ref FireAbilityInfo.
+
+This is Ra’s fire ability set made for the club fair build. Ra is not a god that is going to have an ability set, so this will not make it into the game.
+The offense ability shoots bursts of fireballs. The defense ability spawns a tall fire on each side of the player. The utility ability makes the player
+immune to fire for a short time. The passive ability makes the player take less fire damage.
+
+\subsubsection Scriptables_RockAbilityInfo RockAbilityInfo.asset
+Created with \ref RockAbilityInfo.
+
+This is Geb’s rock ability set made for the club fair build. The offense ability throws a big boulder projectile. The defense ability spawns a rock wall
+in front of the player. The utility ability spawns a temporary rock platform under the player. The passive ability is a simple defense stat increase.
+
+\subsubsection Scriptables_StatAbility1 StatAbility1.asset
+Created with \ref StatAbilityInfo.
+
+This is Sobek’s ability set made for the club fair build. The offense ability increases damage by 10 for 5 seconds. The defense ability increases max
+health by 50 for 5 seconds. The utility ability increases speed for 5 seconds. The passive ability is the same as the defense ability.
+
+\subsubsection Scriptables_WindAbilityInfo WindAbilityInfo.asset
+Created with \ref WindAbilityInfo.
+
+This is Shu’s wind ability set made for the club fair build. The offense ability triggers a melee attack with more knockback and range. The defense
+ability shoots a wind projectile that pushes enemies back. The utility ability triggers a really high jump (regardless of if the player is normally
+allowed to jump).
+
+
+
+\section Scriptables_Entities Entities
+
+\subsubsection Scriptables_PrototypeEntityExample PrototypeEntityExample.asset
+Created with \ref PrototypeSpawnerEntity
+
+A big mushroom guy who can summon smaller mushroom guys (Mushroom Mini.prefab) to swarm the player.
+
+\subsubsection Scriptables_PrototypeMinionEntity PrototypeMinionEntity.asset
+Created with \ref PrototypeMinionEntity
+
+A smaller mushroom guy that Mushroom Guy.prefab can spawn. They have less health and cannot spawn their own mushroom minis.
+
+\subsubsection Scriptables_PrototypeSkeleEntity PrototypeSkeleEntity.asset
+Created with \ref PrototypeMeleeRangedEntity
+
+A big skeleton enemy that can do both ranged and melee attacks.
+
+*/
