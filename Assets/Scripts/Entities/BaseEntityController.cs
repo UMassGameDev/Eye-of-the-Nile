@@ -12,25 +12,43 @@ Every script inheriting from this must override ActivateAttack().
 
 Documentation updated 1/29/2024
 
-\author Stephen Nuttall
+\author Roy Rapscual
 */
 public abstract class BaseEntityController : MonoBehaviour
 {
-    /// \brief
+    /// \brief Reference to the object responsible for managing the player's health
     protected ObjectHealth objectHealth;
 
+    /// <summary>
+    /// Reference to the entity's attack point. It's a point in space that's a child of the entity, existing some distance in front of it.
+    /// Projectiles spawn from the attack point, and melee attacks scan for enemies to damage from a certain radius around it.
+    /// </summary>
     public Transform attackPoint;
+    /// \brief Amount of damage the entity's attack will deal.
     public int attackDamage = 30;
+    /// \brief The amount of time between attacks.
     public float attackCooldown = 0.8f;
+    /// \brief Amount of time until cooldown is over. Set to the current time + attackCooldown when the attack is triggered.
     protected float cooldownEndTime = 0f;
 
-    public LayerMask enemyLayers;  // This LayerMask includes the Player's layer so the enemy is alerted
+    /// <summary>
+    /// Objects on these layers will be considered an enemy of this entity, and if detected, this entity will seek to attack. 
+    /// An object can be assigned to a layer in the Unity Editor from a drop down menu in the top right.
+    /// </summary>
+    public LayerMask enemyLayers;
+    /// \brief A patrol zone is an object that has two points the entity will walk between if it does not detect an enemy.
     public PatrolZone patrolZone;
+    /// \brief Current state the entity is in.
     public EntityState EState { get; set; } = EntityState.Patrol;
+    /// \brief 
     public float horizontalDirection = 0f;
+    /// \brief 
     public float detectionRange = 6f;
+    /// \brief 
     public float activateAttackRange = 3f;  // range which entity will activate attack
+    /// \brief 
     protected bool hostileDetected = false;
+    /// \brief 
     protected bool hostileInCloseRange = false;
 
     protected Rigidbody2D rb;
@@ -40,13 +58,17 @@ public abstract class BaseEntityController : MonoBehaviour
 
     protected Animator animator;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the first frame update
+    /// </summary>
     void Start()
     {
         rb.drag = linearDrag;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
         switch (EState)
@@ -68,8 +90,10 @@ public abstract class BaseEntityController : MonoBehaviour
         }
     }
 
-    // Triggered by an event in the attack animation
-    // (or you can override TriggerAttack() if there is not attack animation)
+    /// <summary>
+    /// Triggered by an event in the attack animation
+    /// (or you can override TriggerAttack() if there is not attack animation)
+    /// </summary>
     protected abstract void ActivateAttack();
 
     protected virtual void TriggerAttack()

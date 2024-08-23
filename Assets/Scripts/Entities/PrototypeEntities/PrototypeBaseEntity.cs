@@ -87,8 +87,8 @@ public class PrototypeBaseEntity : MonoBehaviour
 
         entityBools.enemyIsForward = enemyFrontRay.collider != null;
         entityBools.enemyIsBackward = enemyBackRay.collider != null;
-        Debug.Log(entityBools.enemyIsForward);
-        Debug.Log(entityBools.enemyIsBackward);
+        // Debug.Log(entityBools.enemyIsForward);
+        // Debug.Log(entityBools.enemyIsBackward);
     }
 
     // TODO: need to fix this in some way
