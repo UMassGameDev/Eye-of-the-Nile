@@ -78,7 +78,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // A special jump can be triggered regardless of the normal jump requirements
+    /// <summary>
+    /// A special jump can be triggered regardless of the normal jump requirements
+    /// </summary>
+    /// <param name="jumpForce">Amount of force to apply to the jump.</param>
     public void SpecialJump(float jumpForce)
     {
         rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);

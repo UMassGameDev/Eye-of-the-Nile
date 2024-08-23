@@ -10,7 +10,7 @@ Every script inheriting from this must override ActivateAttack().
 - CloseAttack State: The entity will attack the enemy until it's no longer in range (either because it left or because it died)
 - Dead State: This script won't do anything if the entity dies.
 
-Documentation updated 1/29/2024
+Documentation updated 8/23/2024
 
 \author Roy Rapscual
 */
@@ -40,35 +40,38 @@ public abstract class BaseEntityController : MonoBehaviour
     public PatrolZone patrolZone;
     /// \brief Current state the entity is in.
     public EntityState EState { get; set; } = EntityState.Patrol;
-    /// \brief 
+    /// \brief Horizontal direction the entity is traveling in.
     public float horizontalDirection = 0f;
-    /// \brief 
+    /// \brief How far away the entity will detect an enemy from and start chasing.
     public float detectionRange = 6f;
-    /// \brief 
-    public float activateAttackRange = 3f;  // range which entity will activate attack
-    /// \brief 
+    /// \brief How close the entity must be to an enemy to attack it.
+    public float activateAttackRange = 3f;
+    /// \brief True if the entity has detected an enemy.
     protected bool hostileDetected = false;
-    /// \brief 
+    /// \brief True if the entity is close enough to an enemy to attack it.
     protected bool hostileInCloseRange = false;
 
+    /// \brief Reference to the entity's rigidbody.
     protected Rigidbody2D rb;
+    /// \brief How fast the entity is moving.
     public float moveVelocity = 6.0f;
+    /// \brief Amount of drag to apply to the rigidbody.
     public float linearDrag = 1.0f;
+    /// \deprecated Unused variable that was going to allow entities to jump, based on how player jumping used to work.
+    /// This system has been replaced with a new system in PlayerMovement though, so that system should be implemented instead.
+    /// \todo Implement jumping for entities.
     public float groundedRaycastLength = 1.8f;
 
+    /// \brief Reference to the entity's animator.
     protected Animator animator;
 
-    /// <summary>
-    /// Start is called before the first frame update
-    /// </summary>
+    /// Apply linear drag to the rigidbody.
     void Start()
     {
         rb.drag = linearDrag;
     }
 
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
+    /// Activate the logic for the current state for this frame, based on EState.
     void Update()
     {
         switch (EState)
@@ -92,15 +95,31 @@ public abstract class BaseEntityController : MonoBehaviour
 
     /// <summary>
     /// Triggered by an event in the attack animation
-    /// (or you can override TriggerAttack() if there is not attack animation)
+    /// (or you can override TriggerAttack() if there is not attack animation).
+    /// This function muse be overridden by any inheriting class.
     /// </summary>
     protected abstract void ActivateAttack();
 
+    /// <summary>
+    /// Triggers the entity's attack. This can be done through triggering an animation, spawning a projectile, or another method.
+    /// By default, an "IsAattacking" animation is triggered.
+    /// </summary>
     protected virtual void TriggerAttack()
     {
         animator.SetBool("IsAttacking", true);
     }
 
+    /// \brief When the entity hasn't detected any enemies...
+    /// 1. Move towards one of the patrol zone's points. If the entity reaches one, go to the other one.
+    /// 2. Flip the sprite to face the direction the entity is facing.
+    /// 3. Run movement animation and set velocity to proper direction and speed.
+    /// 4. Scan for enemies within the detection range.
+    /// 5. Evaluate state
+    ///     - If the entity has died, set state to Dead.
+    ///     - If an enemy was detected, set state to Chase.
+    ///     - Otherwise, don't change state. Allow Patrol state to continue.
+    ///     
+    /// \pre Active when there are no objects on enemyLayers within detectionRange.
     protected virtual void PatrolState()
     {
         if (horizontalDirection == 0f)
@@ -146,6 +165,19 @@ public abstract class BaseEntityController : MonoBehaviour
             EState = EntityState.Chase;
     }
 
+    /// <summary>
+    /// If the entity has detected an enemy...
+    /// 1. Scan for enemies within the detection range.
+    /// 2. Scan for enemies close enough to attack.
+    /// 3. Face the entity towards the enemy and flip the sprite to face the new direction.
+    /// 4. Run movement animation and set velocity to proper direction and speed.
+    /// 5. Evaluate state
+    ///     - If the entity has died, set state to Dead.
+    ///     - If an enemy is close to attack, set state to CloseAttack
+    ///     - If there's no longer an enemy within the detection range, set state to Patrol
+    ///     - Otherwise, don't change state. Allow Chase state to continue.
+    /// </summary>
+    /// \pre The entity has detected an enemy in its detection range.
     protected virtual void ChaseState()
     {
         // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
@@ -205,6 +237,18 @@ public abstract class BaseEntityController : MonoBehaviour
             EState = EntityState.Patrol;
     }
 
+    /// <summary>
+    /// If the entity is close enough to an enemy to attack...
+    /// 1. Scan for enemies close enough to attack.
+    /// 2. If an enemy is close enough, face the entity towards it and trigger attack.
+    /// 3. Stop movement animation if it's still happening.
+    /// 4. Evaluate state
+    ///     - If the entity has died, set state to Dead.
+    ///     - If no enemies are close enough to attack, set state to Chase.
+    ///     - Otherwise, don't change state. Allow CloseAttack state to continue.
+    /// </summary>
+    /// \pre The entity is close enough to an enemy to attack it.
+    /// \todo Make 1.4 offest a variable rather than hard coded.
     protected virtual void CloseAttackState()
     {
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
@@ -276,8 +320,10 @@ public abstract class BaseEntityController : MonoBehaviour
             EState = EntityState.Chase;
     }
 
-    // display ranges in the editor
-    // must be commented out to export the game
+    /// \brief Displays radiuses of the detection and attack circles in the Unity Editor, specifically the scene view.
+    /// This allows developers to see how far away an entity can see an enemy and how far way they will attack the enemy.
+    /// \important Must be commented out or removed to export the game. Otherwise, Unity will throw compiler errors.
+    /// \todo Make 1.3 offest a variable rather than hard coded.
     private void OnDrawGizmosSelected()
     {
         // Purely for debugging purposes
@@ -291,6 +337,7 @@ public abstract class BaseEntityController : MonoBehaviour
             
     }
 
+    /// Set references to rigidbody, animator, and object health.
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
