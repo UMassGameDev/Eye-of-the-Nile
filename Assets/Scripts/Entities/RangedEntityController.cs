@@ -1,16 +1,17 @@
-/**************************************************
+using UnityEngine;
+
+/** \brief
 Functionality for entities with a ranged attack.
 Inherits from BaseEntityController.
 
-Documentation updated 1/29/2024
-**************************************************/
-using UnityEngine;
-
+Documentation updated 8/26/2024
+*/
 public class RangedEntityController : BaseEntityController
 {
+    /// The projectile this entity will shoot.
     public GameObject projectilePrefab;
 
-    // Triggered by attack animation
+    /// Instantiates a new projectile and flips it to face the right direction.
     protected override void ActivateAttack()
     {
         // create projectile object
@@ -22,16 +23,19 @@ public class RangedEntityController : BaseEntityController
         }
     }
 
+    /// Runs ActivateAttack.
+    /// \note Because there's no ranged attack animation, this function just manually runs ActivateAttack for now.
     protected override void TriggerAttack()
     {
-        // Here the attack animation would play if there was one
+        // Here, the attack animation would play if there was one
         // Because there's not, we'll just trigger the attack manually for now
 
         // animator.SetBool("IsAttacking", true);
         ActivateAttack();
     }
     
-    // modified so entity flips direction if target moves behind it
+    /// Modified from the base version so entity flips direction if target moves behind it
+    /// \todo Make 1.4 offest a variable rather than hard coded.
     protected override void CloseAttackState()
     {
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
