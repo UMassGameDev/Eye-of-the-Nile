@@ -2,7 +2,7 @@
 \page Scriptables Scriptables
 Scriptables are objects that are created by scripts and live in this folder. They usually represent abilities, but can also be components for entities.
 
-
+Updated 8/26/2024.
 
 \section Scriptables_Abilities Abilities
 

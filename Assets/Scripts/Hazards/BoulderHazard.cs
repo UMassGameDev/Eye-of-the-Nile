@@ -5,6 +5,7 @@ Script for a boulder that rolls until its hitbox tells it to break.
 BoulderHitbox is responsible for detecting collisions and dealing damage.
 
 Documentation updated 8/26/2024
+\author Roy Pascual
 */
 public class BoulderHazard : MonoBehaviour
 {

@@ -4,6 +4,7 @@ using UnityEngine;
 When a particle spawned, this script will despawn it after its duration is up.
 
 Documentation updated 8/26/2024
+\author Roy Pascual
 \deprecated Ideally, despawn timer should be used instead because it has the same functionality but implemented better.
 */
 public class SpawnedEffect : MonoBehaviour

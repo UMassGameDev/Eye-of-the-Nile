@@ -5,6 +5,7 @@ using UnityEngine;
 Script for a zone which entities that inherit from BaseEntityController will patrol until a player is in range.
 
 Documentation updated 8/26/2024
+\author Roy Pascual
 */
 public class PatrolZone : MonoBehaviour
 {

@@ -6,7 +6,6 @@ using UnityEngine.Events;
 Put this script on any object you want to automatically despawn after a certain amount of time.
 
 Documentation updated 8/23/2024
-
 \author Stephen Nuttall
 */
 public class DespawnTimer : MonoBehaviour

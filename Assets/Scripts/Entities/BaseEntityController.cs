@@ -11,7 +11,6 @@ Every script inheriting from this must override ActivateAttack().
 - Dead State: This script won't do anything if the entity dies.
 
 Documentation updated 8/23/2024
-
 \author Roy Rapscual
 */
 public abstract class BaseEntityController : MonoBehaviour

@@ -2,7 +2,6 @@
 Simple enum for the BaseEntityController for handling state.
 
 Documentation updated 8/23/2024
-
 \author Roy Rapscual
 **/
 public enum EntityState

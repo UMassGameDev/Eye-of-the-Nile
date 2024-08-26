@@ -5,6 +5,7 @@ Functionality for basic entities with a melee attack.
 Inherits from BaseEntityController.
 
 Documentation updated 8/26/2024
+\author Stephen Nuttall
 */
 public class MeleeEntityController : BaseEntityController
 {

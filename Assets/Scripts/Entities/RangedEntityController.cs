@@ -5,6 +5,7 @@ Functionality for entities with a ranged attack.
 Inherits from BaseEntityController.
 
 Documentation updated 8/26/2024
+\author Roy Pascual
 */
 public class RangedEntityController : BaseEntityController
 {

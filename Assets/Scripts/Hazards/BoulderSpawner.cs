@@ -5,7 +5,7 @@ using UnityEngine;
 Spawns boulders at a consistent rate at a given spawn point, facing upwards.
 
 Documentation updated 8/26/2024
-
+\author Roy Pascual
 \note Boulders apply their initial force in their "up" direction, which is set to be this object's "up" direction. This will cause the boulder to
 be thrown upwards, rather than to the side like anticipated. The intention is that you rotate the spawner object to change which direction "up" is,
 and thus the direction the boulders will spawn from and be propelled towards. Usually you'd want to set it to face either to the left or right,

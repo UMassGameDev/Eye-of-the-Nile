@@ -6,6 +6,7 @@ using UnityEngine.Events;
 Put this script on an object to allow it to take knockback.
 
 Documentation updated 8/23/2024
+\author Stephen Nuttall
 */
 public class KnockbackFeedback : MonoBehaviour
 {
