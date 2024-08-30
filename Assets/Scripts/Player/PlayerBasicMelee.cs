@@ -1,11 +1,12 @@
-/**************************************************
---- DEPRECATED ---
-Please use PlayerAttackManager.cs
-
-Documentation updated 1/29/2024
-**************************************************/
 using UnityEngine;
 
+/** \deprecated
+This was the original script that handled the player's basic melee attack. Now, this is handled by PlayerAttackManager.
+Please use PlayerAttackManager instead of this script. It has been disconnected from the player object and will not work.
+
+Documentation updated 8/30/2024
+\author Stephen Nuttall
+*/
 public class PlayerBasicMelee : MonoBehaviour
 {
     PlayerStatHolder playerStats;

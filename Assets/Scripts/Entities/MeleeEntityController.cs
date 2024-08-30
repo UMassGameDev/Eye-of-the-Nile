@@ -9,7 +9,7 @@ Documentation updated 8/26/2024
 */
 public class MeleeEntityController : BaseEntityController
 {
-    /// The size of the area the attack will search for enemies in (size of attack point).
+    /// The distance from the attack point that enemies will be hit (size of attack point).
     public float attackRange = 0.5f;  
     /// The strength of the knockback that the attack will apply.
     public float knockback = 75f;  

@@ -129,20 +129,22 @@ public class ObjectHealth : MonoBehaviour
 
     /// <summary>
     /// If something attacks the object, it will run ObjectHealth.TakeDamage()
+    /// 
+    /// Steps:
     /// </summary>
     /// <param name="attacker"></param>
     /// <param name="damage"></param>
     public virtual void TakeDamage(Transform attacker, int damage)
     {
-        // if the object is currently invincible, skip this function.
+        /// - If the object is currently invincible, skip this function.
         if (isInvincible)
             return;
         
-        // subtract the damage done and play the damage animation.
+        /// - Subtract the damage done and play the damage animation.
         currentHealth -= damage;
         animator.SetTrigger("Hurt");
 
-        // generate hurt particles (if enabled)
+        /// - Generate hurt particles (if enabled).
         Collider2D objectCollider = transform.GetComponent<Collider2D>();
         if (enableDamageParticles)
         {
@@ -152,11 +154,11 @@ public class ObjectHealth : MonoBehaviour
             hurtPrefab.up = new Vector3(attacker.position.x - objectCollider.transform.position.x, 0f, 0f);
         }
 
-        // If the health is now beneath 0, die (respectfully)
+        /// - If the health is now beneath 0, die (respectfully).
         if (currentHealth <= 0)
             Die();
 
-        // Start invinciblity frames (if enabled)
+        /// - If not, start invinciblity frames (if enabled).
         if (currentHealth > 0 && canBeInvincible)
             StartCoroutine(Invincibility());
     }
