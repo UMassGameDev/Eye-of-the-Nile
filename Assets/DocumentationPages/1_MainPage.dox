@@ -6,7 +6,7 @@ Here you will find all you need to know about the underlying systems this game r
 documented here, giving you easy access to all the information you need to start developing!
 
 This is automatically generated using Doxygen, which takes code comments formatted in a specific way and creates an HTML page that's easy to
-read an navigate. Whether you're confused on how a script or system works or just need to reference a specific variable name, this page is very helpful.
+read and navigate. Whether you're confused on how a script or system works or just need to reference a specific variable name, this page is very helpful.
 It's worth noting this automatic updating only applies to the scripts (any file that ends in .cs), and anything else is still manually documented.
 
 The prefabs, scenes, and scriptables tabs can also be found in this Google Doc (at least as of the start of the fall semester. We might stop updating it):
