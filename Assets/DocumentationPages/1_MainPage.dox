@@ -19,3 +19,12 @@ properly, use the other scripts as an example or reference the Doxygen documenta
 
 If you have any questions, feel free to ask in the Discord!
 */
+
+(outside comment block, so currently ignored)
+Table of contents:
+\subpage Resources
+\subpage DetailedExplanations
+\subpage Prefabs
+\subpage Scenes
+\subpage Scriptables
+\subpage FolderTree
