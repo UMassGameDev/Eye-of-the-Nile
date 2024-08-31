@@ -5,7 +5,7 @@ using System;
 \brief Responsible for storing and playing the game's music and sound effects.
 To trigger a sound effect from a script, use "AudioManager.Instance.PlaySFX(SOUND_EFFECT_NAME);"
 
-Documentation updated 1/29/2024
+Documentation updated 8/14/2024
 \author Nick Bottari, Stephen Nuttall*/
 public class AudioManager : MonoBehaviour
 {
