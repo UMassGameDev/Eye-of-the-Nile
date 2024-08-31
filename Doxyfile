@@ -42,7 +42,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "Game-1 Docs"
+PROJECT_NAME           = Game-1 Documentation
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -74,7 +74,7 @@ PROJECT_ICON           = "Doxygen/Documentation Icon.png"
 # entered, it will be relative to the location where Doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = "UMass GameDev Test Docs"
+OUTPUT_DIRECTORY       = "Doxygen/docs"
 
 # If the CREATE_SUBDIRS tag is set to YES then Doxygen will create up to 4096
 # sub-directories (in 2 levels) under the output directory of each output format
@@ -821,7 +821,7 @@ FILE_VERSION_FILTER    =
 # DoxygenLayout.xml, Doxygen will parse it automatically even if the LAYOUT_FILE
 # tag is left empty.
 
-LAYOUT_FILE            = Doxygen/DoxygenLayout.xml
+LAYOUT_FILE            = "Doxygen/DoxygenLayout.xml"
 
 # The CITE_BIB_FILES tag can be used to specify one or more bib files containing
 # the reference definitions. This must be a list of .bib files. The .bib
@@ -953,7 +953,7 @@ WARN_LINE_FORMAT       = "at line $line of file $file"
 # specified the warning and error messages are written to standard output
 # (stdout).
 
-WARN_LOGFILE           = "docs/Doxygen Logs.txt"
+WARN_LOGFILE           = "Doxygen/Doxygen Logs.txt"
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
