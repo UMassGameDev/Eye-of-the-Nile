@@ -4,9 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Stats AbilityEffect", menuName = "Ability Effects/Create New Stats AbilityEffect")]
 
 /*!<summary>
-Allows an ability to apply a stat change to the player.
+Allows an ability to apply a stat change to the player (see PlayerStat, StatModifier, and PlayerStatHolder).
 Which stat to change and by how much can be changed in the editor.
 This is a scriptable object, meaning you can make and instance of it in the editor.
+Examples of StatsAE scriptable objects can be found here: \ref Scriptables_AbilityEffect.
 
 Documentation updated 8/13/2024
 </summary>

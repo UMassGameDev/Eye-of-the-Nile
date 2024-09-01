@@ -1,28 +1,38 @@
-/**************************************************
-Basic properties of a player stat that can be modified by abilities using StatModifiers.
-Each stat has a name and a base value, set in the editor.
-
-Documentation updated 1/29/2024
-**************************************************/
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** \brief
+Basic properties of a player stat that can be modified by abilities using StatModifiers (see StatModifier, StatsAE, and PlayerStatHolder).
+Each stat has a name and a base value, set in the editor.
+
+Documentation updated 9/1/2024
+\author Roy Pascaul
+*/
 [Serializable]
 public class PlayerStat
 {
     [field: SerializeField]
+    /// Name of the stat. Can be changed in the Unity Editor.
     private string _statName;
+    /// Public version of _statName that can be used by scripts.
     public string StatName { get { return _statName; } set { _statName = value; } }
     [field: SerializeField]
+    /// Base value of the stat. Can be changed in the Unity Editor.
     private int _baseValue;
+    /// Public version of _baseValue that can be used by scripts.
     public int BaseValue { get { return _baseValue; } set { _baseValue = value; } }
     /*[field: SerializeField]
     private float _maxValue;
     public float MaxValue { get { return _maxValue; } set { _maxValue = value; } }*/
     // private Dictionary<StatModType, List<StatModifier>> statModifiers;
+    /// List of currently active stat modifiers.
     List<StatModifier> statModifiers = new List<StatModifier>();
 
+    /// <summary>
+    /// Add a stat modifier. Checks to see if the stat modifer is already applied.
+    /// </summary>
+    /// <param name="statMod">Stat modifier to add.</param>
     public void AddModifier(StatModifier statMod)
     {
         // statModifiers[statMod.ModType].Add(statMod);
@@ -30,6 +40,11 @@ public class PlayerStat
             statModifiers.Add(statMod);
     }
 
+    /// <summary>
+    /// Remove a stat modifier. Checks to see if the stat modifer is actually applied.
+    /// </summary>
+    /// <param name="statMod">Stat modifer to remove.</param>
+    /// <returns>true if the stat modifier was successfully removed. Otherwise, false.</returns>
     public bool RemoveModifier(StatModifier statMod)
     {
         // return statModifiers[statMod.ModType].Remove(statMod);
@@ -39,6 +54,7 @@ public class PlayerStat
             return false;
     }
 
+    /// Returns the final value of this stat, based on baseValue and all active stat modifiers.
     public int FinalValue()
     {
         // float preMultSum = 0f;

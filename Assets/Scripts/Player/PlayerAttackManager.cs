@@ -14,7 +14,7 @@ public class PlayerAttackManager : MonoBehaviour
 {
     /// Reference to the PlayerStatsHolder, which is responsible for managing the player's modifiable stats.
     PlayerStatHolder playerStats;
-    /// \brief Reference to the entity's attack point. It's a point in space that's a child of the entity, existing some distance in
+    /// \brief Reference to the player's's attack point. It's a point in space that's a child of the player, existing some distance in
     /// front of it. Projectiles spawn from the attack point, and melee attacks scan for enemies to damage from a certain radius around it.
     public Transform attackPoint;
     /// Objects on these layers which can be hit from the player's melee attacks.

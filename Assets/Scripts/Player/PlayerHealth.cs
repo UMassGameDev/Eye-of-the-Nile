@@ -123,6 +123,8 @@ public class PlayerHealth : ObjectHealth
 
     /// <summary>
     /// Apply damage to the player. If something attacks the player, it will run PlayerHealth.TakeDamage().
+    /// See detailed view for key differences between this an ObjectHealth.TakeDamage(), as well as the steps this function takes.
+    /// 
     /// Key differences between this an ObjectHealth.TakeDamage():
     /// - Damage cannot be applied if the damage resistance is greater than or equal to the amount of damage being applied
     /// - Events are invoked
@@ -257,7 +259,7 @@ public class PlayerHealth : ObjectHealth
         StartCoroutine(AfterDeath());
     }
 
-    /// \brief After the player has died, load \ref Scenes_Anubis and renable critical components.
+    /// \brief After the player has died, load \ref Scenes_Anubis and renable critical components. See detailed view for steps.
     /// 
     /// Steps:
     IEnumerator AfterDeath()
