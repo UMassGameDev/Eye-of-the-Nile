@@ -9,7 +9,7 @@ Documentation updated 8/30/2024
 */
 public class GroundDetector : MonoBehaviour
 {
-    /// The layers which object considered part of the ground are on.
+    /// The layers which objects are considered part of the ground are on.
     public LayerMask groundLayer;
     /// True if the player touching the ground.
     public bool isGrounded {get; private set;} = false;
