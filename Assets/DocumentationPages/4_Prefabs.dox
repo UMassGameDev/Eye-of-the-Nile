@@ -32,7 +32,7 @@ A basic melee enemy with a patrol zone attached. This enemy will walk between th
 Then it will chase the enemy until it’s close enough to hit the player, and then start attacking.
 
 \subsubsection Prefabs_BoneProjectile BoneProjectile.prefab
-A slower projectile that Skeleton Guy.prefab uses.
+A slower projectile that \ref Prefabs_SkeletonGuy uses.
 
 \subsubsection Prefabs_BoulderProjectile Boulder Projectile.prefab
 A version of boulder.prefab that is adapted to be a projectile.
