@@ -8,6 +8,7 @@ This is the info for the rock ability set made for the club fair build.
 - The defense ability spawns a rock wall in front of the player.
 - The utility ability spawns a temporary rock platform under the player.
 - The passive ability is a simple defense stat increase. The player takes a set amount less damage.
+
 This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/14/2024
