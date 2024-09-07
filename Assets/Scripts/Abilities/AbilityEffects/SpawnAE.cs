@@ -2,15 +2,15 @@ using UnityEngine;
 
 /*!<summary>
 Allows an ability to spawn a projectile where the ability owner (player) is.
+This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/13/2024
 </summary>
 \author Roy Pascual
 \deprecated This script does not spawn the projectile the standard way the PlayerAttackManager does.
 Because of this, it’s recommended that you use the PlayerAttackManager's ShootProjectile() function (see fire/wind/rock ability info for an example).
-This is a scriptable object, meaning you can make an instance of it in the editor.
 This script may be improved or repurposed in the future, but for now I would not recommend using it.
-\todo some spawn pattern variable eventually, or maybe in function*/
+\todo some spawn pattern variable eventually, or maybe a function*/
 public class SpawnAE : AbilityEffect
 {
     /// \brief Reference to the projectile prefab we want to spawn.

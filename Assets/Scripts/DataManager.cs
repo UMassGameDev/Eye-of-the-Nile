@@ -121,7 +121,7 @@ public class DataManager : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        /// Make sure this instance of the DataManager persists across scenes 
+        // Make sure this instance of the DataManager persists across scenes 
         if (Instance == null)
         {
             Instance = this;

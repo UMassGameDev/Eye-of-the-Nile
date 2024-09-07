@@ -64,10 +64,9 @@ public class BasicProjectile : MonoBehaviour
         UpdateMethods();
     }
 
-    /// Sets the projectile to face the correct direction.
+    /// Moves the projectile in the direction it's set to face, and ensures the sprite is facing that direction.
     protected virtual void UpdateMethods()
     {
-        // move in the direction the projectile is set to face, and ensure the sprite is facing that direction
         if (facingLeft)
         {
             // move projectile to the left by [speed]

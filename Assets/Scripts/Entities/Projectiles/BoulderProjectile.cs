@@ -2,9 +2,9 @@ using UnityEngine;
 
 /** \brief 
 Script for a boulder that the player can throw as a projectile.
-Inherits from BasicProjectile.
+Adapted from BoulderHazard. Inherits from BasicProjectile.
 
-Documentation updated 9/4/2024
+Documentation updated 9/7/2024
 \author Stephen Nuttall
 */
 public class BoulderProjectile : BasicProjectile
