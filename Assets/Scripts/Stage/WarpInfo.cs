@@ -7,8 +7,9 @@ Documentation updated 9/15/2024
 */
 public static class WarpInfo
 {
-    /// This is the name of the warp to spawn the player at.
+    /// \brief This is the name of the warp to spawn the player at.
     /// When a StageWarp's exit zone is triggered, this is set to the name of the corresponding StageWarp.
     public static string WarpName { get; set; } = "NONE";
+    /// True if the player is currently warping (typically true during the fade-to-black animation the StageLoader plays).
     public static bool CurrentlyWarping { get; set; } = false;
 }
