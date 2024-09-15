@@ -5,7 +5,7 @@ using UnityEngine;
 
 /** \brief
 StatModifiers are a variable type that can be used by abilities to modify player stats (see PlayerStat, StatsAE, and PlayerStatHolder).
-This script is not a monobehavior so it does not have access to unity functions such as Start() or Update().
+This class does not inhert from monobehavior, so it does not have access to unity functions such as Start() or Update().
 
 Documentation updated 9/1/2024
 \author Roy Pascual

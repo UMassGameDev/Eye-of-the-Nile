@@ -1,31 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Used in the soft collider prefab, which is put as a child onto other objects.
+/// \brief
+/// Used in the \ref Prefabs_SoftCollider, which is put as a child onto other objects.
 /// Allows for other objects to pass through this object, but push them out if they stay inside this object.
 /// 
 /// For example, a player can pass through a pot or an enemy, but will be pushed away if they try to stand inside it.
 /// Think of how animals in Minecraft push each other around when there's too many in a small area.
 /// 
-/// Documentation updated 8/12/2024
-/// </summary>
+/// Documentation updated 9/15/2024
 /// \author Roy Pascual
 /// \note Only applies to objects on the "Push" layer.
 public class SoftCollider : MonoBehaviour
 {
-    /// <summary> Reference to the rigidbody of the parent object. </summary>
+    /// \brief Reference to the rigidbody of the parent object.
     /// <value></value>
     public Rigidbody2D ParentBody { get; set; }
-    /// <summary> List of all objects colliding with the parent object. </summary>
+    /// \brief List of all objects colliding with the parent object.
     List<SoftCollider> opposingColliders;
-    /// <summary> How much the opposing colliders should be pushed away. </summary>
+    /// \brief How much the opposing colliders should be pushed away.
     float pushMagnitude = 3f;
 
-    /// <summary>
-    /// Runs when an object enters the soft collider.
+    /// \brief Runs when an object enters the soft collider.
     /// Adds any new opposing colliders to the opposingColliders list.
-    /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,11 +34,9 @@ public class SoftCollider : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Runs every frame an object is in the soft collider.
+    /// \brief Runs every frame an object is in the soft collider.
     /// Calculate and apply momentum to each object in opposingColliders that pushes them away from this object.
-    /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">Represents the object colliding with the SoftCollider hitbox.</param>
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (opposingColliders.Count > 0)
@@ -75,10 +70,8 @@ public class SoftCollider : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Runs when an object exits the soft collider.
+    /// \brief Runs when an object exits the soft collider.
     /// Remove any leaving opposing colliders from the opposingColliders list.
-    /// </summary>
     /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -90,9 +83,7 @@ public class SoftCollider : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Initialize ParentBody and opposingColliders.
-    /// </summary>
+    /// \brief Initialize ParentBody and opposingColliders.
     void Awake()
     {
         ParentBody = transform.parent.GetComponent<Rigidbody2D>();

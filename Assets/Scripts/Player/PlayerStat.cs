@@ -8,6 +8,7 @@ Each stat has a name and a base value, set in the editor.
 
 Documentation updated 9/1/2024
 \author Roy Pascaul
+\note This class does not inhert from monobehavior, so it does not have access to unity functions such as Start() or Update().
 */
 [Serializable]
 public class PlayerStat

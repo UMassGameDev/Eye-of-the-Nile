@@ -9,11 +9,11 @@ This is the info for the fire ability set made for the club fair build.
 - The utility ability makes the player immune to fire for a short time.
 - The passive ability makes the player take less fire damage.
 
-This is a scriptable object, meaning you can make an instance of it in the editor.
-
 Documentation updated 8/14/2024
 </summary>
-\author Stephen Nuttall*/
+\author Stephen Nuttall
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class FireAbilityInfo : BaseAbilityInfo
 {
     [Header("Offense Ability Info")]

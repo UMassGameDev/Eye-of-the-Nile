@@ -6,7 +6,8 @@ StatsAE.cs and BuffAE.cs inherit from this.
 
 Documentation updated 8/13/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.*/
 public enum AbilityEffectType { Immediate, Continuous, Constant };
 
 public abstract class AbilityEffect : ScriptableObject // MonoBehaviour

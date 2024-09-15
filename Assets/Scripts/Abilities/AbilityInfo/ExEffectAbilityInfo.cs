@@ -6,11 +6,12 @@ This is an example of the effect system for abilities.
 What effects to apply can be added in the editor.
 When an ability is triggered, the effect(s) will be applied.
 When the duration runs out, the effects(s) are automatically removed.
-This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/14/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class ExEffectAbilityInfo : BaseAbilityInfo
 {
     /// <summary>

@@ -2,74 +2,67 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-/// <summary>
+/// \brief
 /// Handles health, damage, and death of an object/entity.
 /// If you want an object to have health, take damage, and die, put this script on it.
 /// 
-/// Documentation updated 8/12/2024
-/// </summary>
+/// Documentation updated 9/15/2024
 /// \author Stephen Nuttall
 public class ObjectHealth : MonoBehaviour
 {
-    /// <summary> Reference to the object’s sprite renderer. </summary>
+    /// Reference to the object’s sprite renderer
     public SpriteRenderer sRenderer;
-    /// <summary> Reference to the object’s animator. </summary>
+    /// Reference to the object’s animator
     public Animator animator;
-    /// <summary> Reference to the particle effects the object should spawn when taking damage. </summary>
+    /// Reference to the particle effects the object should spawn when taking damage
     public Transform hurtEffect;  
-    /// <summary> Reference to the sprite that should be overlaid the object’s sprite when the object is on fire. </summary>
+    /// Reference to the sprite that should be overlaid the object’s sprite when the object is on fire
     public SpriteRenderer onFireSprite;  
-    /// <summary> Reference to the sound effect the object should play when it dies. </summary>
+    /// Reference to the sound effect the object should play when it dies
     public string deathSfxName;  
 
-    /// <summary> The object is dead if the currentHealth falls to 0. </summary>
+    /// The object is dead if the currentHealth falls to 0
     public bool IsDead { get { return currentHealth <= 0; } }  
-    /// <summary> If enabled, the object will spawn the given hurtEffect particles when taking damage. </summary>
+    /// If enabled, the object will spawn the given hurtEffect particles when taking damage
     public bool enableDamageParticles = true;  
 
-    /// <summary> The maximum health the object can have. </summary>
+    /// The maximum health the object can have
     public int maxHealth = 100;  
-    /// <summary> The amount of health the object currently has. </summary>
+    /// The amount of health the object currently has
     public int currentHealth { get; protected set; }  
 
-    /// <summary> The amount of souls the object should grant the player upon death. To disable, set to <= 0. </summary>
+    /// The amount of souls the object should grant the player upon death. To disable, set to <= 0
     public int soulsDroppedOnDeath = 0;  
-    /// <summary> The amount of god souls the object should grant the player upon death. To disable, set to <= 0. </summary>
+    /// The amount of god souls the object should grant the player upon death. To disable, set to <= 0
     public int godSoulsDroppedOnDeath = 0;  
 
-    /// <summary>
-    /// Triggered when the object dies (if soulsDroppedOnDeath > 0),
+    /// \brief Triggered when the object dies (if soulsDroppedOnDeath > 0),
     /// telling the DataManager that the amount of souls the player has collected has increased.
-    /// </summary>
     public static event Action<int> soulsDropped;
 
-    /// <summary>
-    /// Triggered when the object dies (if godSoulsDroppedOnDeath > 0),
+    /// \brief Triggered when the object dies (if godSoulsDroppedOnDeath > 0),
     /// telling the DataManager that the amount of god souls the player has collected has increased.
-    /// </summary>
     public static event Action<int> godSoulsDropped;
 
-    /// <summary> If enabled, the object will be invincible for a short duration after taking damage (invincibility frames) </summary>
+    /// If enabled, the object will be invincible for a short duration after taking damage (invincibility frames) </summary>
     public bool canBeInvincible = false;  
-    /// <summary> In seconds, how long invincibility lasts for after taking damage. </summary>
+    /// In seconds, how long invincibility lasts for after taking damage
     public float invincibleDuration = 3f;  
-    /// <summary> In seconds, how often the sprite should swap between being opaque and transparent (creating a flashing effect). </summary>
+    /// In seconds, how often the sprite should swap between being opaque and transparent (creating a flashing effect)
     protected float flashDuration = 0.25f;  
-    /// <summary> The WaitForSeconds variable that is used to implement flashDuration. </summary>
+    /// The WaitForSeconds variable that is used to implement flashDuration
     protected WaitForSeconds invincibleFlash;  
-    /// <summary> If the object is currently invincible. </summary>
+    /// If the object is currently invincible
     protected bool isInvincible = false;  
 
-    /// <summary> Whether or not the object can be set on fire. </summary>
+    /// Whether or not the object can be set on fire
     public bool canBeOnFire = true;  
-    /// <summary> Whether or not the object is currently on fire. </summary>
+    /// Whether or not the object is currently on fire
     protected bool onFire = false;  
-    /// <summary> Whether or not the object currently has immunity to fire (usually from an ability). </summary>
+    /// Whether or not the object currently has immunity to fire (usually from an ability)
     protected bool fireImmune = false;  
 
-    /// <summary>
-    /// Makes object invincible for invincibleDuration seconds. Toggles transparency every invincibleFlash seconds.
-    /// </summary>
+    /// \brief Makes object invincible for invincibleDuration seconds. Toggles transparency every invincibleFlash seconds.
     protected IEnumerator Invincibility()
     {
         isInvincible = true;
@@ -85,10 +78,7 @@ public class ObjectHealth : MonoBehaviour
         isInvincible = false;
     }
 
-    /// <summary>
-    /// Toggles the reduced opacity of the sprite that is used to create the flashing effect when invincible.
-    /// </summary>
-    /// <param name="isOn"></param>
+    /// \brief Toggles the reduced opacity of the sprite that is used to create the flashing effect when invincible.
     protected void ToggleTransparency(bool isOn)
     {
         if (isOn)
@@ -103,37 +93,29 @@ public class ObjectHealth : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Initialize invincibleFlash.
-    /// </summary>
+    /// \brief Initialize invincibleFlash.
     void Awake()
     {
         invincibleFlash = new WaitForSeconds(flashDuration);
     }
 
-    /// <summary>
-    /// Set currentHealth to maxHealth.
-    /// </summary>
+    /// \brief Set currentHealth to maxHealth.
     void Start()
     {
         currentHealth = maxHealth;
     }
 
-    /// <summary>
-    /// Set currentHealth back to maxHealth.
-    /// </summary>
+    /// \brief Set currentHealth back to maxHealth.
     public virtual void ResetHealth()
     {
         currentHealth = maxHealth;
     }
 
-    /// <summary>
-    /// If something attacks the object, it will run ObjectHealth.TakeDamage()
+    /// \brief If something attacks the object, it will run ObjectHealth.TakeDamage()
     /// 
     /// Steps:
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="damage"></param>
+    /// <param name="attacker">Reference to the transform of the attacker. Used to determine which direction particles should come from.</param>
+    /// <param name="damage">The amount of damage to deal to this object.</param>
     public virtual void TakeDamage(Transform attacker, int damage)
     {
         /// - If the object is currently invincible, skip this function.
@@ -163,10 +145,7 @@ public class ObjectHealth : MonoBehaviour
             StartCoroutine(Invincibility());
     }
 
-    /// <summary>
-    /// Similar functionality to TakeDamage(), but no invincibility is triggered and no animation players. Used when on fire.
-    /// </summary>
-    /// <param name="damage"></param>
+    /// \brief Similar functionality to TakeDamage(), but no invincibility is triggered and no animation players. Used when on fire.
     protected virtual void FireDamage(int damage)
     {
         if (fireImmune || !canBeOnFire)
@@ -188,9 +167,7 @@ public class ObjectHealth : MonoBehaviour
             Die();
     }
 
-    /// <summary>
-    /// Triggered when the object runs out of health. Plays a death sound and animation, drops souls/god souls, and disables the object.
-    /// </summary>
+    /// \brief Triggered when the object runs out of health. Plays a death sound and animation, drops souls/god souls, and disables the object.
     protected virtual void Die()
     {
         animator.SetBool("IsDead", true);
@@ -207,13 +184,10 @@ public class ObjectHealth : MonoBehaviour
         this.enabled = false;
     }
 
-    /// <summary>
-    /// Starts damaging the object (with FireDamage()) repeatedly. A fire sprite will appear over the object while it's on fire.
-    /// </summary>
-    /// <param name="damageCount"></param>
-    /// <param name="damageSpeed"></param>
-    /// <param name="damage"></param>
-    /// <returns></returns>
+    /// \brief Starts damaging the object (with FireDamage()) repeatedly. A fire sprite will appear over the object while it's on fire.
+    /// <param name="damageCount">The amount of times the fire will deal damage before the object stops being on fire.</param>
+    /// <param name="damageSpeed">The amount of seconds between each round of dealing damage.</param>
+    /// <param name="damage">The amount of damage to deal each time.</param>
     public IEnumerator SetOnFire(int damageCount, float damageSpeed, int damage)
     {
         if (canBeOnFire && !onFire && !isInvincible)
@@ -233,17 +207,10 @@ public class ObjectHealth : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Start a coroutine for FireImmunityTimer().
-    /// </summary>
-    /// <param name="seconds"></param>
+    /// \brief Start a coroutine for FireImmunityTimer().
     public void FireImmunity(float seconds) { StartCoroutine(FireImmunityTimer(seconds)); }
 
-    /// <summary>
-    /// Make the object immune to fire for the given amount of seconds.
-    /// </summary>
-    /// <param name="seconds"></param>
-    /// <returns></returns>
+    /// \brief Make the object immune to fire for the given amount of seconds.
     protected IEnumerator FireImmunityTimer(float seconds)
     {
         fireImmune = true;

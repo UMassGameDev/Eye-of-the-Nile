@@ -6,12 +6,13 @@ using UnityEngine;
 /*!<summary>
 Allows an ability to apply a stat change to the player (see PlayerStat, StatModifier, and PlayerStatHolder).
 Which stat to change and by how much can be changed in the editor.
-This is a scriptable object, meaning you can make and instance of it in the editor.
 Examples of StatsAE scriptable objects can be found here: \ref Scriptables_AbilityEffect.
 
 Documentation updated 8/13/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class StatsAE : AbilityEffect
 {
     // public string affectedStat;

@@ -5,11 +5,12 @@ using UnityEngine;
 /*!<summary>
 This is an example ability with placeholder functionality.
 Useful for understanding the syntax for the ability system.
-This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/13/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class ExampleAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]

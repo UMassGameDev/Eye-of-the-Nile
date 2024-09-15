@@ -1,24 +1,31 @@
-/**************************************************
-Loads a given Unity scene when a player goes through a warp/door or dies.
-This also handles the black fade transition.
-
-Documentation updated 1/29/2024
-**************************************************/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/** \brief
+Loads a given Unity scene when a player goes through a warp/door or dies.
+This also handles the black fade transition.
+
+Documentation updated 9/15/2024
+\author Roy Pascual
+*/
 public class StageLoader : MonoBehaviour
 {
+    /// Dictionary linking each StageWarp object to its name.
     public Dictionary<string, StageWarp> StageWarps { get; set; }
+    /// Reference to the animator responsible for the fate-to-black animation we want to play when loading a new scene.
     public Animator fadeAnimator;
 
+    /// Populate the dictionary with every StageWarp in the scene and their names.
     void InitializeWarps()
     {
+        // Initialize dictionary by reserving memory for it
         StageWarps = new Dictionary<string, StageWarp>();
+        // Make a list of StageWarps and fill it with every StageWarp in the scene
         StageWarp[] AllWarps = FindObjectsOfType(typeof(StageWarp)) as StageWarp[];
 
+        // For each one of those StageWarps, add their name and a reference to them to the dictionary
         foreach (StageWarp sWarp in AllWarps)
         {
             // StageWarps.Add(sWarp.warpName, sWarp);
@@ -26,6 +33,8 @@ public class StageLoader : MonoBehaviour
         }
     }
 
+    /// \brief Starts the fade animation, waits one second for the animation to end, then loads the new scene.
+    /// \todo Wait time for fade transition should not be hardcoded, but instead a variable.
     IEnumerator TransitionToNewStage(string newStageName)
     {
         // AsyncOperation loadOperation = SceneManager.LoadSceneAsync(newStageName);
@@ -36,6 +45,8 @@ public class StageLoader : MonoBehaviour
         WarpInfo.CurrentlyWarping = false;
     }
 
+    /// Parses the given stage name, changing it if it's a stand-in for another scene name ("this" = this scene, "RESPAWN" = scene of respawn point).
+    /// Then, it runs a coroutine for TransitionToNewStage().
     public void LoadNewStage(string newStageName)
     {
         if (WarpInfo.CurrentlyWarping == true)
@@ -56,12 +67,13 @@ public class StageLoader : MonoBehaviour
         StartCoroutine(TransitionToNewStage(newStageName));
     }
 
+    /// Run InitializeWarps().
     void Awake()
     {
         InitializeWarps();
     }
 
-    // Start is called before the first frame update
+    /// 
     void Start()
     {
         if (WarpInfo.WarpName == "NONE") {

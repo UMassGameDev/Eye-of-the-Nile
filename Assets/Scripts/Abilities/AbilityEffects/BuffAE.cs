@@ -4,11 +4,12 @@ using UnityEngine;
 /*!<summary>
 Allows an ability to apply a permanent stat increase to the player.
 Right now, this script only supports increasing the player's max health.
-This is a scriptable object, meaning you can make an instance of it in the editor.
 
 Documentation updated 8/13/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class BuffAE : AbilityEffect
 {
     /// \brief Reference to the player’s health.

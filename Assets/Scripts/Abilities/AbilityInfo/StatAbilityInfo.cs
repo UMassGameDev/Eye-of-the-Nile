@@ -5,7 +5,6 @@ using UnityEngine;
 /*!<summary>
 This is an example of an ability set that uses stat modifiers for each ability.
 This script is useful for copy-pasting into your own ability info if you want the same functionality.
-This is a scriptable object, meaning you can make an instance of it in the editor.
 
 The initializing part at the top is only necessary if you expect to be applying multiple effects,
 but do not want them applied at the same time. Honestly, it can probably be made to be much simpler.
@@ -15,7 +14,9 @@ ability in RockAbilityInfo. You can make the effect expire by using RemoveModifi
 
 Documentation updated 8/14/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class StatAbilityInfo : BaseAbilityInfo
 {
     [Header("Custom Ability Info")]

@@ -2,81 +2,71 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
+/// \brief
 /// This is the script on the DataManager prefab, which is responsible for storing critical data that needs to persist across scene reloads.
 /// The DataManager is persistent - it can never be destroyed, and there can only be one.
 /// This way, if the player loads a new scene by going through a door, the player object can get its health from the DataManager,
 /// thus “remembering what health it had.”
 /// 
-/// Documentation updated 8/12/2024
-/// </summary>
+/// Documentation updated 9/15/2024
 /// \author Stephen Nuttall
 /// \todo Saving & auto-saving. Writing data to a file so it can restored after the game is closed.
 public class DataManager : MonoBehaviour
 {
-    /// <summary> Possible values for the time of day. Eclipse and BloodMoon not yet implemented. </summary>
+    /// Possible values for the time of day. Eclipse and BloodMoon not yet implemented. 
     public enum TimeOfDay {Day, Night, Eclipse, BloodMoon};
     
     /** @name Reference Variables
     *  These are references to other objects this script needs to get information from.
     */
     ///@{
-    /// <summary> To make the object persistent, it needs a reference to itself. </summary>
+    /// To make the object persistent, it needs a reference to itself. 
     public static DataManager Instance;
-    /// <summary> Reference to the TimeOfDayController. Used to update the time of day after a scene reload. </summary>
+    /// Reference to the TimeOfDayController. Used to update the time of day after a scene reload. 
     TimeOfDayController ToDController;
-    /// <summary> Reference to the player’s health. Used to get the MaxHealth of the player on first load. </summary>
+    /// Reference to the player’s health. Used to get the MaxHealth of the player on first load. 
     PlayerHealth playerObjHealth;
-    /// <summary> Reference to the player itself. Used to set the initial respawn point to the player’s position. </summary>
+    /// Reference to the player itself. Used to set the initial respawn point to the player’s position. 
     GameObject player;
     ///@}
 
-    /// <summary>
-    /// True if this is not the first time the game has been loaded. <summary>
+    /// \brief True if this is not the first time the game has been loaded. 
     /// This is used to determine if old data should be restored or if the default data should be used.
-    /// <summary>
     static bool gameStarted = false;
 
-    /// <summary> Default time of day when the game is first loaded. <summary>
+    /// Default time of day when the game is first loaded. 
     public TimeOfDay defaultTimeOfDay = TimeOfDay.Day;
-    /// <summary> Time of day that should be restored when a new scene is loaded. <summary>
+    /// Time of day that should be restored when a new scene is loaded. 
     static TimeOfDay currTimeOfDay;
 
-    /// <summary> Player health that should be restored when a new scene is loaded. <summary>
+    /// Player health that should be restored when a new scene is loaded. 
     int playerHealth = 100;
-    /// <summary> Current amount of souls. <summary>
+    /// Current amount of souls. 
     int souls = 0;
-    /// <summary> Current amount of god souls. <summary>
+    /// Current amount of god souls. 
     int godSouls = 0;
     
-    /// <summary> The index of the scene that is currently loaded. <summary>
-    /// 
+    /// The index of the scene that is currently loaded.
     public static int currSceneIndex { get; private set; }
-    /// <summary> The index of the scene that was previously loaded. <summary>
-    /// <value></value> 
+    /// The index of the scene that was previously loaded. 
     public static int prevSceneIndex { get; private set; }
 
-    /// <summary> The name of the scene that is currently loaded. <summary>
-    /// <value></value>
+    /// The name of the scene that is currently loaded.
     public static string currSceneName { get; private set; }
-    /// <summary> The name of the scene that was previously loaded. <summary>
-    /// <value></value>
+    /// The name of the scene that was previously loaded.
     public static string prevSceneName { get; private set; }
 
-    /// <summary> The joke Anubis will tell when the player dies. </summary>
-    /// <value></value>
+    /// The joke Anubis will tell when the player dies.
     public static string anubisDeathMessage { get; private set; }
 
-    /// <summary> The name of the scene the player’s respawn point is in. </summary>
-    /// <value></value>
+    /// The name of the scene the player’s respawn point is in.
     public static string respawnSceneName { get; private set; }
-    /// <summary> The coordinates of the player’s respawn point. <summary>
-    /// <value></value>
+    /// The coordinates of the player’s respawn point.
     public Vector2 respawnPoint {get; set;}
 
-    /// <summary> When the amount of souls the player has changes, this event is invoked. <summary>
+    /// When the amount of souls the player has changes, this event is invoked. 
     public static event Action<int> newSoulTotal;
-    /// <summary> When the amount of god souls the player has changes, this event is invoked. <summary>
+    /// When the amount of god souls the player has changes, this event is invoked. 
     public static event Action<int> newGodSoulTotal;
 
     /******************************
@@ -87,9 +77,7 @@ public class DataManager : MonoBehaviour
     */
     ///@{
     
-    /// <summary>
     /// Subscribe all functions that need to monitor other functionality to the corresponding events.
-    /// </summary>
     void OnEnable()
     {
         PlayerHealth.onPlayerHealthChange += updatePlayerHealth;
@@ -99,9 +87,7 @@ public class DataManager : MonoBehaviour
         PlayerHealth.deathMessageChange += updateAnubisDeathMessage;
     }
 
-    /// <summary>
     /// Unsubscribe from all events when this object or script is disabled.
-    /// </summary>
     void OnDisable()
     {
         PlayerHealth.onPlayerHealthChange -= updatePlayerHealth;
@@ -183,15 +169,10 @@ public class DataManager : MonoBehaviour
     */
     ///@{
 
-    /// <summary>
     /// Updates the DataManager’s record of player health. Subscribed to the onPlayerHealthChange event.
-    /// </summary>
-    /// <param name="newHealth"></param>
     void updatePlayerHealth(int newHealth) { playerHealth = newHealth; }
 
-    /// <summary>
     /// If the currSceneIndex no longer matches the index of the actual current scene, update currSceneIndex and prevSceneIndex.
-    /// </summary>
     void updateSceneIndex()
     {
         if (currSceneIndex != SceneManager.GetActiveScene().buildIndex)
@@ -202,9 +183,7 @@ public class DataManager : MonoBehaviour
         // Debug.Log("Current Scene Index: " + currSceneIndex + ", Previous Scene Index: " + prevSceneIndex);
     }
 
-    /// <summary>
     /// If the currSceneName no longer matches the index of the actual current scene, update currSceneName and prevSceneName.
-    /// </summary>
     void updateSceneName()
     {
         if (currSceneName != SceneManager.GetActiveScene().name)
@@ -214,13 +193,8 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Sets the joke Anubis will tell to the given string. Subscribes to the PlayerHealth.deathMessageChange event.
-    /// </summary>
-    /// <param name="newDeathMessage"></param> <summary>
-    /// Joke that Anubis will tell.
-    /// </summary>
-    /// <param name="newDeathMessage"></param>
+    /// <param name="newDeathMessage">Joke that Anubis will tell.</param>
     void updateAnubisDeathMessage(string newDeathMessage) { anubisDeathMessage = newDeathMessage; }
     ///@}
 
@@ -232,54 +206,34 @@ public class DataManager : MonoBehaviour
     */
     ///@{
 
-    /// <summary>
     /// Returns current time of day as a TimeOfDay enum.
-    /// </summary>
     public TimeOfDay GetTimeOfDay() { return currTimeOfDay; }
 
-    /// <summary>
     /// Returns the player's health.
-    /// </summary>
     public int GetPlayerHealth() { return playerHealth; }
 
-    /// <summary>
     /// Returns number of souls the player has.
-    /// </summary>
     public int GetSouls() { return souls; }
 
-    /// <summary>
     /// Returns number of god souls the player has.
-    /// </summary>
     public int GetGodSouls() { return godSouls; }
 
-    /// <summary>
     /// Returns the index of the previous scene.
-    /// </summary>
     public int GetPrevSceneIndex() { return prevSceneIndex; }
 
-    /// <summary>
     /// Returns the index of the current scene.
-    /// </summary>
     public int GetCurrSceneIndex() { return currSceneIndex; }
 
-    /// <summary>
     /// Returns the name of the previous scene.
-    /// </summary>
     public string GetPrevSceneName() { return prevSceneName; }
 
-    /// <summary>
     /// Returns the name of the current scene.
-    /// </summary>
     public string GetCurrSceneName() { return currSceneName; }
     
-    /// <summary>
     /// Returns the name of the scene with the player's respawn point.
-    /// </summary>
     public string GetRespawnSceneName() { return respawnSceneName; }
 
-    /// <summary>
     /// Returns the joke Anubis will tell when the player dies.
-    /// </summary>
     public string GetAnubisDeathMessage() { return anubisDeathMessage; }
     ///@}
 
@@ -291,10 +245,7 @@ public class DataManager : MonoBehaviour
     */
     ///@{
 
-    /// <summary>
     /// Set the time of day to be either Day, Night, Eclipse, or BloodMoon. (Eclipse and BloodMoon not yet implemented).
-    /// </summary>
-    /// <param name="newTime"></param>
     public void SetTimeOfDay(TimeOfDay newTime)
     {
         // For some reason, the ToDController sometimes gets unassigned. This will ensure that won't happen
@@ -315,10 +266,8 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Sets the player’s respawn point the given position in the current scene.
-    /// </summary>
-    /// <param name="newRespawnPoint"></param>
+    /// <param name="newRespawnPoint">The coordinates in the respawn scene the respawn point is located.</param>
     public void UpdateRespawnPoint(Vector2 newRespawnPoint)
     {
         respawnPoint = newRespawnPoint;
@@ -326,40 +275,28 @@ public class DataManager : MonoBehaviour
         Debug.Log("New Respawn Point: " + respawnPoint + " in \"" + respawnSceneName + '\"');
     }
 
-    /// <summary>
     /// Adds the given amount of souls. Subscribes to the ObjectHealth.soulsDropped event.
-    /// </summary>
-    /// <param name="numSouls"></param>
     public void AddSouls(int numSouls)
     {
         souls += numSouls;
         newSoulTotal?.Invoke(souls);
     }
 
-    /// <summary>
     /// Subtracts the given amount of souls.
-    /// </summary>
-    /// <param name="numSouls"></param>
     public void SubtractSouls(int numSouls)
     {
         souls -= numSouls;
         newSoulTotal?.Invoke(souls);
     }
 
-    /// <summary>
     /// Adds the given amount of god souls. Subscribes to the ObjectHealth.godSoulsDropped event.
-    /// </summary>
-    /// <param name="numSouls"></param>
     public void AddGodSouls(int numSouls)
     {
         godSouls += numSouls;
         newGodSoulTotal?.Invoke(godSouls);
     }
 
-    /// <summary>
     /// Subtracts the given amount of god souls.
-    /// </summary>
-    /// <param name="numSouls"></param>
     public void SubtractGodSouls(int numSouls)
     {
         godSouls -= numSouls;

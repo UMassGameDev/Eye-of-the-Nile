@@ -8,11 +8,11 @@ This is the info for the wind ability set made for the club fair build.
 - The utility ability triggers a really high jump (regardless of if the player is normally allowed to jump).
 - The passive ability allows the player to triple jump.
 
-This is a scriptable object, meaning you can make an instance of it in the editor.
-
 Documentation updated 8/14/2024
 </summary>
-\author Stephen Nuttall*/
+\author Stephen Nuttall
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class WindAbilityInfo : BaseAbilityInfo
 {
     [Header("Offense Ability Info")]

@@ -6,11 +6,13 @@ using UnityEngine;
 [Serializable]
 /*!<summary>
 Stores and manages the set of active ability sets. These are the 4 abilities on the hotbar the player has equipped and can use.
-You can manage this in the unity editor with the ActiveAbilityData scriptable object.
+You can manage this in the unity editor with the \ref Scriptables_ActiveAbilties scriptable object.
 
 Documentation updated 8/11/2024
 </summary>
-\author Roy Pascual*/
+\author Roy Pascual
+\note This is a scriptable object, meaning you can make an instance of it in the Unity Editor that exists in the file explorer.
+*/
 public class ActiveAbilityData : ScriptableObject
 {
     /// <summary> Ability info representing the ability set in offense slot </summary>

@@ -15,7 +15,10 @@ Every ability info must replace the four abstract functions, and can optionally 
 
 Documentation updated 8/13/2024
 </summary>
-\author Roy Pascual, Stephen Nuttall*/
+\author Roy Pascual, Stephen Nuttall
+\note This (any anything that inherits from it) is a scriptable object, meaning you can make an instance of it in
+the Unity Editor that exists in the file explorer.
+*/
 public abstract class BaseAbilityInfo : ScriptableObject
 {
     [Header("Basic Ability Info")]
