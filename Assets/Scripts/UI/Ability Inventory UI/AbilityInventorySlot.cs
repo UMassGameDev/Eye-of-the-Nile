@@ -1,38 +1,50 @@
-/**************************************************
-Implements the inventory slots in the ability inventory found in the skyhub.
-Adapted from InventorySlot.cs.
-
-Documentation updated 4/2/2024
-**************************************************/
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
+/** \brief
+Implements the inventory slots in the ability inventory found in the skyhub.
+Adapted from InventorySlot.
+
+Documentation updated 9/19/2024
+\author Stephen Nuttall
+*/
 public class AbilityInventorySlot : MonoBehaviour, IDropHandler
 {
+    /// The ability item that this slot currently holds.
     public AbilityInventoryItemData slotData;
 
+    /// The ID number of this slot. -1 is a default value to represent an error.
     [SerializeField] int slotNum = -1;
+    /// \brief If true, the details button will be displayed beneath the slot that displays extra info about the ability.
+    /// Disabled for the 4 active ability slots at the bottom of the ability inventory.
     [SerializeField] bool enableDetailsButton = true;
 
-    [SerializeField] bool acceptsOnlyOneItem = true;  // if enabled, the user can only drop acceptedItem into this slot
+    /// If enabled, the user can only drop acceptedItem into this slot. Enabled for the 9 inventory slots at the top.
+    [SerializeField] bool acceptsOnlyOneItem = true;
+    /// Of acceptsOnlyOneItem is true, this is the item this slot will accept and others will be rejected.
     [SerializeField] AbilityInventoryItemData acceptedItem;
 
+    /// Invoked when the slot receives an item. Contains the item data and slot ID number.
     public static event Action<AbilityInventoryItemData, int> receivedItem;
 
+    /// \brief Shortly after the object is created or re-enabled, subscribe checkDuplicateName() to receivedItem
+    /// and setTextboxes() to AbilityInventoryUI.abilityInventorySlotInitialized.
     void OnEnable()
     {
         receivedItem += checkDuplicateName;
         AbilityInventoryUI.abilityInventorySlotInitialized += setTextboxes;
     }
 
+    /// When the object is disabled, unsubscribe from all events.
     void OnDisable()
     {
         receivedItem -= checkDuplicateName;
         AbilityInventoryUI.abilityInventorySlotInitialized -= setTextboxes;
     }
 
+    /// When the user drops an item into this slot, run itemAccept() (unless this slot only accepts a different item).
     public void OnDrop(PointerEventData eventData)
     {
         // if an item is being dragged && that item has the required item data...
@@ -47,6 +59,7 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
+    /// Add the item to the slot, updating the slot's data and textboxes.
     void itemAccepted(PointerEventData eventData, AbilityInventoryItemData itemData)
     {
         // basic functionality of an inventory slot from InventorySlot.cs
@@ -61,6 +74,7 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         setTextboxes();
     }
 
+    /// Displays details button (if enabled), and the name and level of the ability in this slot.
     void setTextboxes()
     {
         if (enableDetailsButton)
@@ -80,6 +94,8 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
+    /// \brief Run when the slot receives an item. If the name of the item dropped into this slot is the same as
+    /// an item in another slot, remove the duplicate item.
     void checkDuplicateName(AbilityInventoryItemData thisSlot, int thisSlotNum)
     {
         if (thisSlot == slotData && thisSlotNum != slotNum && !acceptsOnlyOneItem)
@@ -89,5 +105,6 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
+    /// Returns the position of the slot.
     public Vector2 GetPosition() { return gameObject.transform.position; }
 }

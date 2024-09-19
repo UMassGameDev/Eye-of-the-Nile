@@ -1,40 +1,57 @@
-/**************************************************
-Handles the display and functionality of the ability inventory UI, accessed in the Skyhub.
-
-Documentation updated 3/14/2024
-**************************************************/
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+/** \brief
+Handles the display and functionality of the ability inventory UI, accessed in the Skyhub.
+
+Documentation updated 9/19/2024
+\author Stephen Nuttall
+*/
 public class AbilityInventoryUI : MonoBehaviour
 {
+    /// Reference to \ref Scriptables_ActiveAbilties.
     [SerializeField] ActiveAbilityData activeAbilityData;
+    /// Reference to \ref Scriptables_AbilityInventory.
     [SerializeField] AbilityInventory abilityInventory;
 
+    /// Reference to the background panel of the ability inventory UI, which holds all the UI elements.
     [SerializeField] GameObject inventoryPanel;
+    /// Reference to \ref Prefabs_Canvas. This will be disabled while the ability inventory is open.
     [SerializeField] GameObject mainCanvas;
+    /// Reference to the details panel of the ability inventory UI, which holds the UI elements for the more details display.
     [SerializeField] GameObject detailsPanel;
 
+    /// List of icons for the ability items.
     [SerializeField] Image[] abilityIcons;
+    /// List of data for the ability items.
     [SerializeField] AbilityInventoryItemData[] iconData;
 
+    /// List of slots at the top holding unused abilities.
     [SerializeField] AbilityInventorySlot[] abilityInventorySlots;
+    /// List of slots at the bottom holding the currently used abilities.
     [SerializeField] AbilityInventorySlot[] activeAbilitySlots;
 
+    /// Reference to \ref Scriptables_EmptyAbilityInfo.
     [SerializeField] EmptyAbilityInfo emptyAbilityInfo;
 
+    /// Invoked when the ability inventory is opened.
     public static event Action abilityInventoryOpened;
+    /// Invoked when the ability inventory is closed.
     public static event Action abilityInventoryClosed;
+    /// Invoked when the slots in the ability inventory have been initialized.
     public static event Action abilityInventorySlotInitialized;
     
+    /// True if the ability inventory is currently open.
     bool inventoryOpen = false;
 
+    /// Run InitializeSlots().
     void Awake()
     {
         InitializeSlots();
     }
 
+    /// Disables the main canvas and enables the inventory panel, then runs InitializeSlots().
     public void OpenInventory()
     {
         inventoryOpen = true;
@@ -50,6 +67,7 @@ public class AbilityInventoryUI : MonoBehaviour
         abilityInventoryOpened?.Invoke();
     }
 
+    /// Updates \ref Scriptables_ActiveAbilties, then enables the main canvas and disables the inventory panel.
     public void ExitInventory()
     {
         UpdateActiveAbilities();
@@ -65,17 +83,20 @@ public class AbilityInventoryUI : MonoBehaviour
         abilityInventoryClosed?.Invoke();
     }
 
+    /// Opens the more details view under the given ability slot.
     public void OpenDetailsPanel(AbilityInventorySlot inventorySlot)
     {
         detailsPanel.SetActive(true);
         detailsPanel.GetComponent<DetailsPanel>().Initialize(inventorySlot.slotData);
     }
 
+    /// Closes the more details view.
     public void ExitDetailsPanel()
     {
         detailsPanel.SetActive(false);
     }
 
+    /// Runs every frame. Checks if the user has pressed escape. If so, exit the ability inventory.
     void Update()
     {
         // if the inventory is open and the user presses escape, close the game
@@ -85,6 +106,7 @@ public class AbilityInventoryUI : MonoBehaviour
         }
     }
 
+    /// Fills out the AbilityInventoryItemData for each slot.
     void InitializeSlots()
     {
         // initialize ability inventory slots and their icons
@@ -134,6 +156,7 @@ public class AbilityInventoryUI : MonoBehaviour
         }
     }
 
+    /// Update \ref Scriptables_ActiveAbilties to reflect any changes made in the ability inventory.
     void UpdateActiveAbilities()
     {
         // update active ability data with new active abilities
