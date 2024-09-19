@@ -20,19 +20,19 @@ public class AbilityOwner // : MonoBehaviour
     /// \brief delegate used to create the ChargeUp event.
     public delegate void ChargeUpEvent(AbilityOwner abilityOwner);
     /// \brief When triggered, a function subscribed to it in PlayerAbilityController.cs will run ChargingUp().
-    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs)
+    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents
     public event ChargeUpEvent ChargeUp;
 
     /// \brief delegate used to create the CoolDown event.
     public delegate void CooldownEvent(AbilityOwner abilityOwner);
     /// \brief When triggered, a function subscribed to it in PlayerAbilityController.cs will run CoolingDown().
-    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs)
+    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents
     public event CooldownEvent CoolDown;
 
     /// \brief delegate used to create the AbilityUpdate event.
     public delegate void UpdateEvent(AbilityOwner abilityOwner);
     /// \brief When triggered, a function subscribed to it in PlayerAbilityController.cs will run UpdateWithinDuration().
-    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents (or DocumentationPages.cs)
+    /// \note For a detailed description of how this event is used, visit /ref abilityOwnerEvents
     public event UpdateEvent AbilityUpdate;
 
     /// \brief Transform of the ability owner (usually the player's transform).

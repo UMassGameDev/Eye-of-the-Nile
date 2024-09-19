@@ -155,10 +155,10 @@ A slot Ma’at’s ability inventory, accessible in the skyhub. Derives from Inv
 An icon representing an ability in the ability hotbar.
 
 \subsubsection Prefabs_Abilities_AbilitySlotUI AbilitySlotUI.prefab
-The ability hotbar that shows your active abilities in the bottom left of the screen.
+A slot for a \ref Prefabs_Abilities_AbilityImageUI in \ref Prefabs_Abilities_AbilitySlots.
 
 \subsubsection Prefabs_Abilities_AbilitySlots AbilitySlots.prefab
-A slot in the ability hotbar.
+The ability hotbar that shows your active abilities in the bottom left of the screen.
 
 \subsubsection Prefabs_Abilities_InventorySlot InventorySlot.prefab
 A generic inventory slot that can be added to any future UI.
