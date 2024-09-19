@@ -39,7 +39,7 @@ public class AbilityImageUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         transform.position = Input.mousePosition;
     }
 
-    /// Runs when the user stops dragging the icon and drops it.
+    /// \brief Runs when the user stops dragging the icon and drops it.
     /// Re-enables mouse inputs (raycastTarget) and sets itself as a child of it's next parent.
     public void OnEndDrag(PointerEventData eventData)
     {

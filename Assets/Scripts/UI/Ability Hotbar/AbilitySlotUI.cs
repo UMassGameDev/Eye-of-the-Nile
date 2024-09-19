@@ -34,7 +34,7 @@ public class AbilitySlotUI : MonoBehaviour, IDropHandler
         DroppedUIEvent -= totalAbilityUI.SlotDropListener;
     }
 
-    /// Runs when the user drags and drops an icon above this slot. 
+    /// \brief Runs when the user drags and drops an icon above this slot. 
     /// Adds the icon (AbilityImageUI object) dropped on this slot to this slot.
     /// If there's a icon already in this slot, put it in the slot the dropped icon came from.
     public void OnDrop(PointerEventData eventData)
