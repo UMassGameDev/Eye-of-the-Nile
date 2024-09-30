@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /** \brief
-This script goes on the slots of the ability hotbar and handles displaying ability icons and swapping icons when drag and dropping.
+This script goes on (as a component) the slots of the ability hotbar and handles displaying ability icons and swapping icons when drag and dropping.
 
 Documentation updated 9/18/2024
 \author Roy Pascual
@@ -40,7 +40,6 @@ public class AbilitySlotUI : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         AbilityImageUI abilityImageUI = eventData.pointerDrag.GetComponent<AbilityImageUI>();
-        Debug.Log("Here.");
 
         if (abilityImageUI != null && CurAbilityImageUI == null)
         {

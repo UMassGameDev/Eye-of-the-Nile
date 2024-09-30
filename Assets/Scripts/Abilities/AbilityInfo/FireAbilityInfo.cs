@@ -81,9 +81,7 @@ public class FireAbilityInfo : BaseAbilityInfo
     }
     ///@}
 
-    /// <summary>
     /// Populates _StatModDict with the stat modifiers from statMods.
-    /// </summary>
     private void StatModDictInitializer()
     {
         _statModDictField = new Dictionary<string, StatModifier>();
@@ -94,16 +92,13 @@ public class FireAbilityInfo : BaseAbilityInfo
         }
     }
 
-    /// <summary>
     /// Shoot a burst of fireballs.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectileBurst(projectilePrefab, numFireballs, fireballDelay);
     }
 
-    // Spawn a tall fire on each side of the player.
+    /// Spawn a tall fire on each side of the player.
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         Instantiate(firewallPrefab, new Vector2(
@@ -115,24 +110,26 @@ public class FireAbilityInfo : BaseAbilityInfo
             abilityOwner.OwnerTransform.position.y + firewallYOffset), Quaternion.identity);
     }
 
-    /// <summary>
     /// Makes the player immune to fire for a short time.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerHealth>().FireImmunity(fireImmunityTimer);
     }
 
-    /// <summary>
     /// Makes the player take less fire damage.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
-    protected override void AbilityPassive(AbilityOwner abilityOwner)
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner)
     {
         Transform ownerTransform = abilityOwner.OwnerTransform;
         PlayerStatHolder playerStats = ownerTransform.GetComponent<PlayerStatHolder>();
         playerStats.GetStat(currentStat).RemoveModifier(_StatModDict[currentStat]);
         playerStats.GetStat(currentStat).AddModifier(_StatModDict[currentStat]);
+    }
+
+    /// Removes the fire resistance stat effect.
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner)
+    {
+        Transform ownerTransform = abilityOwner.OwnerTransform;
+        PlayerStatHolder playerStats = ownerTransform.GetComponent<PlayerStatHolder>();
+        playerStats.GetStat(currentStat).RemoveModifier(_StatModDict[currentStat]);
     }
 }

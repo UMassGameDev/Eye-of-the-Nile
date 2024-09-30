@@ -20,5 +20,7 @@ public class EmptyAbilityInfo : BaseAbilityInfo
 
     protected override void AbilityUtility(AbilityOwner abilityOwner) { Debug.Log("This ability does nothing"); }
 
-    protected override void AbilityPassive(AbilityOwner abilityOwner) { Debug.Log("This ability does nothing"); }
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner) { Debug.Log("This ability does nothing"); }
+
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner) { Debug.Log("This ability does nothing"); }
 }

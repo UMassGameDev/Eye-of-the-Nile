@@ -61,19 +61,13 @@ public class RockAbilityInfo : BaseAbilityInfo
     public StatModifier passiveModifier;
     ///@}
 
-    /// <summary>
     /// Throws a big boulder projectile.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(boulderProjectilePrefab);
     }
 
-    /// <summary>
     /// Spawns a rock wall in front of the player.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         if (abilityOwner.OwnerTransform.localScale.x > 0) {
@@ -87,10 +81,7 @@ public class RockAbilityInfo : BaseAbilityInfo
             abilityOwner.OwnerTransform.position.y + wallYOffset), Quaternion.identity);
     }
 
-    /// <summary>
     /// Spawns a temporary rock platform under the player.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         Instantiate(rockPlatformPrefab, new Vector2(
@@ -98,14 +89,19 @@ public class RockAbilityInfo : BaseAbilityInfo
             abilityOwner.OwnerTransform.position.y + platformYOffset), Quaternion.identity);
     }
 
-    /// <summary>
     /// Simple defense stat increase. The player takes a set amount less damage.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
-    protected override void AbilityPassive(AbilityOwner abilityOwner)
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner)
     {
         Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
         PlayerStatHolder playerStats = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
         playerStats.GetStat(passiveModifier.TargetStat).AddModifier(passiveModifier);  // add passive modifier
+    }
+
+    /// Removes the defense stat increase, returning the amount of damage the player takes to normal.
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner)
+    {
+        Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
+        PlayerStatHolder playerStats = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
+        playerStats.GetStat(passiveModifier.TargetStat).RemoveModifier(passiveModifier);  // remove passive modifier
     }
 }

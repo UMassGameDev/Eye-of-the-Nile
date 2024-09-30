@@ -45,9 +45,15 @@ public class ExEffectAbilityInfo : BaseAbilityInfo
     /// Applies passive effects.
     /// </summary>
     /// <param name="abilityOwner"></param>
-    protected override void AbilityPassive(AbilityOwner abilityOwner)
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner)
     {
         base.ApplyEffects(abilityOwner, AbilityForm.Passive, AbilityEffectType.Immediate);
+    }
+
+    /// Placeholder AbilityPassiveDisable
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner)
+    {
+        base.DisableEffects(abilityOwner, AbilityForm.Passive, AbilityEffectType.Immediate);
     }
 
     /// <summary>

@@ -116,9 +116,9 @@ public class StatAbilityInfo : BaseAbilityInfo
 
     // Increases player's max health.
     // this is the same code as the defense ability, but without the debug messages.
-    protected override void AbilityPassive(AbilityOwner abilityOwner)
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner)
     {
-        Debug.Log("Example Passive.");
+        Debug.Log("Example Passive Enable.");
 
         Transform ownerTransform = abilityOwner.OwnerTransform;
         PlayerHealth playerHealth = ownerTransform.GetComponent<PlayerHealth>();
@@ -130,6 +130,26 @@ public class StatAbilityInfo : BaseAbilityInfo
         playerStats.GetStat(currentStat).AddModifier(_StatModDict[currentStat]);
 
         playerHealth.InvokeHealthChange();
+    }
+
+    /// removes the max health increase.
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner)
+    {
+        Debug.Log("Example Passive Disable.");
+
+        // get transform and stats
+        Transform ownerTransform = abilityOwner.OwnerTransform;
+        PlayerStatHolder playerStats = ownerTransform.GetComponent<PlayerStatHolder>();
+
+        if (currentStat == "MaxHealth")
+        {
+            // remove the max health stat modifier
+            playerStats.GetStat(currentStat).RemoveModifier(_StatModDict[currentStat]);
+
+            // since we changed the max health, update player health
+            PlayerHealth playerHealth = ownerTransform.GetComponent<PlayerHealth>();
+            playerHealth.InvokeHealthChange();
+        }
     }
 
     // Removes all active effects.

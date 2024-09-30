@@ -26,19 +26,13 @@ public class ExampleAbilityInfo : BaseAbilityInfo
     GameObject tempAbilitySpawn;
     ///@}
 
-    /// <summary>
     /// Unused function that spawns an effect where the player is standing.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     private void PlaceholderEffect(AbilityOwner abilityOwner)
     {
         Instantiate(effectPrefab, abilityOwner.OwnerTransform.position, Quaternion.identity);
     }
 
-    /// <summary>
     /// Spawns a red textbox where the player is standing that says “Offense.”
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Offense");
@@ -53,10 +47,7 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Offense";
     }
 
-    /// <summary>
     /// Heals the player instantly by damage (from BaseAbilityInfo). Spawns a red textbox where the player is standing that says “Defense.”
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Defense");
@@ -77,10 +68,7 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Defense";
     }
 
-    /// <summary>
     /// Spawns a red textbox where the player is standing that says “Utility.”
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         Debug.Log("Example Utility");
@@ -96,19 +84,16 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         tempAbilitySpawn.transform.Find("TestText").GetComponent<TextMeshPro>().text = "Utility";
     }
 
-    /// <summary>
     /// Writes "Example Passive" to the console.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
-    protected override void AbilityPassive(AbilityOwner abilityOwner)
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner)
     {
-        Debug.Log("Example Passive");
+        Debug.Log("Example Passive Enable");
     }
 
-    /// <summary>
+    /// Placeholder AbilityPassiveDisable
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner) { Debug.Log("Example Passive Disable"); }
+
     /// Heals the player instantly by damage (from BaseAbilityInfo) repeatedly.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     public override void AbilityUpdate(AbilityOwner abilityOwner)
     {
         Debug.Log("Update : " + Time.time);
@@ -120,11 +105,8 @@ public class ExampleAbilityInfo : BaseAbilityInfo
         }
     }
 
-    /// <summary>
     /// Calls base version of this function (doesn’t need to be included)
-    /// </summary>
-    /// <param name="abilityOwner"></param>
-    /// <param name="effectType"></param>
+    /// \deprecated Since this function just calls the base version of itself, it can just be removed.
     public override void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType)
     {
         base.AbilityDisable(abilityOwner, effectType);

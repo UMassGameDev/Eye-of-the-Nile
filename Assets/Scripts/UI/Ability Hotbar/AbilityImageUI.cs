@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /** \brief
-This script goes on the icons for the abilities on the ability hotbar and handles the drag and drop functionality.
+This script goes on (as a component) the icons for the abilities on the ability hotbar and handles the drag and drop functionality.
 
 Documentation updated 9/18/2024
 \author Roy Pascaul

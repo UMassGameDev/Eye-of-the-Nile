@@ -61,39 +61,33 @@ public class WindAbilityInfo : BaseAbilityInfo
     public int defaultMaxJumpChain = 1;  
     ///@}
 
-    /// <summary>
     /// Triggers a melee attack with more knockback and range.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().Melee(meleeAnimName, attackCooldown, offenseRange, offenseKnockback);
     }
 
-    /// <summary>
     /// Shoots a wind projectile that pushes enemies back.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(tornadoProjectilePrefab);
     }
 
-    /// <summary>
     /// Triggers a really high jump (regardless of if the player is normally allowed to jump).
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().SpecialJump(jumpForce);
     }
 
-    /// <summary>
     /// Allows the player to triple jump.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
-    protected override void AbilityPassive(AbilityOwner abilityOwner)
+    protected override void AbilityPassiveEnable(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().maxJumpChain = newMaxJumpChain;
+    }
+
+    /// Placeholder AbilityPassiveDisable
+    protected override void AbilityPassiveDisable(AbilityOwner abilityOwner)
+    {
+        abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().maxJumpChain = defaultMaxJumpChain;
     }
 }

@@ -96,7 +96,7 @@ public class PrototypeBaseEntity : MonoBehaviour
     {
         Vector2 pos2D = transform.position;
 
-        bool inRange = false;
+        //bool inRange = false;
 
         for (int i = 0; i < baseInfo.attackRanges.Count; i++)
         {
@@ -104,7 +104,7 @@ public class PrototypeBaseEntity : MonoBehaviour
                 baseInfo.attackRanges[i])
             {
                 attackVariant = i;
-                inRange = true;
+                //inRange = true;
                 break;
             }
         }
