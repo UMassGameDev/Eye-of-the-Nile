@@ -4,7 +4,7 @@ using UnityEngine;
 Handles the player movement, such as walking and jumping, when the user presses the corresponding keys.
 
 Documentation updated 9/1/2024
-\author Stephen Nuttall, Roy Pascual
+\author Stephen Nuttall, Roy Pascual, Alexander Art
 \todo Implement features that make movement more smooth, such as coyote time.
 */
 public class PlayerMovement : MonoBehaviour
@@ -27,11 +27,13 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10.0f;
     /// The amount of linear drag that should be applied to the rigidbody.
     public float linearDrag = 1.0f;
-    /// Unimplemented feature.
     /// If the player walks off an edge, coyote time is the amount of time after leaving the ground that they can still jump.
     /// This prevents jumps from having to be frame perfect. The user gets a little bit of leniency with the timing of their jumps.
-    /// \todo Implement coyote time.
     public float coyoteTime = 0.5f;
+    /// Used to prevent multiple coyote jumps before the player returns to the ground
+    private bool coyoteJumpAvailable = false;
+    /// Used to track the time since the player was last on the ground
+    public float airTime = 0.0f;
     /// True if the player is currently warping to another area through a StageWarp, such as a door or some other exit.
     /// \todo Make this an event rather than a public bool. This is the more "proper" way to do this as it prevents OnWarp from being changed arbitrarily.
     public bool OnWarp {get; set;} = false;
@@ -94,7 +96,8 @@ public class PlayerMovement : MonoBehaviour
     ///         - The player is not currently warping (using a door or going through an exit).
     ///         - One of these two scenarios are true:
     ///             1. The player is on the ground or not moving, and the is falling/has fallen (on ground scenario).
-    ///             2. The player is falling/has fallen, and there is at least one jump available for a jump chain (double jump scenario).
+    ///             2. The player has recently been on the ground, is falling/has fallen, and has not already used a coyote time jump since last grounded (coyote time scenario).
+    ///             3. The player is falling/has fallen, and there is at least one jump available for a jump chain (double jump scenario).
     ///     - What do to when these conditions are met:
     ///         - Add upwards force to the player.
     ///         - Play jumping animation and sound.
@@ -126,16 +129,30 @@ public class PlayerMovement : MonoBehaviour
         if (rb.velocity.y < 0f)
             isFalling = true;
 
+        if (groundDetector.isGrounded) {
+            airTime = 0.0f; // Reset airTime when grounded
+            coyoteJumpAvailable = true; // Reset coyote time jump availability when grounded
+        } else
+            airTime += Time.deltaTime; // Airtime increases when the player is not on the ground
+
         if ((verticalInput > 0 || Input.GetKey(KeyCode.Space)) && !OnWarp)
         {
-            if ((groundDetector.isGrounded || (rb.velocity.x == 0 && rb.velocity.y == 0)) && isFalling)
+            if (groundDetector.isGrounded && isFalling) // On ground scenario
             {
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
                 isFalling = false;
                 jumpsAvailable = maxJumpChain;
-            } else if (isFalling && jumpsAvailable != 0) {
+                coyoteJumpAvailable = false;
+            } else if ((airTime < coyoteTime) && coyoteJumpAvailable && isFalling) { // Coyote time scenario
+                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+                animator.SetTrigger("Jump");
+                AudioManager.Instance.PlaySFX("jump");
+                isFalling = false;
+                jumpsAvailable = maxJumpChain;
+                coyoteJumpAvailable = false;
+            } else if (isFalling && jumpsAvailable != 0) { // Double jump scenario
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
