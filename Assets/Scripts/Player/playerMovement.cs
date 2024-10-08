@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
             isFalling = true;
-        else
+        else if (rb.velocity.y > 0.1f)
             coyoteJumpAvailable = false; // Disable coyote time jump availability after jump (when player is moving up)
 
         if (groundDetector.isGrounded) {
