@@ -210,7 +210,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f2ed27d6c1c3ccc48959bcca269d88f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -282,7 +282,7 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -350,9 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVelocity: 12
-  jumpForce: 175
+  jumpForce: 300
   linearDrag: 1
   coyoteTime: 0.5
+  airTime: 0
   maxJumpChain: 1
   animator: {fileID: 2371901272311279201}
   objectHealth: {fileID: 1203306737245432797}
@@ -394,6 +395,7 @@ MonoBehaviour:
   sRenderer: {fileID: 8400089797164572280}
   animator: {fileID: 2371901272311279201}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  onFireSprite: {fileID: 8623649031616025542}
   deathSfxName: player_death
   enableDamageParticles: 1
   maxHealth: 100
@@ -401,7 +403,6 @@ MonoBehaviour:
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 1
   invincibleDuration: 1
-  onFireSprite: {fileID: 8623649031616025542}
   canBeOnFire: 1
   deadFadeDelay: 1
   deadFadeLength: 1
@@ -425,8 +426,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   interactRange: 0.5
-  interactCooldown: 1
   interactKey: e
+  interactCooldown: 1
+  longPressLength: 1
 --- !u!114 &6090076525925026504
 MonoBehaviour:
   m_ObjectHideFlags: 0
