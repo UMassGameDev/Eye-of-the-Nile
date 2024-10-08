@@ -128,10 +128,12 @@ public class PlayerMovement : MonoBehaviour
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
             isFalling = true;
+        else if (rb.velocity.y > 0.1f)
+            coyoteJumpAvailable = false; // Disable coyote time jump availability after jump (when player is moving up)
 
         if (groundDetector.isGrounded) {
             airTime = 0.0f; // Reset airTime when grounded
-            coyoteJumpAvailable = true; // Reset coyote time jump availability when grounded
+            coyoteJumpAvailable = true; // Enable coyote time jump availability when grounded
         } else
             airTime += Time.deltaTime; // Airtime increases when the player is not on the ground
 
@@ -144,14 +146,12 @@ public class PlayerMovement : MonoBehaviour
                 AudioManager.Instance.PlaySFX("jump");
                 isFalling = false;
                 jumpsAvailable = maxJumpChain;
-                coyoteJumpAvailable = false;
             } else if ((airTime < coyoteTime) && coyoteJumpAvailable && isFalling) { // Coyote time scenario
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
                 isFalling = false;
                 jumpsAvailable = maxJumpChain;
-                coyoteJumpAvailable = false;
             } else if (isFalling && jumpsAvailable != 0) { // Double jump scenario
                 rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
