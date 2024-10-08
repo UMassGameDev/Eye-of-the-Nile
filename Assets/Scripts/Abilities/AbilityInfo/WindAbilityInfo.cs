@@ -76,7 +76,7 @@ public class WindAbilityInfo : BaseAbilityInfo
     /// Triggers a really high jump (regardless of if the player is normally allowed to jump).
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
-        abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().SpecialJump(jumpForce);
+        abilityOwner.OwnerTransform.GetComponent<PlayerMovement>().Jump(jumpForce);
     }
 
     /// Allows the player to triple jump.

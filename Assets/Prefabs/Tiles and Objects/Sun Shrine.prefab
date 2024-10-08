@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7e096570780c448418fe03ffeaa94145, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88063b959f065e9449eb12586635d3f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,14 +123,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.16, y: 6.13}
+    oldSize: {x: 6.25, y: 6.25}
     newSize: {x: 3.16, y: 6.13}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.16, y: 6.13}
+  m_Size: {x: 3.3, y: 6}
   m_EdgeRadius: 0
 --- !u!114 &3989773421232680003
 MonoBehaviour:
@@ -159,6 +159,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  InvokeOnLongPress:
+    m_PersistentCalls:
+      m_Calls: []
+  InvokeOnMelee:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4783693373914126230
 MonoBehaviour:
   m_ObjectHideFlags: 0

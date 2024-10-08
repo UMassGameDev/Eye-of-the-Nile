@@ -3,9 +3,10 @@ using UnityEngine;
 /** \brief
 Handles the player movement, such as walking and jumping, when the user presses the corresponding keys.
 
-Documentation updated 9/1/2024
+Documentation updated 10/8/2024
 \author Stephen Nuttall, Roy Pascual, Alexander Art
-\todo Implement features that make movement more smooth, such as coyote time.
+\todo Implement features that make movement more smooth.
+\todo Add animation trigger for when the playing is falling (don't know if it should be its own animation or keep the last frame of the jump animation).
 */
 public class PlayerMovement : MonoBehaviour
 {
@@ -94,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
     ///     - Conditions for a jump:
     ///         - Vertical input is positive (the user is pressing either, W or the up arrow) or the user is pressing the space bar.
     ///         - The player is not currently warping (using a door or going through an exit).
-    ///         - One of these two scenarios are true:
+    ///         - One of these three scenarios are true:
     ///             1. The player is on the ground or not moving, and the is falling/has fallen (on ground scenario).
     ///             2. The player has recently been on the ground, is falling/has fallen, and has not already used a coyote time jump since last grounded (coyote time scenario).
     ///             3. The player is falling/has fallen, and there is at least one jump available for a jump chain (double jump scenario).
@@ -141,34 +142,39 @@ public class PlayerMovement : MonoBehaviour
         {
             if (groundDetector.isGrounded && isFalling) // On ground scenario
             {
-                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
-                animator.SetTrigger("Jump");
-                AudioManager.Instance.PlaySFX("jump");
-                isFalling = false;
+                Jump();
                 jumpsAvailable = maxJumpChain;
-            } else if ((airTime < coyoteTime) && coyoteJumpAvailable && isFalling) { // Coyote time scenario
-                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
-                animator.SetTrigger("Jump");
-                AudioManager.Instance.PlaySFX("jump");
-                isFalling = false;
+            }
+            else if ((airTime < coyoteTime) && coyoteJumpAvailable && isFalling) // Coyote time scenario
+            {
+                Jump();
                 jumpsAvailable = maxJumpChain;
-            } else if (isFalling && jumpsAvailable != 0) { // Double jump scenario
-                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
-                animator.SetTrigger("Jump");
-                AudioManager.Instance.PlaySFX("jump");
-                isFalling = false;
+            }
+            else if (isFalling && jumpsAvailable != 0) // Double jump scenario
+            {
+                Jump();
                 jumpsAvailable--;
             }
         }
     }
 
-    /// <summary>
-    /// A special jump can be triggered regardless of the normal jump requirements
-    /// </summary>
-    /// <param name="jumpForce">Amount of force to apply to the jump.</param>
-    public void SpecialJump(float jumpForce)
+    /// Makes the player jump by adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
+    void Jump()
     {
         rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+        animator.SetTrigger("Jump");
+        AudioManager.Instance.PlaySFX("jump");
+        isFalling = false;
+    }
+
+    /// <summary>
+    /// Makes the player jump by adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
+    /// This jump allows for the amount of force applied to be specified.
+    /// </summary>
+    /// <param name="newJumpForce">Amount of force to apply to the jump.</param>
+    public void Jump(float newJumpForce)
+    {
+        rb.AddRelativeForce(new Vector2(0.0f, newJumpForce), ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
         AudioManager.Instance.PlaySFX("jump");
         isFalling = false;
