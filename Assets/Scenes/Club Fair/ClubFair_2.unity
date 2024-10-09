@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 36004101}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8900006, y: -2.2715213, z: -10}
+  m_LocalPosition: {x: -2.8900003, y: -2.2715213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3330,7 +3330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3332697501486867847, guid: 12a2f068f8e3b98449be99826158386d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.84
+      value: 30.8
       objectReference: {fileID: 0}
     - target: {fileID: 3332697501486867847, guid: 12a2f068f8e3b98449be99826158386d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3638,6 +3638,7 @@ MonoBehaviour:
   sRenderer: {fileID: 1155033417}
   animator: {fileID: 1155033416}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  onFireSprite: {fileID: 0}
   deathSfxName: enemy_death
   enableDamageParticles: 1
   maxHealth: 100
@@ -3645,7 +3646,6 @@ MonoBehaviour:
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
-  onFireSprite: {fileID: 0}
   canBeOnFire: 1
 --- !u!114 &1155033420
 MonoBehaviour:
@@ -4093,7 +4093,7 @@ Transform:
   m_GameObject: {fileID: 1285489176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8900006, y: -2.2715213, z: -10}
+  m_LocalPosition: {x: -2.8900003, y: -2.2715213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

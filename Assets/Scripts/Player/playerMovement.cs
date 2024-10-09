@@ -158,9 +158,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /// Makes the player jump by adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
+    /// Makes the player jump by canceling current velocity, adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
     void Jump()
     {
+        rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
         AudioManager.Instance.PlaySFX("jump");
@@ -168,12 +169,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Makes the player jump by adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
+    /// Makes the player jump by canceling current velocity, adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
     /// This jump allows for the amount of force applied to be specified.
     /// </summary>
     /// <param name="newJumpForce">Amount of force to apply to the jump.</param>
     public void Jump(float newJumpForce)
     {
+        rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         rb.AddRelativeForce(new Vector2(0.0f, newJumpForce), ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
         AudioManager.Instance.PlaySFX("jump");
