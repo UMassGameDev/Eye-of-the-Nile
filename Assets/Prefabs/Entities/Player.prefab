@@ -257,7 +257,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.65}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.13}
+    pivot: {x: 0.5, y: 0.136}
     oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -350,9 +350,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVelocity: 12
-  jumpForce: 300
+  jumpForce: 250
   linearDrag: 1
+  jumpHeldDuration: 0
+  maxJumpDuration: 0.2
+  jumpActive: 0
   coyoteTime: 0.5
+  coyoteJumpAvailable: 0
   airTime: 0
   maxJumpChain: 1
   animator: {fileID: 2371901272311279201}
