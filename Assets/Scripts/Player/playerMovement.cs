@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     private float jumpHeldDuration = 0.0f;
     /// How long the player is able to hold jump button before the jump stops increasing in power
     public float maxJumpDuration = 0.2f;
+    /// The maximum velocity that the player can fall when vertical input is positive (gliding).
+    /// More negative = faster fall.
+    public float glideSpeed = -3.5f;
     /// If the player walks off an edge, coyote time is the amount of time after leaving the ground that they can still jump.
     /// This prevents jumps from having to be frame perfect. The user gets a little bit of leniency with the timing of their jumps.
     public float coyoteTime = 0.5f;
@@ -165,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
             }
-            else if ((airTime < coyoteTime) && coyoteJumpAvailable && jumpHeldDuration == 0) // Coyote time scenario
+            else if ((airTime < coyoteTime) && coyoteJumpAvailable && jumpHeldDuration == 0f) // Coyote time scenario
             {
                 jumpsAvailable = maxJumpChain;
                 Jump();
@@ -173,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
             }
-            else if (jumpsAvailable != 0 && jumpHeldDuration == 0) // Double jump scenario
+            else if (jumpsAvailable != 0 && jumpHeldDuration == 0f) // Double jump scenario
             {
                 jumpsAvailable--;
                 Jump();
@@ -181,10 +184,16 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
             }
-            else if (jumpHeldDuration != 0 && jumpHeldDuration < maxJumpDuration) // Continues the jump when the jump button is held
+            else if (jumpHeldDuration != 0f && jumpHeldDuration < maxJumpDuration) // Continues the jump when the jump button is held
             {
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
+            }
+
+            // Gliding - This makes the player fall slower when the vertical input is positive (jump button held) and the player is not warping.
+            if (rb.velocity.y < glideSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, glideSpeed);
             }
         }
         else
