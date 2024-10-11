@@ -135,7 +135,10 @@ public class PlayerMovement : MonoBehaviour
         // Positive = Up
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (!WarpInfo.CurrentlyWarping)
+        // If the player is warping, reject horizontal inputs and slow the player down. Otherwise, let them move horizontally as usual.
+        if (WarpInfo.CurrentlyWarping)
+            rb.velocity = new Vector2(rb.velocity.x * 0.97f, rb.velocity.y);
+        else
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
 
         // Flip the player to face the direction it is going
