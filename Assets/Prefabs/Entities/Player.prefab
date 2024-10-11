@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 1203306737245432797}
   - component: {fileID: 5681915771319918555}
   - component: {fileID: 6090076525925026504}
-  - component: {fileID: 2459246896311221739}
+  - component: {fileID: 428621585054581581}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -354,7 +354,7 @@ MonoBehaviour:
   linearDrag: 1
   jumpHeldDuration: 0
   maxJumpDuration: 0.2
-  jumpActive: 0
+  glideSpeed: -3.5
   coyoteTime: 0.5
   coyoteJumpAvailable: 0
   airTime: 0
@@ -383,6 +383,8 @@ MonoBehaviour:
   - _statName: DamageResistance
     _baseValue: 0
   - _statName: FireResistance
+    _baseValue: 0
+  - _statName: KnockbackResistance
     _baseValue: 0
 --- !u!114 &1203306737245432797
 MonoBehaviour:
@@ -458,7 +460,7 @@ MonoBehaviour:
   projectileKey: 324
   defaultProjectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
   ProjCooldown: 1
---- !u!114 &2459246896311221739
+--- !u!114 &428621585054581581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -467,11 +469,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4590190179035495267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66e654d1431cd65489675f549085be95, type: 3}
+  m_Script: {fileID: 11500000, guid: c09b3fd5d0cc4a34594383b78fa6c3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5547159279268901696}
+  kbDelay: 0.15
   defaultStrength: 150
+  kbResistance: 0
   OnBegin:
     m_PersistentCalls:
       m_Calls:

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New ExampleAbilityInfo", menuName = "Abilities/Create New ExampleAbilityInfo")]
+[CreateAssetMenu(fileName = "New ExampleAbilityInfo", menuName = "Abilities/Examples/Create New ExampleAbilityInfo")]
 /*!<summary>
 This is an example ability with placeholder functionality.
 Useful for understanding the syntax for the ability system.

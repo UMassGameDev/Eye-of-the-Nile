@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New ExEffectAbilityInfo", menuName = "Abilities/Create New ExEffectAbilityInfo")]
+[CreateAssetMenu(fileName = "New ExEffectAbilityInfo", menuName = "Abilities/Examples/Create New ExEffectAbilityInfo")]
 /*!<summary>
 This is an example of the effect system for abilities.
 What effects to apply can be added in the editor.

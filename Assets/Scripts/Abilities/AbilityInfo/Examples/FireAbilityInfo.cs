@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New FireAbilityInfo", menuName = "Abilities/Create New FireAbilityInfo")]
+[CreateAssetMenu(fileName = "New FireAbilityInfo", menuName = "Abilities/Examples/Create New FireAbilityInfo")]
 /*!<summary>
 This is the info for the fire ability set made for the club fair build.
 - The offense ability shoots bursts of fireballs.

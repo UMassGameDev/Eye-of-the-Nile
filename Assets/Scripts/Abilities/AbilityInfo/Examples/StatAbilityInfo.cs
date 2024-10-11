@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New StatAbilityInfo", menuName = "Abilities/Create New StatAbilityInfo")]
+[CreateAssetMenu(fileName = "New StatAbilityInfo", menuName = "Abilities/Examples/Create New StatAbilityInfo")]
 /*!<summary>
 This is an example of an ability set that uses stat modifiers for each ability.
 This script is useful for copy-pasting into your own ability info if you want the same functionality.

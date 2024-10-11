@@ -5,17 +5,19 @@ using UnityEngine.Events;
 /** \brief
 Put this script on an object to allow it to take knockback.
 
-Documentation updated 8/23/2024
+Documentation updated 10/10/2024
 \author Stephen Nuttall
 */
 public class KnockbackFeedback : MonoBehaviour
 {
     /// Reference to the rigidbody component of the object.
-    public Rigidbody2D rb;
+    [SerializeField] Rigidbody2D rb;
     /// How long after the knockback starts the force on the force should stop being applied.
-    float kbDelay = 0.15f;
+    [SerializeField] protected float kbDelay = 0.15f;
     /// The strength of the knockback (amount of force applied) if no strength is given.
-    public float defaultStrength = 50;
+    [SerializeField] protected float defaultStrength = 50;
+    /// The amount of strength subtracted from any knockback applied to this object.
+    [SerializeField] protected float kbResistance = 0;
 
     /// Event that is triggered when the knockback begins to be applied. Functions can be subscribed to this events in the Unity Editor.
     public UnityEvent OnBegin;
@@ -28,11 +30,7 @@ public class KnockbackFeedback : MonoBehaviour
     /// <param name="sender">The object causing the knockback to happen.</param>
     public void ApplyKnockback(GameObject sender)
     {
-        StopAllCoroutines();
-        OnBegin.Invoke();
-        Vector2 direction = (transform.position - sender.transform.position).normalized;
-        rb.AddForce(direction * defaultStrength, ForceMode2D.Impulse);
-        StartCoroutine(Reset());
+        ApplyKnockback(sender, defaultStrength);
     }
 
     /// <summary>
@@ -43,11 +41,14 @@ public class KnockbackFeedback : MonoBehaviour
     /// <param name="strength">The strength of the force applied to the object.</param>
     public void ApplyKnockback(GameObject sender, float strength)
     {
-        StopAllCoroutines();
-        OnBegin.Invoke();
-        Vector2 direction = (transform.position - sender.transform.position).normalized;
-        rb.AddForce(direction * strength, ForceMode2D.Impulse);
-        StartCoroutine(Reset());
+        if (strength - kbResistance > 0)
+        {
+            StopAllCoroutines();
+            OnBegin.Invoke();
+            Vector2 direction = (transform.position - sender.transform.position).normalized;
+            rb.AddForce(direction * (strength - kbResistance), ForceMode2D.Impulse);
+            StartCoroutine(Reset());
+        }
     }
 
     /// <summary>

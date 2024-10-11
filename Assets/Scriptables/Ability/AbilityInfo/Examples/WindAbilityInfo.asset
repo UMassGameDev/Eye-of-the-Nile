@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WindAbilityInfo
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: Shu
+  abilityName: WindEx
   overlapIcon: {fileID: 21300000, guid: 155b0fde73e0dca459871eed2a1d8199, type: 3}
   abilityIcons:
   - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
@@ -36,7 +36,7 @@ MonoBehaviour:
   onCooldownSound: incorrect_buzzer
   abilityLevel: 1
   maxLevel: 3
-  currentForm: 3
+  currentForm: 2
   baseCost: 0
   duration: 0
   tickRate: 0

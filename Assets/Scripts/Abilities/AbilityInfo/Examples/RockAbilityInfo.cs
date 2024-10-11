@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New RockAbilityInfo", menuName = "Abilities/Create New RockAbilityInfo")]
+[CreateAssetMenu(fileName = "New RockAbilityInfo", menuName = "Abilities/Examples/Create New RockAbilityInfo")]
 /*!<summary>
 This is the info for the rock ability set made for the club fair build.
 - The offense ability throws a big boulder projectile.

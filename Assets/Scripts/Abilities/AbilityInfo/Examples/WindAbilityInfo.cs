@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New WindAbilityInfo", menuName = "Abilities/Create New WindAbilityInfo")]
+[CreateAssetMenu(fileName = "New WindAbilityInfo", menuName = "Abilities/Examples/Create New WindAbilityInfo")]
 /*!<summary>
 This is the info for the wind ability set made for the club fair build.
 - The offense ability triggers a melee attack with more knockback and range.
