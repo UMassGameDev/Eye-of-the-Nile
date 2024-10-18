@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     /// True if the player is currently falling, meaning they're in the air but their height in the world is decreasing.
     /// \note Stays true until the player jumps again, even if the player lands, stops decreasing their height or even increases it without jumping.
     /// Maybe this variable should be called "wasFalling" but I think that would be more confusing.
+    /// \deprecated No longer used and will likely be removed soon.
     bool isFalling = false;
     /// \brief Maximum amount of times the player can jump without touching the ground.
     /// \note 0 would be a normal jump, 1 allows for double jumping, 2 for triple jumping, etc.
@@ -198,9 +199,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, glideSpeed);
             }
+
+            animator.SetBool("IsGliding", true);
+
+            if (groundDetector.isGrounded)
+            {
+                animator.SetBool("IsGliding", false);
+            }
         }
         else
+        {
             jumpHeldDuration = 0.0f; // The jump ends when the jump button is no longer pressed (or when the player is warping).
+            animator.SetBool("IsGliding", false);
+        }
     }
 
     /// Makes the player jump by canceling current velocity, adding upwards force, and setting isFalling to false.
@@ -208,6 +219,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+        animator.SetBool("IsGliding", false);
         isFalling = false;
     }
 
@@ -221,6 +233,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         rb.AddRelativeForce(new Vector2(0.0f, newJumpForce), ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
+        animator.SetBool("IsGliding", false);
         AudioManager.Instance.PlaySFX("jump");
         isFalling = false;
     }
