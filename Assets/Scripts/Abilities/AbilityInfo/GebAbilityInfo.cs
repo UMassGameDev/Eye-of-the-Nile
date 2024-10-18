@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GebAbilityInfo", menuName = "Abilities/Create New GebAbilityInfo")]
@@ -22,8 +21,8 @@ public class GebAbilityInfo : BaseAbilityInfo
     *  The offense ability throws a projectile summons a small earthquake. It also changes the player's melee attack to be slower but do more damage.
     */
     ///@{
-    /// Reference to the projectile prefab this ability will instantiate.
-    [SerializeField] GameObject earthquakeProjectilePrefab;
+    /// Reference to the projectile prefab this ability will instantiate for each level - 1 (array starts at 0).
+    [SerializeField] GameObject[] earthquakeProjectilePrefab;
     ///@}
 
     [Header("Defense Ability Info")]
@@ -32,12 +31,10 @@ public class GebAbilityInfo : BaseAbilityInfo
     *  The defense ability spawns a rock wall in front of the player. The rock wall pushes forward slightly with each upgrade.
     */
     ///@{
-    /// Reference to the rock wall prefab this ability will instantiate.
-    [SerializeField] GameObject rockWallPrefab;
-    /// Offset on the x axis where the wall will spawn in relation to the player.
-    [SerializeField] float wallXOffset = 3f; 
-    /// Offset on the y axis where the wall will spawn in relation to the player.
-    [SerializeField] float wallYOffset = 0f;
+    /// Reference to the rock wall prefab this ability will instantiate for each level - 1 (array starts at 0).
+    [SerializeField] GameObject[] rockWallPrefab;
+    /// Where the wall will spawn in relation to the player.
+    [SerializeField] Vector2 wallOffset;
     ///@}
 
     [Header("Utility Ability Info")]
@@ -46,12 +43,10 @@ public class GebAbilityInfo : BaseAbilityInfo
     *  The utility ability spawns a temporary rock platform under the player.
     */
     ///@{
-    /// Reference to the rock platform prefab this ability will instantiate.
-    [SerializeField] GameObject rockPlatformPrefab;
-    /// Offset on the x axis where the platform will spawn in relation to the player.
-    [SerializeField] float platformXOffset = 0f;
-    /// Offset on the y axis where the platform will spawn in relation to the player.
-    [SerializeField] float platformYOffset = 0f;
+    /// Reference to the rock platform prefabs this ability will instantiate for each level - 1 (array starts at 0).
+    [SerializeField] GameObject[] rockPlatformPrefab;
+    /// Where the platform will spawn in relation to the player.
+    [SerializeField] Vector2 platformOffset;
     ///@}
 
     [Header("Passive Ability Info")]
@@ -73,29 +68,39 @@ public class GebAbilityInfo : BaseAbilityInfo
     /// Throws a projectile summons a small earthquake. It also changes the player's melee attack to be slower but do more damage.
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
-        abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(earthquakeProjectilePrefab);
+        abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(earthquakeProjectilePrefab[abilityLevel - 1]);
     }
 
     /// Spawns a rock wall in front of the player. The rock wall pushes forward slightly with each upgrade.
     protected override void AbilityDefense(AbilityOwner abilityOwner)
     {
-        if (abilityOwner.OwnerTransform.localScale.x > 0) {
-            wallXOffset = -Math.Abs(wallXOffset);
-        } else {
-            wallXOffset = Math.Abs(wallXOffset);
+        float xOffset = wallOffset.x;
+        if (abilityOwner.OwnerTransform.localScale.x > 0)
+        {
+            xOffset = -wallOffset.x;
         }
         
-        Instantiate(rockWallPrefab, new Vector2(
-            abilityOwner.OwnerTransform.position.x + wallXOffset,
-            abilityOwner.OwnerTransform.position.y + wallYOffset), Quaternion.identity);
+        GameObject rockWall = Instantiate(rockWallPrefab[abilityLevel - 1], new Vector2(
+            abilityOwner.OwnerTransform.position.x + xOffset,
+            abilityOwner.OwnerTransform.position.y + wallOffset.y), Quaternion.identity);
+        
+        if (abilityOwner.OwnerTransform.localScale.x > 0 && rockWall.TryGetComponent<MoveInDirection>(out var moveInDirection))
+        {
+            moveInDirection.movementDirection.x = -moveInDirection.movementDirection.x;
+        }
     }
 
     /// Spawns a temporary rock platform under the player.
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
-        Instantiate(rockPlatformPrefab, new Vector2(
-            abilityOwner.OwnerTransform.position.x + platformXOffset,
-            abilityOwner.OwnerTransform.position.y + platformYOffset), Quaternion.identity);
+        float xOffset = platformOffset.x;
+        if (abilityOwner.OwnerTransform.localScale.x > 0) {
+            xOffset = -platformOffset.x;
+        }
+        
+        Instantiate(rockPlatformPrefab[abilityLevel - 1], new Vector2(
+            abilityOwner.OwnerTransform.position.x + xOffset,
+            abilityOwner.OwnerTransform.position.y + platformOffset.y), Quaternion.identity);
     }
 
     /// Gives the player damage resistance and knockback resistance.

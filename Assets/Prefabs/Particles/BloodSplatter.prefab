@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4472704249168249050}
   - component: {fileID: 5313115531101079621}
   - component: {fileID: 5061858087576491537}
-  - component: {fileID: 6993331291521670836}
+  - component: {fileID: -2771270595587253484}
   m_Layer: 0
   m_Name: BloodSplatter
   m_TagString: Untagged
@@ -4887,7 +4887,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6993331291521670836
+--- !u!114 &-2771270595587253484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4896,6 +4896,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4015379502121862282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2882636d1cece542876c168785ffadd, type: 3}
+  m_Script: {fileID: 11500000, guid: 550a931936a08424c870bd60ea9fbebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

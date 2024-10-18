@@ -23,11 +23,11 @@ public class TornadoProjectile : BasicProjectile
     /// Same functionality as the base function, except the sprite doesn't flip.
     protected override void UpdateMethods()
     {
-        // move projectile to the left/right by [speed]. Don't flip sprite
+        // move projectile to the left/right by (speed * Time.deltaTime), accounting for the amount of time that has past since the last frame
         if (facingLeft) {
-            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+            transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
         } else {
-            transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
+            transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
         }
     }
 

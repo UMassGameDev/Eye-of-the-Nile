@@ -120,9 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 8366819583817702406}
-  speed: 0.075
+  speed: 8
   damage: 30
   facingLeft: 0
+  damagePlayers: 1
+  damageNonPlayers: 1
   spawnSFX: fireball_fire
 --- !u!1 &8366819583817702406
 GameObject:

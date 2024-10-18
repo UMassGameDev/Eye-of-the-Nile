@@ -13,8 +13,8 @@ public class BasicProjectile : MonoBehaviour
     /// \brief Reference to the game object that holds the sprite renderer of the projectile.
     /// Often this is just the projectile itself, but sometimes there's a child with the sprite. This allows compatability with both systems.
     public GameObject sprite;
-    /// The speed the projectile moves. The basic projectile moves at a consistent speed every frame.
-    public float speed = 0.3f;
+    /// The speed the projectile moves. The basic projectile moves at a consistent speed every second.
+    public float speed = 10f;
     /// The amount of damage the projectile will apply if it comes in contact with something it can damage.
     public int damage = 30;
     /// True if the projectile is facing (and thus moving) to the left. Likewise, false if the projectile is facing to the right.
@@ -69,14 +69,14 @@ public class BasicProjectile : MonoBehaviour
     {
         if (facingLeft)
         {
-            // move projectile to the left by [speed]
-            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+            // move projectile to the left by (speed * Time.deltaTime), accounting for the amount of time that has past since the last frame
+            transform.position = new Vector2(transform.position.x - (speed * Time.deltaTime), transform.position.y);
             sprite.transform.localScale = spriteScaleLeft;
         }
         else
         {
-            // move projectile to the right by [speed]
-            transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
+            // move projectile to the right by (speed * Time.deltaTime), accounting for the amount of time that has past since the last frame
+            transform.position = new Vector2(transform.position.x + (speed * Time.deltaTime), transform.position.y);
             sprite.transform.localScale = spriteScaleRight;
         }
     }
@@ -111,22 +111,22 @@ public class BasicProjectile : MonoBehaviour
         OnCollisionEnterMethods(collisionInfo);
     }
 
-    /// \brief Runs if the projectile collides with an object. If the object it collided with can be damaged, damage it. Then destroy the projectile.
+    /// \brief Runs if the projectile collides with an object. Damages the object it collided with if possible, then destroys the projectile.
     /// <param name="collisionInfo">Represents the object the projectile collided with.</param>
     protected virtual void OnCollisionEnterMethods(Collision2D collisionInfo)
     {
-        // If the object has the "DamagableByProjectile" tag and damangeNonPlayers is true, apply damage to the object.
-        if (collisionInfo.collider.CompareTag("DamagableByProjectile") && damageNonPlayers)
+        // If the object we collided with has an object health AND
+        // (both damageNonPlayers and damagePlayers are true)
+        // OR (the object is not the player AND damangeNonPlayers is true)
+        // OR (the object is the player AND damangePlayers is true),
+        // then apply damage to the object.
+        if (collisionInfo.collider.TryGetComponent<ObjectHealth>(out var objHealth) && (damageNonPlayers && damagePlayers ||
+        !(collisionInfo.collider.CompareTag("Player") && damageNonPlayers || (collisionInfo.collider.CompareTag("Player") && damagePlayers))))
         {
-            collisionInfo.collider.GetComponent<ObjectHealth>().TakeDamage(transform, damage);
-        }
-        // If the object has the "Player" tag and damangePlayers is true, apply damage to the object (the player).
-        else if (collisionInfo.collider.CompareTag("Player") && damagePlayers)
-        {
-            collisionInfo.collider.GetComponent<PlayerHealth>().TakeDamage(transform, damage);
+            objHealth.TakeDamage(transform, damage);
         }
 
-        // Destory the projectile
+        // Destory the projectile, regardless of if what we hit can be damaged.
         Destroy(sprite);
         Destroy(gameObject);
     }
