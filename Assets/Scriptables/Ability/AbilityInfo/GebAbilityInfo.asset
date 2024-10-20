@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36862f60cbdccf478b6201743752aa2, type: 3}
+  m_Name: GebAbilityInfo
+  m_EditorClassIdentifier: 
+  abilityID: 101
+  abilityName: Geb
+  overlapIcon: {fileID: 21300000, guid: 64d26b5b64f66f54cbfaf3e510a6c960, type: 3}
+  abilityIcons:
+  - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
+  - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}
+  - {fileID: 21300000, guid: 809063749f0722f479417893792677ce, type: 3}
+  - {fileID: 21300000, guid: 467c50d2ddef9ef4395a103eb50d95cd, type: 3}
+  abilityNames:
+  - Earthquake Bomb
+  - Mighty Rock Wall
+  - Rock Platform
+  - Body of Stone
+  abilityDescriptions:
+  - Throws a projectile that summons an earthquake where it lands. Enemies nearby
+    are heavily slowed and incrementally damaged. You also get a heavier sword, which
+    deals more damage but swings slower.
+  - Summons a sturdy wall of stone that can take lots of damage before being destroyed,
+    blocking enemies from getting through.
+  - Summons a rock platform beneath your feet. Beware, the platform will crumble
+    after a short period of time.
+  - Your body becomes rock hard and most enemies and hazards will do less damage
+    to you. Additionally, you will take less knockback from anything that strikes
+    you.
+  godQuote: Geb rock hard!
+  onCooldownSound: incorrect_buzzer
+  abilityLevel: 2
+  maxLevel: 5
+  currentForm: 1
+  baseCost: 0
+  duration: 0
+  tickRate: 0
+  chargeUp: 0
+  cooldown: 15
+  damage: 0
+  offenseEffects: []
+  defenseEffects: []
+  utilityEffects: []
+  passiveEffects: []
+  earthquakeProjectilePrefab: []
+  rockWallPrefab:
+  - {fileID: 412478105100610930, guid: 10ad70d9c84e4824b9db5c511e9b2789, type: 3}
+  - {fileID: 412478105100610930, guid: 71f7960c800502447b6a1a1a4f29a4c6, type: 3}
+  - {fileID: 412478105100610930, guid: 1838b380f24d82f46978b5200298db21, type: 3}
+  - {fileID: 412478105100610930, guid: 186710c9355d24a468bae0197d4be82c, type: 3}
+  - {fileID: 412478105100610930, guid: 06fe98aa7ecf7a245a3fe1d81d81305c, type: 3}
+  wallOffset: {x: 3, y: 1.5}
+  rockPlatformPrefab:
+  - {fileID: 6773262323076030984, guid: a6c86d9b20da29b47ab4b38508f6fa04, type: 3}
+  - {fileID: 6773262323076030984, guid: fd975c5ee48e60b4282c0cb2aa931959, type: 3}
+  - {fileID: 6773262323076030984, guid: 01c8dbe3bb344a04aa8f25a706b38038, type: 3}
+  - {fileID: 6773262323076030984, guid: ebb418f76b29a7c41a71da0d0a6dbd09, type: 3}
+  - {fileID: 6773262323076030984, guid: c3c31aa1566235d4f8b199f271e9a658, type: 3}
+  platformOffset: {x: 0, y: -0.5}
+  damageResistanceModValues: 050000000a0000000f000000140000001e000000
+  kbResistanceModValues: 000000000a0000001e0000003200000050000000

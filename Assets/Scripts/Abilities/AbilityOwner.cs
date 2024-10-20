@@ -107,9 +107,7 @@ public class AbilityOwner // : MonoBehaviour
         abilityInfo.AbilityDisable(this, AbilityEffectType.Continuous);
     }
 
-    /// <summary>
     /// If the ability is ready to use, start the charge up.
-    /// </summary>
     public void ActivateAbility()
     {
         if (currentState != OwnerState.ReadyToUse)
@@ -120,5 +118,20 @@ public class AbilityOwner // : MonoBehaviour
 
         currentState = OwnerState.Activation;
         ChargeUp(this);
+    }
+
+    public void EnablePassive()
+    {
+        if (abilityInfo.currentForm == AbilityForm.Passive)
+        {
+            abilityInfo.AbilityActivate(this);
+            Debug.Log("Passive ability enabled for the '" + abilityInfo.abilityName + "' set.");
+        }
+    }
+    
+    public void DisablePassive()
+    {
+        abilityInfo.DisablePassive(this);
+        Debug.Log("Passive ability disabled for the '" + abilityInfo.abilityName + "' set.");
     }
 }

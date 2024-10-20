@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 7514528624249247598}
-  speed: 0.05
+  speed: 10
   damage: 30
   facingLeft: 0
   damagePlayers: 1

@@ -3,9 +3,10 @@ using UnityEngine;
 /** \brief
 Handles the player movement, such as walking and jumping, when the user presses the corresponding keys.
 
-Documentation updated 9/1/2024
-\author Stephen Nuttall, Roy Pascual
-\todo Implement features that make movement more smooth, such as coyote time.
+Documentation updated 10/8/2024
+\author Stephen Nuttall, Roy Pascual, Alexander Art
+\todo Implement features that make movement more smooth.
+\todo Add animation trigger for when the playing is falling (don't know if it should be its own animation or keep the last frame of the jump animation).
 */
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,11 +28,22 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10.0f;
     /// The amount of linear drag that should be applied to the rigidbody.
     public float linearDrag = 1.0f;
-    /// Unimplemented feature.
+    /// The amount of time the player has held the vertical input during a jump. Value is 0 if the player is not jumping.
+    [SerializeField]
+    private float jumpHeldDuration = 0.0f;
+    /// How long the player is able to hold jump button before the jump stops increasing in power
+    public float maxJumpDuration = 0.2f;
+    /// The maximum velocity that the player can fall when vertical input is positive (gliding).
+    /// More negative = faster fall.
+    public float glideSpeed = -3.5f;
     /// If the player walks off an edge, coyote time is the amount of time after leaving the ground that they can still jump.
     /// This prevents jumps from having to be frame perfect. The user gets a little bit of leniency with the timing of their jumps.
-    /// \todo Implement coyote time.
     public float coyoteTime = 0.5f;
+    /// Used to prevent multiple coyote jumps before the player returns to the ground.
+    [SerializeField]
+    private bool coyoteJumpAvailable = false;
+    /// The amount of time since the player was last on the ground.
+    public float airTime = 0.0f;
     /// True if the player is currently warping to another area through a StageWarp, such as a door or some other exit.
     /// \todo Make this an event rather than a public bool. This is the more "proper" way to do this as it prevents OnWarp from being changed arbitrarily.
     public bool OnWarp {get; set;} = false;
@@ -44,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     /// True if the player is currently falling, meaning they're in the air but their height in the world is decreasing.
     /// \note Stays true until the player jumps again, even if the player lands, stops decreasing their height or even increases it without jumping.
     /// Maybe this variable should be called "wasFalling" but I think that would be more confusing.
+    /// \deprecated No longer used and will likely be removed soon.
     bool isFalling = false;
     /// \brief Maximum amount of times the player can jump without touching the ground.
     /// \note 0 would be a normal jump, 1 allows for double jumping, 2 for triple jumping, etc.
@@ -87,18 +100,28 @@ public class PlayerMovement : MonoBehaviour
     /// - Get horizontal and vertical input.
     /// - If the player is not currently warping (using a door or going through an exit) update their velocity to match the horizontal input.
     /// - Flip the player to face the direction they are moving in.
-    /// - Check if the player is falling
+    /// - Check if the player is falling.
+    /// - Disable the option for coyote time jumps if the player is moving up.
     /// - If the conditions are met, let the player jump.
-    ///     - Conditions for a jump:
-    ///         - Vertical input is positive (the user is pressing either, W or the up arrow) or the user is pressing the space bar.
+    ///     - Conditions to initialize a jump:
+    ///         - Vertical input is positive (the user is pressing either, W or the up arrow) or the user is pressing the space bar. This also gets reffered to as "the jump button."
     ///         - The player is not currently warping (using a door or going through an exit).
-    ///         - One of these two scenarios are true:
-    ///             1. The player is on the ground or not moving, and the is falling/has fallen (on ground scenario).
-    ///             2. The player is falling/has fallen, and there is at least one jump available for a jump chain (double jump scenario).
-    ///     - What do to when these conditions are met:
-    ///         - Add upwards force to the player.
+    ///         - One of these three scenarios are true:
+    ///             1. The player is on the ground (on ground scenario).
+    ///             2. The player has recently been on the ground and has not already used a coyote time jump since last grounded (coyote time scenario).
+    ///             3. There is at least one jump available for a jump chain (double jump scenario).
+    ///     - What do to when a jump is initialized:
+    ///         - Count the number of double jumps the player has left.
+    ///         - Force the player upwards and update isFalling (by using the Jump() function).
     ///         - Play jumping animation and sound.
-    ///         - Update isFalling and jumpsAvailable.
+    ///         - Count how long the jump has been held.
+    /// - The jump button can be held to make a jump last slightly longer and go slightly higher.
+    ///     - Conditions to sustain a jump:
+    ///         - A jump must have already been initialized (see above).
+    ///         - The jump must not have already been sustained for too long.
+    ///     - When the jump button is held:
+    ///         - Continue to force the player upwards and update isFalling.
+    ///         - Continue to count how long the jump button has been held.
     /// </summary>
     void Update()
     {
@@ -113,7 +136,10 @@ public class PlayerMovement : MonoBehaviour
         // Positive = Up
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (!WarpInfo.CurrentlyWarping)
+        // If the player is warping, reject horizontal inputs and slow the player down. Otherwise, let them move horizontally as usual.
+        if (WarpInfo.CurrentlyWarping)
+            rb.velocity = new Vector2(rb.velocity.x * 0.97f, rb.velocity.y);
+        else
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
 
         // Flip the player to face the direction it is going
@@ -125,34 +151,89 @@ public class PlayerMovement : MonoBehaviour
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
             isFalling = true;
+        else if (rb.velocity.y > 0.1f)
+            coyoteJumpAvailable = false; // Disable coyote time jump availability after jump (when player is moving up).
+
+        if (groundDetector.isGrounded)
+        {
+            airTime = 0.0f; // Reset airTime when grounded
+            coyoteJumpAvailable = true; // Enable coyote time jump availability when grounded
+        }
+        else
+            airTime += Time.deltaTime; // Airtime increases when the player is not on the ground
 
         if ((verticalInput > 0 || Input.GetKey(KeyCode.Space)) && !OnWarp)
         {
-            if ((groundDetector.isGrounded || (rb.velocity.x == 0 && rb.velocity.y == 0)) && isFalling)
+            if (groundDetector.isGrounded && jumpHeldDuration == 0) // On ground scenario
             {
-                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
-                animator.SetTrigger("Jump");
-                AudioManager.Instance.PlaySFX("jump");
-                isFalling = false;
                 jumpsAvailable = maxJumpChain;
-            } else if (isFalling && jumpsAvailable != 0) {
-                rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+                Jump();
+                jumpHeldDuration += Time.deltaTime;
                 animator.SetTrigger("Jump");
                 AudioManager.Instance.PlaySFX("jump");
-                isFalling = false;
-                jumpsAvailable--;
             }
+            else if ((airTime < coyoteTime) && coyoteJumpAvailable && jumpHeldDuration == 0f) // Coyote time scenario
+            {
+                jumpsAvailable = maxJumpChain;
+                Jump();
+                jumpHeldDuration += Time.deltaTime;
+                animator.SetTrigger("Jump");
+                AudioManager.Instance.PlaySFX("jump");
+            }
+            else if (jumpsAvailable != 0 && jumpHeldDuration == 0f) // Double jump scenario
+            {
+                jumpsAvailable--;
+                Jump();
+                jumpHeldDuration += Time.deltaTime;
+                animator.SetTrigger("Jump");
+                AudioManager.Instance.PlaySFX("jump");
+            }
+            else if (jumpHeldDuration != 0f && jumpHeldDuration < maxJumpDuration) // Continues the jump when the jump button is held
+            {
+                Jump();
+                jumpHeldDuration += Time.deltaTime;
+            }
+
+            // Gliding - This makes the player fall slower when the vertical input is positive (jump button held) and the player is not warping.
+            if (rb.velocity.y < glideSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, glideSpeed);
+            }
+
+            animator.SetBool("IsGliding", true);
+
+            if (groundDetector.isGrounded)
+            {
+                animator.SetBool("IsGliding", false);
+            }
+        }
+        else
+        {
+            jumpHeldDuration = 0.0f; // The jump ends when the jump button is no longer pressed (or when the player is warping).
+            animator.SetBool("IsGliding", false);
         }
     }
 
-    /// <summary>
-    /// A special jump can be triggered regardless of the normal jump requirements
-    /// </summary>
-    /// <param name="jumpForce">Amount of force to apply to the jump.</param>
-    public void SpecialJump(float jumpForce)
+    /// Makes the player jump by canceling current velocity, adding upwards force, and setting isFalling to false.
+    void Jump()
     {
+        rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
+        animator.SetBool("IsGliding", false);
+        isFalling = false;
+    }
+
+    /// <summary>
+    /// Makes the player jump by canceling current velocity, adding upwards force, triggering the animation and sound effect, and setting isFalling to false.
+    /// This jump allows for the amount of force applied to be specified.
+    /// </summary>
+    /// <param name="newJumpForce">Amount of force to apply to the jump.</param>
+    public void Jump(float newJumpForce)
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0.0f);
+        rb.AddRelativeForce(new Vector2(0.0f, newJumpForce), ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
+        animator.SetBool("IsGliding", false);
         AudioManager.Instance.PlaySFX("jump");
         isFalling = false;
     }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offenseSlot: {fileID: 11400000, guid: 8a30bdd27977fe247afc605df38b5c8b, type: 2}
   defenseSlot: {fileID: 11400000, guid: 51239dbb8a25294458687ac00e13eda9, type: 2}
-  utilitySlot: {fileID: 11400000, guid: 5531d990d80c1d84693ac04eab6159a4, type: 2}
-  passiveSlot: {fileID: 11400000, guid: c18f0cc6122693444b0416854afa7c60, type: 2}
+  utilitySlot: {fileID: 11400000, guid: c18f0cc6122693444b0416854afa7c60, type: 2}
+  passiveSlot: {fileID: 11400000, guid: 27e5c864f9564d046a2843f4b5d7f993, type: 2}

@@ -4,7 +4,7 @@ using UnityEngine;
 /** \brief
 Contains all the player's stats that can be modified by abilities using StatModifiers (see PlayerStat, StatModifier, and StatsAE).
 You can add new player stats using the editor, but make sure you implement the corresponding functionality into the proper script.
-To link a value in another script to a player stat, see PlayerHealth.
+To see an example of how to link a value in another script to a player stat, see PlayerHealth.
 
 Documentation updated 9/1/2024
 \author Roy Pascual

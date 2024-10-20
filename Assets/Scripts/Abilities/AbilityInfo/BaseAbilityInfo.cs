@@ -5,7 +5,17 @@ using UnityEngine;
 /// <summary>
 /// Possible forms an ability info can be in. This determines which ability in the set is being used.
 /// </summary>
-public enum AbilityForm { Offense, Defense, Utility, Passive };
+public enum AbilityForm
+{
+    /// The ability set is in its offense form and its offense ability will be used.
+    Offense,
+    /// The ability set is in its defense form and its defense ability will be used.
+    Defense,
+    /// The ability set is in its utility form and its utility ability will be used.
+    Utility,
+    /// The ability set is in its passive form and its passive ability will be used.
+    Passive
+};
 
 /*!<summary>
 This is an abstract scriptable object that all abilities inherit from.
@@ -121,11 +131,12 @@ public abstract class BaseAbilityInfo : ScriptableObject
     protected abstract void AbilityUtility(AbilityOwner abilityOwner);
     
     /// \brief The functionality for the passive ability goes here!
-    /// Important: as of writing, passive abilities work the same as all other abilities, rather than always being active.
-    /// \important as of writing, passive abilities work the same as all other abilities, rather than always being active.
-    /// \todo Implement proper functionality for passive abilities. Passive ablities should be always active and not have to be manually
-    /// triggered like the other 3 ability forms.
-    protected abstract void AbilityPassive(AbilityOwner abilityOwner);
+    /// This function will automatically run when the ability is equipped.
+    protected abstract void AbilityPassiveEnable(AbilityOwner abilityOwner);
+
+    /// \brief Use thus function will disable the functionality of the passive ability.
+    /// This function will automatically run when the ability is unequipped.
+    protected abstract void AbilityPassiveDisable(AbilityOwner abilityOwner);
     ///@}
 
     /******************************
@@ -141,9 +152,9 @@ public abstract class BaseAbilityInfo : ScriptableObject
     /// <summary>
     /// Applies all effects for the given ability form.
     /// </summary>
-    /// <param name="abilityOwner"></param>
-    /// <param name="abilityForm"></param>
-    /// <param name="applyType"></param>
+    /// <param name="abilityOwner">An object that, among other things, stores what ability in the set is currently is use.</param>
+    /// <param name="abilityForm">The ability in the set (offense, defense, utility, passive) that we want to apply the effects of.</param>
+    /// <param name="applyType">Describes the way we want the ability to be applied.</param>
     protected virtual void ApplyEffects(AbilityOwner abilityOwner,
         AbilityForm abilityForm,
         AbilityEffectType applyType)
@@ -180,9 +191,9 @@ public abstract class BaseAbilityInfo : ScriptableObject
     /// <summary>
     /// Disables all effects for the given ability form.
     /// </summary>
-    /// <param name="abilityOwner"></param>
-    /// <param name="abilityForm"></param>
-    /// <param name="disableType"></param>
+    /// <param name="abilityOwner">An object that, among other things, stores what ability in the set is currently is use.</param>
+    /// <param name="abilityForm">The ability in the set (offense, defense, utility, passive) that we want to remove the effects of.</param>
+    /// <param name="applyType">Describes the way the ability is applied.</param>
     protected virtual void DisableEffects(AbilityOwner abilityOwner,
         AbilityForm abilityForm,
         AbilityEffectType disableType)
@@ -216,16 +227,10 @@ public abstract class BaseAbilityInfo : ScriptableObject
         }
     }
 
-    /// <summary>
     /// Runs every tickRate seconds while the ability is active. Useful for things like repeatedly regenerating health.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     public virtual void AbilityUpdate(AbilityOwner abilityOwner) { }
 
-    /// <summary>
     /// Runs the ability function of the given form.
-    /// </summary>
-    /// <param name="abilityOwner"></param>
     public virtual void AbilityActivate(AbilityOwner abilityOwner)
     {
         switch (currentForm)
@@ -240,7 +245,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
                 AbilityUtility(abilityOwner);
                 break;
             case AbilityForm.Passive:
-                AbilityPassive(abilityOwner);
+                AbilityPassiveEnable(abilityOwner);
                 break;
             default:
                 break;
@@ -248,7 +253,16 @@ public abstract class BaseAbilityInfo : ScriptableObject
         // endTime = Time.time + duration;
     }
 
-    // Runs when the ability duration runs out. Disables effects.
+    /// Disables the passive ability if the 
+    public virtual void DisablePassive(AbilityOwner abilityOwner)
+    {
+        if (currentForm != AbilityForm.Passive)
+        {
+            AbilityPassiveDisable(abilityOwner);
+        }
+    }
+
+    /// Runs when the ability duration runs out. Disables effects.
     public virtual void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType) {
         DisableEffects(abilityOwner, currentForm, effectType);
     }
@@ -265,9 +279,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
     */
     ///@{
 
-    /// <summary>
     /// Increases the level by one, unless already at max level.
-    /// </summary>
     public void UpgradeAbility() {
         if (abilityLevel < maxLevel) {
             abilityLevel++;
@@ -276,11 +288,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
         }
     }
 
-    /// <summary>
     /// Returns the name of the given ability form.
-    /// </summary>
-    /// <param name="form"></param>
-    /// <returns></returns>
     public string GetAbilityName(AbilityForm form)
     {
         switch (form)
@@ -293,11 +301,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
         }
     }
 
-    /// <summary>
     /// Returns the description of the given ability form.
-    /// </summary>
-    /// <param name="form"></param>
-    /// <returns></returns>
     public string GetAbilityDescription(AbilityForm form)
     {
         switch (form)
@@ -310,12 +314,11 @@ public abstract class BaseAbilityInfo : ScriptableObject
         }
     }
 
-    /// <summary>
-    /// Self explanatory
-    /// </summary>
-    /// <returns></returns>
+    /// Returns all the names of the abilities in each set.
     public string[] GetAllAbilityNames() { return abilityNames; }
+    /// Returns all the descriptions of the abilities in each set.
     public string[] GetAllAbilityDescriptions() { return abilityDescriptions; }
+    /// Returns all the god's quote for this ability.
     public string GetQuote() { return godQuote; }
     ///@}
 }

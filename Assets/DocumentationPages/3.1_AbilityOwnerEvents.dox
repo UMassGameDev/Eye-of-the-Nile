@@ -55,4 +55,6 @@ StartCoroutine() for AbilityOwner.cs.
 Pro-tip: Press F12 in Visual Studio Code to go to where a variable is defined, and press F12 again to see everywhere where it's used.
 If your VSCode is configured correctly, it should show you a list of every file the variable is referenced in and where.
 Very useful for dissecting the functionality of unfamiliar code, and is how I initially figured out this unintuitive design.
+
+\author Stephen Nuttall
 */

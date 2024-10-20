@@ -6,8 +6,8 @@ using UnityEngine;
 Basic properties of a player stat that can be modified by abilities using StatModifiers (see StatModifier, StatsAE, and PlayerStatHolder).
 Each stat has a name and a base value, set in the editor.
 
-Documentation updated 9/1/2024
-\author Roy Pascaul
+Documentation updated 10/11/2024
+\author Roy Pascaul, Stephen Nuttall
 \note This class does not inhert from monobehavior, so it does not have access to unity functions such as Start() or Update().
 */
 [Serializable]
@@ -30,6 +30,11 @@ public class PlayerStat
     /// List of currently active stat modifiers.
     List<StatModifier> statModifiers = new List<StatModifier>();
 
+    /// Event that is triggered when a stat modifier is added to the player.
+    public static event Action<string, int> modifierAdded;
+    /// Event that is triggered when a stat modifier is removed from the player.
+    public static event Action<string, int> modifierRemoved;
+
     /// <summary>
     /// Add a stat modifier. Checks to see if the stat modifer is already applied.
     /// </summary>
@@ -38,7 +43,10 @@ public class PlayerStat
     {
         // statModifiers[statMod.ModType].Add(statMod);
         if (!statModifiers.Contains(statMod))
+        {
             statModifiers.Add(statMod);
+            modifierAdded?.Invoke(statMod.TargetStat, statMod.ModValue);
+        }
     }
 
     /// <summary>
@@ -50,9 +58,14 @@ public class PlayerStat
     {
         // return statModifiers[statMod.ModType].Remove(statMod);
         if (statModifiers.Contains(statMod))
+        {
+            modifierRemoved?.Invoke(statMod.TargetStat, statMod.ModValue);
             return statModifiers.Remove(statMod);
+        }
         else
+        {
             return false;
+        }
     }
 
     /// Returns the final value of this stat, based on baseValue and all active stat modifiers.

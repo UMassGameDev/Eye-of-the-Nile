@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5838359420848097419}
   - component: {fileID: 7144424764101172817}
   - component: {fileID: 4395962458980871979}
+  - component: {fileID: -2878789763102225629}
   m_Layer: 0
   m_Name: Big Fire
   m_TagString: Untagged
@@ -151,3 +152,18 @@ MonoBehaviour:
   damageNonPlayers: 1
   damagePlayer: 1
   playSFXOnSpawn: 0
+--- !u!114 &-2878789763102225629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54598016785222461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d782be819e2af4de3abae8e52d5a068c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScale: 0.8
+  maxScale: 1.2
+  pulseSpeed: 2

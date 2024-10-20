@@ -119,7 +119,7 @@ public class PlayerAttackManager : MonoBehaviour
     void MeleeTrigger()
     {
         /// Scan for enemies in curRange radius of the attack point.
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, curRange, attackableLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, curRange);
 
         /// For each one found:
         foreach (Collider2D enemy in hitEnemies)

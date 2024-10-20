@@ -21,7 +21,7 @@ public class TotalAbilityUI : MonoBehaviour
     /// List of ability slots (AbilitySlotUI objects).
     AbilitySlotUI[] abilitySlotsUI;
     /// The maximum amount of ability slots.
-    int MAX_SLOTS = 4;
+    const int MAX_SLOTS = 4;
 
     /// \brief Shortly after the object is created or re-enabled, subscribe InitializeAllSlots() to AbilityInventoryUI.abilityInventoryClosed.
     /// This will re-initalize all slots when the ability inventory UI closes.
@@ -99,7 +99,9 @@ public class TotalAbilityUI : MonoBehaviour
             abilitySlotsUI[i].slotID = i;
             abilitySlotsUI[i].SubscribeToDrop(this);
             if (equippedAbilities.AbilityAt(i) != null)
+            {
                 DisplayAbilityAtSlot(i);
+            }
         }
     }
 

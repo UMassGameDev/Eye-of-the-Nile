@@ -1,27 +1,39 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 /*!
 \brief Responsible for storing and playing the game's music and sound effects.
 To trigger a sound effect from a script, use "AudioManager.Instance.PlaySFX(SOUND_EFFECT_NAME);"
 
-Documentation updated 8/14/2024
+Documentation updated 10/8/2024
 \author Nick Bottari, Stephen Nuttall*/
 public class AudioManager : MonoBehaviour
 {
-    /// \brief To make the object persistent, it needs a reference to itself.
+    /// To make the object persistent, it needs a reference to itself.
     public static AudioManager Instance;  
-    /// \brief List of all music sound objects, List of all sfx sound objects.
-    public Sound[] musicSounds, sfxSounds;  
-    /// \brief Object that plays a sound under its sound object’s settings. Loops vs does not loop the sound.
-    public AudioSource musicSource, sfxSource; 
+
+    /// List of all music sound objects.
+    public Sound[] musicSounds;
+    /// List of all sfx sound objects.
+    public Sound[] sfxSounds;  
+
+    /// \brief Reference to an object that plays a sound under a given sound object’s settings (Loops vs does not loop the sound).
+    /// This audio source is responsible for playing music, especially the non-looping beginning of a looping song.
+    public AudioSource musicSourcePrimary;
+    /// \brief Reference to an object that plays a sound under a given sound object’s settings (Loops vs does not loop the sound).
+    /// This audio source is responsible for playing music, especially a looping song with a non-looping first part already using musicSourcePrimary.
+    public AudioSource musicSourceSecondary;
+    /// \brief Reference to an object that plays a sound under a given sound object’s settings (Loops vs does not loop the sound).
+    /// This audio source is responsible for playing sound effects.
+    public AudioSource sfxSource; 
 
     /// <summary>
     /// Starts playing the default music.
     /// </summary>
     void Start()
     {
-        PlayMusic("default_theme");
+        PlayMusic("desertTheme_start", "desertTheme_loop");
     }
 
     /// <summary>
@@ -44,34 +56,74 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// Plays a sound object using musicSource.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">Name of the of the sound object to play</param>
     public void PlayMusic(string name)
     {
+        // stop any music playing on the secondary music source
+        musicSourceSecondary.Stop();
+        
         Sound s = Array.Find(musicSounds, x => x.name == name);
 
         if (s == null)
         {
-            Debug.Log("ERROR PLAYING MUSIC");
+            Debug.LogWarning("Sound object '" + name + "' not found in Audio Manager");
         }
         else
         {
-            musicSource.clip = s.clip;
-            musicSource.volume = s.volume;
-            musicSource.loop = true;
-            musicSource.Play();
+            musicSourcePrimary.clip = s.clip;
+            musicSourcePrimary.volume = s.volume;
+            musicSourcePrimary.loop = true;
+            musicSourcePrimary.Play();
+        }
+    }
+
+    /// <summary>
+    /// Plays a sound object using musicSource.
+    /// In this override, a sound will be played to start the music, and another looped version wil continue to play afterwards.
+    /// This is useful for music with a beginning section that we only want played once, allowing for a seemless loop.
+    /// </summary>
+    /// <param name="startName">Name of the sound object to play first, but only once.</param>
+    /// <param name="loopName">Name of the sound object to play after the start one ends, looping forever.</param>
+    public void PlayMusic(string startName, string loopName)
+    {
+        // stop any music playing on the secondary music source
+        musicSourceSecondary.Stop();
+        
+        Sound startSound = Array.Find(musicSounds, x => x.name == startName);
+        Sound loopSound = Array.Find(musicSounds, x => x.name == loopName);
+
+        if (startSound == null)
+        {
+            Debug.LogWarning("Sound object '" + startSound + "' not found in Audio Manager");
+        }
+        else if (loopSound == null)
+        {
+            Debug.LogWarning("Sound object '" + loopSound + "' not found in Audio Manager");
+        }
+        else
+        {
+            musicSourcePrimary.clip = startSound.clip;
+            musicSourcePrimary.volume = startSound.volume;
+            musicSourcePrimary.loop = false;
+            musicSourcePrimary.Play();
+
+            musicSourceSecondary.clip = loopSound.clip;
+            musicSourceSecondary.volume = loopSound.volume;
+            musicSourceSecondary.loop = true;
+            musicSourceSecondary.PlayDelayed(startSound.clip.length);
         }
     }
 
     /// <summary>
     /// Plays a sound object using sfxSource.
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">Name of the of the sound object to play</param>
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.name == name);
         if (s == null)
         {
-            Debug.Log("ERROR PLAYING SFX");
+            Debug.LogWarning("Sound object '" + name + "' not found in Audio Manager");
         }
         else
         {
@@ -79,5 +131,4 @@ public class AudioManager : MonoBehaviour
             sfxSource.PlayOneShot(s.clip);
         }
     }
-
 }
