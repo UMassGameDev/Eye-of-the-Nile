@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpsAvailable--;
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
-                animator.SetTrigger("Jump");
+                animator.SetTrigger("DoubleJump");
                 AudioManager.Instance.PlaySFX("jump");
             }
             else if (jumpHeldDuration != 0f && jumpHeldDuration < maxJumpDuration) // Continues the jump when the jump button is held

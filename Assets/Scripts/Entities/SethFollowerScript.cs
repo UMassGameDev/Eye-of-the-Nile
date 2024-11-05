@@ -7,7 +7,7 @@ public class SethFollowerScript : MonoBehaviour
     [Header("References")]
     public GameObject player;
     public PlayerHealth playerHealth;
-    public Transform transform;
+    // public Transform transform;
 
     [Header("Basic Attributes")]
     public float speed;
