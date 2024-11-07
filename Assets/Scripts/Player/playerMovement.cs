@@ -129,7 +129,8 @@ public class PlayerMovement : MonoBehaviour
         // Negative = Left
         // Positive = Right
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("horizontalInput", Mathf.Abs(horizontalInput));
+        if (!WarpInfo.CurrentlyWarping && Time.timeScale > 0.0f)
+            animator.SetFloat("horizontalInput", Mathf.Abs(horizontalInput));
 
         // Likewise, this is w/s and up/down
         // Negative = Down
@@ -138,14 +139,14 @@ public class PlayerMovement : MonoBehaviour
 
         // If the player is warping, reject horizontal inputs and slow the player down. Otherwise, let them move horizontally as usual.
         if (WarpInfo.CurrentlyWarping)
-            rb.velocity = new Vector2(rb.velocity.x * 0.97f, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x * 0.985f, rb.velocity.y);
         else
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
 
         // Flip the player to face the direction it is going
-        if (horizontalInput > 0 && objectHealth.IsDead == false)
+        if (horizontalInput > 0 && objectHealth.IsDead == false && !WarpInfo.CurrentlyWarping && Time.timeScale > 0.0f)
             transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
-        else if (horizontalInput < 0 && objectHealth.IsDead == false)
+        else if (horizontalInput < 0 && objectHealth.IsDead == false && !WarpInfo.CurrentlyWarping && Time.timeScale > 0.0f)
             transform.localScale = new Vector3(2, transform.localScale.y, transform.localScale.z);
         
         // Player must be coming down from previous jump before jumping again
@@ -162,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         else
             airTime += Time.deltaTime; // Airtime increases when the player is not on the ground
 
-        if ((verticalInput > 0 || Input.GetKey(KeyCode.Space)) && !OnWarp)
+        if ((verticalInput > 0 || Input.GetKey(KeyCode.Space)) && !OnWarp && !WarpInfo.CurrentlyWarping && Time.timeScale > 0.0f)
         {
             if (groundDetector.isGrounded && jumpHeldDuration == 0) // On ground scenario
             {
