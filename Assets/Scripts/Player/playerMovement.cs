@@ -44,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
     private bool coyoteJumpAvailable = false;
     /// The amount of time since the player was last on the ground.
     public float airTime = 0.0f;
-    /// True if the player is currently warping to another area through a StageWarp, such as a door or some other exit.
+    /// True if the player is standing over a warpable door. Currently used to prevent the player from jumping when trying to use a door.
+    /// Use WarpInfo.CurrentlyWarping to check if the player is currently warping to another area through a StageWarp, such as a door or some other exit.
     /// \todo Make this an event rather than a public bool. This is the more "proper" way to do this as it prevents OnWarp from being changed arbitrarily.
     public bool OnWarp {get; set;} = false;
     ///@}
@@ -139,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
         // If the player is warping, reject horizontal inputs and slow the player down. Otherwise, let them move horizontally as usual.
         if (WarpInfo.CurrentlyWarping)
-            rb.velocity = new Vector2(rb.velocity.x * 0.985f, rb.velocity.y);
+            rb.velocity = new Vector2(rb.velocity.x * 0.98f, rb.velocity.y);
         else
             rb.velocity = new Vector2(moveVelocity * horizontalInput, rb.velocity.y);
 

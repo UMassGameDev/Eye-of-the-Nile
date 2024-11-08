@@ -44,6 +44,8 @@ public class AbilityInventoryUI : MonoBehaviour
     
     /// True if the ability inventory is currently open.
     bool inventoryOpen = false;
+    /// True if the ability details panel is currently open.
+    bool detailsOpen = false;
 
     /// Run InitializeSlots().
     void Awake()
@@ -75,6 +77,8 @@ public class AbilityInventoryUI : MonoBehaviour
         inventoryPanel.SetActive(false);
         mainCanvas.SetActive(true);
         
+        ExitDetailsPanel();
+        
         // unpause the game
         Time.timeScale = 1f;
 
@@ -88,12 +92,16 @@ public class AbilityInventoryUI : MonoBehaviour
     {
         detailsPanel.SetActive(true);
         detailsPanel.GetComponent<DetailsPanel>().Initialize(inventorySlot.slotData);
+
+        detailsOpen = true;
     }
 
     /// Closes the more details view.
     public void ExitDetailsPanel()
     {
         detailsPanel.SetActive(false);
+        
+        detailsOpen = false;
     }
 
     /// Runs every frame. Checks if the user has pressed escape. If so, exit the ability inventory.
@@ -103,6 +111,10 @@ public class AbilityInventoryUI : MonoBehaviour
         if (inventoryOpen == true && Input.GetKeyDown(KeyCode.Escape))
         {
             ExitInventory();
+        }
+        if (detailsOpen == true && Input.GetKeyDown(KeyCode.E))
+        {
+            ExitDetailsPanel();
         }
     }
 
