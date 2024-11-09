@@ -104,17 +104,25 @@ public class AbilityInventoryUI : MonoBehaviour
         detailsOpen = false;
     }
 
-    /// Runs every frame. Checks if the user has pressed escape. If so, exit the ability inventory.
+    /// Runs every frame. Checks if the user has pressed escape or E. If so, closes the menu(s).
     void Update()
     {
-        // if the inventory is open and the user presses escape, close the game
+        // If the inventory is open and the user presses escape, close the game
         if (inventoryOpen == true && Input.GetKeyDown(KeyCode.Escape))
         {
             ExitInventory();
         }
-        if (detailsOpen == true && Input.GetKeyDown(KeyCode.E))
+        // If the details panel is open and the user presses E, it closes the details panel. If just the inventory is open, it closes the inventory.
+        if (Input.GetKeyDown(KeyCode.E) && Time.deltaTime == 0f)
         {
-            ExitDetailsPanel();
+            if (detailsOpen)
+            {
+                ExitDetailsPanel();
+            }
+            else if (inventoryOpen)
+            {
+                ExitInventory();
+            }
         }
     }
 

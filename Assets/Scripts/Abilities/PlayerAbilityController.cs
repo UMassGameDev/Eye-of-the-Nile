@@ -150,7 +150,8 @@ public class PlayerAbilityController : MonoBehaviour
             if (AbilityInputs[keyCheck]  // if this key is being pressed
                 && StoredAbilityOwners[keyCheck] != null  // and if this key has a slot assigned to it
                 && StoredAbilityOwners[keyCheck].abilityInfo != null  // and if there is a stored ability in this slot
-                && StoredAbilityOwners[keyCheck].abilityInfo.currentForm != AbilityForm.Passive)  // and if this ability is not the passive ability
+                && StoredAbilityOwners[keyCheck].abilityInfo.currentForm != AbilityForm.Passive  // and if this ability is not the passive ability
+                && Time.timeScale > 0.0f) // and time is not frozen (in menu)
                 StoredAbilityOwners[keyCheck].ActivateAbility();  // activate the ability.
         }
         // If queueRefresh is true, a change to active abilities was made.
