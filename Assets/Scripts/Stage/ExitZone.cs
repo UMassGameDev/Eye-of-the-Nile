@@ -5,7 +5,7 @@ using UnityEngine.Events;
 If the player is inside a warp zone (such as a door or some form of exit), this script will warp them to the corresponding exit door.
 In other words, if you go through a door, this script spawns the player on the other side.
 
-Documentation updated 9/3/2024
+Documentation updated 11/10/2024
 \author Roy Pascual
 */
 public class ExitZone : MonoBehaviour
@@ -40,9 +40,8 @@ public class ExitZone : MonoBehaviour
                     WarpToZone();
                     break;
                 case StageWarpType.DoorExit:
-                    // Will have to change this later and create some relation to a Player script
-                    // For example, don't want the Player jumping when the door is entered
-                    if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+                    // The OnWarp variable prevents this from being a jump when the player enters the door
+                    if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
                         WarpToZone();
                     break;
             }
@@ -50,7 +49,7 @@ public class ExitZone : MonoBehaviour
         }
     }
 
-    /// Runs when an object leaves the warp zone. If that object is the player, tell the player it's not warping anymore.
+    /// Runs when an object leaves the warp zone. If that object is the player, tell the player it's not standing on a warp anymore.
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer(_collisionLayer))
