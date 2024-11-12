@@ -133,6 +133,31 @@ public class ObjectHealth : MonoBehaviour
     /// \brief If something attacks the object, it will run ObjectHealth.TakeDamage()
     /// 
     /// Steps:
+    /// <param name="damage">The amount of damage to deal to this object.</param>
+    public virtual void TakeDamage(int damage)
+    {
+        /// - If the object is currently invincible, skip this function.
+        if (isInvincible)
+            return;
+        
+        /// - Subtract the damage done and play the damage animation.
+        currentHealth -= damage;
+        if (animator != null)
+            animator.SetTrigger("Hurt");
+
+        /// - If the health is now beneath 0, die (respectfully).
+        if (currentHealth <= 0)
+            Die();
+
+        /// - If not, start invinciblity frames (if enabled).
+        if (currentHealth > 0 && canBeInvincible)
+            StartCoroutine(Invincibility());
+    }
+
+    /// \brief If something attacks the object, it will run ObjectHealth.TakeDamage()
+    /// This overload allows for damage particles to come from the direction of the attack.
+    /// 
+    /// Steps:
     /// <param name="attacker">Reference to the transform of the attacker. Used to determine which direction particles should come from.</param>
     /// <param name="damage">The amount of damage to deal to this object.</param>
     public virtual void TakeDamage(Transform attacker, int damage)

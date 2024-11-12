@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /*! \brief
@@ -10,58 +11,56 @@ Every script inheriting from this must override ActivateAttack().
 - CloseAttack State: The entity will attack the enemy until it's no longer in range (either because it left or because it died)
 - Dead State: This script won't do anything if the entity dies.
 
-Documentation updated 8/23/2024
-\author Roy Rapscual
+Documentation updated 11/9/2024
+\author Roy Rapscual, Stephen Nuttal
 */
 public abstract class BaseEntityController : MonoBehaviour
 {
-    /// \brief Reference to the object responsible for managing the player's health
+    /// Reference to the object responsible for managing the player's health
     protected ObjectHealth objectHealth;
 
-    /// <summary>
-    /// Reference to the entity's attack point. It's a point in space that's a child of the entity, existing some distance in front of it.
+    /// \brief Reference to the entity's attack point. It's a point in space that's a child of the entity, existing some distance in front of it.
     /// Projectiles spawn from the attack point, and melee attacks scan for enemies to damage from a certain radius around it.
-    /// </summary>
-    public Transform attackPoint;
-    /// \brief Amount of damage the entity's attack will deal.
-    public int attackDamage = 30;
-    /// \brief The amount of time between attacks.
-    public float attackCooldown = 0.8f;
-    /// \brief Amount of time until cooldown is over. Set to the current time + attackCooldown when the attack is triggered.
+    [SerializeField] protected Transform attackPoint;
+    /// Amount of damage the entity's attack will deal.
+    [SerializeField] protected int attackDamage = 30;
+    /// The amount of time between attacks.
+    [SerializeField] protected float attackCooldown = 0.8f;
+    /// Amount of time until cooldown is over. Set to the current time + attackCooldown when the attack is triggered.
     protected float cooldownEndTime = 0f;
 
-    /// <summary>
-    /// Objects on these layers will be considered an enemy of this entity, and if detected, this entity will seek to attack. 
+    /// \brief Objects on these layers will be considered an enemy of this entity, and if detected, this entity will seek to attack. 
     /// An object can be assigned to a layer in the Unity Editor from a drop down menu in the top right.
-    /// </summary>
-    public LayerMask enemyLayers;
-    /// \brief A patrol zone is an object that has two points the entity will walk between if it does not detect an enemy.
-    public PatrolZone patrolZone;
-    /// \brief Current state the entity is in.
-    public EntityState EState { get; set; } = EntityState.Patrol;
-    /// \brief Horizontal direction the entity is traveling in.
-    public float horizontalDirection = 0f;
-    /// \brief How far away the entity will detect an enemy from and start chasing.
-    public float detectionRange = 6f;
-    /// \brief How close the entity must be to an enemy to attack it.
-    public float activateAttackRange = 3f;
-    /// \brief True if the entity has detected an enemy.
+    [SerializeField] protected LayerMask enemyLayers;
+    /// A patrol zone is an object that has two points the entity will walk between if it does not detect an enemy.
+    [SerializeField] protected PatrolZone patrolZone;
+    /// Current state the entity is in.
+    public EntityState EState { get; protected set; } = EntityState.Patrol;
+    /// Horizontal direction the entity is traveling in.
+    [SerializeField] protected float horizontalDirection = 0f;
+    /// How far away the entity will detect an enemy from and start chasing.
+    [SerializeField] protected float detectionRange = 6f;
+    /// How close the entity must be to an enemy to attack it.
+    [SerializeField] protected float activateAttackRange = 3f;
+    /// True if the entity has detected an enemy.
     protected bool hostileDetected = false;
-    /// \brief True if the entity is close enough to an enemy to attack it.
+    /// True if the entity is close enough to an enemy to attack it.
     protected bool hostileInCloseRange = false;
 
-    /// \brief Reference to the entity's rigidbody.
+    /// Reference to the entity's rigidbody.
     protected Rigidbody2D rb;
-    /// \brief How fast the entity is moving.
-    public float moveVelocity = 6.0f;
-    /// \brief Amount of drag to apply to the rigidbody.
-    public float linearDrag = 1.0f;
+    /// How fast the entity should move.
+    [SerializeField] protected float moveVelocity = 6.0f;
+    /// The precent of moveVelocity the entity should move at. Used for slowing the entity down.
+    protected float speedModifier = 0f;
+    /// Amount of drag to apply to the rigidbody.
+    [SerializeField] protected float linearDrag = 1.0f;
     /// \deprecated Unused variable that was going to allow entities to jump, based on how player jumping used to work.
     /// This system has been replaced with a new system in PlayerMovement though, so that system should be implemented instead.
     /// \todo Implement jumping for entities.
-    public float groundedRaycastLength = 1.8f;
+    [SerializeField] protected float groundedRaycastLength = 1.8f;
 
-    /// \brief Reference to the entity's animator.
+    /// Reference to the entity's animator.
     protected Animator animator;
 
     /// Apply linear drag to the rigidbody.
@@ -101,7 +100,7 @@ public abstract class BaseEntityController : MonoBehaviour
 
     /// <summary>
     /// Triggers the entity's attack. This can be done through triggering an animation, spawning a projectile, or another method.
-    /// By default, an "IsAattacking" animation is triggered.
+    /// By default, an "IsAttacking" animation is triggered.
     /// </summary>
     protected virtual void TriggerAttack()
     {
@@ -145,7 +144,7 @@ public abstract class BaseEntityController : MonoBehaviour
 
         animator.SetBool("IsMoving", horizontalDirection != 0f);
 
-        rb.velocity = new Vector2(moveVelocity * horizontalDirection, rb.velocity.y);
+        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection, rb.velocity.y);
 
         // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
@@ -220,7 +219,7 @@ public abstract class BaseEntityController : MonoBehaviour
 
         animator.SetBool("IsMoving", horizontalDirection != 0f);
 
-        rb.velocity = new Vector2(moveVelocity * horizontalDirection, rb.velocity.y);
+        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection, rb.velocity.y);
 
         // Prioritize death
         if (objectHealth.IsDead)
@@ -342,6 +341,40 @@ public abstract class BaseEntityController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         objectHealth = GetComponent<ObjectHealth>();
+    }
+
+    /// <summary>
+    /// Speeds up or slows down the entity's movement speed. A negative value for speedChange will slow down the entity.
+    /// </summary>
+    /// \note If speedChange is less than negative moveVelocity (implying the entity should move backwards), it will be set to -moveVelocity.
+    /// <param name="speedChange">The amount that will be added to speedModifier, which will be added to moveVelocity.</param>
+    public void ChangeSpeed(float speedChange)
+    {
+        speedModifier += speedChange;
+        if (speedModifier < -moveVelocity)
+            speedModifier = -moveVelocity;
+    }
+    
+    /// <summary>
+    /// Temporarily speeds up or slows down the entity's movement speed. A negative value for speedChange will slow down the entity.
+    /// </summary>
+    /// \note If speedChange is less than negative moveVelocity (implying the entity should move backwards), it will be set to -moveVelocity.
+    /// <param name="speedChange">The amount that will be added to speedModifier, which will be added to moveVelocity.</param>
+    /// <param name="duration">The amount of time, in seconds, the speed change will last for.</param>
+    public void ChangeSpeed(float speedChange, float duration)
+    {
+        StartCoroutine(ChangeSpeedClock(speedChange, duration));
+    }
+
+    /// Clock for ChangeSpeed(). See ChangeSpeed() for details.
+    IEnumerator ChangeSpeedClock(float speedChange, float duration)
+    {
+        speedModifier += speedChange;
+        if (moveVelocity + speedModifier < 0)
+            speedModifier = 0;
+            
+        yield return new WaitForSeconds(duration);
+        speedModifier -= speedChange;
     }
 
 }

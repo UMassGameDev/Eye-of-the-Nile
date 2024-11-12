@@ -45,9 +45,9 @@ GameObject:
   - component: {fileID: 3606092776019077731}
   - component: {fileID: 2957925468053872464}
   - component: {fileID: 8241181740809930811}
+  - component: {fileID: 2521853032938061410}
   - component: {fileID: 7090342042800124806}
   - component: {fileID: 810580329863801679}
-  - component: {fileID: 2521853032938061410}
   - component: {fileID: 1677358739452177729}
   m_Layer: 7
   m_Name: Ranged Bad Guy
@@ -198,6 +198,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1.3}
   m_EdgeRadius: 0
+--- !u!95 &2521853032938061410
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092621479755459262}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f38c6cb26ef219438bfdde5ad8d07b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7090342042800124806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,36 +260,21 @@ MonoBehaviour:
   sRenderer: {fileID: 3606092776019077731}
   animator: {fileID: 2521853032938061410}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  onFireSprite: {fileID: 4779513506019383384}
   deathSfxName: enemy_death
   enableDamageParticles: 1
+  disableColliderOnDeath: 1
+  disableRigidbodyOnDeath: 1
+  destroyOnDeath: 0
   maxHealth: 100
   soulsDroppedOnDeath: 2
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
-  onFireSprite: {fileID: 4779513506019383384}
   canBeOnFire: 1
---- !u!95 &2521853032938061410
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092621479755459262}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f38c6cb26ef219438bfdde5ad8d07b9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1677358739452177729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2957925468053872464}
+  kbDelay: 0.15
   defaultStrength: 50
+  kbResistance: 0
   OnBegin:
     m_PersistentCalls:
       m_Calls:
