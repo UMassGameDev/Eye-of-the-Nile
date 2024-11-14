@@ -8,7 +8,7 @@ Documentation updated 9/4/2024
 \note Unlike most projectiles, this projectile's Collider2D component is set to be a trigger, so it uses OnTriggerEnterMethods().
 However, OnCollisionEnterMethods() is also filled out with the same code. I'm not sure why that is but it doesn't seem necessary.
 */
-public class BoneProjectile : BasicProjectile
+public class BoneProjectile : BaseProjectile
 {
     /// Reference to the rigidbody of the projectile.
     Rigidbody2D boneRb;
@@ -41,7 +41,7 @@ public class BoneProjectile : BasicProjectile
     }
 
     /// Rotates the projectile.
-    protected override void UpdateMethods()
+    void Update()
     {
         if (facingLeft)
             transform.Rotate(0f, 0f, 500f * Time.deltaTime);

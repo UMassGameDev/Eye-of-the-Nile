@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1589824162782233381}
   - component: {fileID: -1285054674443529691}
   m_Layer: 3
-  m_Name: Rock Wall (lvl 3)
+  m_Name: '[lvl 3] Rock Wall'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

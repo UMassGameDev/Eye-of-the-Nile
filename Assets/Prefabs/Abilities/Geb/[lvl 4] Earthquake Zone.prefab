@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5921349520556655052}
   - component: {fileID: 9016768909214588029}
   m_Layer: 0
-  m_Name: Earthquake Zone
+  m_Name: '[lvl 4] Earthquake Zone'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5, y: 0.5}
+  m_Size: {x: 10, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &9016768909214588029
 MonoBehaviour:
@@ -92,5 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 10
   damageCount: 3
-  timeBetweenDamage: 1
+  timeBetweenDamage: 1.75
   entitySpeedModifier: 3
+  destroyWhenDoneDamaging: 1

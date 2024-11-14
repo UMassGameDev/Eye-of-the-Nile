@@ -7,7 +7,7 @@ Inherits from BasicProjectile.
 Documentation updated 9/7/2024
 \author Stephen Nuttall
 */
-public class FireProjectile : BasicProjectile
+public class FireProjectile : BaseProjectile
 {
     /// Amount of times the fire should deal damage.
     public int damageCount = 5;

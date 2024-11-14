@@ -44,7 +44,7 @@ public class EarthquakeZone : MonoBehaviour
             controller.ChangeSpeed(-entitySpeedModifier);
         }
 
-        if (col.TryGetComponent<ObjectHealth>(out var health) && !objectsToDamage.Contains(health))
+        if (!col.CompareTag("Player") && col.TryGetComponent<ObjectHealth>(out var health) && !objectsToDamage.Contains(health))
         {
             objectsToDamage.Add(health);
         }
@@ -57,7 +57,7 @@ public class EarthquakeZone : MonoBehaviour
             controller.ChangeSpeed(entitySpeedModifier);
         }
 
-        if (col.TryGetComponent<ObjectHealth>(out var health) && objectsToDamage.Contains(health))
+        if (!col.CompareTag("Player") && col.TryGetComponent<ObjectHealth>(out var health) && objectsToDamage.Contains(health))
         {
             objectsToDamage.Remove(health);
         }

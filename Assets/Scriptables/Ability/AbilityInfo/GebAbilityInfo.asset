@@ -40,7 +40,7 @@ MonoBehaviour:
   onCooldownSound: incorrect_buzzer
   abilityLevel: 2
   maxLevel: 5
-  currentForm: 1
+  currentForm: 0
   baseCost: 0
   duration: 0
   tickRate: 0
@@ -51,7 +51,12 @@ MonoBehaviour:
   defenseEffects: []
   utilityEffects: []
   passiveEffects: []
-  earthquakeProjectilePrefab: []
+  earthquakeProjectilePrefab:
+  - {fileID: 1712921479663479192, guid: 2c616a59fa6e2b0498bb94c10169231b, type: 3}
+  - {fileID: 1712921479663479192, guid: 8fd8db01e5fa94b4bb8fef1ba21c787a, type: 3}
+  - {fileID: 1712921479663479192, guid: e624f63023215fb49b5289f667c633e7, type: 3}
+  - {fileID: 1712921479663479192, guid: 27a6974bb052ffe4694f5155a257a612, type: 3}
+  - {fileID: 1712921479663479192, guid: 9c558a75a7de69a4cba9434e4e808208, type: 3}
   rockWallPrefab:
   - {fileID: 412478105100610930, guid: 10ad70d9c84e4824b9db5c511e9b2789, type: 3}
   - {fileID: 412478105100610930, guid: 71f7960c800502447b6a1a1a4f29a4c6, type: 3}

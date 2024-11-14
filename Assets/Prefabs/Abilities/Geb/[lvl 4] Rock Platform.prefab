@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3182487430536643569}
   - component: {fileID: 5706486842307700260}
   m_Layer: 3
-  m_Name: Rock Platform (lvl 1)
+  m_Name: '[lvl 4] Rock Platform'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa363874d0f60d4b88122cf12eb43cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 3
+  seconds: 9
   destroyGameObject: 1
   onDespawn:
     m_PersistentCalls:

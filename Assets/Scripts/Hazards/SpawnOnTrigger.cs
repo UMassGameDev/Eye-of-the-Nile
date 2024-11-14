@@ -46,7 +46,7 @@ public class SpawnOnTrigger : MonoBehaviour
             GameObject projectile = Instantiate(projectilePrefab, new Vector2(spawnPoint.position.x, spawnPoint.position.y), Quaternion.identity);
             
             // if object is a projectile and facing left, flip the projectile's direction
-            if (facingLeft && projectile.TryGetComponent<BasicProjectile>(out var bp))
+            if (facingLeft && projectile.TryGetComponent<BaseProjectile>(out var bp))
                 bp.FlipDirection();
         }
 

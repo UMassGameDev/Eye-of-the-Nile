@@ -1,16 +1,14 @@
 using UnityEngine;
 
 /** \brief
-This script moves the object its attached to in the given 2D direction.
+This script moves the object its attached to in the given 2D direction continuously and consistently.
+Great for simple projectile movement.
 
-Documentation updated 10/17/2024
+Documentation updated 11/13/2024
 \author Stephen Nuttall
 */
-public class MoveInDirection : MonoBehaviour
+public class MoveInDirection : RudimentaryMovement
 {
-    /// Moves the object by these vector values every second. Negative numbers change the direction.
-    public Vector2 movementDirection;
-    
     /// \breif Moves the object by (movementDirection.x * Time.deltaTime) every frame,
     /// ensuring the object moves at a consistent speed regardless of framerate.
     void Update()

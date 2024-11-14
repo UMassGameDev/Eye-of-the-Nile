@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 1715029718463870301}
   - component: {fileID: 8278816961810495866}
   - component: {fileID: 8396981393671153778}
-  - component: {fileID: 4622073079984247974}
+  - component: {fileID: -2177854562356691219}
   - component: {fileID: 1589824162782233381}
   - component: {fileID: -1285054674443529691}
   m_Layer: 3
-  m_Name: Rock Wall (lvl 5)
+  m_Name: '[lvl 4] Rock Wall'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.92, y: 2.55}
   m_EdgeRadius: 0
---- !u!114 &4622073079984247974
+--- !u!114 &-2177854562356691219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
   destroyOnDeath: 1
-  maxHealth: 250
+  maxHealth: 175
   soulsDroppedOnDeath: 0
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa363874d0f60d4b88122cf12eb43cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 20
+  seconds: 14
   destroyGameObject: 1
   onDespawn:
     m_PersistentCalls:
@@ -192,4 +192,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f89c2e82bb60d4aae9143cf8d3c699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDirection: {x: 2.5, y: 0}
+  movementDirection: {x: 1.5, y: 0}

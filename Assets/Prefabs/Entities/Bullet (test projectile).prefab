@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4828939614296453393}
   - component: {fileID: 3075917560486714853}
   - component: {fileID: 3628708173318362808}
+  - component: {fileID: 4590224011516093467}
   m_Layer: 0
   m_Name: Bullet (test projectile)
   m_TagString: Projectile
@@ -120,12 +121,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 8366819583817702406}
-  speed: 8
   damage: 30
-  facingLeft: 0
   damagePlayers: 1
   damageNonPlayers: 1
   spawnSFX: fireball_fire
+  flipSpriteWhenFacingLeft: 1
+--- !u!114 &4590224011516093467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7973579002921526092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f89c2e82bb60d4aae9143cf8d3c699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementDirection: {x: 10, y: 0}
 --- !u!1 &8366819583817702406
 GameObject:
   m_ObjectHideFlags: 0

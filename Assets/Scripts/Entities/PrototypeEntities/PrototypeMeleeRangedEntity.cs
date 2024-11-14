@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PrototypeMeleeRangedEntity : PrototypeBaseEntity
 {
-    public BasicProjectile projectilePrefab;
+    public BaseProjectile projectilePrefab;
 
     public virtual void TestActivate()
     {
@@ -15,12 +15,12 @@ public class PrototypeMeleeRangedEntity : PrototypeBaseEntity
     {
         base.ActivateAttack();
 
-        BasicProjectile projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
+        BaseProjectile projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
         // if we're facing left, flip the direction (projectile faces right by default)
         if (transform.localScale.x > 0)
         {
-            projectile.GetComponent<BasicProjectile>().FlipDirection();
+            projectile.GetComponent<BaseProjectile>().FlipDirection();
         }
     }
 }

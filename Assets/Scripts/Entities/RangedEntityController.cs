@@ -20,7 +20,7 @@ public class RangedEntityController : BaseEntityController
 
         // if we're facing left, flip the direction (projectile faces right by default)
         if (transform.localScale.x > 0) {
-            projectile.GetComponent<BasicProjectile>().FlipDirection();
+            projectile.GetComponent<BaseProjectile>().FlipDirection();
         }
     }
 

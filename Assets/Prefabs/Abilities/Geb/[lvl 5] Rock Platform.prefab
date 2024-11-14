@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3182487430536643569}
   - component: {fileID: 5706486842307700260}
   m_Layer: 3
-  m_Name: Rock Platform (lvl 5)
+  m_Name: '[lvl 5] Rock Platform'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

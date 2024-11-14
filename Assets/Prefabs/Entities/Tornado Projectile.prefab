@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5030232394168891958}
   - component: {fileID: 7728554897918876479}
   - component: {fileID: 6322523300403418490}
+  - component: {fileID: 6902916195475658819}
   m_Layer: 0
   m_Name: Tornado Projectile
   m_TagString: Projectile
@@ -144,10 +145,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 8236663649348585776}
-  speed: 10
   damage: 0
-  facingLeft: 0
   damagePlayers: 1
   damageNonPlayers: 1
   spawnSFX: wind_blow
+  flipSprite: 0
   despawnTime: 0.75
+--- !u!114 &6902916195475658819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236663649348585776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f89c2e82bb60d4aae9143cf8d3c699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementDirection: {x: 10, y: 0}

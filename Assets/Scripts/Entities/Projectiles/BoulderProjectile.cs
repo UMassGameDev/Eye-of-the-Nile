@@ -7,16 +7,16 @@ Adapted from BoulderHazard. Inherits from BasicProjectile.
 Documentation updated 9/7/2024
 \author Stephen Nuttall
 */
-public class BoulderProjectile : BasicProjectile
+public class BoulderProjectile : BaseProjectile
 {
     /// Reference to the boulder's rigidbody.
     Rigidbody2D boulderBody;
     /// Reference to the particles to spawn when the boulder breaks.
-    public Transform boulderParticles;
+    [SerializeField] Transform boulderParticles;
     /// Initial force applied to the boulder when spawned in.
-    public float initialForce = 100f;
+    [SerializeField] float initialForce = 100f;
     /// Objects on these layers will break the boulder and possibly get damaged if the boulder collides with them.
-    public LayerMask collisionLayers;
+    public LayerMask collisionLayers {get; private set;}
 
     /// Breaks the boulder by spawning particles and destroying this object.
     public void BreakBoulder()
@@ -46,15 +46,9 @@ public class BoulderProjectile : BasicProjectile
         }
     }
 
-    /// Empty. The collision is handled by the boulder's hithox, so we want the functionality of the base OnCollisionEnter2D() to be ignored.
-    void OnCollisionEnter2D(Collision2D collisionInfo)
+    /// Empty. The collision is handled by the boulder's hithox, so we want the functionality of the base OnCollisionEnterMethods() to be ignored.
+    protected override void OnCollisionEnterMethods(Collision2D collisionInfo)
     {
         // Collision is handled by the hitbox!
-    }
-
-    /// Empty. We want the functionality of the base UpdateMethods() to be ignored.
-    protected override void UpdateMethods()
-    {
-        // Don't do anything
     }
 }

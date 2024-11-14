@@ -54,11 +54,7 @@ public class PlayerMovement : MonoBehaviour
     *  Information related to jump chains (double jumping, tripple jumping, etc) and their functionality.
     */
     ///@{
-    /// True if the player is currently falling, meaning they're in the air but their height in the world is decreasing.
-    /// \note Stays true until the player jumps again, even if the player lands, stops decreasing their height or even increases it without jumping.
-    /// Maybe this variable should be called "wasFalling" but I think that would be more confusing.
-    /// \deprecated No longer used and will likely be removed soon.
-    bool isFalling = false;
+    //bool isFalling = false;
     /// \brief Maximum amount of times the player can jump without touching the ground.
     /// \note 0 would be a normal jump, 1 allows for double jumping, 2 for triple jumping, etc.
     public int maxJumpChain = 1;
@@ -152,9 +148,13 @@ public class PlayerMovement : MonoBehaviour
         
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
-            isFalling = true;
+        {
+            // isFalling = true;
+        }
         else if (rb.velocity.y > 0.1f)
+        {
             coyoteJumpAvailable = false; // Disable coyote time jump availability after jump (when player is moving up).
+        }
 
         if (groundDetector.isGrounded)
         {
@@ -222,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         rb.AddRelativeForce(new Vector2(0.0f, jumpForce), ForceMode2D.Impulse);
         animator.SetBool("IsGliding", false);
-        isFalling = false;
+        // isFalling = false;
     }
 
     /// <summary>
@@ -237,6 +237,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetTrigger("Jump");
         animator.SetBool("IsGliding", false);
         AudioManager.Instance.PlaySFX("jump");
-        isFalling = false;
+        // isFalling = false;
     }
 }

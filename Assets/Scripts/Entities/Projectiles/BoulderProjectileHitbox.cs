@@ -22,7 +22,7 @@ public class BoulderProjectileHitbox : MonoBehaviour
         if (((1 << collision.gameObject.layer) & boulderProjectile.collisionLayers.value) > 0)
         {
             if (collision.transform.TryGetComponent<ObjectHealth>(out var collisionObjHealth))
-                collisionObjHealth.TakeDamage(transform, boulderProjectile.damage);
+                collisionObjHealth.TakeDamage(transform, boulderProjectile.refDamage);
 
             boulderProjectile.BreakBoulder();
         }
