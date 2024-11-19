@@ -30,10 +30,11 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
         startingPos = transform.position;
     }
 
-    // Move item by same amount that the cursor moved each frame (relative to the canvas)
+    // Move item to where the cursor is (relative to the canvas)
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        rectTransform.anchoredPosition = (eventData.position - canvas.pixelRect.size / 2) / canvas.scaleFactor;
+        // rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; // (unused) Move item by same amount that the cursor moved each frame (relative to the canvas)
     }
 
     public void OnEndDrag(PointerEventData eventData)

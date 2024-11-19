@@ -44,18 +44,20 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         AbilityInventoryUI.abilityInventorySlotInitialized -= setTextboxes;
     }
 
-    /// When the user drops an item into this slot, run itemAccept() (unless this slot only accepts a different item).
+    /// When the user drops an item into this slot, run itemAccept() (unless this slot is full or only accepts a different item).
     public void OnDrop(PointerEventData eventData)
     {
-        // if an item is being dragged && that item has the required item data...
+        // If an item is being dragged && that item has the required item data && it is being dropped into an empty slot...
         if (eventData.pointerDrag != null && eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData))
         {
-            if (acceptsOnlyOneItem) {
-                if (itemData == acceptedItem)
+            if (slotData == null || true) {
+                if (acceptsOnlyOneItem) {
+                    if (itemData == acceptedItem)
+                        itemAccepted(eventData, itemData);
+                } else {
                     itemAccepted(eventData, itemData);
-            } else {
-                itemAccepted(eventData, itemData);
-            }
+                }
+            } // TODO: swap the position of the items when the slot is full
         }
     }
 
