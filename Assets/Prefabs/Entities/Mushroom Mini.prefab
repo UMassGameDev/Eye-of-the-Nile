@@ -121,7 +121,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6516236044855333299}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a63588685e49f664680c2352caf0f6b6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -173,7 +173,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a63588685e49f664680c2352caf0f6b6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -237,15 +237,21 @@ MonoBehaviour:
   sRenderer: {fileID: 625890292217707528}
   animator: {fileID: 3652624325875150862}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  onFireSprite: {fileID: 0}
   deathSfxName: enemy_death
   enableDamageParticles: 1
+  disableColliderOnDeath: 1
+  disableRigidbodyOnDeath: 1
+  destroyOnDeath: 0
   maxHealth: 30
   soulsDroppedOnDeath: 1
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
-  onFireSprite: {fileID: 0}
   canBeOnFire: 1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7061809771203542844
 GameObject:
   m_ObjectHideFlags: 0

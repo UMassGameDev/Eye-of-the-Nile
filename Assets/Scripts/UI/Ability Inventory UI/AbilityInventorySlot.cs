@@ -50,7 +50,7 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         // If an item is being dragged && that item has the required item data && it is being dropped into an empty slot...
         if (eventData.pointerDrag != null && eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData))
         {
-            if (slotData == null || true) {
+            if (slotData == null || acceptsOnlyOneItem) {
                 if (acceptsOnlyOneItem) {
                     if (itemData == acceptedItem)
                         itemAccepted(eventData, itemData);
