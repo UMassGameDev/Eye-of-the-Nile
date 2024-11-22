@@ -2,8 +2,8 @@ using UnityEngine;
 
 /** \brief
 This script is used by a small trigger zone beneath the player's feet that detects if the player is on the ground.
-When the player is on the ground, isGrounded will be true.
-NOTE: This detects the ground layer (Tilemap Base), not the collision layer!
+When the player is on the floor, isGrounded will be true.
+NOTE: This detects the collision layer, not the ground layer!
 
 Documentation updated 8/30/2024
 \author Stephen Nuttall, Alexander Art
@@ -21,7 +21,7 @@ public class GroundDetector : MonoBehaviour
     /// <param name="col">Represents the object inside the trigger zone.</param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("Collision"))
             isGrounded = true;
     }
     /// <summary>
@@ -30,7 +30,7 @@ public class GroundDetector : MonoBehaviour
     /// <param name="col">Represents the object inside the trigger zone.</param>
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("Collision"))
             isGrounded = true;
     }
     /// <summary>
@@ -39,7 +39,7 @@ public class GroundDetector : MonoBehaviour
     /// <param name="col">Represents the object inside the trigger zone.</param>
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("Collision"))
             isGrounded = false;
     }
 }
