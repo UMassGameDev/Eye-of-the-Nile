@@ -3,6 +3,7 @@ using UnityEngine;
 /** \brief
 This script is used by a small trigger zone beneath the player's feet that detects if the player is on the ground.
 When the player is on the ground, isGrounded will be true.
+NOTE: This detects the ground layer (Tilemap Base), not the collision layer!
 
 Documentation updated 8/30/2024
 \author Stephen Nuttall, Alexander Art
