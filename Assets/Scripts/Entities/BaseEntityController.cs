@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -59,6 +60,10 @@ public abstract class BaseEntityController : MonoBehaviour
     /// This system has been replaced with a new system in PlayerMovement though, so that system should be implemented instead.
     /// \todo Implement jumping for entities.
     [SerializeField] protected float groundedRaycastLength = 1.8f;
+    /// Reference to the entity's GroundDetector.
+    GroundDetector groundDetector;
+    /// Can be set to false to let the entity walk even when it is not on the ground.
+    [SerializeField] bool groundNeeded = true;
 
     /// Reference to the entity's animator.
     protected Animator animator;
@@ -144,7 +149,7 @@ public abstract class BaseEntityController : MonoBehaviour
 
         animator.SetBool("IsMoving", horizontalDirection != 0f);
 
-        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection, rb.velocity.y);
+        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(groundDetector.isGrounded || !groundNeeded), rb.velocity.y);
 
         // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
@@ -219,7 +224,7 @@ public abstract class BaseEntityController : MonoBehaviour
 
         animator.SetBool("IsMoving", horizontalDirection != 0f);
 
-        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection, rb.velocity.y);
+        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(groundDetector.isGrounded || !groundNeeded), rb.velocity.y);
 
         // Prioritize death
         if (objectHealth.IsDead)
@@ -335,12 +340,13 @@ public abstract class BaseEntityController : MonoBehaviour
             
     }
 
-    /// Set references to rigidbody, animator, and object health.
+    /// Set references to rigidbody, animator, object health, and GroundDetector.
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         objectHealth = GetComponent<ObjectHealth>();
+        groundDetector = transform.GetComponentInChildren<GroundDetector>();
     }
 
     /// <summary>
@@ -378,3 +384,4 @@ public abstract class BaseEntityController : MonoBehaviour
     }
 
 }
+

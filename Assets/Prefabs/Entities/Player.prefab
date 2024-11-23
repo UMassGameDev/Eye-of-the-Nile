@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 4096
 --- !u!1 &4590190179035495267
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,12 +404,18 @@ MonoBehaviour:
   onFireSprite: {fileID: 8623649031616025542}
   deathSfxName: player_death
   enableDamageParticles: 1
+  disableColliderOnDeath: 1
+  disableRigidbodyOnDeath: 1
+  destroyOnDeath: 0
   maxHealth: 100
   soulsDroppedOnDeath: 0
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 1
   invincibleDuration: 1
   canBeOnFire: 1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   deadFadeDelay: 1
   deadFadeLength: 1
   deathSceneName: Anubis
