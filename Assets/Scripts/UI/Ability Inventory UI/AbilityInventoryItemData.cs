@@ -26,9 +26,8 @@ public class AbilityInventoryItemData : MonoBehaviour
     /// The descriptions of the offense, defense, utility, and passive abilities to display in the detailed view.
     public string[] abilityDescriptions;
 
-    /// \brief The ID of the slot the item was in before it was dragged.
-    /// Used to return the icon to its current slot if it was dragged to a place that isn't another open slot.
-    public int startingSlotKey;
+    /// \brief The ID of the slot the item is currently in.
+    public int currentSlot = -1;
 
     /// Moves the icon to the given position.
     public void MoveIcon(Vector2 newPos) { gameObject.transform.position = newPos; }

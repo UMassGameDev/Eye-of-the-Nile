@@ -151,6 +151,9 @@ public class AbilityInventoryUI : MonoBehaviour
 
                 // store this data in the inventory slot
                 abilityInventorySlots[i].slotData = iconData[i];
+
+                // Store which slot the item is in on initialization
+                iconData[i].currentSlot = abilityInventorySlots[i].GetSlotNum();
             }
 
             abilityInventorySlotInitialized?.Invoke();
@@ -169,6 +172,9 @@ public class AbilityInventoryUI : MonoBehaviour
                     {
                         iconData[n].MoveIcon(activeAbilitySlots[i].GetPosition());
                         activeAbilitySlots[i].slotData = abilityInventorySlots[n].slotData;
+                        
+                        // Correct which slot the item is in if it is already active on initialization
+                        iconData[n].currentSlot = activeAbilitySlots[i].GetSlotNum();
                     }
                 }
             }
