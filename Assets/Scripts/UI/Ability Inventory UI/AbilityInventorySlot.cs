@@ -29,6 +29,11 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
     /// Invoked when the slot receives an item. Contains the item data and slot ID number.
     public static event Action<AbilityInventoryItemData, int> receivedItem;
 
+    /// This is the slot number of the hold slot, a slot that this script utilizes to make it easier to move items around.
+    /// The hold slot should never be visible in-game.
+    /// This variable exists only to make it easier to change which slot is considered the hold slot, if ever necessary.
+    private int holdSlotNum = 200;
+
     /// \brief Shortly after the object is created or re-enabled, subscribe checkDuplicateName() to receivedItem
     /// and setTextboxes() to AbilityInventoryUI.abilityInventorySlotInitialized.
     void OnEnable()
@@ -58,22 +63,29 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
                     itemAccepted(eventData, itemData);
                 }
             } else if (slotData != null && itemData.currentSlot != slotNum) { // If an item is being dragged into a full slot (other than its own slot)
-                // This code works, but it is ugly, so it should probably be revised at some point.
-                // fromSlot -> the slot that the dragged item came from
-                // toSlot -> the slot that the dragged item is being dropped into (which is the slot that this code runs on)
-                // fromItem -> the item that fromSlot initially holds (the item being dragged)
-                // toItem -> the item that toSlot initially holds
-                // holdSlot -> slot that is offscreen that holds one item so the items never overlap while swapping
+                // fromSlot -> the slot that the dragged item came from.
+                // toSlot -> the slot that the dragged item is being dropped into. (The slot that this code runs on.)
+                // fromItem -> the item that fromSlot initially holds. (The item being dragged.)
+                // toItem -> the item that toSlot initially holds.
+                // hold slot -> slot that is offscreen that holds one item so the items never overlap while swapping.
+
                 // Steps:
-                // 1. Move fromItem from the fromSlot into the holdSlot
-                // 2. Move toItem from the toSlot into the now empty fromSlot
-                // 3. Move fromItem, now in the holdSlot, into the toSlot
+                // - Find fromSlot and its slot number.
+                // - Find toSlot and its slot number.
+                // - If both slots accept more than one item, swap fromItem's and toItem's positions. This utilizes the hold slot.
+                //     - Steps:
+                //         1. Move fromItem from the fromSlot into the hold slot.
+                //         2. Move toItem from the toSlot into the now empty fromSlot.
+                //         3. Move fromItem, now in the hold slot, into the toSlot.
+                // - If the toSlot accepts more than one item but the fromSlot accepts only one item, then send the toItem
+                //   back to its inactive inventory slot and let the fromItem go where it was being dragged to.
+                //     - Steps:
+                //         1. Find which slot is the slot that only accepts the toItem.
+                //         2. Move the toItem into that slot.
+                //         3. Move the fromItem into the now empty toSlot.
 
-                // TODO: If an item is being dragged from an inventory slot into a full active ability slot,
-                // then put the active item back into its own inventory slot and let the dragged item go where it was trying to go.
-
-                int fromSlotNum = itemData.currentSlot; // fromItem and the itemData variable are essentially the same thing
-                // Get the fromSlot AbilityInventorySlot object
+                // Find the slot that the dragged item came from
+                int fromSlotNum = itemData.currentSlot;
                 AbilityInventorySlot fromSlot = null;
                 foreach (Transform child in GameObject.Find("Inventory Slots").transform) {
                     if (child.GetComponent<AbilityInventorySlot>().slotNum == fromSlotNum) {
@@ -85,48 +97,98 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
                         fromSlot = child.GetComponent<AbilityInventorySlot>();
                     }
                 }
+                if (GameObject.Find("Hold Slot").GetComponent<AbilityInventorySlot>().slotNum == fromSlotNum) {
+                    fromSlot = GameObject.Find("Hold Slot").GetComponent<AbilityInventorySlot>();
+                }
 
-                // As long as fromSlot and toSlot both accept more than one item, then swap the items
-                if (!fromSlot.acceptsOnlyOneItem && !acceptsOnlyOneItem) {
-                    // Put fromItem into holdSlot
-                    AbilityInventorySlot holdSlot = GameObject.Find("Hold Slot").GetComponent<AbilityInventorySlot>();
-                    eventData.pointerDrag.GetComponent<DragAndDrop>().AcceptItem();
-                    eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = holdSlot.GetComponent<RectTransform>().anchoredPosition;
-                    receivedItem?.Invoke(itemData, holdSlot.slotNum);
-                    eventData.pointerDrag.GetComponent<AbilityInventoryItemData>().currentSlot = holdSlot.slotNum;
+                // The slot that the item is being dragged to
+                int toSlotNum = this.slotNum;
+                AbilityInventorySlot toSlot = this;
 
-                    // Put toItem into fromSlot
-                    Transform toItem = null;
+                // If fromSlot and toSlot both accept more than one item, then swap the items
+                if (!fromSlot.acceptsOnlyOneItem && !toSlot.acceptsOnlyOneItem) {
+                    // Send the item in the fromSlot into the hold slot
+                    sendItem(fromSlotNum, holdSlotNum);
+
+                    // Send the item in the toSlot into the fromSlot
+                    sendItem(toSlotNum, fromSlotNum);
+
+                    // Send the item in the hold slot (which now holds the fromItem) into the toSlot (which is now empty)
+                    sendItem(holdSlotNum, toSlotNum);
+                }
+
+                // If toSlot, but not fromSlot, accepts more than one item, then...
+                if (fromSlot.acceptsOnlyOneItem && !toSlot.acceptsOnlyOneItem) {
+                    // Find the inventory slot that the toItem belongs to
+                    AbilityInventoryItemData toItemData = null; // Find the item data of the item in the toSlot
                     foreach (Transform child in GameObject.Find("Ability Icons").transform) {
-                        if (child.GetComponent<AbilityInventoryItemData>().currentSlot == slotNum) {
-                            toItem = child;
+                        if (child.GetComponent<AbilityInventoryItemData>().currentSlot == toSlotNum) {
+                            toItemData = child.GetComponent<AbilityInventoryItemData>();
                         }
                     }
-                    toItem.GetComponent<DragAndDrop>().AcceptItem();
-                    toItem.GetComponent<RectTransform>().anchoredPosition = fromSlot.GetComponent<RectTransform>().anchoredPosition;
-                    receivedItem?.Invoke(toItem.GetComponent<AbilityInventoryItemData>(), fromSlotNum);
-                    toItem.GetComponent<AbilityInventoryItemData>().currentSlot = fromSlotNum;
-
-                    // Put fromItem into toSlot
-                    Transform fromItem = null;
-                    foreach (Transform child in GameObject.Find("Ability Icons").transform) {
-                        if (child.GetComponent<AbilityInventoryItemData>().currentSlot == holdSlot.slotNum) {
-                            fromItem = child;
+                    int returnSlotNum = -1; // Find which slot accepts the item data of the toItem
+                    foreach (Transform child in GameObject.Find("Inventory Slots").transform) {
+                        if (child.GetComponent<AbilityInventorySlot>().acceptedItem == toItemData) {
+                            returnSlotNum = child.GetComponent<AbilityInventorySlot>().slotNum;
                         }
                     }
-                    fromItem.GetComponent<DragAndDrop>().AcceptItem();
-                    fromItem.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;;
-                    receivedItem?.Invoke(fromItem.GetComponent<AbilityInventoryItemData>(), slotNum);
-                    fromItem.GetComponent<AbilityInventoryItemData>().currentSlot = slotNum;
-                    
-                    // Update slotData & textboxes for the fromSlot and toSlot (updating holdSlot would be redundant)
-                    slotData = fromItem.GetComponent<AbilityInventoryItemData>();
-                    setTextboxes();
-                    fromSlot.slotData = toItem.GetComponent<AbilityInventoryItemData>();
-                    fromSlot.setTextboxes();
+
+                    // Send the item in the toSlot into the slot that it belongs to
+                    sendItem(toSlotNum, returnSlotNum);
+
+                    // Send the item in the fromSlot into the toSlot
+                    sendItem(fromSlotNum, toSlotNum);
                 }
             }
         }
+    }
+
+    /// Move item from one slot to another slot in the ability inventory menu.
+    /// This will replace the data in the destination slot, so use the hold slot (slot #200) to swap item spots.
+    void sendItem(int fromSlotNum, int toSlotNum)
+    {
+        // fromSlot -> the slot with the item being moved.
+        // fromItem -> the item being moved.
+        // toSlot -> the slot that the item will end up in.
+
+        // Find the item in the fromSlot
+        Transform fromItem = null;
+        foreach (Transform child in GameObject.Find("Ability Icons").transform) {
+            if (child.GetComponent<AbilityInventoryItemData>().currentSlot == fromSlotNum) {
+                fromItem = child;
+            }
+        }
+
+        // Find the AbilityInventorySlot object for the toSlot
+        AbilityInventorySlot toSlot = null;
+        foreach (Transform child in GameObject.Find("Inventory Slots").transform) {
+            if (child.GetComponent<AbilityInventorySlot>().slotNum == toSlotNum) {
+                toSlot = child.GetComponent<AbilityInventorySlot>();
+            }
+        }
+        foreach (Transform child in GameObject.Find("Active Ability Slots").transform) {
+            if (child.GetComponent<AbilityInventorySlot>().slotNum == toSlotNum) {
+                toSlot = child.GetComponent<AbilityInventorySlot>();
+            }
+        }
+        if (GameObject.Find("Hold Slot").GetComponent<AbilityInventorySlot>().slotNum == toSlotNum) {
+            toSlot = GameObject.Find("Hold Slot").GetComponent<AbilityInventorySlot>();
+        }
+
+        // Send the item in the fromSlot to the toSlot (this part is basically the same as itemAccepted)
+        // Basic functionality of an inventory slot from InventorySlot.cs
+        fromItem.GetComponent<DragAndDrop>().AcceptItem();
+        fromItem.GetComponent<RectTransform>().anchoredPosition = toSlot.GetComponent<RectTransform>().anchoredPosition;
+
+        // Update abilityName and check for duplicate ability names
+        toSlot.slotData = fromItem.GetComponent<AbilityInventoryItemData>();
+        receivedItem?.Invoke(toSlot.slotData, toSlotNum);
+
+        // Update which slot the item thinks it's in when it moves
+        fromItem.GetComponent<AbilityInventoryItemData>().currentSlot = toSlotNum;
+
+        // Update name and level text boxes
+        toSlot.setTextboxes();
     }
 
     /// Add the item to the slot, updating the slot's data and textboxes.
@@ -140,7 +202,7 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         slotData = itemData;
         receivedItem?.Invoke(slotData, slotNum);
 
-        // Update which slot the item thinks its in when it moves
+        // Update which slot the item thinks it's in when it moves
         eventData.pointerDrag.GetComponent<AbilityInventoryItemData>().currentSlot = slotNum;
 
         // Update name and level text boxes
