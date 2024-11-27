@@ -327,6 +327,7 @@ MonoBehaviour:
   moveVelocity: 6
   linearDrag: 1
   groundedRaycastLength: 1.8
+  groundNeeded: 1
   attackRange: 0.75
   knockback: 75
   knockbackEnabled: 1
@@ -559,7 +560,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.0015}
+  m_Size: {x: 0.78, y: 0.0015}
   m_EdgeRadius: 0
 --- !u!114 &4917200809826328772
 MonoBehaviour:
