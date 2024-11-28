@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Linq;
 
 /** \brief
 When the player presses the interactKey, this script will search for nearby interactable objects.
@@ -60,7 +61,7 @@ public class PlayerInteract : MonoBehaviour
     {
         if (Input.GetKey(interactKey))
         {
-            Collider2D[] hitInteractables = Physics2D.OverlapCircleAll(attackPoint.position, interactRange, interactableLayers);
+            Collider2D[] hitInteractables = Physics2D.OverlapCircleAll(attackPoint.position, interactRange, interactableLayers).Concat(Physics2D.OverlapCircleAll(transform.position, interactRange, interactableLayers)).ToArray();
 
             if (!keyDown)
             {
