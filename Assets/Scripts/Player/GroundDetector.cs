@@ -4,11 +4,11 @@ using UnityEngine;
 This script is used by a small trigger zone beneath some entities' feet (including the player) that detects if they are on the ground.
 When the entity is on the floor, isGrounded will be true.
 
-NOTE: This detects the layer that is selected on this script in the inspector, which is not necessarily the "Ground" layer!
-The selected layer should usually be set to "Collision"
+NOTE: This detects the layer(s) selected on this script in the inspector, which is not necessarily the "Ground" layer!
+The selected layers should usually be set to "Ground" and "Collision"
 This script can only detect objects that have colliders.
 
-Documentation updated 11/26/2024
+Documentation updated 11/28/2024
 \author Stephen Nuttall, Alexander Art
 */
 public class GroundDetector : MonoBehaviour
