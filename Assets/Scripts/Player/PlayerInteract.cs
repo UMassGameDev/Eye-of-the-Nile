@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -35,13 +36,17 @@ public class PlayerInteract : MonoBehaviour
     float interactTimer;
     /// True if the interact key is currently being held down.
     bool keyDown = false;
+    /// List of all interactables overlapping with the player's hitbox.
+    public List<Collider2D> touchedInteractables;
 
     /// An event that reports the current progress on a long press interaction. Used for InteractProgressBar
     public static event Action<float> interactProgress;
 
     /// <summary>
+    /// Get all interactables currently overlapping with the player's hitbox (OnTriggerEnter() and OnTriggerExit())
     /// If the interact key is being pressed this frame...
     ///     - Scan for objects on the interactable layers that are interactRange distance away from the attackPoint.
+    ///     - Combine the list of interactables near the attackPoint and the interactables currently touching the player.
     ///     - If keyDown = false, set it to true and start interactTimer.
     ///     - For each object found in our scan...
     ///         - If the cooldown time has passed...
@@ -61,7 +66,10 @@ public class PlayerInteract : MonoBehaviour
     {
         if (Input.GetKey(interactKey))
         {
-            Collider2D[] hitInteractables = Physics2D.OverlapCircleAll(attackPoint.position, interactRange, interactableLayers).Concat(Physics2D.OverlapCircleAll(transform.position, interactRange, interactableLayers)).ToArray();
+            // All interactables within a radius (interactRange) of the attack point
+            Collider2D[] hitInteractables = Physics2D.OverlapCircleAll(attackPoint.position, interactRange, interactableLayers);
+            // Union of hitInteractables and touchedInteractables
+            Collider2D[] allInteracted = hitInteractables.Union(touchedInteractables).ToArray();
 
             if (!keyDown)
             {
@@ -69,7 +77,7 @@ public class PlayerInteract : MonoBehaviour
                 interactTimer = Time.time + longPressLength;
             }
 
-            foreach (Collider2D enemy in hitInteractables)
+            foreach (Collider2D enemy in allInteracted)
             {
                 if (Time.time >= cooldownTimer)
                 {
@@ -99,6 +107,30 @@ public class PlayerInteract : MonoBehaviour
             keyDown = false;
             interactTimer = 0;
             interactProgress?.Invoke(0);
+        }
+    }
+
+    /// \brief Runs when an object enters the player's hitbox.
+    /// Adds any newly touched interactables to the touchedInteractables list.
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & interactableLayers) != 0)
+        {
+            if (!touchedInteractables.Contains(collision))
+                touchedInteractables.Add(collision);
+        }
+    }
+
+    /// \brief Runs when an object exits the player's hitbox.
+    /// Remove any untouched interactables from the touchedInteractables list.
+    /// <param name="collision"></param>
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & interactableLayers) != 0)
+        {
+            if (touchedInteractables.Contains(collision))
+                touchedInteractables.Remove(collision);
         }
     }
 }
