@@ -8,7 +8,7 @@ NOTE: This detects the layer(s) selected on this script in the inspector, which 
 The selected layers should usually be set to "Ground" and "Collision"
 This script can only detect objects that have colliders.
 
-Documentation updated 11/30/2024
+Documentation updated 12/1/2024
 \author Stephen Nuttall, Alexander Art
 */
 public class GroundDetector : MonoBehaviour
@@ -16,12 +16,20 @@ public class GroundDetector : MonoBehaviour
     /// The layers which objects are considered part of the ground are on.
     public LayerMask groundLayer;
     /// True if the entity is touching the ground (after a small delay).
-    public bool isGrounded {get; private set;} = false;
+    public bool isGrounded { get; private set; } = false;
     /// How long the entity needs to be on the ground before isGrounded is set to true.
     /// This is necessary to prevent isGrounded being triggered by walls (bug).
     float isGroundedDelay = 0.025f;
     /// Counts how long the entity has been on the ground.
     float groundTime = 0.0f;
+    /// Reference to the wall detector.
+    WallDetector wallDetector;
+
+    /// Get reference to wall detector.
+    void Awake()
+    {
+        wallDetector = transform.parent.GetComponentInChildren<WallDetector>();
+    }
 
     /// <summary>
     /// When the WallDetector detects the entity is not touching a wall, let isGrounded be set to true without the delay.
@@ -30,7 +38,7 @@ public class GroundDetector : MonoBehaviour
     /// <param name="col">Represents the object inside the trigger zone.</param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && !transform.parent.GetComponentInChildren<WallDetector>().onWall)
+        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector == null || !wallDetector.onWall))
             isGrounded = true;
     }
 
@@ -46,7 +54,7 @@ public class GroundDetector : MonoBehaviour
             groundTime += Time.deltaTime;
         if (groundTime > isGroundedDelay)
             isGrounded = true;
-        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && !transform.parent.GetComponentInChildren<WallDetector>().onWall)
+        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector == null || !wallDetector.onWall))
             isGrounded = true;
     }
 
