@@ -64,6 +64,8 @@ public abstract class BaseEntityController : MonoBehaviour
     GroundDetector groundDetector;
     /// Can be set to false to let the entity walk even when it is not on the ground.
     [SerializeField] bool groundNeeded = true;
+    /// Used for disabling entity movement.
+    protected bool canWalk = true;
 
     /// Reference to the entity's animator.
     protected Animator animator;
@@ -149,7 +151,18 @@ public abstract class BaseEntityController : MonoBehaviour
 
         animator.SetBool("IsMoving", horizontalDirection != 0f);
 
-        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(groundDetector.isGrounded || !groundNeeded), rb.velocity.y);
+        // If the enemy is not on the ground, but needs the ground to walk, then don't let the enemy move
+        // When there is no groundDetector, the enemy is assumed to be on the ground
+        if ((groundDetector != null && !groundDetector.isGrounded) && groundNeeded)
+        {
+            canWalk = false;
+        }
+        else
+        {
+            canWalk = true;
+        }
+
+        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(canWalk), rb.velocity.y);
 
         // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
         Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
@@ -224,7 +237,18 @@ public abstract class BaseEntityController : MonoBehaviour
 
         animator.SetBool("IsMoving", horizontalDirection != 0f);
 
-        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(groundDetector.isGrounded || !groundNeeded), rb.velocity.y);
+        // If the enemy is not on the ground, but needs the ground to walk, then don't let the enemy move
+        // When there is no groundDetector, the enemy is assumed to be on the ground
+        if ((groundDetector != null && !groundDetector.isGrounded) && groundNeeded)
+        {
+            canWalk = false;
+        }
+        else
+        {
+            canWalk = true;
+        }
+
+        rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(canWalk), rb.velocity.y);
 
         // Prioritize death
         if (objectHealth.IsDead)

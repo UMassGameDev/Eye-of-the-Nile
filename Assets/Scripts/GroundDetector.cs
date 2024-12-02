@@ -38,7 +38,7 @@ public class GroundDetector : MonoBehaviour
     /// <param name="col">Represents the object inside the trigger zone.</param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector == null || !wallDetector.onWall))
+        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector != null && !wallDetector.onWall))
             isGrounded = true;
     }
 
@@ -54,7 +54,7 @@ public class GroundDetector : MonoBehaviour
             groundTime += Time.deltaTime;
         if (groundTime > isGroundedDelay)
             isGrounded = true;
-        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector == null || !wallDetector.onWall))
+        if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector != null && !wallDetector.onWall))
             isGrounded = true;
     }
 

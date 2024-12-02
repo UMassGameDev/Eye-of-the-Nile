@@ -85,7 +85,7 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 8102645183766340906}
-  speed: 0.3
   damage: 10
-  facingLeft: 0
   damagePlayers: 1
   damageNonPlayers: 1
+  destroyOnImpact: 1
   spawnSFX: bullet_fire
+  flipSprite: 1
   initialXForce: 60
   initialYForce: 30
 --- !u!1 &8102645183766340906
