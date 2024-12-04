@@ -34,8 +34,8 @@ public class PlayerInteract : MonoBehaviour
     public float longPressLength = 1f;
     /// Time when long press interaction will be complete (longPressLength seconds in the future).
     float interactTimer;
-    /// True if the interact key is currently being held down.
-    bool keyDown = false;
+    /// True during a long press interaction.
+    bool longPressInteractionActive = false;
     /// List of all interactables overlapping with the player's hitbox.
     public List<Collider2D> touchedInteractables;
 
@@ -47,13 +47,11 @@ public class PlayerInteract : MonoBehaviour
     /// If the interact key is being pressed this frame...
     ///     - Scan for objects on the interactable layers that are interactRange distance away from the attackPoint.
     ///     - Combine the list of interactables near the attackPoint and the interactables currently touching the player.
-    ///     - If keyDown = false, set it to true and start interactTimer.
-    ///     - For each object found in our scan...
-    ///         - If the cooldown time has passed...
-    ///             - Trigger this object's interaction.
-    ///             - If there's no long press interaction, set interactUsed to true. This allows the long press timer to continue next frame for any
-    ///               object with a long press interaction event.
-    ///         - If the long press is timer is up, reset the timer and trigger the long press interaction.
+    ///     - If the interaction key is pressed, trigger the interaction for each object found in our scan and start the cooldown.
+    ///     - If the interaction key is held, then for each object found in our scan...
+    ///         - If the object has long press functionality...
+    ///             - Start and update the interaction timer
+    ///             - If the long press is timer is up, reset the timer and trigger the long press interaction.
     ///         - Invoke the interactProgress event to update the interact progress bar.
     ///     - If the player just interacted with something, start the cooldown timer and set 
     ///     
@@ -64,6 +62,32 @@ public class PlayerInteract : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // When the interact key is pressed and there is an interactable in range, then invoke the interaction event
+        if (Input.GetKeyDown(interactKey))
+        {
+            // All interactables within a radius (interactRange) of the attack point
+            Collider2D[] hitInteractables = Physics2D.OverlapCircleAll(attackPoint.position, interactRange, interactableLayers);
+            // Union of hitInteractables and touchedInteractables
+            Collider2D[] allInteracted = hitInteractables.Union(touchedInteractables).ToArray();
+
+            foreach (Collider2D interactable in allInteracted)
+            {
+                if (Time.time >= cooldownTimer)
+                {
+                    interactable.GetComponent<ObjectInteractable>().triggerInteraction();
+                    interactUsed = true;
+                }
+            }
+
+            // This ensures that all objects in range are interacted with before the cooldown starts
+            if (interactUsed)
+            {
+                cooldownTimer = Time.time + interactCooldown;
+                interactUsed = false;
+            }
+        }
+
+        // Handle long press interactions when the interact key is held
         if (Input.GetKey(interactKey))
         {
             // All interactables within a radius (interactRange) of the attack point
@@ -71,40 +95,44 @@ public class PlayerInteract : MonoBehaviour
             // Union of hitInteractables and touchedInteractables
             Collider2D[] allInteracted = hitInteractables.Union(touchedInteractables).ToArray();
 
-            if (!keyDown)
+            foreach (Collider2D interactable in allInteracted)
             {
-                keyDown = true;
-                interactTimer = Time.time + longPressLength;
-            }
-
-            foreach (Collider2D enemy in allInteracted)
-            {
-                if (Time.time >= cooldownTimer)
+                // If object has any long press interaction events, allow the long press timer and cooldown to start
+                if (interactable.GetComponent<ObjectInteractable>().InvokeOnLongPress.GetPersistentEventCount() != 0)
                 {
-                    enemy.GetComponent<ObjectInteractable>().triggerInteraction();
-
-                    // if object has any long press interaction events, allow the long press timer to start
-                    if (enemy.GetComponent<ObjectInteractable>().InvokeOnLongPress != null)
-                        interactUsed = true;
+                    if (!longPressInteractionActive)
+                    {
+                        interactTimer = Time.time + longPressLength;
+                        longPressInteractionActive = true;
+                    }
+                    interactProgress?.Invoke((interactTimer - Time.time) / longPressLength);
+                    interactUsed = true;
                 }
+
+                // If the interact timer is met or surpassed, reset it and invoke the long press event
                 if (Time.time >= interactTimer)
                 {
                     interactTimer = 0;
-                    enemy.GetComponent<ObjectInteractable>().triggerLongPress();
+                    interactable.GetComponent<ObjectInteractable>().triggerLongPress();
                 }
-                interactProgress?.Invoke((interactTimer - Time.time)/longPressLength);
             }
-
-            // this ensures that all objects in range are interacted with before the cooldown starts
+    
+            // This ensures that all objects in range are interacted with before the cooldown or timer starts
             if (interactUsed)
             {
                 cooldownTimer = Time.time + interactCooldown;
                 interactUsed = false;
             }
+            else
+            {
+                longPressInteractionActive = false;
+                interactTimer = 0;
+                interactProgress?.Invoke(0);
+            }
         }
         else
         {
-            keyDown = false;
+            longPressInteractionActive = false;
             interactTimer = 0;
             interactProgress?.Invoke(0);
         }
