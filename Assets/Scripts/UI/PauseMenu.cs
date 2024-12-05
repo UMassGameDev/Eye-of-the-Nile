@@ -11,6 +11,14 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PauseMenuUI;
 
+    private SettingsMenu settingsMenu;
+
+    // Set reference to settingsMenu
+    void Awake()
+    {
+        settingsMenu = GetComponent<SettingsMenu>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -28,6 +36,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        settingsMenu.CloseSettings();
         PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
