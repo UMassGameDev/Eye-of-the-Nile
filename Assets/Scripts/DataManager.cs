@@ -69,6 +69,9 @@ public class DataManager : MonoBehaviour
     /// When the amount of god souls the player has changes, this event is invoked. 
     public static event Action<int> newGodSoulTotal;
 
+    /// Value from 0 to 1, accessible from the settings menu, and this sets the default. (Does nothing yet! Eventually, it should control the volume.)
+    public float volume = 1f;
+
     /******************************
     INTERNAL FUNCTIONALITY
     ******************************/
@@ -235,6 +238,9 @@ public class DataManager : MonoBehaviour
 
     /// Returns the joke Anubis will tell when the player dies.
     public string GetAnubisDeathMessage() { return anubisDeathMessage; }
+
+    /// Returns the current volume setting.
+    public float GetVolume() { return volume; }
     ///@}
 
     /******************************

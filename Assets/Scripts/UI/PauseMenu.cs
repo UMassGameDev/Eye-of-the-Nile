@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
 
     private SettingsMenu settingsMenu;
 
-    // Set reference to settingsMenu
+    /// Set reference to settingsMenu
     void Awake()
     {
         settingsMenu = GetComponent<SettingsMenu>();
