@@ -1,4 +1,6 @@
-using UnityEditor;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 using UnityEngine;
 
 /** \brief
@@ -41,13 +43,15 @@ public class PatrolZone : MonoBehaviour
             rightEnd = transform.Find("RightEnd");
         }
 
-        if (Selection.activeTransform == transform
-            || Selection.activeTransform == leftEnd
-            || Selection.activeTransform == rightEnd)
-        {
-            Gizmos.DrawIcon(leftEnd.position, "sv_icon_dot14_pix16_gizmo", true, Color.green);
-            Gizmos.DrawIcon(rightEnd.position, "sv_icon_dot14_pix16_gizmo", true, Color.green);
-        }
+        #if UNITY_EDITOR
+            if (Selection.activeTransform == transform
+                || Selection.activeTransform == leftEnd
+                || Selection.activeTransform == rightEnd)
+            {
+                Gizmos.DrawIcon(leftEnd.position, "sv_icon_dot14_pix16_gizmo", true, Color.green);
+                Gizmos.DrawIcon(rightEnd.position, "sv_icon_dot14_pix16_gizmo", true, Color.green);
+            }
+        #endif
     }
 
     /// Sets the left and right ends and sets their references so their positions can be accessed later.

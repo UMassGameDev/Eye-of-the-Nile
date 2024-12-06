@@ -1,4 +1,6 @@
-using UnityEditor;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 using UnityEngine;
 
 /** \brief
@@ -60,10 +62,12 @@ public class PatrolZoneProto : MonoBehaviour
     /// \important Must be commented out or removed to export the game. Otherwise, Unity will throw compiler errors.
     private void OnDrawGizmos()
     {
-        if (Selection.activeTransform == transform)
-        {
-            Gizmos.DrawIcon(LeftPoint(), "sv_icon_dot14_pix16_gizmo", true, leftColor);
-            Gizmos.DrawIcon(RightPoint(), "sv_icon_dot14_pix16_gizmo", true, rightColor);
-        }
+        #if UNITY_EDITOR
+            if (Selection.activeTransform == transform)
+            {
+                Gizmos.DrawIcon(LeftPoint(), "sv_icon_dot14_pix16_gizmo", true, leftColor);
+                Gizmos.DrawIcon(RightPoint(), "sv_icon_dot14_pix16_gizmo", true, rightColor);
+            }
+        #endif
     }
 }

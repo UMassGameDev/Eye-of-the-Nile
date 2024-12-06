@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 using UnityEngine;
 
 public class PrototypeBaseEntity : MonoBehaviour
@@ -393,12 +395,14 @@ public class PrototypeBaseEntity : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Selection.activeTransform == transform && CurrentPatrolZone == null)
-        {
-            Vector2 basePos = transform.position;
-            Gizmos.DrawIcon(basePos + leftOffset, "sv_icon_dot14_pix16_gizmo", true, Color.green);
-            Gizmos.DrawIcon(basePos + rightOffset, "sv_icon_dot14_pix16_gizmo", true, Color.green);
-        }
+        #if UNITY_EDITOR
+            if (Selection.activeTransform == transform && CurrentPatrolZone == null)
+            {
+                Vector2 basePos = transform.position;
+                Gizmos.DrawIcon(basePos + leftOffset, "sv_icon_dot14_pix16_gizmo", true, Color.green);
+                Gizmos.DrawIcon(basePos + rightOffset, "sv_icon_dot14_pix16_gizmo", true, Color.green);
+            }
+        #endif
     }
 
     // To avoid repetition of methods in Awake, Start, Update,
