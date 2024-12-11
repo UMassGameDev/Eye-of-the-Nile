@@ -26,32 +26,44 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.alpha = onDragOpacity;
-        startingPos = transform.position;
-        accepted = false;
-        foreach (Transform child in GameObject.Find("Ability Icons").transform) {
-            child.GetComponent<Image>().raycastTarget = false; // Disable raycasts when dragging
+        eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData); // Data of the dragged item
+        if (itemData.abilityName != "EMPTY") // Prevent empty abilities (the X's) from being dragged
+        {
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = onDragOpacity;
+            startingPos = transform.position;
+            accepted = false;
+            foreach (Transform child in GameObject.Find("Ability Icons").transform) {
+                child.GetComponent<Image>().raycastTarget = false; // Disable raycasts when dragging
+            }
         }
     }
 
     // Move item to where the cursor is (relative to the canvas)
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition = (eventData.position - canvas.pixelRect.size / 2) / canvas.scaleFactor;
-        // rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; // (unused) Move item by same amount that the cursor moved each frame (relative to the canvas)
+        eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData); // Data of the dragged item
+        if (itemData.abilityName != "EMPTY") // Prevent empty abilities (the X's) from being dragged
+        {
+            rectTransform.anchoredPosition = (eventData.position - canvas.pixelRect.size / 2) / canvas.scaleFactor;
+            // rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; // (unused) Move item by same amount that the cursor moved each frame (relative to the canvas)
+        }    
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = defaultOpacity;
-        if (!accepted)  // snap back to starting position if not accepted into a slot
-            transform.position = startingPos;
-        accepted = false;
-        foreach (Transform child in GameObject.Find("Ability Icons").transform) {
-            child.GetComponent<Image>().raycastTarget = true; // Re-enable raycasts when no longer dragging
-        }
+        eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData); // Data of the dragged item
+        if (itemData.abilityName != "EMPTY") // Prevent empty abilities (the X's) from being dragged
+        {
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = defaultOpacity;
+            if (!accepted)  // snap back to starting position if not accepted into a slot
+                transform.position = startingPos;
+            accepted = false;
+            foreach (Transform child in GameObject.Find("Ability Icons").transform) {
+                child.GetComponent<Image>().raycastTarget = true; // Re-enable raycasts when no longer dragging
+            }
+        }        
     }
 
     public void AcceptItem() { accepted = true; }
