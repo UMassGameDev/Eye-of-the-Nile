@@ -29,6 +29,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
         eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData); // Data of the dragged item
         if (itemData.abilityName != "EMPTY") // Prevent empty abilities (the X's) from being dragged
         {
+            transform.SetSiblingIndex(100); // Move item to front layer
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = onDragOpacity;
             startingPos = transform.position;
@@ -55,6 +56,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
         eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData); // Data of the dragged item
         if (itemData.abilityName != "EMPTY") // Prevent empty abilities (the X's) from being dragged
         {
+            transform.SetSiblingIndex(0); // Move item back to the to back layer 
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = defaultOpacity;
             if (!accepted)  // snap back to starting position if not accepted into a slot

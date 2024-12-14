@@ -55,14 +55,14 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         // If an item is being dragged && that item has the required item data...
         if (eventData.pointerDrag != null && eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData))
         {
-            if (slotData == null || acceptsOnlyOneItem) { // If an item is being dragged into an empty slot or if the dragged item is the only valid item for that slot
+            if (itemData.abilityName != "EMPTY" && (slotData == null || acceptsOnlyOneItem)) { // If an item is being dragged into an empty slot or if the dragged item is the only valid item for that slot
                 if (acceptsOnlyOneItem) {
                     if (itemData == acceptedItem)
                         itemAccepted(eventData, itemData);
                 } else {
                     itemAccepted(eventData, itemData);
                 }
-            } else if (slotData != null && itemData.currentSlot != slotNum) { // If an item is being dragged into a full slot (other than its own slot)
+            } else if (itemData.abilityName != "EMPTY" && slotData != null && itemData.currentSlot != slotNum) { // If an item is being dragged into a full slot (other than its own slot)
                 // fromSlot -> the slot that the dragged item came from.
                 // toSlot -> the slot that the dragged item is being dropped into. (The slot that this code runs on.)
                 // fromItem -> the item that fromSlot initially holds. (The item being dragged.)
