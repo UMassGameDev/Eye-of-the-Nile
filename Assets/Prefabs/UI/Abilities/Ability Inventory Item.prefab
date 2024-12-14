@@ -105,6 +105,7 @@ MonoBehaviour:
   defaultOpacity: 1
   onDragOpacity: 0.6
   canvas: {fileID: 0}
+  abilityInventoryItem: 1
 --- !u!114 &5865222798582496168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,4 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: 
   abilityLevel: 0
-  startingSlotKey: 0
+  sprite: {fileID: 0}
+  quote: 
+  abilityIcons: []
+  abilityNames: []
+  abilityDescriptions: []
+  currentSlot: -1
