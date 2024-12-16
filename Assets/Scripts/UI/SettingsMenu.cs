@@ -17,8 +17,10 @@ public class SettingsMenu : MonoBehaviour
     /// All values from the settings menu should go to the DataManager so they can be saved between scenes!
     DataManager dataManager;
 
-    /// Get volume slider game object. This is set in the inspector in Unity.
-    public Slider volumeSlider;
+    /// Get settings menu UI options game objects. These are set in the inspector in Unity.
+    public Slider masterVolumeSlider;
+    public Slider musicVolumeSlider;
+    public Slider sfxVolumeSlider;
 
     /// Set reference to dataManager.
     void Awake()
@@ -29,7 +31,9 @@ public class SettingsMenu : MonoBehaviour
     /// Set the value of the settings options to the data manager's copy of it when scenes are loaded.
     void Start()
     {
-        volumeSlider.value = dataManager.GetVolume();
+        masterVolumeSlider.value = dataManager.GetMasterVolumeSetting();
+        musicVolumeSlider.value = dataManager.GetMusicVolumeSetting();
+        sfxVolumeSlider.value = dataManager.GetSfxVolumeSetting();
     }
 
     public void CloseSettings()
@@ -45,9 +49,19 @@ public class SettingsMenu : MonoBehaviour
         SettingsOpen = true;
     }
 
-    public void OnVolumeChanged()
+    public void OnMasterVolumeChanged()
     {
-        dataManager.volume = volumeSlider.value;
+        dataManager.masterVolumeSetting = masterVolumeSlider.value;
+    }
+
+    public void OnMusicVolumeChanged()
+    {
+        dataManager.musicVolumeSetting = musicVolumeSlider.value;
+    }
+
+    public void OnSfxVolumeChanged()
+    {
+        dataManager.sfxVolumeSetting = sfxVolumeSlider.value;
     }
 
     public void SwitchTab(string newTab)
