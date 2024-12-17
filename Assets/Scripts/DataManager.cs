@@ -69,10 +69,10 @@ public class DataManager : MonoBehaviour
     /// When the amount of god souls the player has changes, this event is invoked. 
     public static event Action<int> newGodSoulTotal;
 
-    /// Values from 0 to 1, accessible from the settings menu. (Does nothing yet! Eventually, it should control the volume.)
+    /// The volume gets multiplied by these values in AudioManager.cs (values ranging from 0 to 1, accessible from the settings menu).
     public float masterVolumeSetting = 1f;
-    public float musicVolumeSetting = .5f;
-    public float sfxVolumeSetting = 0f;
+    public float musicVolumeSetting = 1f;
+    public float sfxVolumeSetting = 1f;
 
     /******************************
     INTERNAL FUNCTIONALITY

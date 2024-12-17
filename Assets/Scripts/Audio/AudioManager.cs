@@ -7,7 +7,10 @@ using System.Collections;
 To trigger a sound effect from a script, use "AudioManager.Instance.PlaySFX(SOUND_EFFECT_NAME);"
 
 Documentation updated 10/8/2024
-\author Nick Bottari, Stephen Nuttall*/
+\author Nick Bottari, Stephen Nuttall, Alexander Art
+\todo Make pausing/unpausing the game pause/unpause all game sounds.
+\todo Stop all sounds when exiting to main menu and play main menu theme.
+*/
 public class AudioManager : MonoBehaviour
 {
     /// To make the object persistent, it needs a reference to itself.
@@ -26,7 +29,10 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSourceSecondary;
     /// \brief Reference to an object that plays a sound under a given sound object’s settings (Loops vs does not loop the sound).
     /// This audio source is responsible for playing sound effects.
-    public AudioSource sfxSource; 
+    public AudioSource sfxSource;
+
+    // Reference to the DataManager, needed for accessing the volume settings.
+    DataManager dataManager;
 
     /// <summary>
     /// Starts playing the default music.
@@ -39,6 +45,7 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// Makes this object persistent.
     /// If this is the only AudioManager in the scene, don’t destroy it on reload. If there’s another AudioManager in the scene, destroy it.
+    /// Also set reference to dataManager.
     /// </summary>
     private void Awake()
     {
@@ -51,6 +58,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
     }
     
     /// <summary>
@@ -71,7 +80,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             musicSourcePrimary.clip = s.clip;
-            musicSourcePrimary.volume = s.volume;
+            musicSourcePrimary.volume = s.volume * dataManager.GetMasterVolumeSetting() * dataManager.GetMusicVolumeSetting();
             musicSourcePrimary.loop = true;
             musicSourcePrimary.Play();
         }
@@ -103,12 +112,12 @@ public class AudioManager : MonoBehaviour
         else
         {
             musicSourcePrimary.clip = startSound.clip;
-            musicSourcePrimary.volume = startSound.volume;
+            musicSourcePrimary.volume = startSound.volume * dataManager.GetMasterVolumeSetting() * dataManager.GetMusicVolumeSetting();
             musicSourcePrimary.loop = false;
             musicSourcePrimary.Play();
 
             musicSourceSecondary.clip = loopSound.clip;
-            musicSourceSecondary.volume = loopSound.volume;
+            musicSourceSecondary.volume = loopSound.volume * dataManager.GetMasterVolumeSetting() * dataManager.GetMusicVolumeSetting();
             musicSourceSecondary.loop = true;
             musicSourceSecondary.PlayDelayed(startSound.clip.length);
         }
@@ -127,8 +136,21 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            sfxSource.volume = s.volume;
+            sfxSource.volume = s.volume * dataManager.GetMasterVolumeSetting() * dataManager.GetSfxVolumeSetting();
             sfxSource.PlayOneShot(s.clip);
         }
+    }
+
+    /// <summary>
+    /// Update the volume the music plays at.
+    /// </summary>
+    public void VolumeChanged()
+    {
+        // Find the sounds that the musicSourcePrimary and musicSourceSecondary are playing
+        Sound primarySound = Array.Find(musicSounds, x => x.name == musicSourcePrimary.clip.name);
+        Sound secondarySound = Array.Find(musicSounds, x => x.name == musicSourcePrimary.clip.name);
+        // Update the volume of the musicSourcePrimary and musicSourceSecondary
+        musicSourcePrimary.volume = primarySound.volume * dataManager.GetMasterVolumeSetting() * dataManager.GetMusicVolumeSetting();
+        musicSourceSecondary.volume = primarySound.volume * dataManager.GetMasterVolumeSetting() * dataManager.GetMusicVolumeSetting();
     }
 }
