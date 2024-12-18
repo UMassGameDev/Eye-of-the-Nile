@@ -5935,6 +5935,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4633666904397607283, guid: c421bade865a28a41b01efa4d3853e8d, type: 3}
   m_PrefabInstance: {fileID: 1599668979}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1602034780 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+  m_PrefabInstance: {fileID: 1853058691}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1656677985
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,6 +6797,79 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1853058691
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1998504452}
+    m_Modifications:
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315885736109630646, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830469684957055279, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830469684957055279, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834092720277578863, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_Name
+      value: MovingPlatform Patrol
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088386552411164447, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088386552411164447, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8877f41c04eda54792905ad65d00dc8, type: 3}
 --- !u!1 &1998504451
 GameObject:
   m_ObjectHideFlags: 0
@@ -6850,6 +6928,7 @@ Transform:
   - {fileID: 1599668980}
   - {fileID: 1739932852}
   - {fileID: 1159952811}
+  - {fileID: 1602034780}
   m_Father: {fileID: 1313207685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1998504453
