@@ -134,6 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4586796919930676253}
   - component: {fileID: 5937157314739384111}
+  - component: {fileID: 8866050447168773533}
   - component: {fileID: 1190408564822305535}
   m_Layer: 0
   m_Name: Wall Detector
@@ -202,6 +203,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &8866050447168773533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4262810998001778908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922e651e63123034abaad4f9b7666c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 4104
 --- !u!114 &1190408564822305535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,9 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217760477021f5e409f7f9627695085e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 4104
+  side: 2
 --- !u!1 &4590190179035495267
 GameObject:
   m_ObjectHideFlags: 0

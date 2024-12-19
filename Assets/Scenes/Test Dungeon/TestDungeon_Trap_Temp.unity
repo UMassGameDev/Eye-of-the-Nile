@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 36004101}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8900003, y: -2.2715213, z: -10}
+  m_LocalPosition: {x: -2.8900006, y: -2.2715213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4396,7 +4396,7 @@ Transform:
   m_GameObject: {fileID: 1285489176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8900003, y: -2.2715213, z: -10}
+  m_LocalPosition: {x: -2.8900006, y: -2.2715213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26179,6 +26179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2040846234}
   - component: {fileID: 2040846236}
+  - component: {fileID: 2040846237}
   - component: {fileID: 2040846235}
   m_Layer: 0
   m_Name: Wall Detector
@@ -26214,9 +26215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217760477021f5e409f7f9627695085e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 4104
+  side: 2
 --- !u!61 &2040846236
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26262,6 +26261,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 1.1}
   m_EdgeRadius: 0
+--- !u!114 &2040846237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040846233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922e651e63123034abaad4f9b7666c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 4104
 --- !u!1 &2126609335
 GameObject:
   m_ObjectHideFlags: 3

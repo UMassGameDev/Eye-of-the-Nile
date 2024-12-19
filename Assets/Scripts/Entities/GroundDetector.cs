@@ -23,12 +23,12 @@ public class GroundDetector : MonoBehaviour
     /// Counts how long the entity has been on the ground.
     float groundTime = 0.0f;
     /// Reference to the wall detector.
-    WallDetector wallDetector;
+    WallDetectorInfo wallDetector;
 
     /// Get reference to wall detector.
     void Awake()
     {
-        wallDetector = transform.parent.GetComponentInChildren<WallDetector>();
+        wallDetector = transform.parent.GetComponentInChildren<WallDetectorInfo>();
     }
 
     /// <summary>

@@ -29,7 +29,7 @@ public class MovingPlatform : MonoBehaviour
     /// Keeps track of how long the platform has been stopped before changing directions.
     /// This is set to 0 when inactive, and will be equal to waitDelay once completed.
     private float delayCounter = 0f;
-
+    /// Needed for calculating how far the platform has moved each frame when updating the position of entities standing atop.
     private Vector2 previousPosition;
 
     /// Set reference to the moving platform's rigidbody.
@@ -64,7 +64,7 @@ public class MovingPlatform : MonoBehaviour
             delayCounter = 0f;
         }
 
-        // Needed for calculating how far the platform has moved when updating the position of entities standing atop.
+        // Keep track of where the platform was before it gets moved.
         previousPosition = transform.position;
 
         // If the timer is over, move the platform.
