@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /** \brief
-This script is used by WallDetectorZone.cs to keep track of when the parent entity is touching a wall.
+This script is used by some entities (including the player) to detect when they are touching a wall.
 If either side of the entity is touching the wall, onWall is set to true.
-When the wall detector has a front half and a back half, frontOnWall and backOnWall become available.
-See WallDetectorZone.cs for more info!
+When the wall detector consists of two trigger zones, frontOnWall and backOnWall become available.
 
-Documentation updated 12/18/2024
+WallDetectorZone.cs is what updates this script. See WallDetectorZone.cs for more info!
+
+Documentation updated 12/19/2024
 \author Alexander Art
 */
 public class WallDetectorInfo : MonoBehaviour
@@ -17,55 +18,55 @@ public class WallDetectorInfo : MonoBehaviour
     public LayerMask wallLayer;
 
     /// True when either side of the entity is touching a wall.
-    public bool onWall { get; private set; } = true;
-    /// True when there is a left trigger zone and it is touching a wall.
+    public bool onWall { get; private set; }
+    /// True when there is a front trigger zone and it is touching a wall.
     public bool frontOnWall { get; private set; }
-    /// True when there is a right trigger zone and it is touching a wall.
+    /// True when there is a back trigger zone and it is touching a wall.
     public bool backOnWall { get; private set; }
 
-    public void onWallUpdate(bool touching)
+    public void wallTouched(WallDetectorSide side)
     {
-        if (touching == true)
+        // onWall is set to true when any side is touching the wall.
+        onWall = true;
+
+        switch (side)
         {
-            onWall = true;
-        }
-        else if (touching == false)
-        {
-            onWall = false;
+            case WallDetectorSide.Front:
+                frontOnWall = true;
+                break;
+            case WallDetectorSide.Back:
+                backOnWall = true;
+                break;
         }
     }
 
-    public void frontOnWallUpdate(bool touching)
+    public void wallUntouched(WallDetectorSide side)
     {
-        if (touching == true)
+        switch (side)
         {
-            frontOnWall = true;
-            onWall = true;
-        }
-        else if (touching == false)
-        {
-            frontOnWall = false;
-            if (backOnWall == false)
-            {
+            case WallDetectorSide.Both:
                 onWall = false;
-            }
-        }
-    }
+                break;
+            case WallDetectorSide.Front:
+                frontOnWall = false;
 
-    public void backOnWallUpdate(bool touching)
-    {
-        if (touching == true)
-        {
-            backOnWall = true;
-            onWall = true;
-        }
-        else if (touching == false)
-        {
-            backOnWall = false;
-            if (frontOnWall == false)
-            {
-                onWall = false;
-            }
+                // If neither side is on the wall, onWall should be false too.
+                if (backOnWall == false)
+                {
+                    onWall = false;
+                }
+
+                break;
+            case WallDetectorSide.Back:
+                backOnWall = false;
+
+                // If neither side is on the wall, onWall should be false too.
+                if (frontOnWall == false)
+                {
+                    onWall = false;
+                }
+
+                break;
         }
     }
 }

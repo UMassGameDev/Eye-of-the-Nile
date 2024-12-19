@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 3642707215223133458}
   - component: {fileID: 959720857125130192}
   m_Layer: 0
-  m_Name: BackwardWallDetector
+  m_Name: BackWallDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

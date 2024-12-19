@@ -6,8 +6,8 @@ This is also used by the player!
 Options:
 1. Attach this script to a single wall detector object that encapsulates both of the entity's sides.
 -   Set "Side" to "Both" in the inspector.
--   A Collider2D must be attached to the wall detector.
--   Also attach WallDetectorInfo.cs to the wall detector.
+-   A Collider2D must be attached to this object.
+-   Also attach WallDetectorInfo.cs to this object.
 2. Have a wall detector (attach WallDetectorInfo.cs to it) and give it two children:
 -   A trigger zone that encapsulates the front side of the entity.
 -   A trigger zone that encapsulates the back side of the entity.
@@ -17,14 +17,13 @@ Options:
 This detects the layer(s) selected on this script in the inspector, which should usually be set to "Ground" and "Collision"
 This script can only detect objects that have colliders.
 
-Documentation updated 12/18/2024
+Documentation updated 12/19/2024
 \author Alexander Art
 */
 public class WallDetectorZone : MonoBehaviour
 {
     /// Tell this script in the inspector which side of the entity this trigger zone is attached to.
-    enum Side { Front, Back, Both } // Create dropdown for selection.
-    [SerializeField] private Side side = Side.Both;
+    [SerializeField] private WallDetectorSide side = WallDetectorSide.Both; // Creates dropdown menu.
     /// WallDetectorInfo is what keeps track of when the entity is touching a wall and which layers should count as wall.
     /// If the wall detector has one trigger zone, WallDetectorInfo will be on this script.
     /// If the wall detector has two trigger zones, WallDetectorInfo will be on the parent object of this script.
@@ -32,11 +31,11 @@ public class WallDetectorZone : MonoBehaviour
 
     void Awake()
     {
-        if (side == Side.Both)
+        if (side == WallDetectorSide.Both)
         {
             wallDetectorInfo = GetComponent<WallDetectorInfo>();
         }
-        else if (side == Side.Front || side == Side.Back)
+        else if (side == WallDetectorSide.Front || side == WallDetectorSide.Back)
         {
             wallDetectorInfo = transform.parent.GetComponent<WallDetectorInfo>();
         }
@@ -49,20 +48,7 @@ public class WallDetectorZone : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (((1 << col.gameObject.layer) & wallDetectorInfo.wallLayer.value) != 0)
-        {
-            switch (side)
-            {
-                case Side.Both:
-                    wallDetectorInfo.onWallUpdate(true);
-                    break;
-                case Side.Front:
-                    wallDetectorInfo.frontOnWallUpdate(true);
-                    break;
-                case Side.Back:
-                    wallDetectorInfo.backOnWallUpdate(true);
-                    break;
-            }
-        }
+            wallDetectorInfo.wallTouched(side);
     }
 
     /// <summary>
@@ -73,20 +59,7 @@ public class WallDetectorZone : MonoBehaviour
     void OnTriggerStay2D(Collider2D col)
     {
         if (((1 << col.gameObject.layer) & wallDetectorInfo.wallLayer.value) != 0)
-        {
-            switch (side)
-            {
-                case Side.Both:
-                    wallDetectorInfo.onWallUpdate(true);
-                    break;
-                case Side.Front:
-                    wallDetectorInfo.frontOnWallUpdate(true);
-                    break;
-                case Side.Back:
-                    wallDetectorInfo.backOnWallUpdate(true);
-                    break;
-            }
-        }
+            wallDetectorInfo.wallTouched(side);
     }
 
     /// <summary>
@@ -96,19 +69,6 @@ public class WallDetectorZone : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         if (((1 << col.gameObject.layer) & wallDetectorInfo.wallLayer.value) != 0)
-        {
-            switch (side)
-            {
-                case Side.Both:
-                    wallDetectorInfo.onWallUpdate(false);
-                    break;
-                case Side.Front:
-                    wallDetectorInfo.frontOnWallUpdate(false);
-                    break;
-                case Side.Back:
-                    wallDetectorInfo.backOnWallUpdate(false);
-                    break;
-            }
-        }
+            wallDetectorInfo.wallUntouched(side);
     }
 }
