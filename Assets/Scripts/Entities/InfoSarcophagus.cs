@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /** \brief
-This script controls the functionality of tutorial sarcophagi.
+This script controls the functionality of the tutorial sarcophagi.
 "The player will encounter sarcophaguses with the ghost of Osiris in it to receive tips from him at relevant moments.
 This consists of a basic animation and speech bubble that’s triggered when the player gets within range."
-This script is simple enough that it could probably be applied to other types of objects and it would still work.
 
-Documentation updated 12/19/2024
+Documentation updated 12/20/2024
 \author Alexander Art
 */
 
@@ -18,36 +17,42 @@ public class InfoSarcophagus : MonoBehaviour
     [SerializeField] protected LayerMask playerLayer;
     /// The GameObject that the sarcophagus will make appear as its message.
     [SerializeField] protected GameObject message;
+    // Animator for the sarcophagus's message.
+    public Animator sarcophagusMessageAnimator;
 
     /// How close the sarcophagus must be to the player to say its message.
-    [SerializeField] protected float activateMessageRange = 4f;
+    [SerializeField] protected float detectionRange = 4f;
 
     /// True if the player is close enough to the sarcophagus to say its message.
     protected bool playerInRange = false;
+    /// True if the sarcophagus's message is active (visible).
+    protected bool messageActive = false;
 
     void ActivateMessage()
     {
-        message.SetActive(true);
+        messageActive = true;
+        sarcophagusMessageAnimator.SetTrigger("Appear");
     }
 
     void DeactivateMessage()
     {
-        message.SetActive(false);
+        messageActive = false;
+        sarcophagusMessageAnimator.SetTrigger("Disappear");
     }
 
     void Update()
     {
         Collider2D player = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 0.5f, 0f),
-            activateMessageRange,
+            detectionRange,
             playerLayer);
 
         playerInRange = player != null;
 
-        if (playerInRange == true)
+        if (playerInRange == true && messageActive == false)
         {
             ActivateMessage();
         }
-        else if (playerInRange == false)
+        else if (playerInRange == false && messageActive == true)
         {
             DeactivateMessage();
         }
