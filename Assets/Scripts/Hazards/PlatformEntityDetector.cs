@@ -15,7 +15,7 @@ Documentation updated 12/17/2024
 
 public class PlatformEntityDetector : MonoBehaviour
 {
-    /// List of all object standing on the moving platform that have Rigidbody2D's attached.
+    /// List of all objects standing on the moving platform that have Rigidbody2D's attached.
     public List<GameObject> entitiesInDetector;
 
     /// \brief Runs when a collider stands on the platform.

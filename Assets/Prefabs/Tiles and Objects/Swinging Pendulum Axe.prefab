@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 4272738350062514854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.499, y: 6.249, z: 0}
-  m_LocalScale: {x: 0.60379755, y: 0.60379755, z: 0.60379755}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5085662352613518326}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivotPoint: {fileID: 8546510483135586871}
-  rotationSpeed: 0.4
+  rotationSpeed: 0.5
   maxAngle: 90
 --- !u!1 &6583295475898688093
 GameObject:
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customAnubisJokes:
   - "I\u2019d tell you a joke about an axe, but you might get the point too sharply."
-  - That axe is totally swinging.
-  - Axes can be quite riveting, if you catch my point.
+  - That must have been a pain in the axe!
+  - I must axe you how you died to that. Was it an axe-ident?
 --- !u!1 &8546510483135586871
 GameObject:
   m_ObjectHideFlags: 0

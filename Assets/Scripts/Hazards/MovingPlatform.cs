@@ -9,6 +9,7 @@ Each moving platform has its own MovingPlatform script attached.
 Documentation updated 12/17/2024
 \author Alexander Art
 \todo Prevent entities from clipping into walls when being pushed into them.
+\todo Prevent colliding moving platforms from sticking together (or just never place them in each other's path).
 */
 
 public class MovingPlatform : MonoBehaviour
