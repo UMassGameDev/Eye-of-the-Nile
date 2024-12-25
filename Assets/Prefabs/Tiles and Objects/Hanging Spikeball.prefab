@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3829548846436301959}
   - component: {fileID: 5517571308568617491}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 7153884280610597847}
   - component: {fileID: 5400528523062998472}
   - component: {fileID: 5084375392474172014}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030349096}
+  m_ConnectedAnchor: {x: 0.005579683, y: -0.030349052}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 140694453779626140}
   - component: {fileID: 6022497406912967550}
   - component: {fileID: 4100574064140519419}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Damaging Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,8 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customAnubisJokes:
-  - "I\u2019d tell you a joke about a spikeball, but you might get the point too
-    sharply."
+  - "I\u2019d tell you a joke about a spikeball, but it has too many points."
 --- !u!1 &3600500259373460181
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228219163997370450}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Chain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +382,7 @@ GameObject:
   - component: {fileID: 5233979191683459861}
   - component: {fileID: 3759796617940899044}
   - component: {fileID: 5641623481674417397}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Spikeball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -536,7 +535,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0058214664, y: 0.07909644}
-  m_ConnectedAnchor: {x: 0.0057143173, y: -0.032102585}
+  m_ConnectedAnchor: {x: 0.005714298, y: -0.03210223}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -558,7 +557,7 @@ GameObject:
   - component: {fileID: 1453748239256588665}
   - component: {fileID: 5820783220765966787}
   - component: {fileID: 3356066041243160122}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +709,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0014778376, y: 0.001405716}
+  m_ConnectedAnchor: {x: 0.0014775408, y: 0.0014056676}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 100
@@ -732,7 +731,7 @@ GameObject:
   - component: {fileID: 4072760830979213834}
   - component: {fileID: 5102887713477331067}
   - component: {fileID: 4666211059251282036}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +883,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030349255}
+  m_ConnectedAnchor: {x: 0.0055796346, y: -0.03034888}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -902,7 +901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5737322220098145847}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Hanging Spikeball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -940,7 +939,7 @@ GameObject:
   - component: {fileID: 7220061738297561027}
   - component: {fileID: 2769457340480056811}
   - component: {fileID: 6185345629014113786}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1092,7 +1091,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030098915}
+  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1114,7 +1113,7 @@ GameObject:
   - component: {fileID: 2427487808236438005}
   - component: {fileID: 8265762300146453352}
   - component: {fileID: 162479432779456122}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1266,7 +1265,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030099073}
+  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1288,7 +1287,7 @@ GameObject:
   - component: {fileID: 1611224728161915351}
   - component: {fileID: 7915099547921223076}
   - component: {fileID: 2619530794551326741}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1440,7 +1439,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030099073}
+  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1462,7 +1461,7 @@ GameObject:
   - component: {fileID: 829896175203881976}
   - component: {fileID: 7082882303010157642}
   - component: {fileID: 2373311784484602312}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Link 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1614,7 +1613,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030098915}
+  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
