@@ -4,22 +4,21 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 /** \brief
-Used by a trigger zone on every moving platform.
-Detect entities to them that stand on the moving platform.
-Objects that are tilemaps or do not have Rigidbody2D's attached (such as GroundDetectors) do not get detected.
-Technically, this script could work for things other than moving platforms, so maybe this script should be more generalized.
+Used by a trigger zone on moving platforms and spring tiles to detect movable entities.
+Objects that have colliders but should not be pushed around, such as tilemaps or GroundDetectors, should not get detected.
 
-Documentation updated 12/17/2024
+Documentation updated 12/25/2024
 \author Alexander Art
+\todo Make sure that nothing that shouldn't be moved can be detected by this script. Currently, this script can detect other moving platforms, which is a problem.
 */
 
-public class PlatformEntityDetector : MonoBehaviour
+public class MovableEntityDetector : MonoBehaviour
 {
-    /// List of all objects standing on the moving platform that have Rigidbody2D's attached.
+    /// List of all objects standing in the trigger zone. Must have Rigidbody2D's attached and not be a tilemap.
     public List<GameObject> entitiesInDetector;
 
-    /// \brief Runs when a collider stands on the platform.
-    /// Adds any valid entities that are touching the platform to the list.
+    /// \brief Runs when a collider stands on the object.
+    /// Adds any valid entities that are touching the trigger zone to the list.
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,8 +33,8 @@ public class PlatformEntityDetector : MonoBehaviour
         }
     }
 
-    /// \brief Runs when a collider gets off of the platform.
-    /// Removes any objects that are no longer touching the platform from the list.
+    /// \brief Runs when a collider gets off of the object.
+    /// Removes any objects that are no longer touching the trigger zone from the list.
     /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {

@@ -7,6 +7,7 @@ Documentation updated 10/8/2024
 \author Stephen Nuttall, Roy Pascual, Alexander Art
 \todo Implement features that make movement more smooth.
 \todo Add animation trigger for when the playing is falling (don't know if it should be its own animation or keep the last frame of the jump animation).
+\todo Fix bug: Make coyote time jump availability reset immediately after a jump without groundDetector overriding it.
 */
 public class PlayerMovement : MonoBehaviour
 {
@@ -160,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
         {
             airTime = 0.0f; // Reset airTime when grounded
             coyoteJumpAvailable = true; // Enable coyote time jump availability when grounded
+            jumpsAvailable = maxJumpChain; // Reset jump chain availability
         }
         else
             airTime += Time.deltaTime; // Airtime increases when the player is not on the ground
@@ -168,7 +170,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (groundDetector.isGrounded && jumpHeldDuration == 0) // On ground scenario
             {
-                jumpsAvailable = maxJumpChain;
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
                 animator.SetTrigger("Jump");
@@ -176,7 +177,6 @@ public class PlayerMovement : MonoBehaviour
             }
             else if ((airTime < coyoteTime) && coyoteJumpAvailable && jumpHeldDuration == 0f) // Coyote time scenario
             {
-                jumpsAvailable = maxJumpChain;
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
                 animator.SetTrigger("Jump");

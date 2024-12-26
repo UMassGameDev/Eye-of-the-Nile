@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f656513392dee35479686d7d6dca09ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformEntityDetector: {fileID: 1948226990791877138}
+  entityDetector: {fileID: 6046859745089030750}
   path: {fileID: 5190778836816447544}
   moveSpeed: 2.5
   pauseDuration: 1
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7551353823186845707}
   - component: {fileID: 4521846047220586061}
-  - component: {fileID: 1948226990791877138}
+  - component: {fileID: 6046859745089030750}
   m_Layer: 0
   m_Name: Entity Detector
   m_TagString: Untagged
@@ -287,7 +287,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1948226990791877138
+--- !u!114 &6046859745089030750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

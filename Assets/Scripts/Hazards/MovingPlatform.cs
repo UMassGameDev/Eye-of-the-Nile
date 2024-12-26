@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /** \brief
-Moves the moving platforms.
+Moves the moving platforms and the entities on it.
 Each moving platform has its own MovingPlatform script attached.
 
 Documentation updated 12/23/2024
@@ -9,13 +9,12 @@ Documentation updated 12/23/2024
 \todo Prevent entities from clipping into walls when being pushed into them.
 \todo Prevent colliding moving platforms from sticking together (or just never place them in each other's path).
 */
-
 public class MovingPlatform : MonoBehaviour
 {
     /// Reference to the platform's rigidbody component.
     Rigidbody2D rb;
     /// Detects the entities that are standing on the platform (controlled by a different script).
-    [SerializeField] protected PlatformEntityDetector platformEntityDetector;
+    [SerializeField] protected MovableEntityDetector entityDetector;
     /// The object with children as the points that the platform will move between.
     [SerializeField] protected Transform path;
     
@@ -62,7 +61,7 @@ public class MovingPlatform : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, moveSpeed * Time.deltaTime);
 
         // Move all entities that stand on the platform by the same amount that the platform moved.
-        foreach (GameObject entity in platformEntityDetector.entitiesInDetector)
+        foreach (GameObject entity in entityDetector.entitiesInDetector)
         {
             // Typecasts are used because position keeps being Vector2 or Vector3.
             entity.transform.position += (Vector3) ((Vector2)transform.position - previousPosition);

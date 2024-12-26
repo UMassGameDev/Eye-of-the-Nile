@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customAnubisJokes:
   - Someone had a crush on you! (Get it? You got crushed, so it's like someone had
-    a crush on you.)
+    a crush on you. There, I explained the joke.)
 --- !u!1 &7532249061863732972
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customAnubisJokes:
   - Someone had a crush on you! (Get it? You got crushed, so it's like someone had
-    a crush on you.)
+    a crush on you. There, I explained the joke.)
 --- !u!1 &8175586298399373817
 GameObject:
   m_ObjectHideFlags: 0

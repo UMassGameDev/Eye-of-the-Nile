@@ -8,6 +8,7 @@ This script goes on the trigger zone of the squasher hazard.
 
 Documentation updated 12/24/2024
 \author Alexander Art
+\todo Fix bug: If the player stays under the squasher without leaving the trigger zone, the squasher doesn't re-squash.
 */
 public class SquasherHazard : MonoBehaviour
 {
