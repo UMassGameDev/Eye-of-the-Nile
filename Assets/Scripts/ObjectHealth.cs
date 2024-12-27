@@ -282,4 +282,7 @@ public class ObjectHealth : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         fireImmune = false;
     }
+
+    /// \breif Return the object's max health.
+    public int GetMaxHealth() { return maxHealth; }
 }
