@@ -3,9 +3,10 @@ using UnityEngine;
 /** \brief
 Functionality of ObjectHealth for bosses.
 This script inherits from ObjectHealth. What changed:
-- This script updates the boss healthbar.
-- This script sets the display name of the boss.
-This script DOES NOT control when the healthbar is visible, that is up to the boss behavior scripts.
+- This script updates how full the boss healthbar is.
+- This script sets the display name of the boss above the healthbar.
+
+This script DOES NOT control when the boss healthbar is visible, that is up to the boss behavior scripts.
 
 Documentation updated 12/27/2024
 \author Alexander Art
@@ -34,10 +35,10 @@ public class BossHealth : ObjectHealth
     /// Check for changes in the boss's health and update the healthbar.
     void Update()
     {
-        if (currentHealth != previousHealth)
+        if (previousHealth != currentHealth) // When the health changes.
         {
+            previousHealth = currentHealth;
             bossHealthbar.SetHealthbarPercentage((float)currentHealth / (float)maxHealth);
         }
-        previousHealth = currentHealth;
     }
 }
