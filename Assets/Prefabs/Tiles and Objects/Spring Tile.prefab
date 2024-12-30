@@ -85,8 +85,8 @@ Transform:
   m_GameObject: {fileID: 3429038556739084417}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -30.5, z: 0}
-  m_LocalScale: {x: 0.25, y: 60, z: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 0.25, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4558821833468925552}
@@ -226,7 +226,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 40
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -259,9 +259,9 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
-  m_Distance: 2
+  m_Distance: 1
   m_DampingRatio: 0.1
-  m_Frequency: 1
+  m_Frequency: 3
 --- !u!61 &2795819113600222675
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -372,6 +372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityDetector: {fileID: 6591755280863994789}
+  supportTexture: {fileID: 3429038556739084417}
+  anchor: {fileID: 2897599907096762783}
   launchSpeed: 50
 --- !u!1 &8122692302308377571
 GameObject:

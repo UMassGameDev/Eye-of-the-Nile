@@ -4606,7 +4606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5525578097580541773, guid: f95e993a5028d31409542dd259faa1f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.23
+      value: -1.13
       objectReference: {fileID: 0}
     - target: {fileID: 6191756424318651728, guid: f95e993a5028d31409542dd259faa1f0, type: 3}
       propertyPath: m_Name
@@ -9810,6 +9810,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+--- !u!4 &1790766675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+  m_PrefabInstance: {fileID: 1961446230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1818344420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9982,6 +9987,71 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1961446230
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1998504452}
+    m_Modifications:
+    - target: {fileID: 1751298307506424901, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_Mass
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120836948086655512, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_Name
+      value: Spring Tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234053531970692528, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339710375766246623, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
+      propertyPath: launchSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b2c4d9c682079d4429618b6ea52eccd8, type: 3}
 --- !u!1001 &1989052617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10084,6 +10154,7 @@ Transform:
   - {fileID: 1107539508}
   - {fileID: 1593518003}
   - {fileID: 92414070}
+  - {fileID: 1790766675}
   m_Father: {fileID: 1313207685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1998504453
