@@ -2,8 +2,8 @@ using UnityEngine;
 
 /** \brief
 This script handles Geb's phases.
-It keeps track of the current phase and detects when a new phase should be started.
-When a new phase is started, it tells the other Geb scripts.
+It keeps track of the current phase or when a cutscene is playing, and detects when a new phase should be started.
+When a new phase is started, it tells the Geb's other scripts.
 
 Documentation updated 12/28/2024
 \author Alexander Art
@@ -44,7 +44,7 @@ public class GebPhaseController : MonoBehaviour
             // When Geb's health is in a certain range, a new phase will be triggered unless if Geb is already in that phase.
             if (bossHealth.currentHealth <= 0)
             {
-                if (phase != GebPhase.Defeated)
+                if (phase != GebPhase.ClosingCutscene && phase != GebPhase.Defeated)
                 {
                     TriggerGebDefeated();
                 }
@@ -66,15 +66,26 @@ public class GebPhaseController : MonoBehaviour
         }
     }
 
-    /// Start phase 1 and tell all of the other Geb scripts that phase 1 has started.
+    /// Start Geb's opening cutscene and tell all of the other Geb scripts that the opening cutscene has started.
+    public void StartGebOpeningCutscene()
+    {
+        phase = GebPhase.OpeningCutscene;
+
+        bossController.GebOpeningCutsceneStarted();
+        roomController.GebOpeningCutsceneStarted();
+
+        Debug.Log("Opening cutscene started!"); // These lines can be deleted, but not much marks the phase changes yet.
+    }
+
+    /// Start phase 1 (do this after the cutscene) and tell all of the other Geb scripts that phase 1 has started.
     public void StartGebBossfight()
     {
         phase = GebPhase.Phase1;
 
-        bossController.GebBossfightStarted();
-        roomController.GebBossfightStarted();
+        bossController.GebPhase1Started();
+        roomController.GebPhase1Started();
 
-        Debug.Log("Phase 1 started!"); // This line can be deleted, but nothing else marks the phase changes yet.
+        Debug.Log("Phase 1 started!");
     }
 
     /// Start phase 2 and tell all of the other Geb scripts that phase 2 has started.
@@ -96,17 +107,28 @@ public class GebPhaseController : MonoBehaviour
         bossController.GebPhase3Started();
         roomController.GebPhase3Started();
 
-        Debug.Log("Phase 3 started!"); // This line can be deleted, but nothing else marks the phase changes at the moment.
+        Debug.Log("Phase 3 started!");
     }
     
-    /// Set the phase to defeated and tell all of the other Geb scripts that Geb has been defeated.
+    /// Set the phase to closing cutscene and tell all of the other Geb scripts that the cutscene is playing.
     public void TriggerGebDefeated()
+    {
+        phase = GebPhase.ClosingCutscene;
+
+        bossController.GebClosingCutsceneStarted();
+        roomController.GebClosingCutsceneStarted();
+
+        Debug.Log("Boss defeated! Closing cutscene started!");
+    }
+
+    /// Set the phase to defeated and tell all of the other Geb scripts that the closing cutscene is over.
+    public void ClosingCutsceneEnded()
     {
         phase = GebPhase.Defeated;
 
         bossController.GebDefeated();
         roomController.GebDefeated();
 
-        Debug.Log("Boss defeated!");
+        Debug.Log("Closing cutscene over!");
     }
 }
