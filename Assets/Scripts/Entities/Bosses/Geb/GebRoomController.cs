@@ -4,11 +4,11 @@ using Cinemachine;
 
 /** \brief
 This script is a work in progress. It will control most of Geb's bossroom (trigger zone, doors, cutscenes, healthbar visibility).
-This script consists of:
+This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame depending on Geb's phase, one for each phase.
 
-Documentation updated 12/30/2024
+Documentation updated 12/31/2024
 \author Alexander Art
 \todo Freeze the player during the cutscenes.
 */
@@ -108,11 +108,11 @@ public class GebRoomController : MonoBehaviour
             healthbar.SetHealthbarVisible(true);
         }
 
-        // Animate the healthbar to fill from 0% to 100% when 2f < cutsceneTimer < 5f.
-        healthbar.SetHealthbarPercentage(Math.Max(0f, Math.Min((cutsceneTimer - 2f) / 3f, 1f)));
+        // Animate the healthbar to fill from 0% to 100% when 2f < cutsceneTimer < 4f.
+        healthbar.SetHealthbarPercentage(Math.Max(0f, Math.Min((cutsceneTimer - 2f) / 2f, 1f)));
 
-        // After 5 seconds, end the cutscene and start Geb's phase 1.
-        if (cutsceneTimer > 5f)
+        // After 4 seconds, end the cutscene and start Geb's phase 1.
+        if (cutsceneTimer > 4f)
         {
             phaseController.StartGebBossfight();
         }

@@ -5,7 +5,7 @@ This script handles Geb's phases.
 It keeps track of the current phase or when a cutscene is playing, and detects when a new phase should be started.
 When a new phase is started, it tells the Geb's other scripts.
 
-Documentation updated 12/28/2024
+Documentation updated 12/31/2024
 \author Alexander Art
 */
 public class GebPhaseController : MonoBehaviour

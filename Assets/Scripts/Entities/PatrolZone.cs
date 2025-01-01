@@ -5,6 +5,7 @@ using UnityEngine;
 
 /** \brief
 Script for a zone which entities that inherit from BaseEntityController will patrol until a player is in range.
+Also used by Geb to stay within his bossroom.
 
 Documentation updated 8/26/2024
 \author Roy Pascual
