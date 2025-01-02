@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounds: {fileID: 589841332}
+  throwableRock: {fileID: 1363697772759805393, guid: 25c5654264c7e144399ba9996676ef06, type: 3}
 --- !u!114 &471781883
 MonoBehaviour:
   m_ObjectHideFlags: 0

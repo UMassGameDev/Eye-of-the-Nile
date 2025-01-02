@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using System;
 
 /** \brief
 This script is a work in progress. It will control Geb's movement and will trigger Geb's attacks.
@@ -22,12 +22,18 @@ public class GebBossController : MonoBehaviour
     protected GebPhaseController phaseController;
     /// Reference to the player object.
     protected GameObject player;
+    /// Reference to the rock prefab for the rocks that Geb throws and have a chance to turn into a rock golem.
+    [SerializeField] protected GameObject throwableRock;
 
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
     protected float bossActivationRadius = 11f;
     /// The speed at which Geb moves in phase 1.
     protected float flyingSpeed = 10f;
 
+    /// True if Geb is in the middle of an attack animation.
+    private bool attacking;
+    /// The speed at which Geb's rocks are thrown in phase 1.
+    private float throwSpeed = 20f;
     /// Create random number generator.
     private System.Random rng = new System.Random();
     /// The direction Geb moves in.
@@ -44,8 +50,8 @@ public class GebBossController : MonoBehaviour
     private float targetPositionX;
     /// Used in phase 1 for keeping track of when Geb should stop moving.
     private bool notMoving;
-    /// How long Geb should stay notMoving (in seconds).
-    private float pauseDuration = 0.5f;
+    /// Amount of time Geb stays notMoving (in seconds).
+    private float pauseDuration;
 
     /// Set references to player GameObject, Geb's BossHealth, and Geb's phase controller.
     void Awake()
@@ -95,7 +101,8 @@ public class GebBossController : MonoBehaviour
         // Geb flies in this phase.
         rb.gravityScale = 0f;
 
-        // Geb hasn't done anything. Make sure currentActionTimer is set to 0.
+        // Geb hasn't done anything yet. Make sure attacking and currentActionTimer are reset.
+        attacking = false;
         currentActionTimer = 0.0f;
 
         // Geb will start off moving.
@@ -185,7 +192,7 @@ public class GebBossController : MonoBehaviour
     /// Runs every frame when Geb is in phase 1.
     // Steps:
     // - Update currentActionTimer and horizontalDirection.
-    // - Start a new movement cycle. Geb will either stand still or set a new target position.
+    // - Start a new movement cycle. Geb will either stand still, set a new target position, or summon a rock golem.
     //      - There are two regions on either side of the player, a left region and a right region.
     //        The size of these regions are defined by minPlayerDistanceX and maxPlayerDistanceX.
     //        Geb's target positions stay within one of these regions until he decides to move to the other side of the player.
@@ -213,23 +220,54 @@ public class GebBossController : MonoBehaviour
         
         // If Geb is done standing still and is within 1 unit of the target position,
         // then either make geb stand still again or set a new target position.
-        if ((currentActionTimer > pauseDuration || notMoving == false) && (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1))
+        if ((notMoving == false || currentActionTimer > pauseDuration) && (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1))
         {
             // Movement cycle complete. Reset currentActionTimer.
             currentActionTimer = 0.0f;
 
-            // 60% chance for Geb to stop moving for pauseDuration seconds, unless if Geb was already paused.
-            // 40% chance to Set a new target position:
+            // In phase 1, Geb only has one attack, and that is to throw rocks/summon rock golems.
+            // The attack is started once pauseDuration runs out, so that's why the code for this is placed here.
+            if (attacking)
+            {
+                // Summon rock.
+                GameObject rock = Instantiate(throwableRock, transform.position, transform.rotation);
+                
+                // Throw rock foward.
+                if (side == "LEFT")
+                {
+                    rock.GetComponent<Rigidbody2D>().velocity = new Vector2(throwSpeed, 0f);
+                }
+                else if (side == "RIGHT")
+                {
+                    rock.GetComponent<Rigidbody2D>().velocity = new Vector2(-throwSpeed, 0f);
+                }
+
+                // Complete attack.
+                attacking = false;
+
+                // Geb is done standing still.
+                notMoving = false;
+            }
+
+            // 50% chance for Geb to stop moving for pauseDuration seconds, unless if Geb was already paused.
+            // 30% chance to Set a new target position:
             // - Geb will have a 10% chance to switch which side of the player he was on.
             // - Calculate Geb's range of positions with minPlayerDistanceX and maxPlayerDistanceX.
             // - Make sure that Geb won't try to move out of bounds.
             // - Set Geb's target position based on the side of the player that Geb wants to stay on and the range of positions.
+            // 20% chance for Geb to stop moving and throw a rock.
 
-            if (rng.NextDouble() < 0.6 && notMoving == false) // 60% chance for Geb to stop moving for pauseDuration seconds, unless if Geb was already paused.
+            double randomNumber = rng.NextDouble();
+
+            if (randomNumber < 0.5 && notMoving == false) // 50% chance for Geb to stop moving for pauseDuration seconds, unless if Geb was already paused.
             {
+                // How long Geb should stop moving.
+                pauseDuration = 0.5f;
+
+                // Make Geb not move until pauseDuration runs out.
                 notMoving = true;
             }
-            else // 40% chance to Set a new target position.
+            else if (randomNumber < 0.8) // 30% chance to Set a new target position.
             {
                 // Geb will be moving.
                 notMoving = false;
@@ -275,6 +313,17 @@ public class GebBossController : MonoBehaviour
                 {
                     targetPositionX = rightMin + (float)rng.NextDouble() * (rightMax - rightMin);
                 }
+            }
+            else // 20% chance to throw rock.
+            {
+                // How long Geb should stop moving before throwing the rock.
+                pauseDuration = 0.5f;
+
+                // Make Geb not move until pauseDuration runs out.
+                notMoving = true;
+
+                // Make Geb throw a rock once pauseDuration runs out.
+                attacking = true;
             }
         }
 
