@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3782638982898404444}
   m_Layer: 0
-  m_Name: Golem Patrol
+  m_Name: Rock Golem (geb)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 1981101993816155257}
   - component: {fileID: 3032770499474564208}
   - component: {fileID: 1958629965595231651}
+  - component: {fileID: 3474490593965243404}
   m_Layer: 7
   m_Name: Golem
   m_TagString: DamagableByProjectile
@@ -397,7 +398,19 @@ MonoBehaviour:
   canBeOnFire: 1
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3474490593965243404}
+        m_TargetAssemblyTypeName: GebRockGolem, Assembly-CSharp
+        m_MethodName: DecrementRockGolemCount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &3032770499474564208
 Animator:
   serializedVersion: 5
@@ -465,6 +478,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &3474490593965243404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4159231174263111848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce08d6c199066bc44ad580e09aa8178a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7146406485303429131
 GameObject:
   m_ObjectHideFlags: 0

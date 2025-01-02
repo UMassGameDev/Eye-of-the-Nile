@@ -24,6 +24,10 @@ public class GebRoomController : MonoBehaviour
     /// How far to zoom out the camera for Geb's bossfight.
     float fightZoom = 12f;
 
+    /// Number of rock golems currently in the room.
+    public int rockGolemCount = 0;
+    /// Maximum number of rock golems that can be present in the room before they stop getting spawned.
+    public int maxRockGolems = 4;
     /// Used for animating the cutscene when Geb is activated.
     private float cutsceneTimer = 0.0f;
     /// The zoom of the camera before the bossfight starts.
@@ -139,4 +143,10 @@ public class GebRoomController : MonoBehaviour
     }
     /// Runs every frame when the closing cutscene is over.
     void DefeatedState() {}
+
+    /// Called by the rock golems when they die. Subtracts 1 from the rock golem count.
+    public void DecrementRockGolemCount()
+    {
+        rockGolemCount--;
+    }
 }

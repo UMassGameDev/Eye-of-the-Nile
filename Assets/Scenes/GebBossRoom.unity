@@ -703,6 +703,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 786795895}
   healthbar: {fileID: 885547772}
+  rockGolemCount: 0
+  maxRockGolems: 4
 --- !u!114 &471781884
 MonoBehaviour:
   m_ObjectHideFlags: 0

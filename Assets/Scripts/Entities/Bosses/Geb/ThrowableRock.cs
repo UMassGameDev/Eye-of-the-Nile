@@ -32,11 +32,14 @@ public class ThrowableRock : MonoBehaviour
         // If the collided object was on any of the collisionLayers.
         if (((1 << col.gameObject.layer) & collisionLayers.value) != 0)
         {
-            // 50% chance of spawning a rock golem.
-            if (rng.NextDouble() < 0.5)
+            // If there is room for another golem to be spawned, have a 50% chance of spawning a rock golem.
+            if (gebRoomController.rockGolemCount < gebRoomController.maxRockGolems && rng.NextDouble() < 0.5)
             {
                 // Spawn rock golem.
                 Instantiate(rockGolem, transform.position, Quaternion.identity);
+
+                // Increment rock golem count.
+                gebRoomController.rockGolemCount++;
 
                 // Get rid of rock object.
                 Destroy(gameObject);

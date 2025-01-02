@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 4168
+    m_Bits: 4104
   rockGolem: {fileID: 3152921750765434855, guid: 0dd44a555d222db47b1ef078e899a6b5, type: 3}
 --- !u!58 &7877551477045739707
 CircleCollider2D:
