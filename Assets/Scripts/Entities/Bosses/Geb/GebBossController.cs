@@ -6,10 +6,27 @@ This script is a work in progress. It will control Geb's movement and will trigg
 This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame depending on Geb's phase, one for each phase.
+- An enum for the actions that Geb will use in phases 1-3.
 
-Documentation updated 12/31/2024
+Documentation updated 1/3/2025
 \author Alexander Art
 */
+
+/// <summary>
+/// The actions that Geb will use in phases 1-3. Phases Inactive, OpeningCutscene, ClosingCutscene, and Defeated DO NOT use this.
+/// New actions unlock cumulatively with each additional phase until the fight is over.
+/// </summary>
+public enum GebAction
+{
+    /*! Unlocked in phase 1. On Idle, Geb stops moving and does nothing (usually brief).*/
+    Idle,
+    /*! Unlocked in phase 1. On Moving, Geb moves until reaching a target position.*/
+    Moving,
+    /*! Unlocked in phase 1. On RockThrowAttack, Geb stops moving, prepares to throw a rock, and ends by throwing it.*/
+    RockThrowAttack
+    /*! Phase 2 and 3 coming soon...*/
+}
+
 public class GebBossController : MonoBehaviour
 {
     /// Reference to Geb's health script, used for keeping Geb invincible before the bossfight starts.
@@ -29,29 +46,35 @@ public class GebBossController : MonoBehaviour
     protected float bossActivationRadius = 11f;
     /// The speed at which Geb moves in phase 1.
     protected float flyingSpeed = 10f;
-
-    /// True if Geb is in the middle of an attack animation.
-    private bool attacking;
-    /// The speed at which Geb's rocks are thrown in phase 1.
+    /// (Phase 1) The speed at which Geb's rocks are thrown.
     private float throwSpeed = 20f;
+    /// (Phase 1) The duration of the rock throw animation before the rock entity is spawned (in seconds).
+    private float throwDuration = 0.5f;
+    /// (Phase 1) Each time Geb stops moving (Idle), this is the duration it will last (in seconds).
+    private float idleDuration = 0.5f;
+
+    /// The current action that Geb is taking.
+    private GebAction currentAction;
     /// Create random number generator.
     private System.Random rng = new System.Random();
     /// The direction Geb moves in.
     private float horizontalDirection = 0f;
-    /// Keep track of how long Geb has been doing whatever he's currently doing. Used for controlling movement behavior.
+    /// How long Geb has been doing his current action (in seconds).
     private float currentActionTimer = 0.0f;
-    /// The minimum horizontal distance that Geb will try to keep from the player in phase 1 when flying.
+    /// How long the current action should last (in seconds).
+    private float currentActionDuration;
+    /// The minimum horizontal distance that Geb will try to keep from the player in phase 1 when moving.
     private float minPlayerDistanceX = 10f;
-    /// The maximum horizontal distance that Geb will try to keep from the player in phase 1 when flying.
+    /// The maximum horizontal distance that Geb will try to keep from the player in phase 1 when moving.
     private float maxPlayerDistanceX = 20f;
-    /// Either "LEFT" or "RIGHT", Geb will try to stay on this side of the player in phase 1 when flying.
-    private string side;
     /// The x position that Geb is moving towards.
     private float targetPositionX;
-    /// Used in phase 1 for keeping track of when Geb should stop moving.
-    private bool notMoving;
-    /// Amount of time Geb stays notMoving (in seconds).
-    private float pauseDuration;
+    /// <summary>
+    /// Either "LEFT" or "RIGHT", Geb will try to stay on this side of the player in phase 1 when moving.
+    /// This is done by always picking targetPositionX to be on this side of the player.
+    /// This also determines which direction Geb faces. Geb always moves backwards in phase 1.
+    /// </summary>    
+    private string side;
 
     /// Set references to player GameObject, Geb's BossHealth, and Geb's phase controller.
     void Awake()
@@ -101,19 +124,6 @@ public class GebBossController : MonoBehaviour
         // Geb flies in this phase.
         rb.gravityScale = 0f;
 
-        // Geb hasn't done anything yet. Make sure attacking and currentActionTimer are reset.
-        attacking = false;
-        currentActionTimer = 0.0f;
-
-        // Geb will start off moving.
-        notMoving = false;
-
-        // Initialize first movement cycle (this is very similar to the Phase1State() logic):
-        // - Set Geb's direction to be away from the player.
-        // - Calculate Geb's range of positions with minPlayerDistanceX and maxPlayerDistanceX.
-        // - Make sure that Geb won't try to move out of bounds.
-        // - Set Geb's target position based on the side of the player that Geb wants to stay on and the range of positions.
-
         // Geb initially moves away from the player.
         if (transform.position.x >= player.transform.position.x) // Player is not to the right of Geb.
         {
@@ -124,37 +134,17 @@ public class GebBossController : MonoBehaviour
             side = "LEFT";
         }
 
-        // The range of positions that Geb will try to be. [leftMin, leftMax) U [rightMin, rightMax)
-        float leftMin = Math.Max(player.transform.position.x - maxPlayerDistanceX, bounds.LeftPoint().x); // Keeps leftmost point in bounds.
-        float leftMax = player.transform.position.x - minPlayerDistanceX;
-        float rightMin = player.transform.position.x + minPlayerDistanceX;
-        float rightMax = Math.Min(player.transform.position.x + maxPlayerDistanceX, bounds.RightPoint().x); // Keeps rightmost point in bounds.
-
-        // If Geb's left positions are all out of bounds then Geb must move right, and vice versa.
-        if (leftMax <= bounds.LeftPoint().x)
-        {
-            side = "RIGHT";
-        }
-        else if (rightMax >= bounds.RightPoint().x)
-        {
-            side = "LEFT";
-        }
-
-        // Set Geb's target position using the calculated values.
-        if (side == "LEFT")
-        {
-            targetPositionX = leftMin + (float)rng.NextDouble() * (leftMax - leftMin);
-        }
-        else if (side == "RIGHT")
-        {
-            targetPositionX = rightMin + (float)rng.NextDouble() * (rightMax - rightMin);
-        }
+        // Start Geb as Moving and pick a target position for Geb to move to.
+        Phase1StartMoving();
     }
 
     /// Called by GebPhaseController once when phase 2 starts.
     public void GebPhase2Started() {
         // Geb stops flying at this phase.
         rb.gravityScale = 1f;
+        
+        // Disable linear drag.
+        rb.drag = 0f;
     }
 
     /// Called by GebPhaseController once when phase 3 starts.
@@ -191,144 +181,190 @@ public class GebBossController : MonoBehaviour
 
     /// Runs every frame when Geb is in phase 1.
     // Steps:
-    // - Update currentActionTimer and horizontalDirection.
-    // - Start a new movement cycle. Geb will either stand still, set a new target position, or summon a rock golem.
-    //      - There are two regions on either side of the player, a left region and a right region.
-    //        The size of these regions are defined by minPlayerDistanceX and maxPlayerDistanceX.
-    //        Geb's target positions stay within one of these regions until he decides to move to the other side of the player.
-    // - Update Geb's velocity.
-    // - Flip Geb depending on which region his target position is in.
+    // - Update currentActionTimer.
+    // - Perform logic depending on Geb's current action.
+    //     - Idle:
+    //         - Don't move and wait for time to pass.
+    //         - Once the time passes, start a different action.
+    //     - Moving:
+    //         - Move Geb.
+    //         - Check if Geb has gotten within 1 unit of the target position. If he has, then:
+    //             - Check if the player has gotten close to being behind Geb. If so, then Geb has a chance to change direction.
+    //             - Otherwise, start a different action.
+    //     - RockThrowAttack:
+    //         - Don't move and wait for the (missing) rock throwing animation to finish.
+    //         - Once the (missing) animation finishes, instantiate and launch the rock projectile.
+    //         - Start a new action, either idle or throw another rock projectile.
+    // - Flip Geb to match the "side" variable.
     void Phase1State() {
         // Update currentActionTimer.
         currentActionTimer += Time.deltaTime;
 
-        // Set Geb to move towards the target position.
-        if (transform.position.x < targetPositionX) // Geb is to the left of the target position.
+        // Run the logic that depends on Geb's current action.
+        switch (currentAction)
         {
-            horizontalDirection = 1f;
-        }
-        else if (transform.position.x > targetPositionX) // Geb is to the right of the target position.
-        {
-            horizontalDirection = -1f;
-        }
+            case GebAction.Idle:
+                // Geb is not moving.
+                horizontalDirection = 0f;
 
-        // Make sure Geb doesn't move when notMoving is true.
-        if (notMoving == true)
-        {
-            horizontalDirection = 0f;
-        }
-        
-        // If Geb is done standing still and is within 1 unit of the target position,
-        // then either make geb stand still again or set a new target position.
-        if ((notMoving == false || currentActionTimer > pauseDuration) && (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1))
-        {
-            // Movement cycle complete. Reset currentActionTimer.
-            currentActionTimer = 0.0f;
-
-            // In phase 1, Geb only has one attack, and that is to throw rocks/summon rock golems.
-            // The attack is started once pauseDuration runs out, so that's why the code for this is placed here.
-            if (attacking)
-            {
-                // Summon rock.
-                GameObject rock = Instantiate(throwableRock, transform.position, transform.rotation);
-                
-                // Throw rock foward.
-                if (side == "LEFT")
+                // Once Geb has been idle for long enough, start a new action.
+                if (currentActionTimer > currentActionDuration)
                 {
-                    rock.GetComponent<Rigidbody2D>().velocity = new Vector2(throwSpeed, 0f);
+                    // A new action is going to be started, so currentActionTimer can be reset.
+                    currentActionTimer = 0.0f;
+
+                    // Get a random number [0, 1) to be used for randomly picking the next action.
+                    double randomNumber = rng.NextDouble();
+
+                    // 80% chance to start Moving.
+                    // - 10% chance to change side.
+                    // 20% chance to start a RockThrowAttack.
+                    if (randomNumber >= 0.0 && randomNumber < 0.8)
+                    {
+                        // 10% chance to change side.
+                        if (side == "LEFT")
+                        {   
+                            if (rng.NextDouble() < 0.1) { side = "RIGHT"; }
+                            else { side = "LEFT"; }
+                        }
+                        else if (side == "RIGHT")
+                        {
+                            if (rng.NextDouble() < 0.1) { side = "LEFT"; }
+                            else { side = "RIGHT"; }
+                        }
+
+                        // Start moving action.
+                        Phase1StartMoving();
+                    }
+                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    {
+                        // Start rock throw attack.
+                        currentAction = GebAction.RockThrowAttack;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = throwDuration;
+                    }
                 }
-                else if (side == "RIGHT")
+                break;
+
+            case GebAction.Moving:
+                // If Geb is to the left of the target position, go right.
+                // If Geb is to the right of the target position, go left.
+                if (transform.position.x < targetPositionX) 
                 {
-                    rock.GetComponent<Rigidbody2D>().velocity = new Vector2(-throwSpeed, 0f);
+                    horizontalDirection = 1f;
+                }
+                else if (transform.position.x > targetPositionX)
+                {
+                    horizontalDirection = -1f;
                 }
 
-                // Complete attack.
-                attacking = false;
+                // Update Geb's velocity.
+                rb.velocity = new Vector2(horizontalDirection * flyingSpeed, rb.velocity.y);
 
-                // Geb is done standing still.
-                notMoving = false;
-            }
-
-            // 50% chance for Geb to stop moving for pauseDuration seconds, unless if Geb was already paused.
-            // 30% chance to Set a new target position:
-            // - Geb will have a 10% chance to switch which side of the player he was on.
-            // - Calculate Geb's range of positions with minPlayerDistanceX and maxPlayerDistanceX.
-            // - Make sure that Geb won't try to move out of bounds.
-            // - Set Geb's target position based on the side of the player that Geb wants to stay on and the range of positions.
-            // 20% chance for Geb to stop moving and throw a rock.
-
-            double randomNumber = rng.NextDouble();
-
-            if (randomNumber < 0.5 && notMoving == false) // 50% chance for Geb to stop moving for pauseDuration seconds, unless if Geb was already paused.
-            {
-                // How long Geb should stop moving.
-                pauseDuration = 0.5f;
-
-                // Make Geb not move until pauseDuration runs out.
-                notMoving = true;
-            }
-            else if (randomNumber < 0.8) // 30% chance to Set a new target position.
-            {
-                // Geb will be moving.
-                notMoving = false;
-
-                // Geb initially moves away from the player.
-                if (side == "LEFT")
+                // If Geb is within 1 unit of his target position, start a new action.
+                if (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1)
                 {
-                    // 10% chance to change direction.
-                    if (rng.NextDouble() < 0.1)
+                    // A new action is going to be started, so currentActionTimer can be reset.
+                    currentActionTimer = 0.0f;
+
+                    // Get a random number [0, 1) to be used for randomly picking the next action.
+                    double randomNumber = rng.NextDouble();
+
+                    // If the player is within 1 unit of being behind Geb, then there is a 50% for Geb to change side.
+                    // If the player did not get close to behind Geb or the 50% chance failed, then:
+                    // - 30% chance to start being Idle.
+                    // - 70% chance to start a RockThrowAttack.
+                    if (side == "LEFT" && transform.position.x > player.transform.position.x - 1 && randomNumber < 0.5)
+                    {
+                        // Change the side.
                         side = "RIGHT";
-                    else { side = "LEFT"; }
-                }
-                else if (side == "RIGHT")
-                {
-                    // 10% chance to change direction.
-                    if (rng.NextDouble() < 0.1)
+                        // Reset the Moving action.
+                        Phase1StartMoving();
+                    }
+                    else if (side == "RIGHT" && transform.position.x < player.transform.position.x + 1 && randomNumber < 0.5)
+                    {
+                        // Change the side.
                         side = "LEFT";
-                    else { side = "RIGHT"; }
+                        // Reset the Moving action.
+                        Phase1StartMoving();
+                    }
+                    else
+                    {
+                        // Pick a new random number [0, 1).
+                        randomNumber = rng.NextDouble();
+
+                        // 30% chance to start being Idle.
+                        // 70% chance to start a RockThrowAttack.
+                        if (randomNumber >= 0.0 && randomNumber < 0.3)
+                        {
+                            // Start idling.
+                            currentAction = GebAction.Idle;
+                            // Make sure that the action lasts for the appropriate amount of time.
+                            currentActionDuration = idleDuration;
+                        }
+                        else if (randomNumber >= 0.3 && randomNumber < 1)
+                        {
+                            // Start rock throw attack.
+                            currentAction = GebAction.RockThrowAttack;
+                            // Make sure that the action lasts for the appropriate amount of time.
+                            currentActionDuration = throwDuration;
+                        }
+                    }                    
                 }
+                break;
+            
+            case GebAction.RockThrowAttack:
+                // Geb is not moving.
+                horizontalDirection = 0f;
 
-                // The range of positions that Geb will try to be. [leftMin, leftMax) U [rightMin, rightMax)
-                float leftMin = Math.Max(player.transform.position.x - maxPlayerDistanceX, bounds.LeftPoint().x); // Keeps leftmost point in bounds.
-                float leftMax = player.transform.position.x - minPlayerDistanceX;
-                float rightMin = player.transform.position.x + minPlayerDistanceX;
-                float rightMax = Math.Min(player.transform.position.x + maxPlayerDistanceX, bounds.RightPoint().x); // Keeps rightmost point in bounds.
-
-                // If Geb's left positions are all out of bounds then Geb must move right, and vice versa.
-                if (leftMax <= bounds.LeftPoint().x)
+                // Before currentActionTimer is greater than currentActionDuration,
+                // this time should be used for Geb to prepare a rock (grabbing rock off back and throwing animation).
+                // Once Geb is done doing that, summon and launch the rock. Then, start a new action.
+                // This condition can be replaced with some other condition (or function) that'll be easier to time with the animation.
+                if (currentActionTimer > currentActionDuration)
                 {
-                    side = "RIGHT";
-                }
-                else if (rightMax >= bounds.RightPoint().x)
-                {
-                    side = "LEFT";
-                }
+                    // Summon rock.
+                    GameObject rock = Instantiate(throwableRock, transform.position, transform.rotation);
+                    
+                    // Launch rock foward.
+                    if (side == "LEFT")
+                    {
+                        rock.GetComponent<Rigidbody2D>().velocity = new Vector2(throwSpeed, 0f);
+                    }
+                    else if (side == "RIGHT")
+                    {
+                        rock.GetComponent<Rigidbody2D>().velocity = new Vector2(-throwSpeed, 0f);
+                    }
 
-                // Set Geb's target position using the calculated values.
-                if (side == "LEFT")
-                {
-                    targetPositionX = leftMin + (float)rng.NextDouble() * (leftMax - leftMin);
-                }
-                else if (side == "RIGHT")
-                {
-                    targetPositionX = rightMin + (float)rng.NextDouble() * (rightMax - rightMin);
-                }
-            }
-            else // 20% chance to throw rock.
-            {
-                // How long Geb should stop moving before throwing the rock.
-                pauseDuration = 0.5f;
+                    // A new action is going to be started, so currentActionTimer can be reset.
+                    currentActionTimer = 0.0f;
 
-                // Make Geb not move until pauseDuration runs out.
-                notMoving = true;
+                    // Get a random number [0, 1) to be used for randomly picking the next action.
+                    double randomNumber = rng.NextDouble();
 
-                // Make Geb throw a rock once pauseDuration runs out.
-                attacking = true;
-            }
+                    // 80% chance to start being Idle.
+                    // 20% chance to do another RockThrowAttack.
+                    if (randomNumber >= 0.0 && randomNumber < 0.8)
+                    {
+                        // Start idling.
+                        currentAction = GebAction.Idle;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = idleDuration;
+                    }
+                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    {
+                        // Start rock throw attack.
+                        currentAction = GebAction.RockThrowAttack;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = throwDuration;
+                    }
+                }
+                break;
+
+            default:
+                Debug.Log("An invalid action for this phase has been activated.");
+                break;
         }
-
-        // Update Geb's velocity.
-        rb.velocity = new Vector2(horizontalDirection * flyingSpeed, rb.velocity.y);
 
         // Flip Geb depending on which region the target position is in.
         if (side == "LEFT")
@@ -361,6 +397,43 @@ public class GebBossController : MonoBehaviour
         else if (transform.position.x < player.transform.position.x) // Player is on the right.
         {
             transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    // Used within phase 1 to set Geb's current action to Moving and to calculate a new target position for Geb to move towards.
+    // Variable "side" is used to determine whether Geb will pick a target position to the left or to the right of the player.
+    private void Phase1StartMoving()
+    {
+        // This counts as a new action, reset currentActionTimer.
+        currentActionTimer = 0.0f;
+
+        // Set Geb's current action to Moving.
+        currentAction = GebAction.Moving;
+
+        // The range of positions that Geb will try to be. [leftMin, leftMax) U [rightMin, rightMax)
+        float leftMin = Math.Max(player.transform.position.x - maxPlayerDistanceX, bounds.LeftPoint().x); // Keeps leftmost point in bounds.
+        float leftMax = player.transform.position.x - minPlayerDistanceX;
+        float rightMin = player.transform.position.x + minPlayerDistanceX;
+        float rightMax = Math.Min(player.transform.position.x + maxPlayerDistanceX, bounds.RightPoint().x); // Keeps rightmost point in bounds.
+
+        // If all of Geb's left positions are out of bounds then Geb must move right, and vice versa.
+        if (leftMax <= bounds.LeftPoint().x)
+        {
+            side = "RIGHT";
+        }
+        else if (rightMax >= bounds.RightPoint().x)
+        {
+            side = "LEFT";
+        }
+
+        // Set Geb's target position using the calculated values.
+        if (side == "LEFT")
+        {
+            targetPositionX = leftMin + (float)rng.NextDouble() * (leftMax - leftMin);
+        }
+        else if (side == "RIGHT")
+        {
+            targetPositionX = rightMin + (float)rng.NextDouble() * (rightMax - rightMin);
         }
     }
 }

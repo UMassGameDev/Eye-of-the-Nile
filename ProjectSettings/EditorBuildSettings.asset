@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Scenes/WarpTestScene2.unity
     guid: 20eba97e931e62f47a0708bd1ff83b63
   - enabled: 1
-    path: Assets/Scenes/Test Dungeon/TestDungeon_Geb_BossRoom.unity
+    path: Assets/Scenes/Geb.unity
     guid: 1c91451b01c1f70499f5846a73480c6a
   - enabled: 1
     path: Assets/Scenes/Test Dungeon/TestDungeon_Start.unity
