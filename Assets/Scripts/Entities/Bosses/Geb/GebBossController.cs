@@ -46,15 +46,19 @@ public class GebBossController : MonoBehaviour
     protected float bossActivationRadius = 11f;
     /// The maximum number of attack actions that can happen in a row.
     protected int maxAttackChain = 3;
+    /// <summary>
     /// The minimum number of attacks that can happen in a row, assuming there has been at least 1 attack.
     /// Values less than or equal to 1 do nothing.
+    /// </summary> 
     protected int minAttackChain = -1;
     /// The maximum number of non-attack actions that can happen in a row.
     protected int maxNonAttackChain = 3;
+    /// <summary>
     /// The minimum number of non-attack actions that can happen in a row, assuming there has been at least 1 non-attack.
     /// Values less than or equal to 1 do nothing.
+    /// </summary>
     protected int minNonAttackChain = -1;
-    /// The speed at which Geb moves in phase 1.
+    /// (Phase 1) The speed at which Geb moves/flies.
     protected float flyingSpeed = 15f;
     /// (Phase 1) The duration of the rock throw animation before the rock entity is spawned (in seconds).
     protected float throwDuration = 1f;
@@ -191,6 +195,7 @@ public class GebBossController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, 16f + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
     }
 
+    /// <summary>
     /// Runs every frame when Geb is in phase 1.
     // Steps:
     // - Update currentActionTimer.
@@ -210,6 +215,7 @@ public class GebBossController : MonoBehaviour
     //         - Start a new action, either idle or throw another rock projectile.
     // - Update Geb's y velocity/position to never let the player get above Geb.
     // - Flip Geb to match the "side" variable.
+    /// </summary>
     void Phase1State() {
         // Update currentActionTimer.
         currentActionTimer += Time.deltaTime;
