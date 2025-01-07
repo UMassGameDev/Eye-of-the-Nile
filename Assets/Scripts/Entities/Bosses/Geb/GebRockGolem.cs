@@ -15,31 +15,38 @@ public class GebRockGolem : MonoBehaviour
     /// Reference to Geb's room controller.
     protected GebRoomController gebRoomController;
 
-    /// The minimum x position that the rock golems are able to be. This should be after the left wall of Geb's bossroom.
-    public float minPosLeft;
-    /// The maximum x position that the rock golems are able to be. This should be before the right wall of Geb's bossroom.
-    public float maxPosRight;
+    /// The minimum x position that the rock golems can have. Calculated using the golem's width and the bounds of the room.
+    protected float minPosX;
+    /// The maximum x position that the rock golems can have. Calculated using the golem's width and the bounds of the room.
+    protected float maxPosX;
 
     void Awake()
     {
         gebRoomController = GameObject.Find("Geb").GetComponent<GebRoomController>();
     }
 
+    void Start()
+    {
+        // Get the width of the golem.
+        float golemWidth = GetComponent<BoxCollider2D>().bounds.size.x;
+        // Calculate the minimum x position for the golems, factoring in the width of the golem.
+        minPosX = gebRoomController.bounds.LeftPoint().x + golemWidth / 2;
+        // Calculate the maximum x position for the golems, factoring in the width of the golem.
+        maxPosX = gebRoomController.bounds.RightPoint().x - golemWidth / 2;
+    }
+
     /// Prevent the rock golems from getting stuck in the wall.
     void Update()
     {
-        // Calculate the width of the golem.
-        float golemWidth = Math.Abs(transform.localScale.x * transform.parent.localScale.x * GetComponent<BoxCollider2D>().size.x);
-
         // If the golem is past the left boundary, move it right.
         // If the golem is past the right boundary, move it left.
-        if (minPosLeft > transform.position.x - golemWidth / 2)
+        if (minPosX > transform.position.x )
         {
-            transform.position = new Vector2(minPosLeft + golemWidth / 2, transform.position.y);
+            transform.position = new Vector2(minPosX, transform.position.y);
         }
-        else if (maxPosRight < transform.position.x + golemWidth / 2)
+        else if (maxPosX < transform.position.x)
         {
-            transform.position = new Vector2(maxPosRight - golemWidth / 2, transform.position.y);
+            transform.position = new Vector2(maxPosX, transform.position.y);
         }
     }
 

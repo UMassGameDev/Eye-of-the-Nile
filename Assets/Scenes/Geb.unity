@@ -414,7 +414,7 @@ Transform:
   m_GameObject: {fileID: 383377135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: 0}
+  m_LocalPosition: {x: 32, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -564,7 +564,7 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 513231399}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -689,6 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds: {fileID: 589841332}
   throwableRock: {fileID: 1363697772759805393, guid: 25c5654264c7e144399ba9996676ef06, type: 3}
+  phase2Sprite: {fileID: 21300000, guid: 6fae7552fde30f242a1bfd41b5056733, type: 3}
 --- !u!114 &471781883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 786795895}
   healthbar: {fileID: 885547772}
+  bounds: {fileID: 589841332}
   rockGolemCount: 0
   maxRockGolems: 4
 --- !u!114 &471781884
@@ -719,43 +721,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phase2Threshold: 0.6666667
   phase3Threshold: 0.33333334
---- !u!1 &513231398
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 513231399}
-  m_Layer: 7
-  m_Name: Geb (parent object)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &513231399
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513231398}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 471781878}
-  - {fileID: 589841331}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &578012124
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,7 +925,7 @@ Transform:
   m_Children:
   - {fileID: 1749728193}
   - {fileID: 383377136}
-  m_Father: {fileID: 513231399}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &589841332
 MonoBehaviour:
@@ -23075,7 +23040,7 @@ Transform:
   m_GameObject: {fileID: 1749728192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -60, y: 0, z: 0}
+  m_LocalPosition: {x: -67, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23530,4 +23495,5 @@ SceneRoots:
   - {fileID: 1939428375}
   - {fileID: 1489990795}
   - {fileID: 1883392410}
-  - {fileID: 513231399}
+  - {fileID: 471781878}
+  - {fileID: 589841331}

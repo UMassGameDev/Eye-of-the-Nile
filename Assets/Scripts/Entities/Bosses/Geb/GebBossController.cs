@@ -31,9 +31,11 @@ public class GebBossController : MonoBehaviour
 {
     /// Reference to Geb's health script, used for keeping Geb invincible before the bossfight starts.
     protected BossHealth bossHealth;
-    /// Reference to Geb's Rigidbody 2D
+    /// Reference to Geb's Rigidbody 2D.
     protected Rigidbody2D rb;
-    /// Reference to Geb's PatrolZone (Bounds), the left end and right end of Geb's bossroom that he will move around in.
+    /// Reference to Geb's Box Collider 2D.
+    protected BoxCollider2D bc;
+    /// Reference to the bossroom's Bounds (PatrolZone), which has the left and right ends of the bossroom that Geb must stay in.
     [SerializeField] protected PatrolZone bounds;
     /// Reference to Geb's phase controller.
     protected GebPhaseController phaseController;
@@ -41,25 +43,27 @@ public class GebBossController : MonoBehaviour
     protected GameObject player;
     /// Reference to the rock prefab for the rocks that Geb throws and have a chance to turn into a rock golem.
     [SerializeField] protected GameObject throwableRock;
+    /// The image to use for Geb in phase 2 once he grows legs.
+    [SerializeField] protected Sprite phase2Sprite;
 
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
     protected float bossActivationRadius = 11f;
     /// The maximum number of attack actions that can happen in a row.
     protected int maxAttackChain = 3;
     /// <summary>
-    /// The minimum number of attacks that can happen in a row, assuming there has been at least 1 attack.
+    /// The minimum number of attacks that can happen in a row whenever there has already been at least 1 attack.
     /// Values less than or equal to 1 do nothing.
     /// </summary> 
     protected int minAttackChain = -1;
     /// The maximum number of non-attack actions that can happen in a row.
     protected int maxNonAttackChain = 3;
     /// <summary>
-    /// The minimum number of non-attack actions that can happen in a row, assuming there has been at least 1 non-attack.
+    /// The minimum number of non-attack actions that can happen in a row whenever there has already been at least 1 non-attack.
     /// Values less than or equal to 1 do nothing.
     /// </summary>
-    protected int minNonAttackChain = -1;
-    /// (Phase 1) The speed at which Geb moves/flies.
-    protected float flyingSpeed = 15f;
+    protected int minNonAttackChain = 2;
+    /// (Phase 1) The speed at which Geb moves horizontally.
+    protected float flySpeedX = 15f;
     /// (Phase 1) The duration of the rock throw animation before the rock entity is spawned (in seconds).
     protected float throwDuration = 1f;
     /// (Phase 1) Limit Geb's rock throwing speed.
@@ -83,6 +87,10 @@ public class GebBossController : MonoBehaviour
     private float currentActionTimer = 0.0f;
     /// How long the current action should last (in seconds).
     private float currentActionDuration;
+    /// The minimum x position that Geb can have. Calculated using Geb's width and the bounds of the room.
+    private float minPosX;
+    /// The maximum x position that Geb can have. Calculated using Geb's width and the bounds of the room.
+    private float maxPosX;
     /// The x position that Geb is moving towards.
     private float targetPositionX;
     /// <summary>
@@ -97,7 +105,19 @@ public class GebBossController : MonoBehaviour
     {
         player = GameObject.Find("Player");
         rb = GetComponent<Rigidbody2D>();
+        bc = GetComponent<BoxCollider2D>();
         phaseController = GetComponent<GebPhaseController>();
+    }
+
+    /// Calculate the minimum and maximum x position for Geb using the bounds and his collider's width.
+    void Start()
+    {
+        // Get the width of Geb.
+        float gebWidth = bc.bounds.size.x;
+        // Calculate the minimum x position for Geb, factoring in his collider's width.
+        minPosX = bounds.LeftPoint().x + gebWidth / 2;
+        // Calculate the maximum x position for Geb, factoring in his collider's width.
+        maxPosX = bounds.RightPoint().x - gebWidth / 2;
     }
 
     /// Every frame, activate the logic for the current phase Geb is in.
@@ -161,6 +181,17 @@ public class GebBossController : MonoBehaviour
         
         // Disable linear drag.
         rb.drag = 0f;
+
+        // Switch Geb's sprite to the image of Geb with legs.
+        GetComponent<SpriteRenderer>().sprite = phase2Sprite;
+
+        // To adjust to the size of the new image, decrease Geb's x and y scale.
+        transform.localScale = new Vector3(transform.localScale.x / 1.9f, transform.localScale.y / 1.9f, transform.localScale.z);
+        // Increase the size of the BoxCollider2D to roughly match the new scale.
+        bc.size = new Vector2(bc.size.x * 1.9f, bc.size.y * 1.9f);
+        
+        // Flip Geb to face the player.
+        FlipToFacePlayer();
     }
 
     /// Called by GebPhaseController once when phase 3 starts.
@@ -304,7 +335,7 @@ public class GebBossController : MonoBehaviour
                 }
 
                 // Update Geb's x velocity.
-                rb.velocity = new Vector2(horizontalDirection * flyingSpeed, rb.velocity.y);
+                rb.velocity = new Vector2(horizontalDirection * flySpeedX, rb.velocity.y);
 
                 // If Geb is within 1 unit of his target position, start a new action.
                 if (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1)
@@ -516,20 +547,20 @@ public class GebBossController : MonoBehaviour
                 break;
         }
 
+        // If Geb is too low, raise Geb.
         // If the player is above Geb, match Geb's y velocity to the player's y velocity.
         // If the player is not above Geb, and Geb is too high up, lower Geb.
-        // If the player is not above Geb, and Geb is low down, raise Geb.
-        if (transform.position.y < player.transform.position.y)
+        if (transform.position.y < 15f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 5f);
+        }
+        else if (transform.position.y < player.transform.position.y)
         {
             rb.velocity = new Vector2(rb.velocity.x, player.GetComponent<Rigidbody2D>().velocity.y);
         }
         else if (transform.position.y > 16f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, -1f);
-        }
-        else if (transform.position.y < 15f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 1f);
+            rb.velocity = new Vector2(rb.velocity.x, -5f);
         }
 
         // Flip Geb depending on which region the target position is in.
@@ -571,11 +602,11 @@ public class GebBossController : MonoBehaviour
         // Face the player.
         if (transform.position.x > player.transform.position.x) // Player is on the left.
         {
-            transform.localScale = new Vector3(2, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
         else if (transform.position.x < player.transform.position.x) // Player is on the right.
         {
-            transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(-Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -590,17 +621,17 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.Moving;
 
         // The range of positions that Geb will try to be. [leftMin, leftMax) U [rightMin, rightMax)
-        float leftMin = Math.Max(player.transform.position.x - maxPlayerDistanceX, bounds.LeftPoint().x); // Keeps leftmost point in bounds.
+        float leftMin = Math.Max(player.transform.position.x - maxPlayerDistanceX, minPosX); // Keeps leftmost point in bounds.
         float leftMax = player.transform.position.x - minPlayerDistanceX;
         float rightMin = player.transform.position.x + minPlayerDistanceX;
-        float rightMax = Math.Min(player.transform.position.x + maxPlayerDistanceX, bounds.RightPoint().x); // Keeps rightmost point in bounds.
+        float rightMax = Math.Min(player.transform.position.x + maxPlayerDistanceX, maxPosX); // Keeps rightmost point in bounds.
 
         // If all of Geb's left positions are out of bounds then Geb must move right, and vice versa.
-        if (leftMax <= bounds.LeftPoint().x)
+        if (leftMax <= minPosX)
         {
             side = "RIGHT";
         }
-        else if (rightMax >= bounds.RightPoint().x)
+        else if (rightMax >= maxPosX)
         {
             side = "LEFT";
         }

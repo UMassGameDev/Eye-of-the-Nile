@@ -18,6 +18,8 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] protected CinemachineVirtualCamera virtualCamera;
     /// Reference to the boss healthbar HUD, used for making it appear and disappear at the start and end of the fight.
     [SerializeField] protected BossHealthbarHUD healthbar;
+    /// Reference to Geb's PatrolZone (Bounds), the left end and right end of Geb's bossroom that the rock golems will move around in.
+    [SerializeField] public PatrolZone bounds;
     /// Reference to Geb's phase controller.
     protected GebPhaseController phaseController;
 
