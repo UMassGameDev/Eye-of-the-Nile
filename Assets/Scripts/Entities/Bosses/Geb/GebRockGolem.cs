@@ -7,7 +7,7 @@ What this script does:
 - Decrements the rock golem count in Geb's bossroom when the rock golems die (attached to OnDeath() in ObjectHealth).
 - Prevents the rock golems from getting stuck in the outer walls of Geb's bossroom.
 
-Documentation updated 1/5/2025
+Documentation updated 1/6/2025
 \author Alexander Art
 */
 public class GebRockGolem : MonoBehaviour
