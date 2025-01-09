@@ -72,8 +72,6 @@ public class GebBossController : MonoBehaviour
     protected float flySpeedX = 15f;
     /// (Phase 1) The duration of the rock throw animation before the rock entity is spawned (in seconds).
     protected float throwDuration = 1f;
-    /// (Phase 1) Limit Geb's rock throwing speed.
-    protected float maxThrowSpeed = 100f;
     /// (Phase 1) Each time Geb stops moving (Idle), this is the duration it will last (in seconds).
     protected float idleDuration = 1f;
     /// (Phase 1) The minimum horizontal distance that Geb will try to keep from the player when moving.
@@ -462,45 +460,46 @@ public class GebBossController : MonoBehaviour
                 {
                     // Summon rock and get its Rigidbody2D component.
                     Rigidbody2D rock = Instantiate(throwableRock, transform.position, transform.rotation).GetComponent<Rigidbody2D>();
-                    
-                    // Calculate the speed the rock should be thrown at in order to hit the player.
+
+                    // The speed and angle the rock should be thrown at in order to hit the player if they don't move.
                     // Get the rock's gravity.
                     float rockAccelerationY = Math.Abs(Physics2D.gravity.y * rock.gravityScale);
-                    // Calculate Geb's relative position to the player
-                    float deltaX = Math.Abs(transform.position.x - player.transform.position.x);
-                    float deltaY = Math.Abs(transform.position.y - player.transform.position.y);
-                    // The predicted amount of time the rock will take to reach the player if they don't move.
-                    float throwTime = (float)Math.Sqrt(2f * deltaY / rockAccelerationY);
+                    // Get player's relative position to Geb.
+                    float deltaX = player.transform.position.x - transform.position.x;
+                    float deltaY = player.transform.position.y - transform.position.y;
+                    // Velocity to throw the rock at.
+                    Vector2 initialVelocity = GetMinInitialThrowVelocity(deltaX, deltaY, rockAccelerationY);
+
+                    // Predict where the player will end up by the time the rock reaches them.
+                    // The rock is thrown somewhere between this predicted location and the player's current position.
+                    // The prediction is based on the rock's calculated airtime, but the result of the prediction changes the airtime.
+                    // So, this prediction isn't perfect, but repeating it several times could improve accuracy.
                     // Get the player's gravity.
                     float playerAccelerationY = Math.Abs(Physics2D.gravity.y * player.GetComponent<Rigidbody2D>().gravityScale);
-                    // How much the player's current instantaneous velocity is taken into consideration when throwing the rock.
+                    // What percentage of the player's current motion is taken into consideration when predicting the new location.
                     double predictionPercentage = Math.Sqrt(rng.NextDouble());
-                    // Predict where the rock will be by the time it reaches the player.
-                    deltaX = Math.Abs(transform.position.x - player.transform.position.x - player.GetComponent<Rigidbody2D>().velocity.x * throwTime * (float)predictionPercentage);
+                    // Approximate how long it will take the rock to reach the player
+                    float airtime = deltaX / initialVelocity.x;
+                    // Predict where the player will be.
+                    Vector2 predictedPlayerPosition;                        
                     if (player.GetComponent<Animator>().GetBool("IsGliding") == true) // Do not account for gravity.
-                        deltaY = Math.Abs(transform.position.y - player.transform.position.y - player.GetComponent<Rigidbody2D>().velocity.y * throwTime * (float)predictionPercentage);
+                        predictedPlayerPosition = PredictLocation(player.transform.position, player.GetComponent<Rigidbody2D>().velocity, 0, airtime);
                     else // Account for gravity.
-                        deltaY = Math.Abs(transform.position.y - player.transform.position.y - player.GetComponent<Rigidbody2D>().velocity.y * throwTime * (float)predictionPercentage + 0.5f * playerAccelerationY * throwTime * throwTime * (float)predictionPercentage);
-                    deltaY = (float)Math.Min(deltaY, transform.position.y - 5.879); // The player does not go through the floor, so a lower bound is set.
-                    // Recalculate how long it will take the rock to reach the player.
-                    // In theory, this and the previous step could be repeated to increase accuracy, but the prediction is still accurate without it.
-                    throwTime = (float)Math.Sqrt(2f * deltaY / rockAccelerationY);
-                    // Calculate the throw speed, but cap it.
-                    float throwSpeedX = Math.Min(deltaX / throwTime, maxThrowSpeed);
+                        predictedPlayerPosition = PredictLocation(player.transform.position, player.GetComponent<Rigidbody2D>().velocity, playerAccelerationY, airtime);
+                    float predictedDeltaX = predictedPlayerPosition.x - transform.position.x;
+                    float predictedDeltaY = predictedPlayerPosition.y - transform.position.y;
+                    // Use the prediction percentage.
+                    predictedDeltaX = deltaX + (predictedDeltaX - deltaX) * (float)predictionPercentage;
+                    predictedDeltaY = deltaY + (predictedDeltaY - deltaY) * (float)predictionPercentage; 
+                    // Recalculate which velocity to throw the rock at.
+                    initialVelocity = GetMinInitialThrowVelocity(predictedDeltaX, predictedDeltaY, rockAccelerationY);
 
                     // Face the player before throwing the rock.
-                    // This might end up interfering with the throwing animation, in which case this line can be removed.
+                    // If this ends up interfering with the throwing animation, this line can be removed.
                     FacePlayer();
 
-                    // Launch rock foward.
-                    if (side == "LEFT")
-                    {
-                        rock.velocity = new Vector2(throwSpeedX, 0f);
-                    }
-                    else if (side == "RIGHT")
-                    {
-                        rock.velocity = new Vector2(-throwSpeedX, 0f);
-                    }
+                    // Launch the rock.
+                    rock.velocity = initialVelocity;
 
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
@@ -559,22 +558,6 @@ public class GebBossController : MonoBehaviour
                 break;
         }
 
-        // If Geb is too low, raise Geb.
-        // If the player is above Geb, match Geb's y velocity to the player's y velocity.
-        // If the player is not above Geb, and Geb is too high up, lower Geb.
-        if (transform.position.y < 15f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 5f);
-        }
-        else if (transform.position.y < player.transform.position.y)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, player.GetComponent<Rigidbody2D>().velocity.y);
-        }
-        else if (transform.position.y > 16f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, -5f);
-        }
-
         // Flip Geb depending on which region the target position is in.
         if (side == "LEFT")
         {
@@ -588,7 +571,7 @@ public class GebBossController : MonoBehaviour
 
     /// Runs every frame when Geb is in phase 2.
     void Phase2State()
-    {
+    {   
         // Update currentActionTimer.
         currentActionTimer += Time.deltaTime;
 
@@ -791,83 +774,46 @@ public class GebBossController : MonoBehaviour
                 {
                     // Summon rock and get its Rigidbody2D component.
                     Rigidbody2D rock = Instantiate(throwableRock, transform.position, transform.rotation).GetComponent<Rigidbody2D>();
-                    
-                    // Calculate the speed and angle the rock should be thrown at in order to hit the player.
+
+                    // The speed and angle the rock should be thrown at in order to hit the player if they don't move.
                     // Get the rock's gravity.
                     float rockAccelerationY = Math.Abs(Physics2D.gravity.y * rock.gravityScale);
-                    // Calculate Geb's relative position to the player
+                    // Get player's relative position to Geb.
                     float deltaX = player.transform.position.x - transform.position.x;
                     float deltaY = player.transform.position.y - transform.position.y;
-                    // Potential angles to throw the rock at. The angle with the minimum throw speed or maximum time to reach the
-                    // target position can be used. 14 angles evenly spaced around a circle are tested (14 avoids tan(pi/2)).
-                    List<double> angles = new List<double>();
-                    List<double> times = new List<double>();
-                    List<double> initialVelocities = new List<double>();
-                    // Get all angles.
-                    int totalAngles = 14;
-                    double angleStep = 2 * Math.PI / totalAngles;
-                    for (int i = 0; i < totalAngles; i++)
-                    {
-                        angles.Add(i * angleStep);
-                    }
-                    // Calculate the time and initial velocity to reach the target position for each angle.
-                    foreach (double angle in angles)
-                    {
-                        // Avoid taking the square root of a negative.
-                        if (0 <= rockAccelerationY*Math.Pow(deltaX, 2)*Math.Pow(Math.Tan(angle), 2)/(2*deltaX*Math.Tan(angle)-2*deltaY))
-                        {
-                            // Calculate the time and initial velocity for the rock to hit the target position at each angle.
-                            double initialVelocityY = Math.Sqrt(rockAccelerationY*Math.Pow(deltaX, 2)*Math.Pow(Math.Tan(angle), 2)/(2*deltaX*Math.Tan(angle)-2*deltaY));
-                            times.Add(deltaX*Math.Tan(angle)/initialVelocityY);
-                            initialVelocities.Add(Math.Sqrt(Math.Pow(initialVelocityY/Math.Tan(angle), 2)+Math.Pow(initialVelocityY, 2)));
-                        }
-                        else
-                        {
-                            // Invalidate the angles that have imaginary answers.
-                            times.Add(0);
-                            initialVelocities.Add(100000);
-                        }
-                        
-                    }
-                    // Get the index of the optimized angle, whether that be maximum time to reach the target position
-                    // or minimum velocity to reach the target position. NaN values are skipped.
-                    int maxTimeIndex = times.IndexOf(times.Where(x => !double.IsNaN(x)).Max());
-                    int minVelocityIndex = initialVelocities.IndexOf(initialVelocities.Where(x => !double.IsNaN(x)).Min());
-                    // Face the player before throwing the rock.
-                    FacePlayer();
-                    // Get the x and y velocity for the angle with the minimum initial velocity to reach the target position.
-                    double xVelocity = initialVelocities[minVelocityIndex] * Math.Cos(angles[minVelocityIndex]);
-                    double yVelocity = initialVelocities[minVelocityIndex] * Math.Sin(angles[minVelocityIndex]);
-                    // Fix sign issues by making sure that the velocities are in the correct quadrant.
-                    if ((int)(xVelocity / Math.Abs(xVelocity)) != (int)(deltaX / Math.Abs(deltaX)))
-                    {
-                        xVelocity = -xVelocity;
-                        yVelocity = -yVelocity;
-                    }
-                    // Launch the rock.
-                    rock.velocity = new Vector2((float)xVelocity, (float)yVelocity);
-                    /*
-                    Player position prediction will have to be adapted to work with this new angle picking method!
-                    This is what that code was:
-                    // The predicted amount of time the rock will take to reach the player if they don't move.
-                    float throwTime = (float)Math.Sqrt(2f * deltaY / rockAccelerationY);
+                    // Velocity to throw the rock at.
+                    Vector2 initialVelocity = GetMinInitialThrowVelocity(deltaX, deltaY, rockAccelerationY);
+
+                    // Predict where the player will end up by the time the rock reaches them.
+                    // The rock is thrown somewhere between this predicted location and the player's current position.
+                    // The prediction is based on the rock's calculated airtime, but the result of the prediction changes the airtime.
+                    // So, this prediction isn't perfect, but repeating it several times could improve accuracy.
                     // Get the player's gravity.
                     float playerAccelerationY = Math.Abs(Physics2D.gravity.y * player.GetComponent<Rigidbody2D>().gravityScale);
-                    // How much the player's current instantaneous velocity is taken into consideration when throwing the rock.
+                    // What percentage of the player's current motion is taken into consideration when predicting the new location.
                     double predictionPercentage = Math.Sqrt(rng.NextDouble());
-                    // Predict where the rock will be by the time it reaches the player.
-                    deltaX = Math.Abs(transform.position.x - player.transform.position.x - player.GetComponent<Rigidbody2D>().velocity.x * throwTime * (float)predictionPercentage);
+                    // Approximate how long it will take the rock to reach the player
+                    float airtime = deltaX / initialVelocity.x;
+                    // Predict where the player will be.
+                    Vector2 predictedPlayerPosition;                        
                     if (player.GetComponent<Animator>().GetBool("IsGliding") == true) // Do not account for gravity.
-                        deltaY = Math.Abs(transform.position.y - player.transform.position.y - player.GetComponent<Rigidbody2D>().velocity.y * throwTime * (float)predictionPercentage);
+                        predictedPlayerPosition = PredictLocation(player.transform.position, player.GetComponent<Rigidbody2D>().velocity, 0, airtime);
                     else // Account for gravity.
-                        deltaY = Math.Abs(transform.position.y - player.transform.position.y - player.GetComponent<Rigidbody2D>().velocity.y * throwTime * (float)predictionPercentage + 0.5f * playerAccelerationY * throwTime * throwTime * (float)predictionPercentage);
-                    deltaY = (float)Math.Min(deltaY, transform.position.y - 5.879); // The player does not go through the floor, so a lower bound is set.
-                    // Recalculate how long it will take the rock to reach the player.
-                    // In theory, this and the previous step could be repeated to increase accuracy, but the prediction is still accurate without it.
-                    throwTime = (float)Math.Sqrt(2f * deltaY / rockAccelerationY);
-                    // Calculate the throw speed, but cap it.
-                    float throwSpeedX = Math.Min(deltaX / throwTime, maxThrowSpeed);
-                    */
+                        predictedPlayerPosition = PredictLocation(player.transform.position, player.GetComponent<Rigidbody2D>().velocity, playerAccelerationY, airtime);
+                    float predictedDeltaX = predictedPlayerPosition.x - transform.position.x;
+                    float predictedDeltaY = predictedPlayerPosition.y - transform.position.y;
+                    // Use the prediction percentage.
+                    predictedDeltaX = deltaX + (predictedDeltaX - deltaX) * (float)predictionPercentage;
+                    predictedDeltaY = deltaY + (predictedDeltaY - deltaY) * (float)predictionPercentage; 
+                    // Recalculate which velocity to throw the rock at.
+                    initialVelocity = GetMinInitialThrowVelocity(predictedDeltaX, predictedDeltaY, rockAccelerationY);
+
+                    // Face the player before throwing the rock.
+                    // If this ends up interfering with the throwing animation, this line can be removed.
+                    FacePlayer();
+
+                    // Launch the rock.
+                    rock.velocity = initialVelocity;
 
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
@@ -980,6 +926,7 @@ public class GebBossController : MonoBehaviour
 
     // Used within phase 1 to set Geb's current action to Moving and to calculate a new target position for Geb to move towards.
     // Variable "side" is used to determine whether Geb will pick a target position to the left or to the right of the player.
+    // This is also used within phase 2 (temporary).
     private void Phase1StartMoving()
     {
         // This counts as a new action, reset currentActionTimer.
@@ -1013,5 +960,61 @@ public class GebBossController : MonoBehaviour
         {
             targetPositionX = rightMin + (float)rng.NextDouble() * (rightMax - rightMin);
         }
+    }
+
+    /// <summary>
+    /// Find the velocity vector with the minimum possible magnitude
+    /// that can reach a given target location when launching a projectile.
+    /// </summary>
+    /// <param name="deltaX">The x distance to the target location.</param>
+    /// <param name="deltaY">The y distance to the target location.</param>
+    /// <param name="gravity">The magnitude of the gravity of the projectile (direction assumed downwards).</param>
+    /// <returns>A vector2 that is to be used as the velocity of the projectile.</returns>
+    Vector2 GetMinInitialThrowVelocity(float deltaX, float deltaY, float gravity)
+    {
+        // The only condition where the math breaks is if deltaX and deltaY are both 0, but the solution for that is easy.
+        if (deltaX == 0f && deltaY == 0f)
+            return new Vector2(0f, 0f);
+        // Calculate terms that will simplify the equation.
+        double n = gravity * deltaX;
+        double m = 2 * gravity * deltaY;
+        // This equation calculates the y component of the velocity vector with the minimum possible magnitude that will reach the player.
+        // I got to this equation through a combination of physics, calculus, graphing (Desmos), and a solver (WolframAlpha).
+        double initialVelocityY = Math.Sqrt(
+                                      (Math.Pow(m, 3))         / (          Math.Pow(m, 2) + 4 * Math.Pow(n, 2))
+                                    + (Math.Pow(m, 2))         / (Math.Sqrt(Math.Pow(m, 2) + 4 * Math.Pow(n, 2)))
+                                    + (4 * Math.Pow(n, 2) * m) / (          Math.Pow(m, 2) + 4 * Math.Pow(n, 2))
+                                    + (2 * Math.Pow(n, 2))     / (Math.Sqrt(Math.Pow(m, 2) + 4 * Math.Pow(n, 2)))
+                                  ) / Math.Sqrt(2);
+        // The x component can be related to the y component and the terms.
+        double initialVelocityX = n / (initialVelocityY + Math.Sqrt(Math.Pow(initialVelocityY, 2) - m));
+        // Return the vector.
+        return new Vector2((float)initialVelocityX, (float)initialVelocityY);
+    }
+
+    /// <summary>
+    /// Predicts where something will be in a given amount of time based on its current position, velocity, and gravity.
+    /// Limits are placed that excludes positions out of bounds.
+    /// </summary>
+    /// <param name="currentPos">Current position of the entity.</param>
+    /// <param name="currentVel">Current velocity of the entity.</param>
+    /// <param name="gravity">Magnitude of gravity on the entity (assumed downwards).</param>
+    /// <param name="time">Number of seconds in the future this prediction will be made for.</param>
+    /// <returns>A vector2 of the predicted position.</returns>
+    Vector2 PredictLocation(Vector2 currentPos, Vector2 currentVel, float gravity, float time)
+    {
+        // Initialize the variables.
+        float predictedPosX, predictedPosY;
+        // Predict the x position of the entity if it stays at a constant velocity.
+        predictedPosX = currentPos.x + currentVel.x * (float)time;
+        // Limit the predicion to always stay in bounds.
+        predictedPosX = (float)Math.Max(predictedPosX, bounds.LeftPoint().x);
+        predictedPosX = (float)Math.Min(predictedPosX, bounds.RightPoint().x);
+        // Predict the x position of the entity if it stays at a constant velocity and under constant gravity.
+        predictedPosY = currentPos.y + currentVel.y * (float)time - 0.5f * gravity * (float)Math.Pow(time, 2);
+        // Limit the prediction to always stay in bounds.
+        predictedPosY = (float)Math.Max(predictedPosY, 5.879);
+        // Return the position.
+        return new Vector2(predictedPosX, predictedPosY);
     }
 }

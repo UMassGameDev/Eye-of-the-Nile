@@ -664,7 +664,7 @@ MonoBehaviour:
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
   destroyOnDeath: 0
-  maxHealth: 1000
+  maxHealth: 80
   soulsDroppedOnDeath: 0
   godSoulsDroppedOnDeath: 1
   canBeInvincible: 0
