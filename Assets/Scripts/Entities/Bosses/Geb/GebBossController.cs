@@ -11,7 +11,7 @@ This script mainly consists of:
 - An enum for the actions that Geb will use in phases 1-3 (the boss battle).
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 1/9/2025
+Documentation updated 1/10/2025
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
@@ -23,13 +23,13 @@ Documentation updated 1/9/2025
 /// </summary>
 public enum GebAction
 {
-    /*! Unlocked in phase 1. On Idle, Geb stops moving and does nothing (usually brief).*/
+    /*! Unlocked in phase 1. On Idle, Geb stops moving and (briefly) does nothing.*/
     Idle,
     /*! Unlocked in phase 1. On Moving, Geb moves until reaching a target position.*/
     Moving,
     /*! Unlocked in phase 1. On RockThrowAttack, Geb stops moving, prepares to throw a rock, and ends by throwing it.*/
     RockThrowAttack,
-    /*! Unlocked in phase 2. On WallSummon, Geb stops moving and raises a wall. (Counts as an attack, but does no damage.)*/
+    /*! Unlocked in phase 2. On WallSummon, Geb stops moving and raises a wall. (Counts as an attack.)*/
     WallSummon,
     /*! Unlocked in phase 2. On ChargeAttack, Geb runs towards the player, deals damage, and breaks any walls in his path.*/
     ChargeAttack
@@ -56,6 +56,8 @@ public class GebBossController : MonoBehaviour
     [SerializeField] protected Sprite phase2Sprite;
     /// The hitbox that Geb uses during a charge attack to damage the player and destroy walls.
     [SerializeField] protected GameObject chargeAttackHitbox;
+    /// Reference to the wall prefab for the walls that Geb summons in phase 2 and 3.
+    [SerializeField] protected GameObject protectiveWall;
 
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
     protected float bossActivationRadius = 11f;
@@ -71,6 +73,7 @@ public class GebBossController : MonoBehaviour
     /// <summary>
     /// The minimum number of non-attack actions that can happen in a row whenever there has already been at least 1 non-attack.
     /// Values less than or equal to 1 do nothing.
+    /// This can get cut short if an attack is forced. For example, Geb gets stuck on one of his walls and must start a charge attack.
     /// </summary>
     protected int minNonAttackChain = 2;
     /// (Phase 1) The speed at which Geb moves horizontally.
@@ -81,7 +84,9 @@ public class GebBossController : MonoBehaviour
     protected float idleDuration = 1f;
     /// (Phase 1 and 2) The duration of the rock throw animation before the rock entity is spawned (in seconds).
     protected float throwDuration = 1f;
-    /// (Phase 2) The amount of time that Geb will charge for (in seconds).
+    /// (Phase 2) The amount of time that Geb will spend raising a wall (in seconds).
+    protected float wallSummonDuration = 1f;
+    /// (Phase 2) The maximum amount of time that Geb will charge for (in seconds).
     protected float chargeDuration = 2f;
     /// (Phase 1 and 2) The minimum horizontal distance that Geb will try to keep from the player when moving.
     protected float minPlayerDistanceX = 10f;
@@ -218,9 +223,16 @@ public class GebBossController : MonoBehaviour
     }
 
     /// Called by GebPhaseController once when phase 3 starts.
-    public void GebPhase3Started() {}
+    public void GebPhase3Started()
+    {
+        // If Geb's current action is interrupted when this phase starts, remember to deactivate the charge attack hitbox.
+    }
     /// Called by GebPhaseController once when the closing cutscene starts.
-    public void GebClosingCutsceneStarted() {}
+    public void GebClosingCutsceneStarted()
+    {
+        // Deactivate the charge attack hitbox in case it was active from the previous phase.
+        chargeAttackHitbox.SetActive(false);
+    }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated() {}
 
@@ -559,6 +571,8 @@ public class GebBossController : MonoBehaviour
     ///     - Moving:
     ///         - Pick a location to move to.
     ///             - This only occurs once, when the action is initiated.
+    ///         - Check if Geb has gotten stuck on a wall (no x velocity). If he has, then:
+    ///             - Start a charge attack.
     ///         - Update Geb's x velocity.
     ///         - Check if Geb has gotten within 1 unit of the target position. If he has, then:
     ///             - Check if the player has gotten close to being behind Geb. If so, then Geb has a chance to change direction.
@@ -586,8 +600,10 @@ public class GebBossController : MonoBehaviour
     ///             - This only occurs once, when the attack is initiated.
     ///             - It should be picked in the direction of the player.
     ///         - Geb can have a wind up animation before charging forward (unimplemented).
-    ///         - Activate a hitbox on Geb that both damages the player and (unimplemented) destroys walls.
+    ///         - Activate a hitbox on Geb that both damages the player and destroys walls.
     ///             - The activation occurs only once, when the attack is initiated.
+    ///         - Check if Geb has gotten stuck on one of the outer walls of the bossroom (no x velocity). If so, then:
+    ///             - End the charge attack early.
     ///         - Update Geb's x velocity.
     ///         - Wait for the duration of the charge attack to finish. Once it does:
     ///             - Disable the damaging hitbox.
@@ -622,32 +638,20 @@ public class GebBossController : MonoBehaviour
                     // Override randomNumber if necessary.
                     if (attackCount > -minNonAttackChain) // The min number of non-attacks has not been reached yet.
                     {
-                        randomNumber = 0.3; // Start Moving.
+                        randomNumber = 0.2; // Start Moving.
                     }
                     else if (attackCount <= -maxNonAttackChain) // The max number of non-attacks have occurred in a row.
                     {
-                        randomNumber = 0.8 + (0.5 - rng.NextDouble()) / 5; // Start a RockThrowAttack or ChargeAttack.
+                        randomNumber = 0.7 + (0.5 - rng.NextDouble()) / 5 * 3; // Start a RockThrowAttack, WallSummon, or ChargeAttack.
                     }
 
                     // Unless overridden,
-                    // 60% chance to start Moving.
-                    // - 10% chance to change side.
+                    // 40% chance to start Moving.
                     // 20% chance to start a RockThrowAttack.
-                    // 20% chacne to start a ChargeAttack.
-                    if (randomNumber >= 0.0 && randomNumber < 0.8)
+                    // 30% chacne to start a WallSummon.
+                    // 10% chacne to start a ChargeAttack.
+                    if (randomNumber >= 0.0 && randomNumber < 0.4)
                     {
-                        // 10% chance to change side.
-                        if (side == "LEFT")
-                        {   
-                            if (rng.NextDouble() < 0.1) { side = "RIGHT"; }
-                            else { side = "LEFT"; }
-                        }
-                        else if (side == "RIGHT")
-                        {
-                            if (rng.NextDouble() < 0.1) { side = "LEFT"; }
-                            else { side = "RIGHT"; }
-                        }
-
                         // Start moving action.
                         StartMoving();
                         // Update attackCount.
@@ -656,7 +660,7 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount--;
                     }
-                    else if (randomNumber >= 0.6 && randomNumber < 0.8)
+                    else if (randomNumber >= 0.4 && randomNumber < 0.6)
                     {
                         // Face the player.
                         FacePlayer();
@@ -670,7 +674,17 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount++;
                     }
-                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    else if (randomNumber >= 0.6 && randomNumber < 0.9)
+                    {
+                        // Summon a wall.
+                        StartWallSummon();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.9 && randomNumber < 1)
                     {
                         // Start charge attack.
                         StartChargeAttack();
@@ -693,6 +707,18 @@ public class GebBossController : MonoBehaviour
                 else if (transform.position.x > targetPositionX)
                 {
                     horizontalDirection = -1f;
+                }
+
+                // If Geb has no x velocity (got stuck on a wall), then start a charge attack.
+                if (rb.velocity.x == 0f)
+                {
+                    // Start charge attack.
+                    StartChargeAttack();
+                    // Update attackCount.
+                    if (attackCount < 0)
+                        attackCount = 1;
+                    else
+                        attackCount++;
                 }
 
                 // Update Geb's x velocity.
@@ -718,9 +744,10 @@ public class GebBossController : MonoBehaviour
                     // Unless overridden,
                     // If the player is within 1 unit of being behind Geb, then there is a 50% for Geb to change side.
                     // If the player did not get close to behind Geb or the 50% chance failed, then:
-                    // - 30% chance to start being Idle.
-                    // - 35% chance to start a RockThrowAttack.
-                    // - 35% chance to start a ChargeAttack.
+                    // - 40% chance to start being Idle.
+                    // - 20% chance to start a RockThrowAttack.
+                    // - 30% chance to start a WallSummon.
+                    // - 10% chance to start a ChargeAttack.
                     if (side == "LEFT" && transform.position.x > player.transform.position.x - 1 && randomNumber < 0.5)
                     {
                         // Change the side.
@@ -755,18 +782,19 @@ public class GebBossController : MonoBehaviour
                         // Override randomNumber if necessary.
                         if (attackCount > -minNonAttackChain) // The min number of non-attacks has not been reached yet.
                         {
-                            randomNumber = 0.15; // Start being Idle.
+                            randomNumber = 0.2; // Start being Idle.
                         }
                         else if (attackCount <= -maxNonAttackChain) // The max number of non-attacks have occurred in a row.
                         {
-                            randomNumber = 0.65 + (0.5 - rng.NextDouble()) / 5; // Start a RockThrowAttack or ChargeAttack.
+                            randomNumber = 0.7 + (0.5 - rng.NextDouble()) / 5 * 3; // Start a RockThrowAttack, WallSummon, or ChargeAttack.
                         }
 
                         // Unless overridden,
-                        // 30% chance to start being Idle.
-                        // 35% chance to start a RockThrowAttack.
-                        // 35% chance to start a ChargeAttack.
-                        if (randomNumber >= 0.0 && randomNumber < 0.3)
+                        // 40% chance to start being Idle.
+                        // 20% chance to start a RockThrowAttack.
+                        // 30% chance to start a WallSummon.
+                        // 10% chance to start a ChargeAttack.
+                        if (randomNumber >= 0.0 && randomNumber < 0.4)
                         {
                             // Face the player.
                             FacePlayer();
@@ -780,7 +808,7 @@ public class GebBossController : MonoBehaviour
                             else
                                 attackCount--;
                         }
-                        else if (randomNumber >= 0.3 && randomNumber < 0.65)
+                        else if (randomNumber >= 0.4 && randomNumber < 0.6)
                         {
                             // Face the player.
                             FacePlayer();
@@ -794,7 +822,17 @@ public class GebBossController : MonoBehaviour
                             else
                                 attackCount++;
                         }
-                        else if (randomNumber >= 0.65 && randomNumber < 1)
+                        else if (randomNumber >= 0.6 && randomNumber < 0.9)
+                        {
+                            // Summon a wall.
+                            StartWallSummon();
+                            // Update attackCount.
+                            if (attackCount < 0)
+                                attackCount = 1;
+                            else
+                                attackCount++;
+                        }
+                        else if (randomNumber >= 0.9 && randomNumber < 1)
                         {
                             // Start charge attack.
                             StartChargeAttack();
@@ -880,11 +918,97 @@ public class GebBossController : MonoBehaviour
                 break;
             
             case GebAction.WallSummon:
-                Debug.Log("Geb's wall summon has not been implemented yet!");
+                // Geb is not moving.
+                horizontalDirection = 0f;
+
+                // TEMPORARY Wiggle animation.
+                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                
+                // Once the duration of the wall summon is over, start a different action.
+                if (currentActionTimer > currentActionDuration)
+                {
+                    // A new action is going to be started, so currentActionTimer can be reset.
+                    currentActionTimer = 0.0f;
+
+                    // Get a random number [0, 1) to be used for randomly picking the next action.
+                    double randomNumber = rng.NextDouble();
+
+                    // Limit the number of attacks that can happen in a row.
+                    // There is also a minimum number of attacks that can happen in a row.
+                    // Override randomNumber if necessary.
+                    if (attackCount >= maxAttackChain) // The max number of attacks have occurred in a row.
+                    {
+                        randomNumber = 0.3 + (0.5 - rng.NextDouble()) / 5; // Start being Idle or start Moving.
+                    }
+                    else if (attackCount < minAttackChain) // The min number of attacks has not been reached yet.
+                    {
+                        randomNumber = 0.8 + (0.5 - rng.NextDouble()) / 5; // Start a RockThrowAttack or ChargeAttack.
+                    }
+
+                    // Unless overridden,
+                    // 30% chance to start being Idle.
+                    // 30% chance to start Moving.
+                    // 20% chance to start a RockThrowAttack.
+                    // 20% chance to start a ChargeAttack.
+                    if (randomNumber >= 0.0 && randomNumber < 0.3)
+                    {
+                        // Face the player.
+                        FacePlayer();
+                        // Start idling.
+                        currentAction = GebAction.Idle;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = idleDuration;
+                        // Update attackCount.
+                        if (attackCount > 0)
+                            attackCount = -1;
+                        else
+                            attackCount--;
+                    }
+                    else if (randomNumber >= 0.3 && randomNumber < 0.6)
+                    {
+                        // Start moving action.
+                        StartMoving();
+                        // Update attackCount.
+                        if (attackCount > 0)
+                            attackCount = -1;
+                        else
+                            attackCount--;
+                    }
+                    else if (randomNumber >= 0.6 && randomNumber < 0.8)
+                    {
+                        // Face the player.
+                        FacePlayer();
+                        // Start rock throw attack.
+                        currentAction = GebAction.RockThrowAttack;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = throwDuration;
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    {
+                        // Start charge attack.
+                        StartChargeAttack();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                }
                 break;
             
             case GebAction.ChargeAttack:
-                // Update Geb's x velocity.
+                // If Geb has no x velocity (got stuck on an outer wall), then end the charge attack early.
+                if (rb.velocity.x == 0f)
+                {
+                    currentActionDuration = 0f;
+                }
+
+                // Update Geb's x velocity. horizontalDirection is determined before the attack starts.
                 rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
 
                 // Once Geb has been charging for long enough, deactivate the hitbox and start a new action.
@@ -904,18 +1028,19 @@ public class GebBossController : MonoBehaviour
                     // Override randomNumber if necessary.
                     if (attackCount >= maxAttackChain) // The max number of attacks have occurred in a row.
                     {
-                        randomNumber = 0.4 + (0.5 - rng.NextDouble()) / 5; // Start being Idle or start Moving.
+                        randomNumber = 0.3 + (0.5 - rng.NextDouble()) / 5; // Start being Idle or start Moving.
                     }
                     else if (attackCount < minAttackChain) // The min number of attacks has not been reached yet.
                     {
-                        randomNumber = 0.9; // Start a RockThrowAttack.
+                        randomNumber = 0.8 + (0.5 - rng.NextDouble()) / 5; // Start a RockThrowAttack or WallSummon.
                     }
 
                     // Unless overridden,
-                    // 40% chance to start being Idle.
-                    // 40% chance to start Moving.
+                    // 30% chance to start being Idle.
+                    // 30% chance to start Moving.
                     // 20% chance to start a RockThrowAttack.
-                    if (randomNumber >= 0.0 && randomNumber < 0.4)
+                    // 20% chance to start a WallSummon.
+                    if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
                         // Face the player.
                         FacePlayer();
@@ -929,7 +1054,7 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount--;
                     }
-                    else if (randomNumber >= 0.4 && randomNumber < 0.8)
+                    else if (randomNumber >= 0.3 && randomNumber < 0.6)
                     {
                         // Start moving action.
                         StartMoving();
@@ -939,7 +1064,7 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount--;
                     }
-                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    else if (randomNumber >= 0.6 && randomNumber < 0.8)
                     {
                         // Face the player.
                         FacePlayer();
@@ -947,6 +1072,16 @@ public class GebBossController : MonoBehaviour
                         currentAction = GebAction.RockThrowAttack;
                         // Make sure that the action lasts for the appropriate amount of time.
                         currentActionDuration = throwDuration;
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    {
+                        // Summon a wall.
+                        StartWallSummon();
                         // Update attackCount.
                         if (attackCount < 0)
                             attackCount = 1;
@@ -986,7 +1121,7 @@ public class GebBossController : MonoBehaviour
     /// Runs every frame when the closing cutscene is over.
     void DefeatedState() {}
 
-    // Change Geb's side to face the player (for phase 1).
+    // Change Geb's side to face the player.
     void FacePlayer()
     {
         if (transform.position.x > player.transform.position.x) // Geb is to the right of the player.
@@ -1154,6 +1289,33 @@ public class GebBossController : MonoBehaviour
         predictedPosY = (float)Math.Max(predictedPosY, 5.879);
         // Return the position.
         return new Vector2(predictedPosX, predictedPosY);
+    }
+
+    /// Used in phase 2 to set Geb's current action to WallSummon and to instantiate a wall.
+    private void StartWallSummon()
+    {
+        // This counts as a new action, so reset currentActionTimer.
+        currentActionTimer = 0.0f;
+
+        // Set Geb's current action to WallSummon.
+        currentAction = GebAction.WallSummon;
+
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = wallSummonDuration;
+
+        // Make sure the wall will be summoned in the correct location.
+        Vector3 wallOffset = new Vector3();
+        if (side == "LEFT")
+        {
+            wallOffset = new Vector3(10f, -8f, 0f);
+        }
+        else if (side == "RIGHT")
+        {
+            wallOffset = new Vector3(-10f, -8f, 0f);
+        }
+
+        // Instantiate the wall.
+        Instantiate(protectiveWall, transform.position + wallOffset, transform.rotation);
     }
 
     /// <summary>
