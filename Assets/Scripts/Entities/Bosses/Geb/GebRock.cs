@@ -2,22 +2,25 @@ using UnityEngine;
 using System;
 
 /** \brief
-Script for the rocks that Geb throws.
-Has a chance to summon rock golems when colliding any object on collisionLayers.
-collisionLayers is on this script and is set in the Inspector.
-If a rock golem is not summoned upon impact, then the rock breaks instead.
+Script for both the rocks that Geb throws and the debris that fall when Geb's walls break.
+This script detects when the rock collides with any object on collisionLayers (defined on this script in the Inspector).
+Optionally, this script can have a chance to spawn a rock golem upon impact.
+If a rock golem is not spawned, the rock will break instead.
 
-Documentation updated 1/1/2025
+Documentation updated 1/11/2025
 \author Alexander Art
 */
-public class ThrowableRock : MonoBehaviour
+public class GebRock : MonoBehaviour
 {
     /// The layers that the rock will detect when collided with.
     public LayerMask collisionLayers;
     /// Reference to Geb's room controller.
     protected GebRoomController gebRoomController;
     /// Reference to the rock golem prefab that the rocks spawn.
-    [SerializeField] protected GameObject rockGolem; 
+    [SerializeField] protected GameObject rockGolem;
+
+    /// The probability for a rock golem to spawn on collision.
+    public float spawnProbability = 0.5f;
 
     /// Create random number generator.
     private System.Random rng = new System.Random();
@@ -32,8 +35,9 @@ public class ThrowableRock : MonoBehaviour
         // If the collided object was on any of the collisionLayers.
         if (((1 << col.gameObject.layer) & collisionLayers.value) != 0)
         {
-            // If there is room for another golem to be spawned, have a 50% chance of spawning a rock golem.
-            if (gebRoomController.rockGolemCount < gebRoomController.maxRockGolems && rng.NextDouble() < 0.5)
+            // If there is room for another golem to be spawned, have a spawnProbability chance of spawning a rock golem.
+            // Otherwise, break the rock.
+            if (gebRoomController.rockGolemCount < gebRoomController.maxRockGolems && rng.NextDouble() < spawnProbability)
             {
                 // Spawn rock golem.
                 Instantiate(rockGolem, transform.position, Quaternion.identity);

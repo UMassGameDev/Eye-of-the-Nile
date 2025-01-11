@@ -1307,11 +1307,11 @@ public class GebBossController : MonoBehaviour
         Vector3 wallOffset = new Vector3();
         if (side == "LEFT")
         {
-            wallOffset = new Vector3(10f, -8f, 0f);
+            wallOffset = new Vector3(10f, -11f, 0f);
         }
         else if (side == "RIGHT")
         {
-            wallOffset = new Vector3(-10f, -8f, 0f);
+            wallOffset = new Vector3(-10f, -11f, 0f);
         }
 
         // Instantiate the wall.

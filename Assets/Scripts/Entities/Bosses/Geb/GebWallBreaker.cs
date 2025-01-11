@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /** \brief
-Script for the charge attack hitbox on Geb that to destroy his walls on collision.
+Script for the charge attack hitbox on Geb to destroy his walls on collision.
 
-Documentation updated 1/10/2025
+Documentation updated 1/11/2025
 \author Alexander Art
 */
 public class GebWallBreaker : MonoBehaviour

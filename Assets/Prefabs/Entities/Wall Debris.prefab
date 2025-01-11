@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1363697772759805393
+--- !u!1 &8408904748672844103
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9126294498954041481}
-  - component: {fileID: 3010167294520662968}
-  - component: {fileID: 7877551477045739707}
-  - component: {fileID: 2252948272979664181}
-  - component: {fileID: 4537102305933488191}
-  - component: {fileID: 6389942546637865329}
+  - component: {fileID: 5149245669061909279}
+  - component: {fileID: 1333192055690981298}
+  - component: {fileID: 1843303740449514866}
+  - component: {fileID: 5129006415865621377}
+  - component: {fileID: 3531932366907038299}
+  - component: {fileID: 2351355836336168767}
   m_Layer: 0
-  m_Name: Rock Golem Spawning Rock
+  m_Name: Wall Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9126294498954041481
+--- !u!4 &5149245669061909279
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363697772759805393}
+  m_GameObject: {fileID: 8408904748672844103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3010167294520662968
+--- !u!212 &1333192055690981298
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363697772759805393}
+  m_GameObject: {fileID: 8408904748672844103}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64d26b5b64f66f54cbfaf3e510a6c960, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,13 +88,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7877551477045739707
+--- !u!58 &1843303740449514866
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363697772759805393}
+  m_GameObject: {fileID: 8408904748672844103}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -122,15 +122,15 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!50 &2252948272979664181
+  m_Radius: 0.15
+--- !u!50 &5129006415865621377
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363697772759805393}
+  m_GameObject: {fileID: 8408904748672844103}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -150,13 +150,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4537102305933488191
+--- !u!114 &3531932366907038299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363697772759805393}
+  m_GameObject: {fileID: 8408904748672844103}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06aa06cff98639c4e8d15e25d15f3027, type: 3}
@@ -165,15 +165,15 @@ MonoBehaviour:
   collisionLayers:
     serializedVersion: 2
     m_Bits: 4104
-  rockGolem: {fileID: 3152921750765434855, guid: 0dd44a555d222db47b1ef078e899a6b5, type: 3}
-  spawnProbability: 0.5
---- !u!114 &6389942546637865329
+  rockGolem: {fileID: 0}
+  spawnProbability: 0
+--- !u!114 &2351355836336168767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363697772759805393}
+  m_GameObject: {fileID: 8408904748672844103}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86f8d08da08aa5e4c94c7e766624ef44, type: 3}
