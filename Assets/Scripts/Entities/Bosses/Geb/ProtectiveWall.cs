@@ -7,6 +7,7 @@ When the wall is broken, debris spawn in its place.
 
 Documentation updated 1/11/2025
 \author Alexander Art
+\todo Prevent walls from overlapping (being summoned on top of each other).
 */
 public class ProtectiveWall : MonoBehaviour
 {

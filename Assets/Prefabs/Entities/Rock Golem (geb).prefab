@@ -365,7 +365,7 @@ MonoBehaviour:
   moveVelocity: 3.565
   linearDrag: 1
   groundedRaycastLength: 1
-  groundNeeded: 1
+  groundNeeded: 0
   attackRange: 1.4
   knockback: 140
   knockbackEnabled: 1
@@ -490,8 +490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce08d6c199066bc44ad580e09aa8178a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPosLeft: -67
-  maxPosRight: 32
 --- !u!1 &7146406485303429131
 GameObject:
   m_ObjectHideFlags: 0
