@@ -61,9 +61,9 @@ public abstract class BaseEntityController : MonoBehaviour
     /// \todo Implement jumping for entities.
     [SerializeField] protected float groundedRaycastLength = 1.8f;
     /// Reference to the entity's GroundDetector.
-    GroundDetector groundDetector;
+    protected GroundDetector groundDetector;
     /// Can be set to false to let the entity walk even when it is not on the ground.
-    [SerializeField] bool groundNeeded = true;
+    [SerializeField] protected bool groundNeeded = true;
     /// Used for disabling entity movement.
     protected bool canWalk = true;
 
