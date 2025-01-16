@@ -63,6 +63,8 @@ public class GebBossController : MonoBehaviour
     [SerializeField] protected GameObject chargeAttackHitbox;
     /// Reference to the wall prefab for the walls that Geb summons in phase 2 and 3.
     [SerializeField] protected GameObject protectiveWall;
+    /// Reference to Geb's earthquake zone object that Geb uses in phase 3.
+    [SerializeField] protected GameObject earthquakeZone;
 
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
     protected float bossActivationRadius = 11f;
@@ -83,7 +85,7 @@ public class GebBossController : MonoBehaviour
     protected int minNonAttackChain = 2;
     /// (Phase 1) The speed at which Geb moves horizontally.
     protected float flySpeedX = 15f;
-    /// (Phase 2) The speed at which Geb moves horizontally.
+    /// (Phase 2 and 3) The speed at which Geb moves horizontally.
     protected float walkSpeedX = 10f;
     /// (Phase 1 and 2) Each time Geb stops moving (Idle), this is the duration it will last (in seconds).
     protected float idleDuration = 1f;
@@ -93,6 +95,8 @@ public class GebBossController : MonoBehaviour
     protected float wallSummonDuration = 1f;
     /// (Phase 2) The maximum amount of time that Geb will charge for (in seconds).
     protected float chargeDuration = 2f;
+    /// (Phase 3) The amount of time that Geb will quake the ground (in seconds).
+    protected float earthquakeDuration = 5f;
     /// (Phase 1 and 2) The minimum horizontal distance that Geb will try to keep from the player when moving.
     protected float minPlayerDistanceX = 10f;
     /// (Phase 1 and 2) The maximum horizontal distance that Geb will try to keep from the player when moving.
@@ -246,6 +250,8 @@ public class GebBossController : MonoBehaviour
     {
         // Deactivate the charge attack hitbox in case it was active from the previous phase.
         chargeAttackHitbox.SetActive(false);
+        // Deactivate the earthquake zone hitbox in case it was active from the previous phase.
+        earthquakeZone.SetActive(false);
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated() {}
@@ -1189,11 +1195,11 @@ public class GebBossController : MonoBehaviour
     ///         - Wait for the duration of the charge attack to finish. Once it does:
     ///             - Disable the damaging hitbox.
     ///             - Start a different action.
-    ///     - Earthquake (unimplemented):
+    ///     - Earthquake:
     ///         - Don't move.
     ///         - Animate Geb.
     ///         - A zone on the ground around Geb slows the player down and damages them.
-    ///         - Rocks are summoned in the sky that fall like meteors and can damage the player.
+    ///         - Rocks are summoned in the sky that fall like meteors and can damage the player (unimplemented).
     ///         - Wait for the duration of the earthquake attack to finish. Once it does:
     ///             - Start a different action.
     ///     - RockTornado (unimplemented):
@@ -1244,7 +1250,8 @@ public class GebBossController : MonoBehaviour
                     // 40% chance to start Moving.
                     // 20% chance to start a RockThrowAttack.
                     // 20% chacne to start a WallSummon.
-                    // 20% chacne to start a ChargeAttack.
+                    // 10% chacne to start a ChargeAttack.
+                    // 10% chacne to start an Earthquake.
                     if (randomNumber >= 0.0 && randomNumber < 0.4)
                     {
                         // Start moving action.
@@ -1279,10 +1286,23 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount++;
                     }
-                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    else if (randomNumber >= 0.8 && randomNumber < 0.9)
                     {
                         // Start charge attack.
                         StartChargeAttack();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.9 && randomNumber < 1)
+                    {
+                        // Start earthquake.
+                        currentAction = GebAction.Earthquake;
+                        earthquakeZone.SetActive(true);
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = earthquakeDuration;
                         // Update attackCount.
                         if (attackCount < 0)
                             attackCount = 1;
@@ -1342,7 +1362,8 @@ public class GebBossController : MonoBehaviour
                     // - 40% chance to start being Idle.
                     // - 20% chance to start a RockThrowAttack.
                     // - 20% chance to start a WallSummon.
-                    // - 20% chance to start a ChargeAttack.
+                    // - 10% chance to start a ChargeAttack.
+                    // - 10% chance to start an Earthquake.
                     if (side == "LEFT" && transform.position.x > player.transform.position.x - 1 && randomNumber < 0.5)
                     {
                         // Change the side.
@@ -1388,7 +1409,8 @@ public class GebBossController : MonoBehaviour
                         // 40% chance to start being Idle.
                         // 20% chance to start a RockThrowAttack.
                         // 20% chance to start a WallSummon.
-                        // 20% chance to start a ChargeAttack.
+                        // 10% chance to start a ChargeAttack.
+                        // 10% chance to start an Earthquake.
                         if (randomNumber >= 0.0 && randomNumber < 0.4)
                         {
                             // Face the player.
@@ -1427,10 +1449,23 @@ public class GebBossController : MonoBehaviour
                             else
                                 attackCount++;
                         }
-                        else if (randomNumber >= 0.8 && randomNumber < 1)
+                        else if (randomNumber >= 0.8 && randomNumber < 0.9)
                         {
                             // Start charge attack.
                             StartChargeAttack();
+                            // Update attackCount.
+                            if (attackCount < 0)
+                                attackCount = 1;
+                            else
+                                attackCount++;
+                        }
+                        else if (randomNumber >= 0.9 && randomNumber < 1)
+                        {
+                            // Start earthquake.
+                            currentAction = GebAction.Earthquake;
+                            earthquakeZone.SetActive(true);
+                            // Make sure that the action lasts for the appropriate amount of time.
+                            currentActionDuration = earthquakeDuration;
                             // Update attackCount.
                             if (attackCount < 0)
                                 attackCount = 1;
@@ -1544,7 +1579,8 @@ public class GebBossController : MonoBehaviour
                     // 30% chance to start being Idle.
                     // 30% chance to start Moving.
                     // 20% chance to start a RockThrowAttack.
-                    // 20% chance to start a ChargeAttack.
+                    // 10% chance to start a ChargeAttack.
+                    // 10% chance to start an Earthquake.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
                         // Face the player.
@@ -1583,10 +1619,23 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount++;
                     }
-                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    else if (randomNumber >= 0.8 && randomNumber < 0.9)
                     {
                         // Start charge attack.
                         StartChargeAttack();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.9 && randomNumber < 1)
+                    {
+                        // Start earthquake.
+                        currentAction = GebAction.Earthquake;
+                        earthquakeZone.SetActive(true);
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = earthquakeDuration;
                         // Update attackCount.
                         if (attackCount < 0)
                             attackCount = 1;
@@ -1635,6 +1684,7 @@ public class GebBossController : MonoBehaviour
                     // 30% chance to start Moving.
                     // 20% chance to start a RockThrowAttack.
                     // 20% chance to start a WallSummon.
+                    // 10% chance to start an Earthquake.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
                         // Face the player.
@@ -1673,10 +1723,23 @@ public class GebBossController : MonoBehaviour
                         else
                             attackCount++;
                     }
-                    else if (randomNumber >= 0.8 && randomNumber < 1)
+                    else if (randomNumber >= 0.8 && randomNumber < 0.9)
                     {
                         // Summon a wall.
                         StartWallSummon();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.9 && randomNumber < 1)
+                    {
+                        // Start earthquake.
+                        currentAction = GebAction.Earthquake;
+                        earthquakeZone.SetActive(true);
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = earthquakeDuration;
                         // Update attackCount.
                         if (attackCount < 0)
                             attackCount = 1;
@@ -1687,7 +1750,101 @@ public class GebBossController : MonoBehaviour
                 break;
 
             case GebAction.Earthquake:
-                Debug.Log("Geb's earthquake attack has been activated, but this feature hasn't been implemented yet!");
+                // Geb is not moving.
+                horizontalDirection = 0f;
+
+                // Wiggle animation.
+                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 25f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+
+                // Once Geb has been quaking for long enough, deactivate the hitbox and start a new action.
+                if (currentActionTimer > currentActionDuration)
+                {
+                    // Deactivate the earthquake hitbox.
+                    earthquakeZone.SetActive(false);
+
+                    // A new action is going to be started, so currentActionTimer can be reset.
+                    currentActionTimer = 0.0f;
+
+                    // Get a random number [0, 1) to be used for randomly picking the next action.
+                    double randomNumber = rng.NextDouble();
+
+                    // Limit the number of attacks that can happen in a row.
+                    // There is also a minimum number of attacks that can happen in a row.
+                    // Override randomNumber if necessary.
+                    if (attackCount >= maxAttackChain) // The max number of attacks have occurred in a row.
+                    {
+                        randomNumber = 0.3 + (0.5 - rng.NextDouble()) / 5; // Start being Idle or start Moving.
+                    }
+                    else if (attackCount < minAttackChain) // The min number of attacks has not been reached yet.
+                    {
+                        randomNumber = 0.8 + (0.5 - rng.NextDouble()) / 5; // Start a RockThrowAttack or WallSummon.
+                    }
+
+                    // Unless overridden,
+                    // 30% chance to start being Idle.
+                    // 30% chance to start Moving.
+                    // 20% chance to start a RockThrowAttack.
+                    // 10% chance to start a WallSummon.
+                    // 10% chance to start a ChargeAttack.
+                    if (randomNumber >= 0.0 && randomNumber < 0.3)
+                    {
+                        // Face the player.
+                        FacePlayer();
+                        // Start idling.
+                        currentAction = GebAction.Idle;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = idleDuration;
+                        // Update attackCount.
+                        if (attackCount > 0)
+                            attackCount = -1;
+                        else
+                            attackCount--;
+                    }
+                    else if (randomNumber >= 0.3 && randomNumber < 0.6)
+                    {
+                        // Start moving action.
+                        StartMoving();
+                        // Update attackCount.
+                        if (attackCount > 0)
+                            attackCount = -1;
+                        else
+                            attackCount--;
+                    }
+                    else if (randomNumber >= 0.6 && randomNumber < 0.8)
+                    {
+                        // Face the player.
+                        FacePlayer();
+                        // Start rock throw attack.
+                        currentAction = GebAction.RockThrowAttack;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = throwDuration;
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.8 && randomNumber < 0.9)
+                    {
+                        // Summon a wall.
+                        StartWallSummon();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.9 && randomNumber < 1)
+                    {
+                        // Start charge attack.
+                        StartChargeAttack();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                }
                 break;
 
             case GebAction.RockTornado:
