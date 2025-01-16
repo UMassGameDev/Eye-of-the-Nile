@@ -22854,6 +22854,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 786795895}
   healthbar: {fileID: 885547772}
   bounds: {fileID: 589841332}
+  fallingSkyRocks: {fileID: 6842790148956604600, guid: 9c9d40a830c78394d8d1e8c1b2330a9d, type: 3}
   rockGolemCount: 0
   maxRockGolems: 4
 --- !u!114 &1378591472
@@ -23785,7 +23786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 10
-  timeBetweenDamage: 1
+  timeBetweenDamage: 0.2
   playerMoveVelocity: 6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

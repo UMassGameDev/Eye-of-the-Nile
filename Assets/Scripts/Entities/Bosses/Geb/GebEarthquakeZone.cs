@@ -6,7 +6,7 @@ using UnityEngine;
 public class GebEarthquakeZone : MonoBehaviour
 {
     [SerializeField] int damageAmount = 10;
-    [SerializeField] float timeBetweenDamage = 1f;
+    [SerializeField] float timeBetweenDamage = .2f;
     [SerializeField] float playerMoveVelocity = 6f;
     float damageTimer = 0f;
 
@@ -27,7 +27,6 @@ public class GebEarthquakeZone : MonoBehaviour
             foreach (PlayerHealth health in objectsToDamage)
             {
                 health.TakeDamage(this.transform, damageAmount);
-                Debug.Log("heck");
                 if (health.IsDead)
                     objectsToDamage.Remove(health);
             }

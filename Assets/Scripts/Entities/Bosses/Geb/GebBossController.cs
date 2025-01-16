@@ -8,37 +8,13 @@ This script is a work in progress. It will control Geb's movement and will trigg
 This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame, one for each phase.
-- An enum for the actions that Geb will use in phases 1-3 (the boss battle).
-- Other functions to initiate attacks/assist with actions.
+- A few other functions to initiate attacks/assist with actions.
 
 Documentation updated 1/14/2024
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
 */
-
-/// <summary>
-/// The actions that Geb will use in phases 1-3. Phases Inactive, OpeningCutscene, ClosingCutscene, and Defeated DO NOT use this.
-/// New actions unlock cumulatively with each additional phase until the fight is over.
-/// </summary>
-public enum GebAction
-{
-    /*! Unlocked in phase 1. On Idle, Geb stops moving and (briefly) does nothing.*/
-    Idle,
-    /*! Unlocked in phase 1. On Moving, Geb moves until reaching a target position.*/
-    Moving,
-    /*! Unlocked in phase 1. On RockThrowAttack, Geb stops moving, prepares to throw a rock, and ends by throwing it.*/
-    RockThrowAttack,
-    /*! Unlocked in phase 2. On WallSummon, Geb stops moving and raises a wall. (Counts as an attack.)*/
-    WallSummon,
-    /*! Unlocked in phase 2. On ChargeAttack, Geb runs towards the player, deals damage, and breaks any walls in his path.*/
-    ChargeAttack,
-    /*! Unlocked in phase 3. On Earthquake, Geb quakes the ground near him while rocks fall from the sky like meteors.*/
-    Earthquake,
-    /*! Unlocked in phase 3. On RockTornado, Geb surrounds himself in a protective tornado that damages the player on touch.*/
-    RockTornado
-}
-
 public class GebBossController : MonoBehaviour
 {
     /// Reference to Geb's health script, used for keeping Geb invincible before the bossfight starts.
@@ -1754,7 +1730,7 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 25f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 25f, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
 
                 // Once Geb has been quaking for long enough, deactivate the hitbox and start a new action.
                 if (currentActionTimer > currentActionDuration)
@@ -2113,4 +2089,6 @@ public class GebBossController : MonoBehaviour
         // Activate the charge attack hitbox.
         chargeAttackHitbox.SetActive(true);
     }
+
+    public GebAction GetCurrentAction() { return currentAction; }
 }

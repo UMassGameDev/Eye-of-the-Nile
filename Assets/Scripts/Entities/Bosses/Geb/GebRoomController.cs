@@ -22,10 +22,18 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] public PatrolZone bounds;
     /// Reference to Geb's phase controller.
     protected GebPhaseController phaseController;
+    /// Reference to Geb's boss controller.
+    protected GebBossController bossController;
+    /// Reference to the rocks that fall from the sky during Geb's earthquake attack in phase 3.
+    [SerializeField] protected GameObject fallingSkyRocks;
 
     /// How far to zoom out the camera for Geb's bossfight.
-    float fightZoom = 12f;
+    float fightZoom = 11f;
+    /// How often a rock will fall from the sky during Geb's earthquake attack.
+    float fallingRockSpawnPeriod = 0.1f;
 
+    /// Create random number generator.
+    private System.Random rng = new System.Random();
     /// Number of rock golems currently in the room.
     public int rockGolemCount = 0;
     /// Maximum number of rock golems that can be present in the room before they stop getting spawned.
@@ -34,11 +42,14 @@ public class GebRoomController : MonoBehaviour
     private float cutsceneTimer = 0.0f;
     /// The zoom of the camera before the bossfight starts.
     private float defaultZoom;
+    /// Used for keeping track of when the last rock fell from the sky.
+    private float fallingRockSpawnTimer = 0.0f;
 
     /// Set reference to Geb's phase controller.
     void Awake()
     {
         phaseController = GetComponent<GebPhaseController>();
+        bossController = GetComponent<GebBossController>();
     }
 
     /// Access the current zoom to set defaultZoom variable.
@@ -127,8 +138,32 @@ public class GebRoomController : MonoBehaviour
     void Phase1State() {}
     /// Runs every frame when Geb is in phase 2.
     void Phase2State() {}
+
     /// Runs every frame when Geb is in phase 3.
-    void Phase3State() {}
+    void Phase3State()
+    {
+        // If Geb is quaking the ground, rocks will fall from the sky.
+        if (bossController.GetCurrentAction() == GebAction.Earthquake)
+        {
+            fallingRockSpawnTimer += Time.deltaTime;
+            if (fallingRockSpawnTimer >= fallingRockSpawnPeriod)
+            {
+                fallingRockSpawnTimer = 0f;
+
+                // Instantiate rock.
+                float spawn_x = bounds.LeftPoint().x + (float)rng.NextDouble() * (bounds.RightPoint().x - bounds.LeftPoint().x - 2) + 1;
+                GameObject rock = Instantiate(fallingSkyRocks, new Vector2(spawn_x, 40f), Quaternion.identity);
+                
+                // Scale rock.
+                float scale = (float)rng.NextDouble() + 1f;
+                rock.transform.localScale = new Vector3(scale, scale, 1f);
+                
+                // Launch rock.
+                rock.GetComponent<MoveInDirection>().movementDirection = new Vector2((float)rng.NextDouble() * 10f - 5f, -20f);
+            }
+        }
+    }
+
     /// Runs every frame when Geb is defeated and the closing cutscene is playing.
     void ClosingCutsceneState() {
         // Update the cutscene timer.
