@@ -8,7 +8,7 @@ This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame depending on Geb's phase, one for each phase.
 
-Documentation updated 12/31/2024
+Documentation updated 1/18/2025
 \author Alexander Art
 \todo Freeze the player during the cutscenes.
 */
@@ -24,6 +24,8 @@ public class GebRoomController : MonoBehaviour
     protected GebPhaseController phaseController;
     /// Reference to Geb's boss controller.
     protected GebBossController bossController;
+    /// Reference to the player object.
+    protected GameObject player;
     /// Reference to the rocks that fall from the sky during Geb's earthquake attack in phase 3.
     [SerializeField] protected GameObject fallingSkyRocks;
 
@@ -45,9 +47,10 @@ public class GebRoomController : MonoBehaviour
     /// Used for keeping track of when the last rock fell from the sky.
     private float fallingRockSpawnTimer = 0.0f;
 
-    /// Set reference to Geb's phase controller.
+    /// Set references.
     void Awake()
     {
+        player = GameObject.Find("Player");
         phaseController = GetComponent<GebPhaseController>();
         bossController = GetComponent<GebBossController>();
     }
@@ -145,21 +148,32 @@ public class GebRoomController : MonoBehaviour
         // If Geb is quaking the ground, rocks will fall from the sky.
         if (bossController.GetCurrentAction() == GebAction.Earthquake)
         {
+            // Every fallingRockSpawnPeriod seconds, a rock will spawn at a random position above the player and fall.
             fallingRockSpawnTimer += Time.deltaTime;
             if (fallingRockSpawnTimer >= fallingRockSpawnPeriod)
             {
                 fallingRockSpawnTimer = 0f;
 
+                // Determine where to instantiate the rock, then instantiate it.
+                float minSpawnX = bounds.LeftPoint().x + 1;
+                float maxSpawnX = bounds.RightPoint().x - 1;
+                // The player's position can be taken into account when determining where to spawn the rock,
+                // but this doesn't take into account the user's screen size/aspect ratio.
+                //float minSpawnX = Math.Max(bounds.LeftPoint().x + 1, player.transform.position.x - 30f);
+                //float maxSpawnX = Math.Min(bounds.RightPoint().x - 1, player.transform.position.x + 30f);
+                // The x spawn position is picked randomly between the minimum and maximum x. 
+                float spawnX = minSpawnX + (float)rng.NextDouble() * (maxSpawnX - minSpawnX);
+                // The y spawn position is a fixed distance above the player. This should also scale with aspect ratio, but it does not.
+                float spawnY = player.transform.position.y + 20f;
                 // Instantiate rock.
-                float spawn_x = bounds.LeftPoint().x + (float)rng.NextDouble() * (bounds.RightPoint().x - bounds.LeftPoint().x - 2) + 1;
-                GameObject rock = Instantiate(fallingSkyRocks, new Vector2(spawn_x, 40f), Quaternion.identity);
+                GameObject rock = Instantiate(fallingSkyRocks, new Vector2(spawnX, spawnY), Quaternion.identity);
                 
                 // Scale rock.
                 float scale = (float)rng.NextDouble() + 1f;
                 rock.transform.localScale = new Vector3(scale, scale, 1f);
                 
-                // Launch rock.
-                rock.GetComponent<MoveInDirection>().movementDirection = new Vector2((float)rng.NextDouble() * 10f - 5f, -20f);
+                // Have the rock move downwards at a constant velocity.
+                rock.GetComponent<MoveInDirection>().movementDirection = new Vector2((float)rng.NextDouble() * 10f - 5f, -10f - (float)rng.NextDouble() * 5f);
             }
         }
     }
