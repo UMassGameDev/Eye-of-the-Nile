@@ -23933,6 +23933,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3daf020ade422014a8bbe6ae7e3b32cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleEffect: {fileID: 1059387424429451625, guid: 8cde9eaac0711c848a7aea3baf7938fe, type: 3}
+  particleSpawnRadius: 12
+  timeBetweenParticles: 0.2
   damageAmount: 10
   timeBetweenDamage: 0.2
   playerMoveVelocity: 6
