@@ -8,9 +8,10 @@ This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame depending on Geb's phase, one for each phase.
 
-Documentation updated 1/18/2025
+Documentation updated 1/20/2025
 \author Alexander Art
 \todo Freeze the player during the cutscenes.
+\todo Make the distribution of the falling rocks less RNG-based.
 */
 public class GebRoomController : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class GebRoomController : MonoBehaviour
     /// How far to zoom out the camera for Geb's bossfight.
     float fightZoom = 11f;
     /// How often a rock will fall from the sky during Geb's earthquake attack.
-    float fallingRockSpawnPeriod = 0.1f;
+    float fallingRockSpawnPeriod = 0.075f;
 
     /// Create random number generator.
     private System.Random rng = new System.Random();
@@ -149,8 +150,10 @@ public class GebRoomController : MonoBehaviour
         if (bossController.GetCurrentAction() == GebAction.Earthquake)
         {
             // Every fallingRockSpawnPeriod seconds, a rock will spawn at a random position above the player and fall.
+            // The rock has a bossController.GetCurrentActionPercentage() chance of spawning. This means that at first,
+            // the rocks will have a 0% chance to spawn, but by the time the attack finishes, they have a 100% spawn chance.
             fallingRockSpawnTimer += Time.deltaTime;
-            if (fallingRockSpawnTimer >= fallingRockSpawnPeriod)
+            if (fallingRockSpawnTimer >= fallingRockSpawnPeriod && rng.NextDouble() >= bossController.GetCurrentActionPercentage())
             {
                 fallingRockSpawnTimer = 0f;
 

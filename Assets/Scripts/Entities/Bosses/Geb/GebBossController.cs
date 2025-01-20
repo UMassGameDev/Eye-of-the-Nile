@@ -10,7 +10,7 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - A few other functions to initiate attacks/assist with actions.
 
-Documentation updated 1/17/2024
+Documentation updated 1/20/2024
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
@@ -65,23 +65,28 @@ public class GebBossController : MonoBehaviour
     protected float flySpeedX = 15f;
     /// (Phase 2 and 3) The speed at which Geb moves horizontally.
     protected float walkSpeedX = 10f;
-    /// (Phase 1 and 2) Each time Geb stops moving (Idle), this is the duration it will last (in seconds).
+    /// (Phase 1, 2, and 3) Each time Geb stops moving (Idle), this is the duration it will last (in seconds).
     protected float idleDuration = 1f;
-    /// (Phase 1 and 2) The duration of the rock throw animation before the rock entity is spawned (in seconds).
+    /// (Phase 1, 2, and 3) The duration of the rock throw animation before the rock entity is spawned (in seconds).
     protected float throwDuration = 1f;
-    /// (Phase 2) The amount of time that Geb will spend raising a wall (in seconds).
+    /// (Phase 2 and 3) The amount of time that Geb will spend raising a wall (in seconds).
     protected float wallSummonDuration = 1f;
-    /// (Phase 2) The maximum amount of time that Geb will charge for (in seconds).
-    protected float chargeDuration = 2f;
+    /// (Phase 2 and 3) The maximum amount of time that Geb will charge for (in seconds).
+    protected float chargeDuration = 3f;
+    /// <summary>
+    /// (Phase 2 and 3) The percentage of the wall summon and earthquake durations that Geb will spend animated
+    /// before the hitbox activates fully (in seconds).
+    /// </summary>
+    protected float windUpPercentage = 1f/3f;
     /// (Phase 3) The amount of time that Geb will quake the ground (in seconds).
     protected float earthquakeDuration = 5f;
     /// (Phase 3) The amount of time that Geb will surround himself in a protective rock tornado (in seconds).
     protected float tornadoDuration = 5f;
-    /// (Phase 1 and 2) The minimum horizontal distance that Geb will try to keep from the player when moving.
+    /// (Phase 1, 2, and 3) The minimum horizontal distance that Geb will try to keep from the player when moving.
     protected float minPlayerDistanceX = 10f;
-    /// (Phase 1 and 2) The maximum horizontal distance that Geb will try to keep from the player when moving.
+    /// (Phase 1, 2, and 3) The maximum horizontal distance that Geb will try to keep from the player when moving.
     protected float maxPlayerDistanceX = 20f;
-    /// (Phase 2) The speed at which Geb moves during his charge attack.
+    /// (Phase 2 and 3) The speed at which Geb moves during the charge attack.
     protected float chargeSpeed = 20f;
 
     /// The current action that Geb is taking.
@@ -609,11 +614,11 @@ public class GebBossController : MonoBehaviour
     ///     - ChargeAttack:
     ///         - Pick a direction to charge in.
     ///             - This only occurs once, when the attack is initiated.
-    ///             - It should be picked in the direction of the player.
-    ///         - Geb can have a wind up animation before charging forward (unimplemented).
+    ///             - It is picked in the direction of the player.
+    ///         - Geb has a wind up animation before charging forward.
     ///         - Activate a hitbox on Geb that both damages the player and destroys walls.
-    ///             - The activation occurs only once, when the attack is initiated.
-    ///         - Update Geb's x velocity.
+    ///             - This activation only occurs after the wind up animation is finished.
+    ///         - Update Geb's x velocity (after the wind up animation is finished).
     ///         - Check if Geb is close to out of bounds. If he is, then:
     ///             - End the charge attack early.
     ///         - Wait for the duration of the charge attack to finish. Once it does:
@@ -659,8 +664,8 @@ public class GebBossController : MonoBehaviour
                     // Unless overridden,
                     // 40% chance to start Moving.
                     // 20% chance to start a RockThrowAttack.
-                    // 20% chacne to start a WallSummon.
-                    // 20% chacne to start a ChargeAttack.
+                    // 20% chance to start a WallSummon.
+                    // 20% chance to start a ChargeAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.4)
                     {
                         // Start moving action.
@@ -1013,9 +1018,22 @@ public class GebBossController : MonoBehaviour
                 break;
             
             case GebAction.ChargeAttack:
-                // Update Geb's x velocity. horizontalDirection is determined before the attack starts.
-                rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
+                // If the attack is not yet windUpPercentage% of the way done, play a wind up animation instead of attacking.
+                // Otherwise, update Geb's x velocity and activate the hitbox. (horizontalDirection is determined before the attack starts.)
+                if (currentActionTimer / currentActionDuration < windUpPercentage)
+                {
+                    // TEMPORARY Wiggle animation.
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                }
+                else
+                {
+                    // Update Geb's x velocity.
+                    rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
 
+                    // Activate the charge attack hitbox.
+                    chargeAttackHitbox.SetActive(true);
+                }
+                    
                 // If Geb is close to out of bounds, then end the charge attack early.
                 if (transform.position.x - 0.5f <= minPosX || transform.position.x + 0.5f >= maxPosX)
                 {
@@ -1165,11 +1183,11 @@ public class GebBossController : MonoBehaviour
     ///     - ChargeAttack:
     ///         - Pick a direction to charge in.
     ///             - This only occurs once, when the attack is initiated.
-    ///             - It should be picked in the direction of the player.
-    ///         - Geb can have a wind up animation before charging forward (unimplemented).
+    ///             - It is picked in the direction of the player.
+    ///         - Geb has a wind up animation before charging forward.
     ///         - Activate a hitbox on Geb that both damages the player and destroys walls.
-    ///             - The activation occurs only once, when the attack is initiated.
-    ///         - Update Geb's x velocity.
+    ///             - This activation only occurs after the wind up animation is finished.
+    ///         - Update Geb's x velocity (after the wind up animation is finished).
     ///         - Check if Geb is close to out of bounds. If he is, then:
     ///             - End the charge attack early.
     ///         - Wait for the duration of the charge attack to finish. Once it does:
@@ -1178,18 +1196,24 @@ public class GebBossController : MonoBehaviour
     ///     - Earthquake:
     ///         - Don't move.
     ///         - Animate Geb.
-    ///         - Activate a hitbox on the ground around Geb that slows the player down and damages them.
-    ///             - The activation occurs only once, when the attack is initiated.
+    ///         - Activate a hitbox on the ground around Geb.
+    ///             - The hitbox slows the player down and damages them.
+    ///             - This activation only occurs after the wind up duration is over.
     ///         - During this action, GebRoomController does:
     ///             - Summons rocks in the sky that fall like meteors and can damage the player.
     ///         - Wait for the duration of the earthquake attack to finish. Once it does:
+    ///             - Disable the earthquake zone hitbox.
     ///             - Start a different action.
     ///     - RockTornado:
     ///         - Don't move.
-    ///         - Animate a tornado that surrounds Geb.
+    ///         - Activate a tornado that surrounds Geb.
+    ///             - The tornado damages the player if they get too close.
+    ///             - The activation occurs only once, when the attack is initiated.
     ///         - Make Geb invulnerable.
-    ///         - Damage the player if they touch the tornado.
+    ///             - This is called only once, when the attack is initiated.
     ///         - Wait for the duration of the tornado attack to finish. Once it does:
+    ///             - Deactivate the tornado.
+    ///             - Reactivate Geb's vulnerability.
     ///             - Start a different action.
     /// - Flip Geb to match the "side" variable.
     ///     - If a charge attack is active, then Geb will face the side.
@@ -1233,8 +1257,8 @@ public class GebBossController : MonoBehaviour
                     // Unless overridden,
                     // 40% chance to start Moving.
                     // 10% chance to start a RockThrowAttack.
-                    // 10% chacne to start a WallSummon.
-                    // 10% chacne to start a ChargeAttack.
+                    // 10% chance to start a WallSummon.
+                    // 10% chance to start a ChargeAttack.
                     // 15% chance to start an Earthquake.
                     // 15% chance to start a RockTornado.
                     if (randomNumber >= 0.0 && randomNumber < 0.4)
@@ -1285,7 +1309,6 @@ public class GebBossController : MonoBehaviour
                     {
                         // Start earthquake.
                         currentAction = GebAction.Earthquake;
-                        earthquakeZone.SetActive(true);
                         // Make sure that the action lasts for the appropriate amount of time.
                         currentActionDuration = earthquakeDuration;
                         // Update attackCount.
@@ -1462,7 +1485,6 @@ public class GebBossController : MonoBehaviour
                         {
                             // Start earthquake.
                             currentAction = GebAction.Earthquake;
-                            earthquakeZone.SetActive(true);
                             // Make sure that the action lasts for the appropriate amount of time.
                             currentActionDuration = earthquakeDuration;
                             // Update attackCount.
@@ -1645,7 +1667,6 @@ public class GebBossController : MonoBehaviour
                     {
                         // Start earthquake.
                         currentAction = GebAction.Earthquake;
-                        earthquakeZone.SetActive(true);
                         // Make sure that the action lasts for the appropriate amount of time.
                         currentActionDuration = earthquakeDuration;
                         // Update attackCount.
@@ -1668,8 +1689,21 @@ public class GebBossController : MonoBehaviour
                 break;
             
             case GebAction.ChargeAttack:
-                // Update Geb's x velocity. horizontalDirection is determined before the attack starts.
-                rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
+                // If the attack is not yet windUpPercentage% of the way done, play a wind up animation instead of attacking.
+                // Otherwise, update Geb's x velocity and activate the hitbox. (horizontalDirection is determined before the attack starts.)
+                if (currentActionTimer / currentActionDuration < windUpPercentage)
+                {
+                    // TEMPORARY Wiggle animation.
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                }
+                else
+                {
+                    // Update Geb's x velocity.
+                    rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
+
+                    // Activate the charge attack hitbox.
+                    chargeAttackHitbox.SetActive(true);
+                }
 
                 // If Geb is close to out of bounds, then end the charge attack early.
                 if (transform.position.x - 0.5f <= minPosX || transform.position.x + 0.5f >= maxPosX)
@@ -1762,7 +1796,6 @@ public class GebBossController : MonoBehaviour
                     {
                         // Start earthquake.
                         currentAction = GebAction.Earthquake;
-                        earthquakeZone.SetActive(true);
                         // Make sure that the action lasts for the appropriate amount of time.
                         currentActionDuration = earthquakeDuration;
                         // Update attackCount.
@@ -1790,6 +1823,12 @@ public class GebBossController : MonoBehaviour
 
                 // Wiggle animation.
                 transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 25f, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+
+                // Wait until the attack is windUpPercentage% of the way done before activating the earthquake zone hitbox.
+                if (currentActionTimer / currentActionDuration >= windUpPercentage)
+                {
+                    earthquakeZone.SetActive(true);
+                }
 
                 // Once Geb has been quaking for long enough, deactivate the hitbox and start a new action.
                 if (currentActionTimer > currentActionDuration)
@@ -1900,10 +1939,10 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // Move Geb up and expand the tornado near the start of the action.
-                if (currentActionTimer / currentActionDuration < .2)
+                if (currentActionTimer / currentActionDuration < .4)
                 {
-                    transform.position += new Vector3(0f, Time.deltaTime * 5, 0f);
-                    rockTornado.transform.localScale = new Vector3(currentActionTimer / currentActionDuration * 10f, currentActionTimer / currentActionDuration * 10f, 1f);
+                    transform.position += new Vector3(0f, Time.deltaTime * 2.5f, 0f);
+                    rockTornado.transform.localScale = new Vector3(currentActionTimer / currentActionDuration * 5f, currentActionTimer / currentActionDuration * 5f, 1f);
                 }
 
                 // Geb wiggle animation.
@@ -1992,7 +2031,6 @@ public class GebBossController : MonoBehaviour
                     {
                         // Start earthquake.
                         currentAction = GebAction.Earthquake;
-                        earthquakeZone.SetActive(true);
                         // Make sure that the action lasts for the appropriate amount of time.
                         currentActionDuration = earthquakeDuration;
                         // Update attackCount.
@@ -2230,10 +2268,7 @@ public class GebBossController : MonoBehaviour
         Instantiate(protectiveWall, transform.position + wallOffset, transform.rotation);
     }
 
-    /// <summary>
-    /// Used in phase 2 to set Geb's current action to ChargeAttack, pick a direction to move in,
-    /// and activate the charge attack hitbox.
-    /// </summary>
+    /// Used in phase 2 to set Geb's current action to ChargeAttack and pick a direction to move in.
     private void StartChargeAttack()
     {
         // This counts as a new action, so reset currentActionTimer.
@@ -2262,9 +2297,6 @@ public class GebBossController : MonoBehaviour
             // Make sure Geb faces the correct direction during and after the attack.
             side = "RIGHT";
         }
-
-        // Activate the charge attack hitbox.
-        chargeAttackHitbox.SetActive(true);
     }
 
     /// Used in phase 3 to start the RockTornado attack.
@@ -2294,4 +2326,5 @@ public class GebBossController : MonoBehaviour
     }
 
     public GebAction GetCurrentAction() { return currentAction; }
+    public float GetCurrentActionPercentage() { return currentActionTimer / currentActionDuration; }
 }
