@@ -6,12 +6,17 @@ Additional script for the rock golems in Geb's bossroom.
 What this script does:
 - Decrements the rock golem count in Geb's bossroom when the rock golems die (function activated by OnDeath() in ObjectHealth).
 - Prevents the rock golems from getting stuck in the outer walls of Geb's bossroom.
+- Removes the rock golems when Geb is defeated.
 
-Documentation updated 1/13/2025
+Documentation updated 1/21/2025
 \author Alexander Art
 */
 public class GebRockGolem : MonoBehaviour
 {
+    /// Reference to the rock golem's health script.
+    protected ObjectHealth objectHealth;
+    /// Reference to Geb's phase controller.
+    protected GebPhaseController gebPhaseController;
     /// Reference to Geb's room controller.
     protected GebRoomController gebRoomController;
 
@@ -22,6 +27,8 @@ public class GebRockGolem : MonoBehaviour
 
     void Awake()
     {
+        objectHealth = GetComponent<ObjectHealth>();
+        gebPhaseController = GameObject.Find("Geb").GetComponent<GebPhaseController>();
         gebRoomController = GameObject.Find("Geb").GetComponent<GebRoomController>();
     }
 
@@ -35,18 +42,24 @@ public class GebRockGolem : MonoBehaviour
         maxPosX = gebRoomController.bounds.RightPoint().x - golemWidth / 2;
     }
 
-    /// Prevent the rock golems from getting stuck in the wall.
+    /// Prevent the rock golems from getting stuck in the wall and get rid of the golems when Geb is defeated.
     void Update()
     {
         // If the golem is past the left boundary, move it right.
         // If the golem is past the right boundary, move it left.
-        if (minPosX > transform.position.x )
+        if (minPosX > transform.position.x)
         {
             transform.position = new Vector2(minPosX, transform.position.y);
         }
         else if (maxPosX < transform.position.x)
         {
             transform.position = new Vector2(maxPosX, transform.position.y);
+        }
+
+        // Get rid of the golems when Geb is defeated.
+        if ((gebPhaseController.phase == GebPhase.ClosingCutscene || gebPhaseController.phase == GebPhase.Defeated) && objectHealth.currentHealth > 0)
+        {
+            objectHealth.TakeDamage(this.transform, objectHealth.currentHealth);
         }
     }
 

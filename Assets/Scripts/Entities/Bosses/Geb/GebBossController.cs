@@ -10,15 +10,13 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - A few other functions to initiate attacks/assist with actions.
 
-Documentation updated 1/20/2024
+Documentation updated 1/21/2024
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
 */
 public class GebBossController : MonoBehaviour
 {
-    /// Reference to Geb's health script, used for keeping Geb invincible before the bossfight starts.
-    protected BossHealth bossHealth;
     /// Reference to Geb's Rigidbody 2D.
     protected Rigidbody2D rb;
     /// Reference to Geb's Box Collider 2D.
@@ -114,7 +112,7 @@ public class GebBossController : MonoBehaviour
     /// </summary>    
     private string side;
 
-    /// Set references to player GameObject, Geb's BossHealth, Geb's phase controller, and Geb's wall detector.
+    /// Set references to the player's GameObject and Geb's Rigidbody 2D, Box Collider 2D, phase controller, and wall detector.
     void Awake()
     {
         player = GameObject.Find("Player");
