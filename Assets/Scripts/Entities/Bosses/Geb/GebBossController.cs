@@ -1156,7 +1156,7 @@ public class GebBossController : MonoBehaviour
     ///             - This only occurs once, when the action is initiated.
     ///         - Update Geb's x velocity.
     ///         - Check if Geb is against a wall. If he is, then:
-    ///             - Start a charge attack.
+    ///             - Start a charge attack or an earthquake attack.
     ///         - Check if Geb has gotten within 1 unit of the target position. If he has, then:
     ///             - Check if the player has gotten close to being behind Geb. If so, then Geb has a chance to change direction.
     ///             - Otherwise, start a different action.
@@ -1212,7 +1212,7 @@ public class GebBossController : MonoBehaviour
     ///         - Wait for the duration of the tornado attack to finish. Once it does:
     ///             - Deactivate the tornado.
     ///             - Reactivate Geb's vulnerability.
-    ///             - Start a different action.
+    ///             - Start idle action.
     /// - Flip Geb to match the "side" variable.
     ///     - If a charge attack is active, then Geb will face the side.
     ///     - Otherwise, Geb will face opposite of the side, which is usually inwards (towards the player).
@@ -1343,20 +1343,42 @@ public class GebBossController : MonoBehaviour
                 // Update Geb's x velocity.
                 rb.velocity = new Vector2(horizontalDirection * walkSpeedX, rb.velocity.y);
 
-                // If Geb is against a wall, then start a charge attack.
+                // If Geb is against a wall, then start either a charge attack or an earthquake.
+                // If Geb is within 1 unit of his target position, then start a new action.
                 if (wallDetector.onWall == true)
                 {
-                    // Start charge attack.
-                    StartChargeAttack();
-                    // Update attackCount.
-                    if (attackCount < 0)
-                        attackCount = 1;
-                    else
-                        attackCount++;
-                }
+                    // A new action is going to be started, so currentActionTimer can be reset.
+                    currentActionTimer = 0.0f;
 
-                // If Geb is within 1 unit of his target position, start a new action.
-                if (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1)
+                    // Get a random number [0, 1) to be used for randomly picking the next action.
+                    double randomNumber = rng.NextDouble();
+
+                    // 75% chance to start a ChargeAttack.
+                    // 25% chance to start an Earthquake.
+                    if (randomNumber >= 0.0 && randomNumber < 0.75)
+                    {
+                        // Start charge attack.
+                        StartChargeAttack();
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                    else if (randomNumber >= 0.75 && randomNumber < 1)
+                    {
+                        // Start earthquake.
+                        currentAction = GebAction.Earthquake;
+                        // Make sure that the action lasts for the appropriate amount of time.
+                        currentActionDuration = earthquakeDuration;
+                        // Update attackCount.
+                        if (attackCount < 0)
+                            attackCount = 1;
+                        else
+                            attackCount++;
+                    }
+                }
+                else if (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1)
                 {
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
@@ -1964,79 +1986,14 @@ public class GebBossController : MonoBehaviour
                     
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
-
-                    // Get a random number [0, 1) to be used for randomly picking the next action.
-                    double randomNumber = rng.NextDouble();
-
-                    // Limit the number of attacks that can happen in a row.
-                    // There is also a minimum number of attacks that can happen in a row.
-                    // Override randomNumber if necessary.
-                    if (attackCount >= maxAttackChain) // The max number of attacks have occurred in a row.
-                    {
-                        // Start being Idle or start Moving.
-                        randomNumber = 0.3 + (0.5 - rng.NextDouble()) / 5;
-                    }
-                    else if (attackCount < minAttackChain) // The min number of attacks has not been reached yet.
-                    {
-                        // Start a RockThrowAttack or Earthquake.
-                        randomNumber = 0.8 + (0.5 - rng.NextDouble()) / 5;
-                    }
-
-                    // Unless overridden,
-                    // 30% chance to start being Idle.
-                    // 30% chance to start Moving.
-                    // 20% chance to start a RockThrowAttack.
-                    // 20% chance to start an Earthquake.
-                    if (randomNumber >= 0.0 && randomNumber < 0.3)
-                    {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
-                    }
-                    else if (randomNumber >= 0.3 && randomNumber < 0.6)
-                    {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
-                    }
-                    else if (randomNumber >= 0.6 && randomNumber < 0.8)
-                    {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
-                    }
-                    else if (randomNumber >= 0.8 && randomNumber < 1)
-                    {
-                        // Start earthquake.
-                        currentAction = GebAction.Earthquake;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = earthquakeDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
-                    }
+                    
+                    // Start being Idle.
+                    // Face the player.
+                    FacePlayer();
+                    // Start idling.
+                    currentAction = GebAction.Idle;
+                    // Make sure that the action lasts for the appropriate amount of time.
+                    currentActionDuration = idleDuration;
                 }
                 break;
 
