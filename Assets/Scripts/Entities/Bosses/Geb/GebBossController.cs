@@ -1209,6 +1209,8 @@ public class GebBossController : MonoBehaviour
     ///             - The activation occurs only once, when the attack is initiated.
     ///         - Make Geb invulnerable.
     ///             - This is called only once, when the attack is initiated.
+    ///         - Check if the player has gotten behind Geb. If so, then:
+    ///             - Make Geb face the player.
     ///         - Wait for the duration of the tornado attack to finish. Once it does:
     ///             - Deactivate the tornado.
     ///             - Reactivate Geb's vulnerability.
@@ -1973,6 +1975,10 @@ public class GebBossController : MonoBehaviour
                     rockTornado.transform.localScale = new Vector3(Math.Abs(rockTornado.transform.localScale.x), rockTornado.transform.localScale.y, rockTornado.transform.localScale.z);
                 else
                     rockTornado.transform.localScale = new Vector3(-Math.Abs(rockTornado.transform.localScale.x), rockTornado.transform.localScale.y, rockTornado.transform.localScale.z);
+
+                // If the player is more than 3 units of behind Geb, then Geb will change side (and face the player).
+                if (player.transform.position.x - 3 < transform.position.x || player.transform.position.x + 3 > transform.position.x)
+                    FacePlayer();
 
                 // Once the rock tornado is done, start a new action.
                 if (currentActionTimer > currentActionDuration)
