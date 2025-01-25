@@ -4,13 +4,15 @@ using UnityEngine;
 
 // Copied & modified from EarthquakeZone.
 // \todo Update documentation for this file.
-// \todo Make the earthquake zone more visible (by making the particle spawn radius less random and more spread out).
+// \todo Make the max earthquake zone hitbox size and the max particle effect size adjustable with one variable.
 public class GebEarthquakeZone : MonoBehaviour
 {
+    /// Reference to the particle object that will be repeatedly instantiated at the earthquake.
     [SerializeField] GameObject particleEffect;
+    /// Reference to Geb's boss controller.
+    protected GebBossController gebBossController;
 
-    [SerializeField] float particleSpawnRadius = 12f;
-    [SerializeField] float timeBetweenParticles = 0.2f;
+    [SerializeField] float timeBetweenParticles = 0.1f;
     [SerializeField] int damageAmount = 10;
     [SerializeField] float timeBetweenDamage = 0.2f;
     [SerializeField] float playerMoveVelocity = 6f;
@@ -21,21 +23,29 @@ public class GebEarthquakeZone : MonoBehaviour
     float damageTimer = 0f;
     List<PlayerHealth> objectsToDamage = new();
     float initialPlayerMoveVelocity;
+    float initialParticleEffectSizeX;
 
     void Awake()
     {
+        gebBossController = transform.parent.GetComponent<GebBossController>();
         initialPlayerMoveVelocity = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().moveVelocity;
+        initialParticleEffectSizeX = particleEffect.GetComponent<ParticleSystem>().shape.scale.x;
     }
 
     void Update()
     {
+        // Make the earthquake zone (the part that damages the player) get larger as the earthquake action progresses.
+        transform.localScale = new Vector3(gebBossController.GetCurrentActionPercentage(), transform.localScale.y, transform.localScale.z);
+
         particleTimer += Time.deltaTime;
         if (particleTimer > timeBetweenParticles)
         {
             particleTimer = 0;
 
-            Vector3 spawnPos = transform.position + new Vector3(((float)rng.NextDouble() * 2f - 1f) * particleSpawnRadius, 0f, 0f);
-            Instantiate(particleEffect, spawnPos, Quaternion.identity);
+            // Instantiate the particle effect and get the instance's shape module at the same time.
+            ParticleSystem.ShapeModule particleInstance = Instantiate(particleEffect, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().shape;
+            // Make the particles get larger as the earthquake action progresses (matches the earthquake zone).
+            particleInstance.scale = new Vector3(initialParticleEffectSizeX * gebBossController.GetCurrentActionPercentage(), particleInstance.scale.y, particleInstance.scale.z);
         }
 
         damageTimer += Time.deltaTime;

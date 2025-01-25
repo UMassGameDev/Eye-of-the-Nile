@@ -23853,7 +23853,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2.6, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1378591478}
@@ -23901,7 +23901,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40, y: 0.5}
+  m_Size: {x: 25, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &8094381226900382496
 GameObject:
@@ -23934,8 +23934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleEffect: {fileID: 1059387424429451625, guid: 8cde9eaac0711c848a7aea3baf7938fe, type: 3}
-  particleSpawnRadius: 12
-  timeBetweenParticles: 0.2
+  timeBetweenParticles: 0.1
   damageAmount: 10
   timeBetweenDamage: 0.2
   playerMoveVelocity: 6

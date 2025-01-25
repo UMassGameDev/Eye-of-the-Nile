@@ -72,7 +72,7 @@ public class GebBossController : MonoBehaviour
     /// (Phase 2 and 3) The maximum amount of time that Geb will charge for (in seconds).
     protected float chargeDuration = 3f;
     /// <summary>
-    /// (Phase 2 and 3) The percentage of the wall summon and earthquake durations that Geb will spend animated
+    /// (Phase 2 and 3) The percentage of the charge attack and earthquake durations that Geb will spend animated
     /// before the hitbox activates fully (in seconds).
     /// </summary>
     protected float windUpPercentage = 1f/3f;
