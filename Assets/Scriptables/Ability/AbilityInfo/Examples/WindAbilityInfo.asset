@@ -33,7 +33,13 @@ MonoBehaviour:
   - Permanently allows the player to jump up to three times in a row (instead of
     two).
   godQuote: '"It''s gonna be a windy day today. idk I couldn''t think of a good line"'
-  onCooldownSound: incorrect_buzzer
+  onCooldownSound:
+    Guid:
+      Data1: -1183561730
+      Data2: 1272260908
+      Data3: 539864995
+      Data4: -607730509
+    Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 1
   maxLevel: 3
   currentForm: 2

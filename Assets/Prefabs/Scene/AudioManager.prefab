@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &893264459802031870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4743490652306071570}
+  - component: {fileID: 2218395829683411617}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4743490652306071570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893264459802031870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.19130361, y: 0.09142624, z: 0.002665953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2218395829683411617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893264459802031870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012b35daa09c3424dbc9acf86c8904cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSounds:
+  - name: desertTheme_start
+    clip: {fileID: 8300000, guid: f5fde1743b31e554b850a25f53d7a0fe, type: 3}
+    volume: 0.2
+  - name: desertTheme_loop
+    clip: {fileID: 8300000, guid: 8c828fde75baff84ea4eb7f70165c77c, type: 3}
+    volume: 0.2
+  sfxSounds:
+  - name: jump
+    clip: {fileID: 8300000, guid: cf6c0e7fbef9449c98a0cdb5ea0c4d9f, type: 3}
+    volume: 1
+  - name: breakable_pot_destroy
+    clip: {fileID: 8300000, guid: 8209609053f964c3f88a337032cb8991, type: 3}
+    volume: 0.5
+  - name: player_death
+    clip: {fileID: 8300000, guid: ffebbf1aa48bb4612b5869b179534406, type: 3}
+    volume: 1
+  - name: bullet_fire
+    clip: {fileID: 8300000, guid: 2de1cb7347cb5994495bbbb1bd1dca14, type: 3}
+    volume: 0.5
+  - name: fireball_fire
+    clip: {fileID: 8300000, guid: 59ecafead20cf2f4e90d2ff160919a05, type: 3}
+    volume: 0.5
+  - name: incorrect_buzzer
+    clip: {fileID: 8300000, guid: d40a0a84b16ddd24ab18688c547f9c50, type: 3}
+    volume: 0.5
+  - name: set_on_fire
+    clip: {fileID: 8300000, guid: e0a2696a4b8e2df45a906b322012aa59, type: 3}
+    volume: 0.5
+  - name: wind_blow
+    clip: {fileID: 8300000, guid: 56e446d70b7e7ec4d93b79d88f9391ba, type: 3}
+    volume: 0.5
+  musicSourcePrimary: {fileID: 0}
+  musicSourceSecondary: {fileID: 0}
+  sfxSource: {fileID: 0}

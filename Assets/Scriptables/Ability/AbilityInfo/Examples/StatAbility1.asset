@@ -33,7 +33,13 @@ MonoBehaviour:
     permanently instead of being triggerd by the player, but this has no been implemented
     yet.
   godQuote: '"All of my abilities are examples."'
-  onCooldownSound: incorrect_buzzer
+  onCooldownSound:
+    Guid:
+      Data1: -1183561730
+      Data2: 1272260908
+      Data3: 539864995
+      Data4: -607730509
+    Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 1
   maxLevel: 3
   currentForm: 2

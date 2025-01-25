@@ -33,7 +33,13 @@ MonoBehaviour:
   - Grants you a permanent reduction in the amount of fire damage you take.
   godQuote: '"I''m not actually in the game, I just already made fire abilities and
     didn''t know who to give them to"'
-  onCooldownSound: incorrect_buzzer
+  onCooldownSound:
+    Guid:
+      Data1: -1183561730
+      Data2: 1272260908
+      Data3: 539864995
+      Data4: -607730509
+    Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 1
   maxLevel: 3
   currentForm: 0

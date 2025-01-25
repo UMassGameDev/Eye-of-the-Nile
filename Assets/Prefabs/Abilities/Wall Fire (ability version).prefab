@@ -150,4 +150,11 @@ MonoBehaviour:
   burnout: 1
   damageNonPlayers: 1
   damagePlayer: 0
+  spawnSFX:
+    Guid:
+      Data1: 1266960127
+      Data2: 1303023697
+      Data3: -1374301280
+      Data4: 1874253865
+    Path: event:/Placeholder/Set On Fire
   playSFXOnSpawn: 0

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using FMODUnity;
 using UnityEngine;
 
 /// <summary>
@@ -37,7 +38,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
     *  ability's name and ID, and UI related information like what icons to use and what the descriptions of each ability in the set should be.
     */
     ///@{
-    
+
     /// \brief A number that is used to identify the ability info object, usually to determine if two ability infos are the same.
     public int abilityID;
     /// \brief A string that is used to identify the ability, as well as display its name in UIs.
@@ -53,7 +54,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
     /// \brief A quote from this god that can be displayed in UIs.
     [SerializeField] string godQuote;
     /// \brief Reference to the sound that plays when the player tries to use an ability that's currently on cooldown.
-    public string onCooldownSound = "incorrect_buzzer";
+    public EventReference onCooldownSound;
     /// \brief Current level of the ability. The ability is locked at level 0.
     public int abilityLevel = 0;
     /// \brief The maximum level the ability can be upgraded to.
@@ -67,7 +68,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
     *  ability in the set, rather than for the set as a whole.
     */
     ///@{
-    
+
     /// \brief Which of the 4 abilities in the set are currently in use.
     public AbilityForm currentForm;
     /// \brief Unimplemented feature that would see abilities cost a currency to use.
@@ -98,7 +99,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
     *  Each ability has a list of effects it can apply while active.
     */
     ///@{
-    
+
     // public List<AbilityEffect> universalEffects;
     /// \brief List of effects the offense ability will trigger.
     public List<AbilityEffect> offenseEffects;
@@ -120,16 +121,16 @@ public abstract class BaseAbilityInfo : ScriptableObject
     *  They must be overridden in any class inheriting from BaseAbilityInfo.cs.
     */
     ///@{
-    
+
     /// \brief The functionality for the offense ability goes here!
     protected abstract void AbilityOffense(AbilityOwner abilityOwner);
-    
+
     /// \brief The functionality for the defense ability goes here!
     protected abstract void AbilityDefense(AbilityOwner abilityOwner);
-    
+
     /// \brief The functionality for the utility ability goes here!
     protected abstract void AbilityUtility(AbilityOwner abilityOwner);
-    
+
     /// \brief The functionality for the passive ability goes here!
     /// This function will automatically run when the ability is equipped.
     protected abstract void AbilityPassiveEnable(AbilityOwner abilityOwner);
@@ -179,7 +180,7 @@ public abstract class BaseAbilityInfo : ScriptableObject
                 break;
         }
 
-        foreach(AbilityEffect abiEffect in currentEffects)
+        foreach (AbilityEffect abiEffect in currentEffects)
         {
             if (abiEffect.AbilityEffectType == applyType)
             {
@@ -263,7 +264,8 @@ public abstract class BaseAbilityInfo : ScriptableObject
     }
 
     /// Runs when the ability duration runs out. Disables effects.
-    public virtual void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType) {
+    public virtual void AbilityDisable(AbilityOwner abilityOwner, AbilityEffectType effectType)
+    {
         DisableEffects(abilityOwner, currentForm, effectType);
     }
     ///@}
@@ -280,10 +282,14 @@ public abstract class BaseAbilityInfo : ScriptableObject
     ///@{
 
     /// Increases the level by one, unless already at max level.
-    public void UpgradeAbility() {
-        if (abilityLevel < maxLevel) {
+    public void UpgradeAbility()
+    {
+        if (abilityLevel < maxLevel)
+        {
             abilityLevel++;
-        } else {
+        }
+        else
+        {
             Debug.Log("Ability already at max level (" + abilityLevel + " >= " + maxLevel + ")");
         }
     }

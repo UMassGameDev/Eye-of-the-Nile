@@ -148,7 +148,14 @@ MonoBehaviour:
   damage: 0
   damagePlayers: 1
   damageNonPlayers: 1
-  spawnSFX: wind_blow
+  destroyOnImpact: 1
+  spawnSFX:
+    Guid:
+      Data1: 736822390
+      Data2: 1189324595
+      Data3: 1102963094
+      Data4: -1097879970
+    Path: event:/Placeholder/Blow
   flipSprite: 0
   despawnTime: 0.75
 --- !u!114 &6902916195475658819

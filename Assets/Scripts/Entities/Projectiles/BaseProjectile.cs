@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 /** \brief
@@ -19,7 +20,7 @@ public class BaseProjectile : MonoBehaviour
     /// The amount of damage the projectile will apply if it comes in contact with something it can damage.
     [SerializeField] protected int damage = 30;
     /// A mirror of damage that allows for other objects to read its value without changing it, and also allowing damage to appear in the Unity Editor.
-    public int refDamage {get => damage; private set => damage = value;}
+    public int refDamage { get => damage; private set => damage = value; }
 
     /// If true, the projectile can damage the player.
     [SerializeField] protected bool damagePlayers = true;
@@ -29,12 +30,12 @@ public class BaseProjectile : MonoBehaviour
     [SerializeField] protected bool destroyOnImpact = true;
 
     /// Sound effect that plays when the projectile is spawned in.
-    [SerializeField] protected string spawnSFX = "bullet_fire";
+    [SerializeField] protected EventReference spawnSFX;
 
     /// When facingLeft is true, the sprite will be flipped. Usually used to make the sprite "face the way the projectile is moving."
     [SerializeField] protected bool flipSprite = true;
     /// True if the projectile is facing (and thus moving) to the left. Likewise, false if the projectile is facing to the right.
-    public bool facingLeft {get; private set;} = false;
+    public bool facingLeft { get; private set; } = false;
 
     /// Updates the direction the projectile is facing and runs AwakeMethods(), which can be changed in scripts that inherit from BaseProjectile.
     void Awake()
@@ -58,7 +59,7 @@ public class BaseProjectile : MonoBehaviour
     /// Plays the spawn sound effect.
     protected virtual void StartMethods()
     {
-        AudioManager.Instance.PlaySFX(spawnSFX);
+        AudioManager.instance.PlaySFX(spawnSFX);
     }
 
     /// <summary>
@@ -79,7 +80,7 @@ public class BaseProjectile : MonoBehaviour
     /// <param name="collision">Represents the object the projectile collided with.</param>
     protected virtual void OnTriggerEnterMethods(Collider2D collision)
     {
-        
+
     }
 
     /// <summary>
@@ -151,7 +152,7 @@ public class BaseProjectile : MonoBehaviour
                 );
             }
         }
-        
+
         // change movement direction of MoveInDirection component (if there is one)
         if (TryGetComponent<RudimentaryMovement>(out var rm))
         {

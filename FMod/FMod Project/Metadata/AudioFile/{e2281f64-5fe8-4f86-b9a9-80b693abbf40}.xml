@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{e2281f64-5fe8-4f86-b9a9-80b693abbf40}">
+		<property name="assetPath">
+			<value>CasualGameSounds/DM-CGS-49.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.2566439909297054</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{37638038-2bcc-434d-b83f-a70939a141be}</destination>
+		</relationship>
+	</object>
+</objects>

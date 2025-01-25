@@ -469,6 +469,13 @@ MonoBehaviour:
   maxJumpChain: 1
   animator: {fileID: 2371901272311279201}
   objectHealth: {fileID: 1203306737245432797}
+  jumpSFX:
+    Guid:
+      Data1: -167922268
+      Data2: 1284745453
+      Data3: 1797561008
+      Data4: 904737175
+    Path: event:/PlayerJump
 --- !u!114 &7786489261086880885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,7 +517,13 @@ MonoBehaviour:
   animator: {fileID: 2371901272311279201}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   onFireSprite: {fileID: 8623649031616025542}
-  deathSfxName: player_death
+  deathSfxName:
+    Guid:
+      Data1: -568396260
+      Data2: 1313568559
+      Data3: -1602812738
+      Data4: 312967930
+    Path: event:/Placeholder/Roblox Oof
   enableDamageParticles: 1
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
@@ -521,6 +534,13 @@ MonoBehaviour:
   canBeInvincible: 1
   invincibleDuration: 1
   canBeOnFire: 1
+  setOnFireSFX:
+    Guid:
+      Data1: 1266960127
+      Data2: 1303023697
+      Data3: -1374301280
+      Data4: 1874253865
+    Path: event:/Placeholder/Set On Fire
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

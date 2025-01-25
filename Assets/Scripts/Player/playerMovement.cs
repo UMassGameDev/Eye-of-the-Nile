@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 /** \brief
@@ -48,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     /// True if the player is standing over a warpable door. Currently used to prevent the player from jumping when trying to use a door.
     /// Use WarpInfo.CurrentlyWarping to check if the player is currently warping to another area through a StageWarp, such as a door or some other exit.
     /// \todo Make this an event rather than a public bool. This is the more "proper" way to do this as it prevents OnWarp from being changed arbitrarily.
-    public bool OnWarp {get; set;} = false;
+    public bool OnWarp { get; set; } = false;
     ///@}
 
     /** @name Double Jumping
@@ -75,6 +76,14 @@ public class PlayerMovement : MonoBehaviour
     public PlayerHealth objectHealth;
     /// Reference to the player's GroundDetector - a small trigger zone beneath the player's feet that detects if the player is on the ground.
     GroundDetector groundDetector;
+    ///@}
+
+    /** @name Sound Effect References
+    *  These variables are references to the sounds that should be played when certain movements or actions occur.
+    */
+    ///@{
+    ///
+    [SerializeField] EventReference jumpSFX;
     ///@}
 
     /// Set references
@@ -146,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-2, transform.localScale.y, transform.localScale.z);
         else if (horizontalInput < 0 && objectHealth.IsDead == false && !WarpInfo.CurrentlyWarping && Time.timeScale > 0.0f)
             transform.localScale = new Vector3(2, transform.localScale.y, transform.localScale.z);
-        
+
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
         {
@@ -173,14 +182,14 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
                 animator.SetTrigger("Jump");
-                AudioManager.Instance.PlaySFX("jump");
+                AudioManager.instance.PlayOneShot(jumpSFX, transform.position);
             }
             else if ((airTime < coyoteTime) && coyoteJumpAvailable && jumpHeldDuration == 0f) // Coyote time scenario
             {
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
                 animator.SetTrigger("Jump");
-                AudioManager.Instance.PlaySFX("jump");
+                AudioManager.instance.PlayOneShot(jumpSFX, transform.position);
             }
             else if (jumpsAvailable != 0 && jumpHeldDuration == 0f) // Double jump scenario
             {
@@ -188,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
                 jumpHeldDuration += Time.deltaTime;
                 animator.SetTrigger("DoubleJump");
-                AudioManager.Instance.PlaySFX("jump");
+                AudioManager.instance.PlayOneShot(jumpSFX, transform.position);
             }
             else if (jumpHeldDuration != 0f && jumpHeldDuration < maxJumpDuration) // Continues the jump when the jump button is held
             {
@@ -236,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddRelativeForce(new Vector2(0.0f, newJumpForce), ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
         animator.SetBool("IsGliding", false);
-        AudioManager.Instance.PlaySFX("jump");
+        AudioManager.instance.PlayOneShot(jumpSFX, transform.position);
         // isFalling = false;
     }
 }

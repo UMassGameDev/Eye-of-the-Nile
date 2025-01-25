@@ -32,7 +32,13 @@ MonoBehaviour:
   - Decreases the amount of non-fire damage you take by 10. If the damage is less
     than 10, non will be dealt.
   godQuote: '"Rock Smash"'
-  onCooldownSound: incorrect_buzzer
+  onCooldownSound:
+    Guid:
+      Data1: -1183561730
+      Data2: 1272260908
+      Data3: 539864995
+      Data4: -607730509
+    Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 1
   maxLevel: 3
   currentForm: 2

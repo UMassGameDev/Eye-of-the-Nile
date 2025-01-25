@@ -112,7 +112,7 @@ public class AbilityOwner // : MonoBehaviour
     {
         if (currentState != OwnerState.ReadyToUse)
         {
-            AudioManager.Instance.PlaySFX(abilityInfo.onCooldownSound);
+            AudioManager.instance.PlaySFX(abilityInfo.onCooldownSound);
             return;
         }
 
@@ -128,7 +128,7 @@ public class AbilityOwner // : MonoBehaviour
             Debug.Log("Passive ability enabled for the '" + abilityInfo.abilityName + "' set.");
         }
     }
-    
+
     public void DisablePassive()
     {
         abilityInfo.DisablePassive(this);

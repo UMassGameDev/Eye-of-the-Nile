@@ -114,7 +114,13 @@ MonoBehaviour:
   damagePlayers: 1
   damageNonPlayers: 1
   destroyOnImpact: 1
-  spawnSFX: bullet_fire
+  spawnSFX:
+    Guid:
+      Data1: -1597561157
+      Data2: 1248610240
+      Data3: -1045354106
+      Data4: 1373743666
+    Path: event:/Placeholder/Gunshot
   flipSprite: 1
   initialXForce: 60
   initialYForce: 30

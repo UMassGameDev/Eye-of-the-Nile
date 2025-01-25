@@ -36,8 +36,14 @@ MonoBehaviour:
   - Your body becomes rock hard and most enemies and hazards will do less damage
     to you. Additionally, you will take less knockback from anything that strikes
     you.
-  godQuote: Geb rock hard!
-  onCooldownSound: incorrect_buzzer
+  godQuote: '[Geb Quote]'
+  onCooldownSound:
+    Guid:
+      Data1: -1183561730
+      Data2: 1272260908
+      Data3: 539864995
+      Data4: -607730509
+    Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 2
   maxLevel: 5
   currentForm: 0

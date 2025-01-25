@@ -357,7 +357,13 @@ MonoBehaviour:
   animator: {fileID: 2521853032938061410}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   onFireSprite: {fileID: 4779513506019383384}
-  deathSfxName: enemy_death
+  deathSfxName:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   enableDamageParticles: 1
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
@@ -368,6 +374,13 @@ MonoBehaviour:
   canBeInvincible: 0
   invincibleDuration: 3
   canBeOnFire: 1
+  setOnFireSFX:
+    Guid:
+      Data1: 1266960127
+      Data2: 1303023697
+      Data3: -1374301280
+      Data4: 1874253865
+    Path: event:/Placeholder/Set On Fire
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

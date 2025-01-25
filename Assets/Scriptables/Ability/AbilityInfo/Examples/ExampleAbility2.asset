@@ -20,15 +20,25 @@ MonoBehaviour:
   - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -2142137584, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -1316797304, guid: 10781e700ce239944af77be87482ea9e, type: 3}
+  abilityNames: []
+  abilityDescriptions: []
+  godQuote: 
+  onCooldownSound:
+    Guid:
+      Data1: -1183561730
+      Data2: 1272260908
+      Data3: 539864995
+      Data4: -607730509
+    Path: event:/Placeholder/Incorrect Buzzer
+  abilityLevel: 0
+  maxLevel: 3
   currentForm: 1
   baseCost: 0
   duration: 0
   tickRate: 0
   chargeUp: 0
   cooldown: 0
-  endTime: 0
   damage: 0
-  universalEffects: []
   offenseEffects: []
   defenseEffects: []
   utilityEffects: []

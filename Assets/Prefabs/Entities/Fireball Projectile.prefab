@@ -176,8 +176,15 @@ MonoBehaviour:
   damage: 30
   damagePlayers: 1
   damageNonPlayers: 1
-  spawnSFX: fireball_fire
-  flipSpriteWhenFacingLeft: 1
+  destroyOnImpact: 1
+  spawnSFX:
+    Guid:
+      Data1: 374941058
+      Data2: 1078097263
+      Data3: -493087053
+      Data4: 1110139927
+    Path: event:/Placeholder/Firecharge
+  flipSprite: 1
 --- !u!114 &972769795486432008
 MonoBehaviour:
   m_ObjectHideFlags: 0

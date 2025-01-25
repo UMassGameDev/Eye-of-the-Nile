@@ -54,7 +54,7 @@ public class SettingsMenu : MonoBehaviour
         // Update the master volume value in the DataManager
         dataManager.masterVolumeSetting = masterVolumeSlider.value;
         // Tell the AudioManager to update the volume of the currently playing music
-        AudioManager.Instance.VolumeChanged();
+        AudioManager.instance.VolumeChanged();
     }
 
     public void OnMusicVolumeChanged()
@@ -62,7 +62,7 @@ public class SettingsMenu : MonoBehaviour
         // Update the music volume value in the DataManager
         dataManager.musicVolumeSetting = musicVolumeSlider.value;
         // Tell the AudioManager to update the volume of the currently playing music
-        AudioManager.Instance.VolumeChanged();
+        AudioManager.instance.VolumeChanged();
     }
 
     public void OnSfxVolumeChanged()
@@ -70,7 +70,7 @@ public class SettingsMenu : MonoBehaviour
         // Update the sound effects volume value in the DataManager
         dataManager.sfxVolumeSetting = sfxVolumeSlider.value;
         // Tell the AudioManager to update the volume of the currently playing music (not needed here)
-        AudioManager.Instance.VolumeChanged();
+        AudioManager.instance.VolumeChanged();
     }
 
     public void SwitchTab(string newTab)

@@ -16,7 +16,7 @@ public class TornadoProjectile : BaseProjectile
     /// Start the despawn timer, as well as the base functionality of playing the spawning sound effect.
     protected override void StartMethods()
     {
-        AudioManager.Instance.PlaySFX(spawnSFX);
+        AudioManager.instance.PlaySFX(spawnSFX);
         StartCoroutine(DespawnTimer());
     }
 
@@ -25,7 +25,7 @@ public class TornadoProjectile : BaseProjectile
     {
         /// Wait for despawn time to be up,
         yield return new WaitForSeconds(despawnTime);
-        
+
         /// then destory the projectile.
         Destroy(gameObject);
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using FMODUnity;
 
 /// \brief
 /// Handles health, damage, and death of an object/entity.
@@ -19,15 +20,15 @@ public class ObjectHealth : MonoBehaviour
     [SerializeField] protected Animator animator;
     /// Reference to the particle effects the object should spawn when taking damage. Can be toggled with enableDamageParticles.
     /// \note This will not be instantiated if a particle effect is not assigned in the Unity Editor. No risk of unassigned errors!
-    [SerializeField] protected Transform hurtEffect;  
+    [SerializeField] protected Transform hurtEffect;
     /// Reference to the sprite that should be overlaid the object’s sprite when the object is on fire.
     /// \note This will not be displayed if a sprite renderer is not assigned in the Unity Editor. No risk of unassigned errors!
-    [SerializeField] protected SpriteRenderer onFireSprite;  
+    [SerializeField] protected SpriteRenderer onFireSprite;
     /// Reference to the sound effect the object should play when it dies. Nothing will play if left blank.
-    [SerializeField] protected string deathSfxName;  
+    [SerializeField] protected EventReference deathSfxName;
 
     /// The object is dead if the currentHealth falls to 0.
-    public bool IsDead { get { return currentHealth <= 0; } }  
+    public bool IsDead { get { return currentHealth <= 0; } }
     /// If enabled, the object will spawn the given hurtEffect particles when taking damage.
     [SerializeField] protected bool enableDamageParticles = true;
     /// If enabled, the object's Collider2D component will be disabled when it dies.
@@ -39,14 +40,14 @@ public class ObjectHealth : MonoBehaviour
     [SerializeField] protected bool destroyOnDeath = false;
 
     /// The maximum health the object can have.
-    [SerializeField] protected int maxHealth = 100;  
+    [SerializeField] protected int maxHealth = 100;
     /// The amount of health the object currently has.
-    public int currentHealth { get; protected set; }  
+    public int currentHealth { get; protected set; }
 
     /// The amount of souls the object should grant the player upon death. To disable, set to <= 0.
-    [SerializeField] protected int soulsDroppedOnDeath = 0;  
+    [SerializeField] protected int soulsDroppedOnDeath = 0;
     /// The amount of god souls the object should grant the player upon death. To disable, set to <= 0.
-    [SerializeField] protected int godSoulsDroppedOnDeath = 0;  
+    [SerializeField] protected int godSoulsDroppedOnDeath = 0;
 
     /// \brief Triggered when the object dies (if soulsDroppedOnDeath > 0),
     /// telling the DataManager that the amount of souls the player has collected has increased.
@@ -57,22 +58,24 @@ public class ObjectHealth : MonoBehaviour
     public static event Action<int> godSoulsDropped;
 
     /// If enabled, the object will be invincible for a short duration after taking damage (invincibility frames).
-    [SerializeField] protected bool canBeInvincible = false;  
+    [SerializeField] protected bool canBeInvincible = false;
     /// In seconds, how long invincibility lasts for after taking damage
-    [SerializeField] protected float invincibleDuration = 3f;  
+    [SerializeField] protected float invincibleDuration = 3f;
     /// In seconds, how often the sprite should swap between being opaque and transparent (creating a flashing effect).
-    protected float flashDuration = 0.25f;  
+    protected float flashDuration = 0.25f;
     /// The WaitForSeconds variable that is used to implement flashDuration.
-    protected WaitForSeconds invincibleFlash;  
+    protected WaitForSeconds invincibleFlash;
     /// If the object is currently invincible
-    protected bool isInvincible = false;  
+    protected bool isInvincible = false;
 
     /// Whether or not the object can be set on fire.
-    [SerializeField] protected bool canBeOnFire = true;  
+    [SerializeField] protected bool canBeOnFire = true;
     /// Whether or not the object is currently on fire.
-    protected bool onFire = false;  
+    protected bool onFire = false;
     /// Whether or not the object currently has immunity to fire (usually from an ability).
     protected bool fireImmune = false;
+    /// Reference to the sound effect that plays when the object is set on fire
+    [SerializeField] EventReference setOnFireSFX;
 
     /// Invokes any subscribed functions when the object dies.
     public UnityEvent OnDeath;
@@ -139,7 +142,7 @@ public class ObjectHealth : MonoBehaviour
         /// - If the object is currently invincible, skip this function.
         if (isInvincible)
             return;
-        
+
         /// - Subtract the damage done and play the damage animation.
         currentHealth -= damage;
         if (animator != null)
@@ -165,7 +168,7 @@ public class ObjectHealth : MonoBehaviour
         /// - If the object is currently invincible, skip this function.
         if (isInvincible)
             return;
-        
+
         /// - Subtract the damage done and play the damage animation.
         currentHealth -= damage;
         if (animator != null)
@@ -195,7 +198,7 @@ public class ObjectHealth : MonoBehaviour
     {
         if (fireImmune || !canBeOnFire)
             return;
-        
+
         currentHealth -= damage;
 
         // generate hurt particles (if enabled and assigned)
@@ -217,13 +220,12 @@ public class ObjectHealth : MonoBehaviour
     {
         if (animator != null)
             animator.SetBool("IsDead", true);
-        
-        if (deathSfxName != "")
-            AudioManager.Instance.PlaySFX(deathSfxName);
+
+        AudioManager.instance.PlaySFX(deathSfxName);
 
         if (soulsDroppedOnDeath > 0)
             soulsDropped?.Invoke(soulsDroppedOnDeath);
-        
+
         if (godSoulsDroppedOnDeath > 0)
             godSoulsDropped?.Invoke(godSoulsDroppedOnDeath);
 
@@ -239,12 +241,12 @@ public class ObjectHealth : MonoBehaviour
             {
                 col.enabled = false;
             }
-                
+
             if (disableRigidbodyOnDeath && TryGetComponent<Rigidbody2D>(out var rb))
             {
                 rb.simulated = false;
             }
-            
+
             this.enabled = false;
         }
     }
@@ -257,7 +259,7 @@ public class ObjectHealth : MonoBehaviour
     {
         if (canBeOnFire && !onFire && !isInvincible)
         {
-            AudioManager.Instance.PlaySFX("set_on_fire");
+            AudioManager.instance.PlaySFX(setOnFireSFX);
             onFire = true;
             if (onFireSprite != null)
                 onFireSprite.enabled = true;

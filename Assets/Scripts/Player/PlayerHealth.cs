@@ -24,7 +24,10 @@ public class PlayerHealth : ObjectHealth
     /// Reference to the PlayerStatHolder itself. Holds various information that ability stat modifiers (StatsAE) can modify.
     public PlayerStatHolder PStats { get; set; }
     /// The maximum health of the player.
-    public int MaxHealth { get {
+    public int MaxHealth
+    {
+        get
+        {
             if (PStats == null)
                 PStats = GetComponent<PlayerStatHolder>();
             if (!PStats.IsInitialized)
@@ -34,11 +37,15 @@ public class PlayerHealth : ObjectHealth
                 PStats.InitializeDictionary();
                 return PStats.GetValue("MaxHealth");
             }
-        }}  // Maximum health the player can have
+        }
+    }  // Maximum health the player can have
     /// \brief The amount of damage resistance the player currently has.
     /// This value is subtracted from any amount of non-fire damage the player takes.
     /// If the resulting number is <= 0, no damage is done at all.
-    public int DamageResistance { get {
+    public int DamageResistance
+    {
+        get
+        {
             if (PStats == null)
                 PStats = GetComponent<PlayerStatHolder>();
             if (!PStats.IsInitialized)
@@ -48,12 +55,16 @@ public class PlayerHealth : ObjectHealth
                 PStats.InitializeDictionary();
                 return PStats.GetValue("DamageResistance");
             }
-        }}  // Subtracted from any damage taken from normal attacks
-            // Does not apply to special damage types like fire damage
+        }
+    }  // Subtracted from any damage taken from normal attacks
+       // Does not apply to special damage types like fire damage
     /// \brief The amount of fire reistance the player currently has.
     /// The value is subtracted from any amount of fire damage the player takes.
     /// If the resulting number is <= 0, no damage is done at all.
-    public int FireResistance { get {
+    public int FireResistance
+    {
+        get
+        {
             if (PStats == null)
                 PStats = GetComponent<PlayerStatHolder>();
             if (!PStats.IsInitialized)
@@ -63,8 +74,9 @@ public class PlayerHealth : ObjectHealth
                 PStats.InitializeDictionary();
                 return PStats.GetValue("FireResistance");
             }
-        }}  // Subtracted from any damage taken from fire
-            // negative fire resistance will give total immunity to fire damage
+        }
+    }  // Subtracted from any damage taken from fire
+       // negative fire resistance will give total immunity to fire damage
     ///@}
 
     /** @name Dying and post-death
@@ -162,13 +174,16 @@ public class PlayerHealth : ObjectHealth
             {
                 ///  - Using the transform of the attacker passed as a parameter,
                 // see if there's a custom death message for Anubis to say.
-                if (attacker.TryGetComponent<CustomDeathMessage>(out var cdm)) {
+                if (attacker.TryGetComponent<CustomDeathMessage>(out var cdm))
+                {
                     currentDeathMessage = cdm.GetRandomJoke();
-                } else {
+                }
+                else
+                {
                     currentDeathMessage = defaultDeathMessage;
                 }
                 deathMessageChange?.Invoke(currentDeathMessage);
-                
+
                 ///  - Then, trigger the sequence of events that happens when the player dies
                 Die();
             }
@@ -247,8 +262,8 @@ public class PlayerHealth : ObjectHealth
     protected override void Die()
     {
         animator.SetBool("IsDead", true);
-        AudioManager.Instance.PlaySFX(deathSfxName);
-        
+        AudioManager.instance.PlaySFX(deathSfxName);
+
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().simulated = false;
         GetComponent<PlayerMovement>().enabled = false;
