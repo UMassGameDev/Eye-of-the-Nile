@@ -24,6 +24,8 @@ public class GroundDetector : MonoBehaviour
     float groundTime = 0.0f;
     /// Reference to the wall detector.
     WallDetectorInfo wallDetector;
+    /// Reference to the ground the entity is on, if any
+    public GameObject groundReference { get; private set; }
 
     /// Get reference to wall detector.
     void Awake()
@@ -39,7 +41,10 @@ public class GroundDetector : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector != null && !wallDetector.onWall))
+        {
             isGrounded = true;
+            groundReference = col.gameObject;
+        }
     }
 
     /// <summary>
@@ -51,11 +56,21 @@ public class GroundDetector : MonoBehaviour
     void OnTriggerStay2D(Collider2D col)
     {
         if (((1 << col.gameObject.layer) & groundLayer.value) != 0)
+        {
             groundTime += Time.deltaTime;
+        }
+
         if (groundTime > isGroundedDelay)
+        {
             isGrounded = true;
+            groundReference = col.gameObject;
+        }
+
         if (((1 << col.gameObject.layer) & groundLayer.value) != 0 && (wallDetector != null && !wallDetector.onWall))
+        {
             isGrounded = true;
+            groundReference = col.gameObject;
+        }
     }
 
     /// <summary>

@@ -151,10 +151,10 @@ MonoBehaviour:
   destroyOnImpact: 1
   spawnSFX:
     Guid:
-      Data1: 736822390
-      Data2: 1189324595
-      Data3: 1102963094
-      Data4: -1097879970
+      Data1: -2019518918
+      Data2: 1196107283
+      Data3: 309894331
+      Data4: -1734768986
     Path: event:/Placeholder/Blow
   flipSprite: 0
   despawnTime: 0.75

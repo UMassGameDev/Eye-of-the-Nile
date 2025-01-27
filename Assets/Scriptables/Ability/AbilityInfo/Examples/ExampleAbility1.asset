@@ -25,10 +25,10 @@ MonoBehaviour:
   godQuote: 
   onCooldownSound:
     Guid:
-      Data1: -1183561730
-      Data2: 1272260908
-      Data3: 539864995
-      Data4: -607730509
+      Data1: -1906946980
+      Data2: 1251897365
+      Data3: 1589358737
+      Data4: 91499314
     Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 0
   maxLevel: 3

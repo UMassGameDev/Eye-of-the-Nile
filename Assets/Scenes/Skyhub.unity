@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 147009112}
   - component: {fileID: 147009111}
   - component: {fileID: 147009110}
+  - component: {fileID: 147009114}
   m_Layer: 12
   m_Name: Tilemap Collision
   m_TagString: Untagged
@@ -4369,6 +4370,32 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &147009114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147009108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a00dfe0e1c6fde42a8bc68f73894b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFootstep:
+    Guid:
+      Data1: -1889106090
+      Data2: 1291843248
+      Data3: -291587669
+      Data4: -845264941
+    Path: event:/SFX/Cloud Footsteps
+  jumpFootstep:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1001 &178629128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4604,19 +4631,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3557489289102312608, guid: 7ec550caa127f9542b684f7cf152fa54, type: 3}
       propertyPath: sceneMusic.Guid.Data1
-      value: -1958505032
+      value: -701513159
       objectReference: {fileID: 0}
     - target: {fileID: 3557489289102312608, guid: 7ec550caa127f9542b684f7cf152fa54, type: 3}
       propertyPath: sceneMusic.Guid.Data2
-      value: 1317150186
+      value: 1261426769
       objectReference: {fileID: 0}
     - target: {fileID: 3557489289102312608, guid: 7ec550caa127f9542b684f7cf152fa54, type: 3}
       propertyPath: sceneMusic.Guid.Data3
-      value: -31067232
+      value: -1164836973
       objectReference: {fileID: 0}
     - target: {fileID: 3557489289102312608, guid: 7ec550caa127f9542b684f7cf152fa54, type: 3}
       propertyPath: sceneMusic.Guid.Data4
-      value: 1881971868
+      value: -104463985
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6232,7 +6259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2915213
+      value: -1.2915213
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14239,7 +14266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2915213
+      value: -1.2915213
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.z

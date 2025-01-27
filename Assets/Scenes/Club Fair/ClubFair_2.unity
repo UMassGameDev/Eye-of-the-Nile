@@ -822,13 +822,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1558374092921941143, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 916480882}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8900006
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2715213
+      value: -1.2715213
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1449,6 +1453,7 @@ GameObject:
   - component: {fileID: 901575196}
   - component: {fileID: 901575195}
   - component: {fileID: 901575194}
+  - component: {fileID: 901575198}
   m_Layer: 12
   m_Name: Tilemap Collision
   m_TagString: Untagged
@@ -7915,6 +7920,32 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &901575198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901575192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a00dfe0e1c6fde42a8bc68f73894b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFootstep:
+    Guid:
+      Data1: 1775816398
+      Data2: 1313606190
+      Data3: 1823570354
+      Data4: -330903680
+    Path: event:/SFX/Hard Ground Footsteps
+  jumpFootstep:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!4 &916480882 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8131487385529561287, guid: d5756dfb0ba67294b83579c3fcfb2a7a, type: 3}
@@ -10388,7 +10419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2715213
+      value: -1.2715213
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.z

@@ -257,10 +257,10 @@ MonoBehaviour:
   canBeOnFire: 1
   setOnFireSFX:
     Guid:
-      Data1: 1266960127
-      Data2: 1303023697
-      Data3: -1374301280
-      Data4: 1874253865
+      Data1: -1036980905
+      Data2: 1235571255
+      Data3: -1335571324
+      Data4: -30639814
     Path: event:/Placeholder/Set On Fire
   OnDeath:
     m_PersistentCalls:

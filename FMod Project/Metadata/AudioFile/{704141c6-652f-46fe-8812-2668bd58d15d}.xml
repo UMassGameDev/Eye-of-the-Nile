@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{704141c6-652f-46fe-8812-2668bd58d15d}">
+		<property name="assetPath">
+			<value>SFX/Step_Cloud_1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.1035827664399092</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{0a737247-c0a2-45d4-af6d-ce8aee794363}</destination>
+		</relationship>
+	</object>
+</objects>

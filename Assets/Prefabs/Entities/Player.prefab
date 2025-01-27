@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 5681915771319918555}
   - component: {fileID: 6090076525925026504}
   - component: {fileID: 428621585054581581}
+  - component: {fileID: 4961730280285050750}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -471,11 +472,11 @@ MonoBehaviour:
   objectHealth: {fileID: 1203306737245432797}
   jumpSFX:
     Guid:
-      Data1: -167922268
-      Data2: 1284745453
-      Data3: 1797561008
-      Data4: 904737175
-    Path: event:/PlayerJump
+      Data1: -1279188355
+      Data2: 1220390672
+      Data3: -902136933
+      Data4: 748564631
+    Path: event:/Placeholder/Player Jump
 --- !u!114 &7786489261086880885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,10 +520,10 @@ MonoBehaviour:
   onFireSprite: {fileID: 8623649031616025542}
   deathSfxName:
     Guid:
-      Data1: -568396260
-      Data2: 1313568559
-      Data3: -1602812738
-      Data4: 312967930
+      Data1: 1610053674
+      Data2: 1253430626
+      Data3: -1810490197
+      Data4: -1112858012
     Path: event:/Placeholder/Roblox Oof
   enableDamageParticles: 1
   disableColliderOnDeath: 1
@@ -536,10 +537,10 @@ MonoBehaviour:
   canBeOnFire: 1
   setOnFireSFX:
     Guid:
-      Data1: 1266960127
-      Data2: 1303023697
-      Data3: -1374301280
-      Data4: 1874253865
+      Data1: -1036980905
+      Data2: 1235571255
+      Data3: -1335571324
+      Data4: -30639814
     Path: event:/Placeholder/Set On Fire
   OnDeath:
     m_PersistentCalls:
@@ -641,6 +642,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &4961730280285050750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590190179035495267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c05eab090bf9242bf7ccb12546d999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundDetector: {fileID: 8262179805915091258}
 --- !u!1 &5461568540287452229
 GameObject:
   m_ObjectHideFlags: 0

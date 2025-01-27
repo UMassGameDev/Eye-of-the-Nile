@@ -1111,6 +1111,7 @@ GameObject:
   - component: {fileID: 778604040}
   - component: {fileID: 778604039}
   - component: {fileID: 778604038}
+  - component: {fileID: 778604042}
   m_Layer: 12
   m_Name: Tilemap Collision
   m_TagString: Untagged
@@ -3275,6 +3276,32 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &778604042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778604036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a00dfe0e1c6fde42a8bc68f73894b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFootstep:
+    Guid:
+      Data1: 1775816398
+      Data2: 1313606190
+      Data3: 1823570354
+      Data4: -330903680
+    Path: event:/SFX/Hard Ground Footsteps
+  jumpFootstep:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1001 &784916780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3355,7 +3382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2715213
+      value: -1.2715213
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8385,7 +8412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2715213
+      value: -1.2715213
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.z

@@ -730,6 +730,7 @@ GameObject:
   - component: {fileID: 1125842384}
   - component: {fileID: 1125842383}
   - component: {fileID: 1125842382}
+  - component: {fileID: 1125842386}
   m_Layer: 12
   m_Name: Tilemap Collision
   m_TagString: Untagged
@@ -2166,6 +2167,32 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1125842386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125842380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a00dfe0e1c6fde42a8bc68f73894b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultFootstep:
+    Guid:
+      Data1: 1775816398
+      Data2: 1313606190
+      Data3: 1823570354
+      Data4: -330903680
+    Path: event:/SFX/Hard Ground Footsteps
+  jumpFootstep:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &1313207683
 GameObject:
   m_ObjectHideFlags: 0

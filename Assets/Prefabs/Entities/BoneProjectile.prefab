@@ -116,10 +116,10 @@ MonoBehaviour:
   destroyOnImpact: 1
   spawnSFX:
     Guid:
-      Data1: -1597561157
-      Data2: 1248610240
-      Data3: -1045354106
-      Data4: 1373743666
+      Data1: 209310569
+      Data2: 1088671883
+      Data3: -272918610
+      Data4: -2113318389
     Path: event:/Placeholder/Gunshot
   flipSprite: 1
   initialXForce: 60

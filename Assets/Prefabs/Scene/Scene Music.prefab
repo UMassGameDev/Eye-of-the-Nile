@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneMusic:
     Guid:
-      Data1: -2073129300
-      Data2: 1093712308
-      Data3: -1645049183
-      Data4: 716369960
+      Data1: 1284933947
+      Data2: 1287048375
+      Data3: -1019664451
+      Data4: 2024323472
     Path: event:/Music/Desert Theme
