@@ -47,6 +47,10 @@ public class GebRoomController : MonoBehaviour
     private float defaultZoom;
     /// Used for keeping track of when the last rock fell from the sky.
     private float fallingRockSpawnTimer = 0.0f;
+    /// The minimum x position that the player can have. Calculated using the player's width and the bounds of the room.
+    private float minPlayerPosX;
+    /// The maximum x position that the player can have. Calculated using the player's width and the bounds of the room.
+    private float maxPlayerPosX;
 
     /// Set references.
     void Awake()
@@ -56,13 +60,23 @@ public class GebRoomController : MonoBehaviour
         bossController = GetComponent<GebBossController>();
     }
 
-    /// Access the current zoom to set defaultZoom variable.
+    /// Access the current zoom to set defaultZoom variable. Also calculate the minimum and maximum x position for the player.
     void Start()
     {
         defaultZoom = virtualCamera.m_Lens.OrthographicSize; // It wasn't letting me do this during Awake().
+    
+        // Get the width of the player.
+        float playerWidth = player.GetComponent<BoxCollider2D>().bounds.size.x;
+        // Calculate the minimum x position for the player, factoring in the player's collider's width.
+        minPlayerPosX = bounds.LeftPoint().x + playerWidth / 2;
+        // Calculate the maximum x position for the player, factoring in the player's collider's width.
+        maxPlayerPosX = bounds.RightPoint().x - playerWidth / 2;
     }
 
+    /// <summary>
     /// Every frame, activate the logic for the current phase Geb is in.
+    /// Regardless of phase, keep the player within the bounds of the bossroom.
+    /// </summary>
     void Update()
     {
         switch (phaseController.phase)
@@ -88,6 +102,17 @@ public class GebRoomController : MonoBehaviour
             case GebPhase.Defeated:
                 DefeatedState();
                 break;
+        }
+
+        // If the player is past the left boundary, move them right.
+        // If the player is past the right boundary, move them left.
+        if (minPlayerPosX > player.transform.position.x)
+        {
+            player.transform.position = new Vector2(minPlayerPosX, player.transform.position.y);
+        }
+        else if (maxPlayerPosX < player.transform.position.x)
+        {
+            player.transform.position = new Vector2(maxPlayerPosX, player.transform.position.y);
         }
     }
 
@@ -158,8 +183,8 @@ public class GebRoomController : MonoBehaviour
                 fallingRockSpawnTimer = 0f;
 
                 // Determine where to instantiate the rock, then instantiate it.
-                float minSpawnX = bounds.LeftPoint().x + 1;
-                float maxSpawnX = bounds.RightPoint().x - 1;
+                float minSpawnX = bounds.LeftPoint().x - 25;
+                float maxSpawnX = bounds.RightPoint().x + 25;
                 // The player's position can be taken into account when determining where to spawn the rock,
                 // but this doesn't take into account the user's screen size/aspect ratio.
                 //float minSpawnX = Math.Max(bounds.LeftPoint().x + 1, player.transform.position.x - 30f);

@@ -36,10 +36,11 @@ public class GebRockGolem : MonoBehaviour
     {
         // Get the width of the golem.
         float golemWidth = GetComponent<BoxCollider2D>().bounds.size.x;
+        // The golems are allowed to go only 25 units out of bonuds.
         // Calculate the minimum x position for the golems, factoring in the width of the golem.
-        minPosX = gebRoomController.bounds.LeftPoint().x + golemWidth / 2;
+        minPosX = gebRoomController.bounds.LeftPoint().x + golemWidth / 2 - 25;
         // Calculate the maximum x position for the golems, factoring in the width of the golem.
-        maxPosX = gebRoomController.bounds.RightPoint().x - golemWidth / 2;
+        maxPosX = gebRoomController.bounds.RightPoint().x - golemWidth / 2 - 25;
     }
 
     /// Prevent the rock golems from getting stuck in the wall and get rid of the golems when Geb is defeated.

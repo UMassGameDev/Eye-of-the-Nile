@@ -293,6 +293,7 @@ public class GebBossController : MonoBehaviour
     ///             - Instantiate and launch a rock projectile.
     ///             - Start a new action, either idle or throw another rock projectile.
     /// - Flip Geb to match the "side" variable.
+    /// - Make sure Geb is in bounds.
     /// </summary>
     void Phase1State()
     {
@@ -571,6 +572,9 @@ public class GebBossController : MonoBehaviour
             transform.localScale = new Vector3(-Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         else if (side == "RIGHT")
             transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+
+        // Move Geb in bounds is if he went out of bounds.
+        MoveGebInBounds();
     }
 
     /// <summary>
@@ -625,6 +629,7 @@ public class GebBossController : MonoBehaviour
     /// - Flip Geb to match the "side" variable.
     ///     - If a charge attack is active, then Geb will face the side.
     ///     - Otherwise, Geb will face opposite of the side, which is usually inwards (towards the player).
+    /// - Make sure Geb is in bounds.
     /// </summary>
     void Phase2State()
     {   
@@ -1140,6 +1145,9 @@ public class GebBossController : MonoBehaviour
             else if (side == "RIGHT")
                 transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+
+        // Move Geb in bounds is if he went out of bounds.
+        MoveGebInBounds();
     }
 
     /// <summary>
@@ -1218,6 +1226,7 @@ public class GebBossController : MonoBehaviour
     /// - Flip Geb to match the "side" variable.
     ///     - If a charge attack is active, then Geb will face the side.
     ///     - Otherwise, Geb will face opposite of the side, which is usually inwards (towards the player).
+    /// - Make sure Geb is in bounds.
     /// </summary>
     void Phase3State()
     {  
@@ -2025,6 +2034,9 @@ public class GebBossController : MonoBehaviour
             else if (side == "RIGHT")
                 transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+
+        // Move Geb in bounds is if he went out of bounds.
+        MoveGebInBounds();
     }
 
     /// Runs every frame when Geb is defeated and the closing cutscene is playing.
@@ -2056,6 +2068,21 @@ public class GebBossController : MonoBehaviour
         else if (transform.position.x < player.transform.position.x) // Player is on the right.
         {
             transform.localScale = new Vector3(-Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    /// When this function is called, Geb is moved in bounds if he was out of bounds.
+    void MoveGebInBounds()
+    {
+        // If Geb is past the left boundary, move him right.
+        // If Geb is past the right boundary, move him left.
+        if (minPosX > transform.position.x)
+        {
+            transform.position = new Vector2(minPosX, transform.position.y);
+        }
+        else if (maxPosX < transform.position.x)
+        {
+            transform.position = new Vector2(maxPosX, transform.position.y);
         }
     }
 
