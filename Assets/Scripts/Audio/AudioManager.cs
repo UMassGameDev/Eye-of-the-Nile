@@ -4,13 +4,13 @@ using FMOD.Studio;
 
 /*!
 \brief Responsible for storing and playing the game's music and sound effects using the FMOD package.
-To trigger a sound effect from a script, use "AudioManager.instance.PlayOneShot()" or any of the other functions here.
+To trigger a sound effect from a script, use "AudioManager.instance.PlaySFX()" or any of the other functions here.
 
-Documentation updated 1/24/2025
+Documentation updated 1/27/2025
 \author Stephen Nuttall (old version also authored by Nick Bottari and Alexander Art)
 \todo Make pausing/unpausing the game pause/unpause all game sounds.
 \todo Stop all sounds when exiting to main menu and play main menu theme.
-\todo Reimplement VolumeChanged().
+\todo Reimplement VolumeChanged(), which was not adapted when refactoring to use FMOD.
 */
 public class AudioManager : MonoBehaviour
 {
@@ -41,13 +41,14 @@ public class AudioManager : MonoBehaviour
             RuntimeManager.PlayOneShot(sound);
     }
 
-    /// \brief Plays a short sound coming from a given location once.
+    /// Plays a short sound once from a given location.
     public void PlayOneShot(EventReference sound, Vector2 worldPos)
     {
         if (!sound.IsNull)
             RuntimeManager.PlayOneShot(sound, worldPos);
     }
 
+    /// Plays a sound (expected to be music) continously, stopping any track currently playing unless it's the same as the parameter.
     public void PlayMusic(EventReference musicRef)
     {
         if (musicRef.Guid != currentMusicReference.Guid)

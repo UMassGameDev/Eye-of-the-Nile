@@ -1,11 +1,12 @@
-/**************************************************
-Handles opening the settings menu and the functionality of some of the buttons.
-
-Documentation updated 12/13/2024
-**************************************************/
 using UnityEngine;
 using UnityEngine.UI;
 
+/** \brief
+Handles opening the settings menu and the functionality of the buttons.
+
+Documentation updated 1/27/2025
+\author Stephen Nuttall
+*/
 public class SettingsMenu : MonoBehaviour
 {
     public static bool SettingsOpen = false;

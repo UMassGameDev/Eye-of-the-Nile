@@ -1,0 +1,52 @@
+/**
+\page FMOD FMOD Guide
+
+FMOD is a plugin for Unity and other game engines that makes implementing sound effects and music into games significantly easier, as well as
+giving our musicians and sound designers more power and flexibility to shape the soundscape of our game. It uses a separate software to add
+sounds and allow for substantial editing power over how the sound is played and used in-game. Then, some very minimal final steps are needed
+in Unity to tell it exactly where and how you want the sound to be used. Fortunately, a lot of the infrastructure to support FMOD and streamline
+the process of using it has already been done, so all you need to do is follow these simple steps!
+
+\note If you have any issues with FMOD, please contact PASTA CAMEL on Discord. Please do not commit and push a broken FMOD project to GitHub, as
+it could break everyone else's FMOD project.
+
+\section FMOD_Install How to Open the FMOD Project in FMOD Studio.
+In order to make changes to sounds in the game or add new sounds, you have to use FMOD Studio, as well as some code to integrate your changes.
+Here are the directions to get started:
+1. Install FMOD Studio from their website.
+2. Navigate to the folder for the GitHub project (should be called either Game-1 or Eye-of-the-Nile).
+3. From there, open the folder called FMod Project. This is where all the FMOD assets are stored.
+4. Open the FMod Project file with FMOD Studio.
+
+If all goes well, you should now be able to see and change the FMOD project. On the left, there is a sidebar with three tabs, where you can see
+all of our files (called assets), sounds that Unity can actually use (called events), and where those events are stored (called banks).
+
+\section FMOD_AddSound How to add new sounds in FMOD Studio
+The details can vary based on what you're adding, but the basics are really simple:
+1. Drag and drop the audio file(s) you want to use into the Assets tab.
+2. Go to the Events tab, right click, click Event Defaults (not New Event), and click one of two options:
+    - 2D action: if you have a short sound that doesn't need much change or special instructions. Recommended for most sound effects.
+    - 2D timelime: if you have a longer file, or something that needs extra instructions, especially time-dependent ones like looping a section.
+    Recommended for music.
+3. Go back to the Assets tab and drag the assets you brought in earlier onto the timeline.
+4. In the Events tab, right click your new event and click Assign to Bank, then Browse, then the bank that makes the most sense (usually not master).
+5. Save your progress with Ctrl + S, and build the project with F7. Go back to Unity and within 5 seconds your changes will be reflected.
+\note Don't forget to save AND build, or your changes will not be reflected in Unity.
+
+\section FMOD_UseEvents How to use FMOD events in Unity
+Now that you've added your new sound into FMOD, it's very simple to use it in Unity. Most of the work is already done for you!
+1. In whatever script you're using, add a serialized variable (a variable that's either public or has [SerializedField] next to it) of type
+EventReference (example: [SerializedField] EventReference myCoolSound).
+2. There's many ways to play the sound, but the process is streamlined by the AudioManager. Reference the following recommended functions below:
+    - AudioManager.instance.PlaySFX()
+    - AudioManager.instance.PlayOneShot()
+    - AudioManager.instance.PlayMusic()
+More information can be found in the documentation for AudioManager.
+3. In the Unity Editor, put your script on an object and assign the event reference by clicking the search icon next to it, and finding the event
+you created earlier.
+
+And your done!!! Once you're familiar with the process, it's fairly straightforward. Now that you are familiar with FMOD, feel free to experiment with
+it's more advanced features! There's plenty of tutorials online that go through FMOD's features more in depth.
+
+\author Stephen Nuttall
+*/

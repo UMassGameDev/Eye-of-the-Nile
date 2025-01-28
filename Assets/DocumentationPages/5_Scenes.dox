@@ -1,13 +1,20 @@
 /**
 \page Scenes Scenes
 
-Updated 8/26/2024.
+Updated 1/27/2025.
 
 \section Scenes_General General
 
 \subsubsection Scenes_Anubis Anubis.unity
 When the player dies, this scene is automatically loaded. The player falls for a short amount of time before landing in front of Anubis. Based on how
 you died, a random joke is selected for Anubis to tell you. There’s a portal on the left that will respawn the player at the last warp obelisk they touched.
+
+\subsubsection Scenes_Geb Geb.unity
+The site of the first bossfight on the game. It consists of a flat open sandy area and Geb, the god of rocks. To see more information about Geb, visit our
+concept doc in \ref Resources.
+
+\subsubsection Scenes_MainMenu MainMenu.unity
+Contains the main menu of the game, which includes a play button and a settings menu. This scene is the first to load when the user launches the game.
 
 \subsubsection Scenes_Skyhub Skyhub.unity
 If the player holds the interact button (E) at warp obelisk instead of just pressing it, they will be brought to the Skyhub. There are more features that

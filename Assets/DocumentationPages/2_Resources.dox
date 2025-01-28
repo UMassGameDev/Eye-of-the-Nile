@@ -3,25 +3,36 @@
 
 Important resources that are super helpful. Everything related to the club can be found here. If you have any questions, ask in the Discord!
 
+Updated 1/27/2025.
+
 \subsubsection Resources_General General resources \emoji eyes
-- Trello (To-Do List): https://trello.com/w/umgdgame1
 - Concept and Brainstorming: https://docs.google.com/document/d/11t10SskIkxHcFOvsnJHaeeMQuIM5M7cjp78eWNINZHs/edit?usp=sharing
-- Meeting Notes: https://docs.google.com/document/d/1xGMVWaAMLRChIWEx2s0biSpXUwDf0HFW3qvdpM_uh6M/edit#heading=h.dapw9fy6vsyq
+- Trello (To-Do List): https://trello.com/w/umgdgame1
+- Meeting Notes (2024-25): https://docs.google.com/document/d/1xGMVWaAMLRChIWEx2s0biSpXUwDf0HFW3qvdpM_uh6M/edit#heading=h.dapw9fy6vsyq
 
 
 \subsubsection Resources_Technical Technical resources \emoji computer
-- GitHub: https://github.com/UMassGameDevClub/Game-1
-- Documentation: https://umassgamedevclub.github.io/Game-1/
-- Setup GitHub and Unity: https://www.youtube.com/watch?v=lgR-_ZjdxCQ.
-NOTE: when you first download GitHub Desktop, your first need to CLONE the repository (missed in the video).
-- For questions on Unity, we recommend Google and YouTube. There's countless helpful resources online for Unity (You can also ask in the Discord).
+- GitHub: https://github.com/UMassGameDev/Eye-of-the-Nile
+- Documentation: https://umassgamedev.github.io/Eye-of-the-Nile/
+- Bug Tracker: https://github.com/UMassGameDev/Eye-of-the-Nile/issues
+- Setup GitHub and Unity: https://www.youtube.com/watch?v=lgR-_ZjdxCQ. Please read notes below!!!
+\note I missed a small but critical instruction in the setting up GitHub and Unity video. After I add you as a collaborator to the GitHub project,
+you have then accept the invite from your email BEFORE you can procede with the rest of the tutorial. Otherwise, you will make a fork (your own,
+separate version) of the project on your GitHub account instead.
+
+There's another thing I missed that's more clarifying than important. When you first download GitHub Desktop, your first need to CLONE the repository.
+This the second button the right when you first open the app. You can use the link to our GitHub to accomplish this. This is the step that actually downloads
+the repository with all our files onto your computer.
+
+For questions on Unity, there's countless helpful resources online (You can also ask in the Discord). We encourage you to follow tutorials for features that
+are a bit over your head. That's how you learn!
 
 \subsubsection Resources_Art Art resources \emoji art
 - Character Art Concept and Brainstorming: https://docs.google.com/document/d/1ASNCgW_RBkhziFn8s2Xmf6_M6HAjgA1z3bzi4AnBfGE/edit
 - Background, Location, and Map Concept and Brainstorming: https://docs.google.com/document/d/1Z5eJxSf6cUlkPsRwG89ExsBWNMovMIVfnS10OAuOJVM/edit
 - Item and Sprite Art Concept and Brainstorming: https://docs.google.com/document/d/1FJTYF1aolP7EE87qxAA7gvFx32UZCJoDWaYhkI0Rwl8/edit
 - Cutscenes and Animations Concept and Brainstorming: https://docs.google.com/document/d/1aTUKHHBzZJyE77YgYscRoMTBcqmfTrD8JPRdZtH-TAE/edit
-- Character Art Style Guide: https://drive.google.com/file/d/1I_SaQDLQQKE-GGkH-ETczy7Rby8jHc0j/view
+- Character Art Style Guide: https://drive.google.com/file/d/1I_SaQDLQQKE-GGkH-ETczy7Rby8jHc0j/view?usp=drive_link
 
 \subsubsection Resources_Misc Misc \emoji books
 - Engage Page: https://umasslowellclubs.campuslabs.com/engage/organization/gamedev

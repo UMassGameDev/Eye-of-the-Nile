@@ -1,29 +1,30 @@
 /**
 \page Prefabs Prefabs
 
-Updated 8/26/2024.
+Updated 1/27/2025.
 
-\section Prefabs_General General 
+\section Prefabs_Abilities Abilities
 
-\subsubsection Prefabs_AudioManager AudioManager.prefab
-There is one AudioManager in every scene. It is a persistent object that does not get destroyed between scenes (and destroys any that might already
-exist in a scene), carrying with it any music that was already playing. On the AudioManager, is a path to every possible sound file the game may need
-to use, so it can be played via script. These files can be added to the AudioManager prefab (please add to the prefab, not the instance in the scene
-you have open) in the Unity Editor.
+\subsubsection Prefabs_WallFireAbilityVersion Wall Fire (ability version).prefab
+A vertical fire that’s tall but thin. This version is used by the fire ability set’s defense ability.
 
-\subsubsection Prefabs_DataManager DataManager.prefab
-There is one DataManager in every scene. It is a persistent object that does not get destroyed between scenes (and destroys any that might already
-exist in a scene), carrying with it important data that can be retained seamlessly across scene changes. This way, if the player loads a new scene by
-going through a door, the player object can get its health from the DataManager, thus “remembering what health it had.” See DataManager.cs for
-documentation on the functionality.
+\subsection Prefabs_GebAbilities Geb (Ability Set)
+There is a prefab for each of the five levels Geb's ability set has for each prefab listed here, so I won't list each individual one.
 
-\subsubsection Prefabs_Platform Platform.prefab
-This is a deprecated prefab only used in the first test level.
+\subsubsection Prefabs_EarthquakeProjectile Earthquake Projectile [lvl 1-5]
+With Geb's offense ability, Horus can throw a projectile that spawns an \ref Prefabs_EarthquakeZone on collision. Each level has a better earthquake zone.
 
-\subsubsection Prefabs_StageWarp StageWarp.prefab
-This prefab allows the player to warp to a different location, or even a different scene, using the warp system. This is used to create doors and entrances.
+\subsubsection Prefabs_EarthquakeZone Earthquake zone [lvl 1-5]
+With Geb's offense ability, Horus can throw an \ref Prefabs_EarthquakeProjectile that spawns an earthquake zone, slowing and damaging any
+entities inside it. Each level does more damage and lasts for longer.
 
+\subsubsection Prefabs_RockPlatform Rock Platform [lvls 1-5]
+With Geb's utility ability, Horus can spawn a rock platform beneath him that despawns after a certain amount of time. Each level increases the duration
+of the platform existence.
 
+\subsubsection Prefabs_RockWall Rock Wall [lvls 1-5]
+With Geb's defense ability, Horus can spawn a rock wall in front of him that prevents enemies from getting past. The wall has a certain amount of health,
+and starting at level 2, moves forward slowly. Each level increases the health and movement speed of the wall.
 
 \section Prefabs_Entities Entities
 
@@ -45,6 +46,9 @@ This is a very basic projectile used to test the functionality of projectiles. I
 
 \subsubsection Prefabs_FireballProjectile Fireball Projectile.prefab
 A basic projectile that can set entities on fire.
+
+\subsubsection Prefabs_MummyPatrol Mummy Patrol.prefab
+A common, slow moving enemy that has weak attacks and health. They are intended for the player to fight several of them at once.
 
 \subsubsection Prefabs_MushroomGuy Mushroom Guy.prefab
 A big mushroom guy who can summon smaller mushroom guys (Mushroom Mini.prefab) to swarm the player.
@@ -74,6 +78,26 @@ animals in Minecraft push each other around when there's too many in a small are
 \subsubsection Prefabs_TornadoProjectile Tornado Projectile.prefab
 A projectile that does no damage but pushes entities away.
 
+\subsection Prefabs_GebBoss Geb (Boss)
+For more details on Geb's bossfight, see the concept doc in \ref Resources.
+
+\subsubsection Prefabs_FallingEarthquakeRock Falling Earthquake Rock.prefab
+A rock that falls from the sky and spawns an \ref Prefabs_EarthquakeZone on impact. Used in the thrid phase of Geb's bossfight.
+
+\subsubsection Prefabs_GebWall Geb Wall.prefab
+A wall that Geb can spawn to block attacks. Used in the second phase of Geb's bossfight.
+
+\subsubsection Prefabs_GebEarthquakeParticles Geb Earthquake Particles.prefab
+Particles generated from earthquake zones created by \ref Prefabs_FallingEarthquakeRock. Used in the third phase of Geb's bossfight.
+
+\subsubsection Prefabs_GebRockGolem Rock Golem (geb).prefab
+The version of the rock golem entity that geb spawns during his his bossfight. Used in the first phase of Geb's bossfight.
+
+\subsubsection Prefabs_RockGolemSpawningRock Rock Golem Spawning Rock.prefab
+A rock projectile that spawns a \ref Prefabs_GebRockGolem on impact. Used in the first phase of Geb's bossfight.
+
+\subsubsection Prefabs_WallDebris Wall Debris.prefab
+Debris that spawn from \ref Prefabs_GebWall when it's destroyed. Used in the second phase of Geb's bossfight.
 
 
 \section Prefabs_Particles
@@ -83,6 +107,28 @@ Basic damage particles currently used by the player and some of the enemies.
 
 \subsubsection Prefabs_BreakParticles BreakParticles.prefab
 Particles that spawn when a boulder breaks.
+
+
+
+\section Prefabs_Scene Scene
+
+\subsubsection Prefabs_AudioManager AudioManager.prefab
+There is one AudioManager in every scene. It is a persistent object that does not get destroyed between scenes (and destroys any that might already
+exist in a scene), carrying with it any music that was already playing. On the AudioManager, is a path to every possible sound file the game may need
+to use, so it can be played via script. These files can be added to the AudioManager prefab (please add to the prefab, not the instance in the scene
+you have open) in the Unity Editor.
+
+\subsubsection Prefabs_DataManager DataManager.prefab
+There is one DataManager in every scene. It is a persistent object that does not get destroyed between scenes (and destroys any that might already
+exist in a scene), carrying with it important data that can be retained seamlessly across scene changes. This way, if the player loads a new scene by
+going through a door, the player object can get its health from the DataManager, thus “remembering what health it had.” See DataManager.cs for
+documentation on the functionality.
+
+\subsubsection Prefabs_Platform Platform.prefab
+This is a deprecated prefab only used in the first test level.
+
+\subsubsection Prefabs_StageWarp StageWarp.prefab
+This prefab allows the player to warp to a different location, or even a different scene, using the warp system. This is used to create doors and entrances.
 
 
 
@@ -122,19 +168,30 @@ A shrine to Ra that when interacted with, will turn it to day time.
 \subsubsection Prefabs_WallFire Wall Fire.prefab
 A vertical fire that’s tall but thin. This version can be placed in the world using the tile system.
 
-\subsubsection Prefabs_WallFireAbilityVersion Wall Fire (ability version).prefab
-A vertica fire that’s tall but thin. This version is used by the fire ability set’s defense ability.
-
 \subsubsection Prefabs_WarpObelisk Warp Obelisk.prefab
 This object has multiple functionalities. If the player interacts with it by pressing the interact key, it sets your spawn point next to it and
 changes color. If the player interacts with it by holding the interact key, they will get warped to the skyhub - a place where they can talk to
 different gods and manage their abilities.
 
+\subsubsection Prefabs_HangingSpikeball Hanging Spikeball.prefab
+A ball of spikes attached to a chain that will damage the player if it comes in contact with it.
+
+\subsubsection Prefabs_MovingPlatform Moving Platform.prefab
+A platform that moves along a predetermined path continuously.
+
+\subsubsection Prefabs_SpringTile Spring Tile.prefab
+A tile that when stepped on by entity, launches it into the air.
+
+\subsubsection Prefabs_SquasherHazard Squasher Hazard.prefab
+A rectangular block that attempts to crush the player if it goes under it, dealing damage in the process. The underlying functionality is similar
+to the \ref Prefabs_FallingSpike.
+
+\subsubsection Prefabs_Pendulum Swinging Pendulum Axe.prefab
+An axe that continuously swings back and forth from a fixed point, damaging the player if it comes into contact with it.
+
 
 
 \section Prefabs_UI UI
-
-\subsection Prefabs_UI_General General
 
 \subsubsection Prefabs_BackgroundCanvas BackgroundCanvas.prefab
 A canvas containing the background images, such as the day and night skies.
@@ -144,25 +201,25 @@ A canvas containing all the default HUD elements, such as the player’s health 
 
 \subsection Prefabs_UI_Abilities Abilities
 
-\subsubsection Prefabs_Abilities_AbilityInventoryItem Ability Inventory Item.prefab
+\subsubsection Prefabs_AbilityInventoryItem Ability Inventory Item.prefab
 An item in Ma’at’s ability inventory that represents an individual ability set. Can be dragged around the screen, and will drop into a new slot if
 dropped close enough to it.  
 
-\subsubsection Prefabs_Abilities_AbilityInventorySlot Ability Inventory Slot.prefab
+\subsubsection Prefabs_AbilityInventorySlot Ability Inventory Slot.prefab
 A slot Ma’at’s ability inventory, accessible in the skyhub. Derives from InventorySlot.prefab.
 
-\subsubsection Prefabs_Abilities_AbilityImageUI AbilityImageUI.prefab
+\subsubsection Prefabs_AbilityImageUI AbilityImageUI.prefab
 An icon representing an ability in the ability hotbar.
 
-\subsubsection Prefabs_Abilities_AbilitySlotUI AbilitySlotUI.prefab
-A slot for a \ref Prefabs_Abilities_AbilityImageUI in \ref Prefabs_Abilities_AbilitySlots.
+\subsubsection Prefabs_AbilitySlotUI AbilitySlotUI.prefab
+A slot for a \ref Prefabs_AbilityImageUI in \ref Prefabs_AbilitySlots.
 
-\subsubsection Prefabs_Abilities_AbilitySlots AbilitySlots.prefab
+\subsubsection Prefabs_AbilitySlots AbilitySlots.prefab
 The ability hotbar that shows your active abilities in the bottom left of the screen.
 
-\subsubsection Prefabs_Abilities_InventorySlot InventorySlot.prefab
+\subsubsection Prefabs_InventorySlot InventorySlot.prefab
 A generic inventory slot that can be added to any future UI.
 
-\subsubsection Prefabs_Abilities_TempAEffect TempAEffect.prefab
+\subsubsection Prefabs_TempAEffect TempAEffect.prefab
 A simple prefab that is just a red box with text on it. Used for testing and example abilities.
 */
