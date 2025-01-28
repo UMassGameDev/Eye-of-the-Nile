@@ -165,7 +165,7 @@ MonoBehaviour:
   collisionLayers:
     serializedVersion: 2
     m_Bits: 4104
-  rockGolem: {fileID: 0}
+  rockGolem: {fileID: 3152921750765434855, guid: 0dd44a555d222db47b1ef078e899a6b5, type: 3}
   spawnProbability: 0
 --- !u!114 &2351355836336168767
 MonoBehaviour:

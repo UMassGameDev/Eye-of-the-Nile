@@ -134,6 +134,13 @@ public class GebRoomController : MonoBehaviour
     public void GebClosingCutsceneStarted() {
         // Hide Geb's healthbar.
         healthbar.SetHealthbarVisible(false);
+
+        // Stop all of Geb's rocks from dealing damage (thrown rocks, wall debris, and falling rocks) after Geb is defeated.
+        GebRock[] gebRocks = GameObject.FindObjectsOfType<GebRock>();
+        foreach (GebRock gebRock in gebRocks)
+        {
+            Destroy(gebRock.transform.GetComponent<DamageOnTrigger>());
+        }
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated() {}

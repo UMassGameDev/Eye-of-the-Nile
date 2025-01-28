@@ -224,7 +224,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.005579683, y: -0.030349052}
+  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030349096}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -233,104 +233,6 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!1 &2458567313651406689
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 926766098980038361}
-  - component: {fileID: 140694453779626140}
-  - component: {fileID: 6022497406912967550}
-  - component: {fileID: 4100574064140519419}
-  m_Layer: 0
-  m_Name: Damaging Hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &926766098980038361
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2458567313651406689}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4811348463792816707}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &140694453779626140
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2458567313651406689}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0052717924, y: -0.008347154}
-  serializedVersion: 2
-  m_Radius: 0.11232245
---- !u!114 &6022497406912967550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2458567313651406689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86f8d08da08aa5e4c94c7e766624ef44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colisionDamage: 20
-  damageNonPlayers: 1
-  damagePlayer: 1
---- !u!114 &4100574064140519419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2458567313651406689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8604568d68ce7446a031dc8406140d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customAnubisJokes:
-  - "I\u2019d tell you a joke about a spikeball, but it has too many points."
 --- !u!1 &3600500259373460181
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +284,8 @@ GameObject:
   - component: {fileID: 5233979191683459861}
   - component: {fileID: 3759796617940899044}
   - component: {fileID: 5641623481674417397}
+  - component: {fileID: 1166416689739129215}
+  - component: {fileID: 2360881541687309442}
   m_Layer: 12
   m_Name: Spikeball
   m_TagString: Untagged
@@ -401,8 +305,7 @@ Transform:
   m_LocalPosition: {x: 0.011, y: -2.85, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 926766098980038361}
+  m_Children: []
   m_Father: {fileID: 5737322220098145847}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2051192818234328462
@@ -535,7 +438,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0058214664, y: 0.07909644}
-  m_ConnectedAnchor: {x: 0.005714298, y: -0.03210223}
+  m_ConnectedAnchor: {x: 0.0057143173, y: -0.032102585}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -544,6 +447,36 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
+--- !u!114 &1166416689739129215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4021765015944994976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155628c61d6d4954eb524825c22ba6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colisionDamage: 20
+  damageNonPlayers: 1
+  damagePlayer: 1
+  destroyOnCollision: 0
+--- !u!114 &2360881541687309442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4021765015944994976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8604568d68ce7446a031dc8406140d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customAnubisJokes:
+  - "I\u2019d tell you a joke about a spikeball, but it has too many points."
 --- !u!1 &6150369452291057298
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +642,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0014775408, y: 0.0014056676}
+  m_ConnectedAnchor: {x: 0.0014778376, y: 0.001405716}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 100
@@ -883,7 +816,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796346, y: -0.03034888}
+  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030349255}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1091,7 +1024,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
+  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030098915}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1265,7 +1198,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
+  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030099073}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1439,7 +1372,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
+  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030099073}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1613,7 +1546,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0055796234, y: 0.029900948}
-  m_ConnectedAnchor: {x: 0.0055796537, y: -0.030099012}
+  m_ConnectedAnchor: {x: 0.0055796304, y: -0.030098915}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
