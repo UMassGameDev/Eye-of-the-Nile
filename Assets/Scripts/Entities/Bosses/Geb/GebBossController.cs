@@ -91,6 +91,7 @@ public class GebBossController : MonoBehaviour
     private GebAction currentAction;
     /// Create random number generator.
     private System.Random rng = new System.Random();
+    private List<Action> phase1Actions = new List<Action> {  };
     /// The number of times in a row Geb has attacked. Negative values count how many times in a row Geb doesn't attack.
     private int attackCount;
     /// The direction Geb moves in.
@@ -334,39 +335,12 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to start a RockThrowAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.8)
                     {
-                        // 10% chance to change side.
-                        if (side == "LEFT")
-                        {   
-                            if (rng.NextDouble() < 0.1) { side = "RIGHT"; }
-                            else { side = "LEFT"; }
-                        }
-                        else if (side == "RIGHT")
-                        {
-                            if (rng.NextDouble() < 0.1) { side = "LEFT"; }
-                            else { side = "RIGHT"; }
-                        }
-
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        // This function has a 10% chance to change Geb's side when activated from here.
+                        Phase1StartMoving();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase1StartRockThrowAttack();
                     }
                 }
                 break;
@@ -417,27 +391,11 @@ public class GebBossController : MonoBehaviour
                     // - 70% chance to start a RockThrowAttack.
                     if (side == "LEFT" && transform.position.x > player.transform.position.x - 1 && randomNumber < 0.5)
                     {
-                        // Change the side.
-                        side = "RIGHT";
-                        // Reset the Moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase1StartMoving();
                     }
                     else if (side == "RIGHT" && transform.position.x < player.transform.position.x + 1 && randomNumber < 0.5)
                     {
-                        // Change the side.
-                        side = "LEFT";
-                        // Reset the Moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase1StartMoving();
                     }
                     else
                     {
@@ -461,31 +419,11 @@ public class GebBossController : MonoBehaviour
                         // 70% chance to start a RockThrowAttack.
                         if (randomNumber >= 0.0 && randomNumber < 0.3)
                         {
-                            // Face the player.
-                            FacePlayer();
-                            // Start idling.
-                            currentAction = GebAction.Idle;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = idleDuration;
-                            // Update attackCount.
-                            if (attackCount > 0)
-                                attackCount = -1;
-                            else
-                                attackCount--;
+                            Phase1StartIdle();
                         }
                         else if (randomNumber >= 0.3 && randomNumber < 1)
                         {
-                            // Face the player.
-                            FacePlayer();
-                            // Start rock throw attack.
-                            currentAction = GebAction.RockThrowAttack;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = throwDuration;
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase1StartRockThrowAttack();
                         }
                     }                    
                 }
@@ -533,31 +471,11 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to do another RockThrowAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.8)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase1StartIdle();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase1StartRockThrowAttack();
                     }
                 }
                 break;
@@ -671,47 +589,19 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to start a ChargeAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.4)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartMoving();
                     }
                     else if (randomNumber >= 0.4 && randomNumber < 0.6)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.8)
                     {
-                        // Summon a wall.
-                        StartWallSummon();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartWallSummon();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Start charge attack.
-                        StartChargeAttack();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartChargeAttack();
                     }
                 }
                 break;
@@ -734,13 +624,7 @@ public class GebBossController : MonoBehaviour
                 // If Geb is against a wall, then start a charge attack.
                 if (wallDetector.onWall == true)
                 {
-                    // Start charge attack.
-                    StartChargeAttack();
-                    // Update attackCount.
-                    if (attackCount < 0)
-                        attackCount = 1;
-                    else
-                        attackCount++;
+                    Phase2StartChargeAttack();
                 }
 
                 // If Geb is within 1 unit of his target position, start a new action.
@@ -769,27 +653,11 @@ public class GebBossController : MonoBehaviour
                     // - 20% chance to start a ChargeAttack.
                     if (side == "LEFT" && transform.position.x > player.transform.position.x - 1 && randomNumber < 0.5)
                     {
-                        // Change the side.
-                        side = "RIGHT";
-                        // Reset the Moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartMoving();
                     }
                     else if (side == "RIGHT" && transform.position.x < player.transform.position.x + 1 && randomNumber < 0.5)
                     {
-                        // Change the side.
-                        side = "LEFT";
-                        // Reset the Moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartMoving();
                     }
                     else
                     {
@@ -815,51 +683,19 @@ public class GebBossController : MonoBehaviour
                         // 20% chance to start a ChargeAttack.
                         if (randomNumber >= 0.0 && randomNumber < 0.4)
                         {
-                            // Face the player.
-                            FacePlayer();
-                            // Start idling.
-                            currentAction = GebAction.Idle;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = idleDuration;
-                            // Update attackCount.
-                            if (attackCount > 0)
-                                attackCount = -1;
-                            else
-                                attackCount--;
+                            Phase2StartIdle();
                         }
                         else if (randomNumber >= 0.4 && randomNumber < 0.6)
                         {
-                            // Face the player.
-                            FacePlayer();
-                            // Start rock throw attack.
-                            currentAction = GebAction.RockThrowAttack;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = throwDuration;
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase2StartRockThrowAttack();
                         }
                         else if (randomNumber >= 0.6 && randomNumber < 0.8)
                         {
-                            // Summon a wall.
-                            StartWallSummon();
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase2StartWallSummon();
                         }
                         else if (randomNumber >= 0.8 && randomNumber < 1)
                         {
-                            // Start charge attack.
-                            StartChargeAttack();
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase2StartChargeAttack();
                         }
                     }                    
                 }
@@ -907,31 +743,11 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to do another RockThrowAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.8)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartIdle();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartRockThrowAttack();
                     }
                 }
                 break;
@@ -971,51 +787,19 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to start a ChargeAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartIdle();
                     }
                     else if (randomNumber >= 0.3 && randomNumber < 0.6)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartMoving();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.8)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Start charge attack.
-                        StartChargeAttack();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartChargeAttack();
                     }
                 }
                 break;
@@ -1074,51 +858,19 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to start a WallSummon.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartIdle();
                     }
                     else if (randomNumber >= 0.3 && randomNumber < 0.6)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase2StartMoving();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.8)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Summon a wall.
-                        StartWallSummon();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase2StartWallSummon();
                     }
                 }
                 break;
@@ -1272,69 +1024,27 @@ public class GebBossController : MonoBehaviour
                     // 15% chance to start a RockTornado.
                     if (randomNumber >= 0.0 && randomNumber < 0.4)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartMoving();
                     }
                     else if (randomNumber >= 0.4 && randomNumber < 0.5)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.5 && randomNumber < 0.6)
                     {
-                        // Summon a wall.
-                        StartWallSummon();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartWallSummon();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.7)
                     {
-                        // Start charge attack.
-                        StartChargeAttack();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartChargeAttack();
                     }
                     else if (randomNumber >= 0.7 && randomNumber < 0.85)
                     {
-                        // Start earthquake.
-                        currentAction = GebAction.Earthquake;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = earthquakeDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartEarthquake();
                     }
                     else if (randomNumber >= 0.85 && randomNumber < 1)
                     {
-                        // Create rock tornado.
-                        StartRockTornado();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockTornado();
                     }
                 }
                 break;
@@ -1368,25 +1078,11 @@ public class GebBossController : MonoBehaviour
                     // 25% chance to start an Earthquake.
                     if (randomNumber >= 0.0 && randomNumber < 0.75)
                     {
-                        // Start charge attack.
-                        StartChargeAttack();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartChargeAttack();
                     }
                     else if (randomNumber >= 0.75 && randomNumber < 1)
                     {
-                        // Start earthquake.
-                        currentAction = GebAction.Earthquake;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = earthquakeDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartEarthquake();
                     }
                 }
                 else if (targetPositionX - 1 < transform.position.x && transform.position.x < targetPositionX + 1)
@@ -1416,27 +1112,11 @@ public class GebBossController : MonoBehaviour
                     // - 15% chance to start a RockTornado.
                     if (side == "LEFT" && transform.position.x > player.transform.position.x - 1 && randomNumber < 0.5)
                     {
-                        // Change the side.
-                        side = "RIGHT";
-                        // Reset the Moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartMoving();
                     }
                     else if (side == "RIGHT" && transform.position.x < player.transform.position.x + 1 && randomNumber < 0.5)
                     {
-                        // Change the side.
-                        side = "LEFT";
-                        // Reset the Moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartMoving();
                     }
                     else
                     {
@@ -1466,73 +1146,27 @@ public class GebBossController : MonoBehaviour
                         // 15% chance to start a RockTornado.
                         if (randomNumber >= 0.0 && randomNumber < 0.4)
                         {
-                            // Face the player.
-                            FacePlayer();
-                            // Start idling.
-                            currentAction = GebAction.Idle;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = idleDuration;
-                            // Update attackCount.
-                            if (attackCount > 0)
-                                attackCount = -1;
-                            else
-                                attackCount--;
+                            Phase3StartIdle();
                         }
                         else if (randomNumber >= 0.4 && randomNumber < 0.5)
                         {
-                            // Face the player.
-                            FacePlayer();
-                            // Start rock throw attack.
-                            currentAction = GebAction.RockThrowAttack;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = throwDuration;
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase3StartRockThrowAttack();
                         }
                         else if (randomNumber >= 0.5 && randomNumber < 0.6)
                         {
-                            // Summon a wall.
-                            StartWallSummon();
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase3StartWallSummon();
                         }
                         else if (randomNumber >= 0.6 && randomNumber < 0.7)
                         {
-                            // Start charge attack.
-                            StartChargeAttack();
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase3StartChargeAttack();
                         }
                         else if (randomNumber >= 0.7 && randomNumber < 0.85)
                         {
-                            // Start earthquake.
-                            currentAction = GebAction.Earthquake;
-                            // Make sure that the action lasts for the appropriate amount of time.
-                            currentActionDuration = earthquakeDuration;
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase3StartEarthquake();
                         }
                         else if (randomNumber >= 0.85 && randomNumber < 1)
                         {
-                            // Create rock tornado.
-                            StartRockTornado();
-                            // Update attackCount.
-                            if (attackCount < 0)
-                                attackCount = 1;
-                            else
-                                attackCount++;
+                            Phase3StartRockTornado();
                         }
                     }                    
                 }
@@ -1580,31 +1214,11 @@ public class GebBossController : MonoBehaviour
                     // 20% chance to do another RockThrowAttack.
                     if (randomNumber >= 0.0 && randomNumber < 0.8)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartIdle();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 1)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockThrowAttack();
                     }
                 }
                 break;
@@ -1648,73 +1262,27 @@ public class GebBossController : MonoBehaviour
                     // 10% chance to start a RockTornado.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartIdle();
                     }
                     else if (randomNumber >= 0.3 && randomNumber < 0.6)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartMoving();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.7)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.7 && randomNumber < 0.8)
                     {
-                        // Start charge attack.
-                        StartChargeAttack();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartChargeAttack();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 0.9)
                     {
-                        // Start earthquake.
-                        currentAction = GebAction.Earthquake;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = earthquakeDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartEarthquake();
                     }
                     else if (randomNumber >= 0.9 && randomNumber < 1)
                     {
-                        // Create rock tornado.
-                        StartRockTornado();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockTornado();
                     }
                 }
                 break;
@@ -1777,73 +1345,27 @@ public class GebBossController : MonoBehaviour
                     // 10% Chance to start a RockTornado.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartIdle();
                     }
                     else if (randomNumber >= 0.3 && randomNumber < 0.6)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartMoving();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.7)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.7 && randomNumber < 0.8)
                     {
-                        // Summon a wall.
-                        StartWallSummon();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartWallSummon();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 0.9)
                     {
-                        // Start earthquake.
-                        currentAction = GebAction.Earthquake;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = earthquakeDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartEarthquake();
                     }
                     else if (randomNumber >= 0.9 && randomNumber < 1)
                     {
-                        // Create rock tornado.
-                        StartRockTornado();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockTornado();
                     }
                 }
                 break;
@@ -1896,71 +1418,27 @@ public class GebBossController : MonoBehaviour
                     // 10% chance to start a RockTornado.
                     if (randomNumber >= 0.0 && randomNumber < 0.3)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start idling.
-                        currentAction = GebAction.Idle;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = idleDuration;
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartIdle();
                     }
                     else if (randomNumber >= 0.3 && randomNumber < 0.6)
                     {
-                        // Start moving action.
-                        StartMoving();
-                        // Update attackCount.
-                        if (attackCount > 0)
-                            attackCount = -1;
-                        else
-                            attackCount--;
+                        Phase3StartMoving();
                     }
                     else if (randomNumber >= 0.6 && randomNumber < 0.7)
                     {
-                        // Face the player.
-                        FacePlayer();
-                        // Start rock throw attack.
-                        currentAction = GebAction.RockThrowAttack;
-                        // Make sure that the action lasts for the appropriate amount of time.
-                        currentActionDuration = throwDuration;
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockThrowAttack();
                     }
                     else if (randomNumber >= 0.7 && randomNumber < 0.8)
                     {
-                        // Summon a wall.
-                        StartWallSummon();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartWallSummon();
                     }
                     else if (randomNumber >= 0.8 && randomNumber < 0.9)
                     {
-                        // Start charge attack.
-                        StartChargeAttack();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartChargeAttack();
                     }
                     else if (randomNumber >= 0.9 && randomNumber < 1)
                     {
-                        // Create rock tornado.
-                        StartRockTornado();
-                        // Update attackCount.
-                        if (attackCount < 0)
-                            attackCount = 1;
-                        else
-                            attackCount++;
+                        Phase3StartRockTornado();
                     }
                 }
                 break;
@@ -2003,12 +1481,7 @@ public class GebBossController : MonoBehaviour
                     currentActionTimer = 0.0f;
                     
                     // Start being Idle.
-                    // Face the player.
-                    FacePlayer();
-                    // Start idling.
-                    currentAction = GebAction.Idle;
-                    // Make sure that the action lasts for the appropriate amount of time.
-                    currentActionDuration = idleDuration;
+                    Phase3StartIdle();
                 }
                 break;
 
@@ -2044,6 +1517,223 @@ public class GebBossController : MonoBehaviour
     /// Runs every frame when the closing cutscene is over.
     void DefeatedState() {}
 
+    void Phase1StartIdle()
+    {
+        // Face the player.
+        FacePlayer();
+        // Start idling.
+        currentAction = GebAction.Idle;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = idleDuration;
+        // Update attackCount.
+        if (attackCount > 0)
+            attackCount = -1;
+        else
+            attackCount--;
+    }
+
+    void Phase1StartMoving()
+    {
+        if (currentAction == GebAction.Idle)
+        {
+            // 10% chance to change side.
+            if (rng.NextDouble() < 0.1)
+                ChangeSide();
+        }
+
+        if (currentAction == GebAction.Moving)
+        {
+            ChangeSide();
+        }
+
+        // Start moving action.
+        StartMoving();
+        // Update attackCount.
+        if (attackCount > 0)
+            attackCount = -1;
+        else
+            attackCount--;
+    }
+
+    void Phase1StartRockThrowAttack()
+    {
+        // Face the player.
+        FacePlayer();
+        // Start rock throw attack.
+        currentAction = GebAction.RockThrowAttack;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = throwDuration;
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase2StartIdle()
+    {
+        // Face the player.
+        FacePlayer();
+        // Start idling.
+        currentAction = GebAction.Idle;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = idleDuration;
+        // Update attackCount.
+        if (attackCount > 0)
+            attackCount = -1;
+        else
+            attackCount--;
+    }
+
+    void Phase2StartMoving()
+    {
+        if (currentAction == GebAction.Moving)
+        {
+            ChangeSide();
+        }
+
+        // Start moving action.
+        StartMoving();
+        // Update attackCount.
+        if (attackCount > 0)
+            attackCount = -1;
+        else
+            attackCount--;
+    }
+
+    void Phase2StartRockThrowAttack()
+    {
+        // Face the player.
+        FacePlayer();
+        // Start rock throw attack.
+        currentAction = GebAction.RockThrowAttack;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = throwDuration;
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase2StartWallSummon()
+    {
+        // Summon a wall.
+        StartWallSummon();
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase2StartChargeAttack()
+    {
+        // Start charge attack.
+        StartChargeAttack();
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase3StartIdle()
+    {
+        if (currentAction == GebAction.RockTornado)
+        {
+            // Update attackCount.
+            if (attackCount > 0)
+                attackCount = -1;
+            else
+                attackCount--;
+        }
+
+        // Face the player.
+        FacePlayer();
+        // Start idling.
+        currentAction = GebAction.Idle;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = idleDuration;
+    }
+
+    void Phase3StartMoving()
+    {
+        if (currentAction == GebAction.Moving)
+        {
+            ChangeSide();
+        }
+
+        // Start moving action.
+        StartMoving();
+        // Update attackCount.
+        if (attackCount > 0)
+            attackCount = -1;
+        else
+            attackCount--;
+    }
+
+    void Phase3StartRockThrowAttack()
+    {
+        // Face the player.
+        FacePlayer();
+        // Start rock throw attack.
+        currentAction = GebAction.RockThrowAttack;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = throwDuration;
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase3StartWallSummon()
+    {
+        // Summon a wall.
+        StartWallSummon();
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase3StartChargeAttack()
+    {
+        // Start charge attack.
+        StartChargeAttack();
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase3StartEarthquake()
+    {
+        // Start earthquake.
+        currentAction = GebAction.Earthquake;
+        // Make sure that the action lasts for the appropriate amount of time.
+        currentActionDuration = earthquakeDuration;
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
+    void Phase3StartRockTornado()
+    {
+        // Create rock tornado.
+        StartRockTornado();
+        // Update attackCount.
+        if (attackCount < 0)
+            attackCount = 1;
+        else
+            attackCount++;
+    }
+
     // Change Geb's side to face the player.
     void FacePlayer()
     {
@@ -2069,6 +1759,15 @@ public class GebBossController : MonoBehaviour
         {
             transform.localScale = new Vector3(-Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+    }
+
+    /// Flip the side variable.
+    void ChangeSide()
+    {
+        if (side == "RIGHT")
+            side = "LEFT";
+        else if (side == "LEFT")
+            side = "RIGHT";
     }
 
     /// When this function is called, Geb is moved in bounds if he was out of bounds.
