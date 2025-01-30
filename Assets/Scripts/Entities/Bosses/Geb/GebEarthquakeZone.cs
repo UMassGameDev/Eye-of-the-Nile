@@ -12,6 +12,7 @@ public class GebEarthquakeZone : MonoBehaviour
     /// Reference to Geb's boss controller.
     protected GebBossController gebBossController;
 
+    [SerializeField] float maxEarthquakeSize = 25f;
     [SerializeField] float timeBetweenParticles = 0.1f;
     [SerializeField] int damageAmount = 10;
     [SerializeField] float timeBetweenDamage = 0.2f;
@@ -35,7 +36,7 @@ public class GebEarthquakeZone : MonoBehaviour
     void Update()
     {
         // Make the earthquake zone (the part that damages the player) get larger as the earthquake action progresses.
-        transform.localScale = new Vector3(gebBossController.GetCurrentActionPercentage(), transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(gebBossController.GetCurrentActionPercentage() * maxEarthquakeSize, transform.localScale.y, transform.localScale.z);
 
         particleTimer += Time.deltaTime;
         if (particleTimer > timeBetweenParticles)
@@ -45,7 +46,7 @@ public class GebEarthquakeZone : MonoBehaviour
             // Instantiate the particle effect and get the instance's shape module at the same time.
             ParticleSystem.ShapeModule particleInstance = Instantiate(particleEffect, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().shape;
             // Make the particles get larger as the earthquake action progresses (matches the earthquake zone).
-            particleInstance.scale = new Vector3(initialParticleEffectSizeX * gebBossController.GetCurrentActionPercentage(), particleInstance.scale.y, particleInstance.scale.z);
+            particleInstance.scale = new Vector3(initialParticleEffectSizeX * gebBossController.GetCurrentActionPercentage() / 25f * maxEarthquakeSize, particleInstance.scale.y, particleInstance.scale.z);
         }
 
         damageTimer += Time.deltaTime;

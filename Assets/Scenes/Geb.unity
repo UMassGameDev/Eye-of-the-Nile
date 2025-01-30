@@ -25373,7 +25373,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 25, y: 0.25}
+  m_Size: {x: 1, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &8094381226900382496
 GameObject:
@@ -25406,6 +25406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleEffect: {fileID: 1059387424429451625, guid: 8cde9eaac0711c848a7aea3baf7938fe, type: 3}
+  maxEarthquakeSize: 25
   timeBetweenParticles: 0.1
   damageAmount: 10
   timeBetweenDamage: 0.2

@@ -8,9 +8,9 @@ This script is a work in progress. It will control Geb's movement and will trigg
 This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame, one for each phase.
-- A few other functions to initiate attacks/assist with actions.
+- Other functions to initiate attacks/assist with actions.
 
-Documentation updated 1/21/2024
+Documentation updated 1/29/2024
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
@@ -1517,6 +1517,7 @@ public class GebBossController : MonoBehaviour
     /// Runs every frame when the closing cutscene is over.
     void DefeatedState() {}
 
+    /// Used to initiate the Idle action in phase 1.
     void Phase1StartIdle()
     {
         // Face the player.
@@ -1532,8 +1533,10 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
+    /// Used to initiate the Moving action in phase 1.
     void Phase1StartMoving()
     {
+        /// Special behavior for when initiating the Moving action from Geb's Idle state. 
         if (currentAction == GebAction.Idle)
         {
             // 10% chance to change side.
@@ -1541,6 +1544,7 @@ public class GebBossController : MonoBehaviour
                 ChangeSide();
         }
 
+        /// Special behavior for when initiating the Moving action from Geb's Moving state (itself). 
         if (currentAction == GebAction.Moving)
         {
             ChangeSide();
@@ -1555,6 +1559,7 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
+    /// Used to initiate the RockThrow attack in phase 1.
     void Phase1StartRockThrowAttack()
     {
         // Face the player.
@@ -1570,6 +1575,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the Idle action in phase 2.
     void Phase2StartIdle()
     {
         // Face the player.
@@ -1585,8 +1591,10 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
+    /// Used to initiate the Moving action in phase 2.
     void Phase2StartMoving()
     {
+        /// Special behavior for when initiating the Moving action from Geb's Moving state (itself). 
         if (currentAction == GebAction.Moving)
         {
             ChangeSide();
@@ -1601,6 +1609,7 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
+    /// Used to initiate the RockThrow attack in phase 2.
     void Phase2StartRockThrowAttack()
     {
         // Face the player.
@@ -1616,6 +1625,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the WallSummon attack in phase 2.
     void Phase2StartWallSummon()
     {
         // Summon a wall.
@@ -1627,6 +1637,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the ChargeAttack attack in phase 2.
     void Phase2StartChargeAttack()
     {
         // Start charge attack.
@@ -1638,8 +1649,10 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the Idle action in phase 3.
     void Phase3StartIdle()
     {
+        /// Special behavior for when initiating the Idle action from Geb's RockTornado state. 
         if (currentAction == GebAction.RockTornado)
         {
             // Update attackCount.
@@ -1657,8 +1670,10 @@ public class GebBossController : MonoBehaviour
         currentActionDuration = idleDuration;
     }
 
+    /// Used to initiate the Moving action in phase 3.
     void Phase3StartMoving()
     {
+        /// Special behavior for when initiating the Moving action from Geb's Moving state (itself).
         if (currentAction == GebAction.Moving)
         {
             ChangeSide();
@@ -1673,6 +1688,7 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
+    /// Used to initiate the RockThrow attack in phase 3.
     void Phase3StartRockThrowAttack()
     {
         // Face the player.
@@ -1688,6 +1704,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the WallSummon attack in phase 3.
     void Phase3StartWallSummon()
     {
         // Summon a wall.
@@ -1699,6 +1716,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the ChargeAttack attack in phase 3.
     void Phase3StartChargeAttack()
     {
         // Start charge attack.
@@ -1710,6 +1728,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the Earthquake attack in phase 3.
     void Phase3StartEarthquake()
     {
         // Start earthquake.
@@ -1723,6 +1742,7 @@ public class GebBossController : MonoBehaviour
             attackCount++;
     }
 
+    /// Used to initiate the RockTornado attack in phase 3.
     void Phase3StartRockTornado()
     {
         // Create rock tornado.
@@ -1788,8 +1808,7 @@ public class GebBossController : MonoBehaviour
     /// <summary>
     /// Used to set Geb's current action to Moving and to calculate a new target position for Geb to move towards.
     /// Variable "side" is used to determine whether Geb will pick a target position to the left or to the right of the player.
-    /// This was originally intended to work for phase 1, but it is currenlty used for phase 2 as well. Once more details
-    /// about Geb's bossfight are finalized, this may change, as with everything else in this script.
+    /// This function gets called by the phase-specific action-starting functions. Use those functions instead.
     /// </summary>
     private void StartMoving()
     {
@@ -1829,6 +1848,7 @@ public class GebBossController : MonoBehaviour
     /// <summary>
     /// Summons and launches a rock at Geb's location.
     /// The rock is thrown towards the player.
+    /// This function gets called by the phase-specific action-starting functions. Use those functions instead.
     /// </summary>
     private void ThrowRock()
     {
@@ -1928,7 +1948,10 @@ public class GebBossController : MonoBehaviour
         return new Vector2(predictedPosX, predictedPosY);
     }
 
-    /// Used in phase 2 to set Geb's current action to WallSummon and to instantiate a wall.
+    /// <summary>
+    /// Sets Geb's current action to WallSummon and instantiates a wall.
+    /// This function gets called by the phase-specific action-starting functions. Use those functions instead.
+    /// </summary>
     private void StartWallSummon()
     {
         // This counts as a new action, so reset currentActionTimer.
@@ -1955,7 +1978,10 @@ public class GebBossController : MonoBehaviour
         Instantiate(protectiveWall, transform.position + wallOffset, transform.rotation);
     }
 
+    /// <summary>
     /// Used in phase 2 to set Geb's current action to ChargeAttack and pick a direction to move in.
+    /// This function gets called by the phase-specific action-starting functions. Use those functions instead.
+    /// </summary>
     private void StartChargeAttack()
     {
         // This counts as a new action, so reset currentActionTimer.
@@ -1986,7 +2012,10 @@ public class GebBossController : MonoBehaviour
         }
     }
 
+    /// <summary>
     /// Used in phase 3 to start the RockTornado attack.
+    /// This function gets called by the phase-specific action-starting functions. Use those functions instead.
+    /// </summary>
     void StartRockTornado()
     {
         // This counts as a new action, so reset currentActionTimer.
