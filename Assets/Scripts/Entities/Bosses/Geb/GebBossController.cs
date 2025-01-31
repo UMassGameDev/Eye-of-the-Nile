@@ -10,7 +10,7 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 1/29/2024
+Documentation updated 1/29/2025
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
@@ -1559,7 +1559,7 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
-    /// Used to initiate the RockThrow attack in phase 1.
+    /// Used to initiate the RockThrowAttack attack in phase 1.
     void Phase1StartRockThrowAttack()
     {
         // Face the player.
@@ -1609,7 +1609,7 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
-    /// Used to initiate the RockThrow attack in phase 2.
+    /// Used to initiate the RockThrowAttack attack in phase 2.
     void Phase2StartRockThrowAttack()
     {
         // Face the player.
@@ -1688,7 +1688,7 @@ public class GebBossController : MonoBehaviour
             attackCount--;
     }
 
-    /// Used to initiate the RockThrow attack in phase 3.
+    /// Used to initiate the RockThrowAttack attack in phase 3.
     void Phase3StartRockThrowAttack()
     {
         // Face the player.

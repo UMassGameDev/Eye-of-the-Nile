@@ -2,9 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Copied & modified from EarthquakeZone.
-// \todo Update documentation for this file.
-// \todo Make the max earthquake zone hitbox size and the max particle effect size adjustable with one variable.
+
+/** \brief
+This is the script for Geb's earthquake zone.
+This script summons particles, scales the earthquake zone size, can damage the player, and can slow the player down.
+
+Documentation updated 1/30/2025
+\author Alexander Art
+\copyright Copied & modified from EarthquakeZone.cs.
+\todo Finish documentation for this file.
+*/
 public class GebEarthquakeZone : MonoBehaviour
 {
     /// Reference to the particle object that will be repeatedly instantiated at the earthquake.

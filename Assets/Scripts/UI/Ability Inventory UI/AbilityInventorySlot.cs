@@ -55,10 +55,31 @@ public class AbilityInventorySlot : MonoBehaviour, IDropHandler
         // If an item is being dragged && that item has the required item data...
         if (eventData.pointerDrag != null && eventData.pointerDrag.TryGetComponent<AbilityInventoryItemData>(out var itemData))
         {
-            if (itemData.abilityName != "EMPTY" && (slotData == null || acceptsOnlyOneItem)) { // If an item is being dragged into an empty slot or if the dragged item is the only valid item for that slot
+            if (itemData.abilityName != "EMPTY" && (slotData == null || acceptsOnlyOneItem)) { // If an item is being dragged into an empty slot or a slot that only accepts one item
                 if (acceptsOnlyOneItem) {
-                    if (itemData == acceptedItem)
+                    if (itemData == acceptedItem) { // If the dragged item is the only valid item for the slot
                         itemAccepted(eventData, itemData);
+                    } else { // If the dragged item is not the valid item for the slot
+                        // Find the slot that only accepts the item data of the item being dragged
+                        int returnSlotNum = -1;
+                        foreach (Transform child in GameObject.Find("Inventory Slots").transform) {
+                            if (child.GetComponent<AbilityInventorySlot>().acceptedItem == itemData) {
+                                returnSlotNum = child.GetComponent<AbilityInventorySlot>().slotNum;
+                            }
+                        }
+
+                        // Find the slot that the dragged item came from
+                        int fromSlotNum = itemData.currentSlot;
+                        AbilityInventorySlot fromSlot = null;
+                        foreach (Transform child in GameObject.Find("Inventory Slots").transform) {
+                            if (child.GetComponent<AbilityInventorySlot>().slotNum == fromSlotNum) {
+                                fromSlot = child.GetComponent<AbilityInventorySlot>();
+                            }
+                        }
+
+                        // Send the dragged item to its inventory slot
+                        sendItem(fromSlotNum, returnSlotNum);
+                    }
                 } else {
                     itemAccepted(eventData, itemData);
                 }
