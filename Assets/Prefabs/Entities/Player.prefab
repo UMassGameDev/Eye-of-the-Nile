@@ -594,7 +594,7 @@ MonoBehaviour:
   meleeCooldown: 1
   meleeKnockback: 75
   projectileKey: 324
-  defaultProjectilePrefab: {fileID: 7973579002921526092, guid: 2904ee5ffd0c2c2469277a4e3632f344, type: 3}
+  defaultProjectilePrefab: {fileID: 7973579002921526092, guid: 64fca3399e251404487ccad4e6000dec, type: 3}
   ProjCooldown: 1
 --- !u!114 &428621585054581581
 MonoBehaviour:

@@ -112,7 +112,7 @@ MonoBehaviour:
   sprite: {fileID: 8102645183766340906}
   damage: 10
   damagePlayers: 1
-  damageNonPlayers: 1
+  damageNonPlayers: 0
   destroyOnImpact: 1
   spawnSFX:
     Guid:

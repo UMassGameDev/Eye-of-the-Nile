@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3628708173318362808}
   - component: {fileID: 4590224011516093467}
   m_Layer: 0
-  m_Name: Bullet (test projectile)
+  m_Name: Player Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 8366819583817702406}
   damage: 30
-  damagePlayers: 1
-  damageNonPlayers: 0
+  damagePlayers: 0
+  damageNonPlayers: 1
   destroyOnImpact: 1
   spawnSFX:
     Guid:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f89c2e82bb60d4aae9143cf8d3c699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDirection: {x: 10, y: 0}
+  movementDirection: {x: 12, y: 0}
 --- !u!1 &8366819583817702406
 GameObject:
   m_ObjectHideFlags: 0
