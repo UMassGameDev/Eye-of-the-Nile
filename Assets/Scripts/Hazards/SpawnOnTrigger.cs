@@ -5,8 +5,8 @@ using UnityEngine;
 If something enters this object's trigger zone, this script will spawn an object or projectile.
 This is useful for stage hazards, such as the arrow trap.
 
-Documentation updated 8/26/2024
-\author Stephen Nuttall
+Documentation updated 1/31/2025
+\author Stephen Nuttall, Alexander Art
 */
 public class SpawnOnTrigger : MonoBehaviour
 {
@@ -18,6 +18,8 @@ public class SpawnOnTrigger : MonoBehaviour
     public float spawnCooldown = 3f;
     /// Should the projectile be facing left?
     public bool facingLeft = true;
+    /// Should enemies be able to activate the trigger zone, or just the player?
+    public bool playerOnly = true;
 
     /// Seconds since cooldown was last started. When greater than spawnCooldown, cooldown is over.
     float cooldownTimer = 0f;
@@ -36,20 +38,21 @@ public class SpawnOnTrigger : MonoBehaviour
 
     /// <summary>
     /// If an object enters the trigger zone (and the cooldown is up), instantiate a new instance of projectilePrefab.
+    /// If playerOnly is enabled, only the player can trigger the projectile.
     /// Make sure it's facing the right direction (if projectilePrefab is actually a BasicProjectile), and reset the cooldown timer.
     /// </summary>
     /// <param name="col">Represents the object that's entered the trigger zone.</param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (cooldownTimer >= spawnCooldown && col.tag != "Projectile")
+        if (cooldownTimer >= spawnCooldown && col.tag != "Projectile" && !(playerOnly && col.tag != "Player"))
         {
             GameObject projectile = Instantiate(projectilePrefab, new Vector2(spawnPoint.position.x, spawnPoint.position.y), Quaternion.identity);
             
             // if object is a projectile and facing left, flip the projectile's direction
             if (facingLeft && projectile.TryGetComponent<BaseProjectile>(out var bp))
                 bp.FlipDirection();
-        }
 
-        cooldownTimer = 0;
+            cooldownTimer = 0;
+        }
     }
 }
