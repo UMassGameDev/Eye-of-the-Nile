@@ -14,7 +14,7 @@ public class SettingsMenu : MonoBehaviour
     /// Get settings menu game object. This is set in the inspector in Unity.
     public GameObject SettingsMenuUI;
 
-    /// Reference to the data manager.
+    /// \brief Reference to the data manager.
     /// All values from the settings menu should go to the DataManager so they can be saved between scenes!
     DataManager dataManager;
 

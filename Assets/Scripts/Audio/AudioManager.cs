@@ -16,10 +16,14 @@ public class AudioManager : MonoBehaviour
 {
     /// To make the object persistent, it needs a reference to itself.
     public static AudioManager instance;
+    /// Reference to the data manager.
+    DataManager dataManager;
+    /// Reference to the music that is currently playing.
     EventReference currentMusicReference;
+    // Instance of the music that is currently playing.
     EventInstance currentMusicInstance;
 
-    /// \brief Makes this object persistent.
+    /// \brief Make this object persistent and set reference to data manager.
     /// If this is the only AudioManager in the scene, don’t destroy it on reload. If there’s another AudioManager in the scene, destroy it.
     private void Awake()
     {
@@ -32,6 +36,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
     }
 
     /// Basic function to play a given sound once.
@@ -60,11 +66,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// \brief Update the volume the music plays at.
-    /// \todo Reimplement this function with the new FMod audio system.
+    /// Updates the volume each audio bus plays at.
     public void VolumeChanged()
     {
-        //
+        RuntimeManager.GetBus("Bus:/").setVolume(dataManager.masterVolumeSetting);
+        RuntimeManager.GetBus("Bus:/SFX").setVolume(dataManager.sfxVolumeSetting);
+        RuntimeManager.GetBus("Bus:/Music").setVolume(dataManager.musicVolumeSetting);
     }
 
     // --- OLD PRE-FMOD CODE BELOW ---

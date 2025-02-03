@@ -37,15 +37,16 @@ The details can vary based on what you're adding, but the basics are really simp
 Now that you've added your new sound into FMOD, it's very simple to use it in Unity. Most of the work is already done for you!
 1. In whatever script you're using, add a serialized variable (a variable that's either public or has [SerializedField] next to it) of type
 EventReference (example: [SerializedField] EventReference myCoolSound).
-2. There's many ways to play the sound, but the process is streamlined by the AudioManager. Reference the following recommended functions below:
+2. There's many ways to play the sound, but the process is streamlined by the AudioManager. These functions are recommended:
     - AudioManager.instance.PlaySFX()
     - AudioManager.instance.PlayOneShot()
     - AudioManager.instance.PlayMusic()
+
 More information can be found in the documentation for AudioManager.
 3. In the Unity Editor, put your script on an object and assign the event reference by clicking the search icon next to it, and finding the event
 you created earlier.
 
-And your done!!! Once you're familiar with the process, it's fairly straightforward. Now that you are familiar with FMOD, feel free to experiment with
+And you're done!!! Once you're familiar with the process, it's fairly straightforward. Now that you are familiar with FMOD, feel free to experiment with
 it's more advanced features! There's plenty of tutorials online that go through FMOD's features more in depth.
 
 \author Stephen Nuttall
