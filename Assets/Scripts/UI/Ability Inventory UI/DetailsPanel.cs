@@ -10,6 +10,8 @@ using TMPro;
 
 public class DetailsPanel : MonoBehaviour
 {
+    public AbilityInventoryItemData dataForSelectedItem;
+
     [SerializeField] TMP_Text godName;
     [SerializeField] TMP_Text level;
     [SerializeField] Image godIcon;
@@ -31,7 +33,7 @@ public class DetailsPanel : MonoBehaviour
     [SerializeField] TMP_Text passiveName;
     [SerializeField] TMP_Text passiveDescription;
 
-    public AbilityInventoryItemData dataForSelectedItem;
+    [SerializeField] UpgradePanel upgradePanel;
 
     public void Initialize(AbilityInventoryItemData itemData)
     {
@@ -62,5 +64,7 @@ public class DetailsPanel : MonoBehaviour
         passiveIcon.sprite = itemData.abilityIcons[3];
         passiveName.text = itemData.abilityNames[3];
         passiveDescription.text = itemData.abilityDescriptions[3];
+
+        upgradePanel.UpdateCostTextboxes();
     }
 }

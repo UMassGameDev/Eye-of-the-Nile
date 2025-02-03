@@ -59,6 +59,10 @@ public abstract class BaseAbilityInfo : ScriptableObject
     public int abilityLevel = 0;
     /// \brief The maximum level the ability can be upgraded to.
     public int maxLevel = 3;
+    /// \brief The soul cost of the upgrades for the ability at each level.
+    public List<int> upgradeSoulCosts;
+    /// \brief The godsoul cost of the upgrades for the ability at each level.
+    public List<int> upgradeGodsoulCosts;
     ///@}
 
     [Header("Advanced Ability Info")]

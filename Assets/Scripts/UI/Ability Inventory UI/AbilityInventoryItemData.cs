@@ -19,6 +19,7 @@ public class AbilityInventoryItemData : MonoBehaviour
     /// The quote to display in the detailed view.
     public string quote;
 
+    /// The index of the ability in AbilityInventory.
     public int abilityIndex;
 
     /// The offense, defense, utility, and passive icons to display in the detailed view.

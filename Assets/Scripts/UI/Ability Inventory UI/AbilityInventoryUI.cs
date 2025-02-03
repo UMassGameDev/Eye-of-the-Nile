@@ -127,7 +127,7 @@ public class AbilityInventoryUI : MonoBehaviour
     }
 
     /// Fills out the AbilityInventoryItemData for each slot.
-    void InitializeSlots()
+    public void InitializeSlots()
     {
         // initialize ability inventory slots and their icons
         for (int i = 0; i < abilityInventorySlots.Length; i++)
@@ -185,7 +185,7 @@ public class AbilityInventoryUI : MonoBehaviour
     }
 
     /// Update \ref Scriptables_ActiveAbilties to reflect any changes made in the ability inventory.
-    void UpdateActiveAbilities()
+    public void UpdateActiveAbilities()
     {
         // update active ability data with new active abilities
         for (int i = 0; i < activeAbilitySlots.Length; i++)

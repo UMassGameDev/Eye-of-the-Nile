@@ -32,7 +32,9 @@ MonoBehaviour:
     Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 0
   maxLevel: 3
-  currentForm: 1
+  upgradeSoulCosts: 0000000000000000
+  upgradeGodsoulCosts: 0000000000000000
+  currentForm: 3
   baseCost: 0
   duration: 0
   tickRate: 0

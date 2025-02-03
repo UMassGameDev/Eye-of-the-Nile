@@ -9505,6 +9505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d42736fc63db7148a2293d7d2e2e77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataForSelectedItem: {fileID: 0}
   godName: {fileID: 559520072}
   level: {fileID: 359184306}
   godIcon: {fileID: 7587285752363670518}
@@ -9521,7 +9522,7 @@ MonoBehaviour:
   passiveIcon: {fileID: 790125506}
   passiveName: {fileID: 2102976131}
   passiveDescription: {fileID: 403798217}
-  dataForSelectedItem: {fileID: 0}
+  upgradePanel: {fileID: 1943555786}
 --- !u!114 &1656677986 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5325254737368740267, guid: 048a6e8d437937b429b8faad70a5c85e, type: 3}
@@ -10918,6 +10919,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detailsPanel: {fileID: 1609336734}
   abilityInventory: {fileID: 11400000, guid: 57707ec6a7e392049ba3dfb910804b5a, type: 2}
+  abilityInventoryUI: {fileID: 1044344520}
+  soulCostText: {fileID: 300054598}
+  godsoulCostText: {fileID: 727865546}
 --- !u!1001 &1954840412
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -44,8 +44,10 @@ MonoBehaviour:
       Data3: 539864995
       Data4: -607730509
     Path: event:/Placeholder/Incorrect Buzzer
-  abilityLevel: 2
+  abilityLevel: 1
   maxLevel: 5
+  upgradeSoulCosts: 01000000020000000300000004000000
+  upgradeGodsoulCosts: 00000000000000000000000000000000
   currentForm: 0
   baseCost: 0
   duration: 0
