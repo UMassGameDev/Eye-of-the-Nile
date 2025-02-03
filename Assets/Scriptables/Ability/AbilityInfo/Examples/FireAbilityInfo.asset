@@ -53,7 +53,7 @@ MonoBehaviour:
   defenseEffects: []
   utilityEffects: []
   passiveEffects: []
-  projectilePrefab: {fileID: 7514528624249247598, guid: dbd3b7dd93618024e87e16d7202df172, type: 3}
+  projectilePrefab: {fileID: 7514528624249247598, guid: 037b78038a4f46d4d96a6a6e699cfc38, type: 3}
   numFireballs: 3
   fireballDelay: 0.333
   firewallPrefab: {fileID: 7712287095173055709, guid: 92477b3eb83e0154db874067c74f0084, type: 3}

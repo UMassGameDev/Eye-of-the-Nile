@@ -154,6 +154,8 @@ public class AbilityInventoryUI : MonoBehaviour
 
                 // Store which slot the item is in on initialization
                 iconData[i].currentSlot = abilityInventorySlots[i].GetSlotNum();
+
+                iconData[i].abilityIndex = i;
             }
 
             abilityInventorySlotInitialized?.Invoke();

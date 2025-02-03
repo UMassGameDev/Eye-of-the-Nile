@@ -31,8 +31,12 @@ public class DetailsPanel : MonoBehaviour
     [SerializeField] TMP_Text passiveName;
     [SerializeField] TMP_Text passiveDescription;
 
+    public AbilityInventoryItemData dataForSelectedItem;
+
     public void Initialize(AbilityInventoryItemData itemData)
     {
+        dataForSelectedItem = itemData;
+
         godIcon.sprite = itemData.sprite;
         godName.text = itemData.abilityName;
         quote.text = itemData.quote;
