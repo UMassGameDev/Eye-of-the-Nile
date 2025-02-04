@@ -1008,6 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a69f42944025145a914656ba951b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultStartScene: ClubFair_1
 --- !u!1001 &811269402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1065,6 +1066,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e4aad6047999546bde47150566807a, type: 3}
+--- !u!1001 &1392354723
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 974795734888281949, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_Name
+      value: DataManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.485252
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.414924
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2854753
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887855118447960049, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 21e76d47462ff8d4092dc36317002e4c, type: 3}
 --- !u!1001 &1870611815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1122,17 +1180,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01cf3a6eb7b639143aa5c6f0f889bb4e, type: 3}
---- !u!114 &1961528369 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5325254737368740267, guid: 048a6e8d437937b429b8faad70a5c85e, type: 3}
-  m_PrefabInstance: {fileID: 180264314}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c044c94c49505943a22d118a6ff297e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1990272611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1273,10 +1320,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1961528369}
-        m_TargetAssemblyTypeName: StageLoader, Assembly-CSharp
-        m_MethodName: LoadNewStage
-        m_Mode: 5
+      - m_Target: {fileID: 772610472}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1463,10 +1510,11 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1392354723}
   - {fileID: 536825674}
   - {fileID: 180264314}
   - {fileID: 1870611815}
   - {fileID: 1990272611}
+  - {fileID: 811269402}
   - {fileID: 181583526}
   - {fileID: 772610471}
-  - {fileID: 811269402}

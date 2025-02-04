@@ -32,9 +32,9 @@ public class SettingsMenu : MonoBehaviour
     /// Set the value of the settings options to the data manager's copy of it when scenes are loaded.
     void Start()
     {
-        masterVolumeSlider.value = dataManager.GetMasterVolumeSetting();
-        musicVolumeSlider.value = dataManager.GetMusicVolumeSetting();
-        sfxVolumeSlider.value = dataManager.GetSfxVolumeSetting();
+        masterVolumeSlider.value = dataManager.GetMasterVolume();
+        musicVolumeSlider.value = dataManager.GetMusicVolume();
+        sfxVolumeSlider.value = dataManager.GetSFXVolume();
     }
 
     public void CloseSettings()

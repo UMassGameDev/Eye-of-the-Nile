@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
 
 /** \brief
 Functionality of ObjectHealth, specifically for the player.
@@ -129,7 +128,19 @@ public class PlayerHealth : ObjectHealth
     /// Set the current health of the player to the data manager's copy of it, and invoke onPlayerHealthChange.
     void Start()
     {
-        currentHealth = dataManager.GetPlayerHealth();
+        if (dataManager.noSaveFileFound)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth = dataManager.GetPlayerHealth();
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
         onPlayerHealthChange?.Invoke(currentHealth);
     }
 

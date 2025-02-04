@@ -12,11 +12,11 @@ public class DayNight_Shrine : MonoBehaviour
 {
     /// Possible types of shrines.
     public enum ShrineType
-    { 
+    {
         /// Day shrine (Shrine of Ra) allows the player to change the time of day to day time.
-        Day, 
+        Day,
         /// Night shrine (Shrine of Thoth) allows the player to change the time of day to night time.
-        Night 
+        Night
     };
     /// The type of shrine this shrine is.
     public ShrineType shrineType = ShrineType.Day;
@@ -28,10 +28,10 @@ public class DayNight_Shrine : MonoBehaviour
         switch (shrineType)
         {
             case ShrineType.Day:
-                GameObject.Find("DataManager").GetComponent<DataManager>().SetTimeOfDay(DataManager.TimeOfDay.Day);
+                GameObject.Find("DataManager").GetComponent<DataManager>().SetTimeOfDay(TimeOfDay.Day);
                 break;
             case ShrineType.Night:
-                GameObject.Find("DataManager").GetComponent<DataManager>().SetTimeOfDay(DataManager.TimeOfDay.Night);
+                GameObject.Find("DataManager").GetComponent<DataManager>().SetTimeOfDay(TimeOfDay.Night);
                 break;
         }
     }

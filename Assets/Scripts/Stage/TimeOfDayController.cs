@@ -18,21 +18,21 @@ public class TimeOfDayController : MonoBehaviour
     // public GameObject BloodMoonBckgrnd;
 
     /// Disables all active background objects an enables the one corresponding to the set time of day.
-    /// <param name="newTOD">0 = day time, 1 = night time, anything else = error.</param>
-    public void setToD(int newTOD)
+    /// <param name="newTimeOfDay">0 = day time, 1 = night time, anything else = error.</param>
+    public void SetTimeOfDay(TimeOfDay newTimeOfDay)
     {
-        switch (newTOD)
+        switch (newTimeOfDay)
         {
-            case 0:
+            case TimeOfDay.Day:
                 DayBckgrnd.SetActive(true);
                 NightBckgrnd.SetActive(false);
                 break;
-            case 1:
+            case TimeOfDay.Night:
                 DayBckgrnd.SetActive(false);
                 NightBckgrnd.SetActive(true);
                 break;
             default:
-                Debug.Log("Failed to change time of day. Input: " + newTOD);
+                Debug.Log("Failed to change time of day. Input: " + newTimeOfDay.ToString());
                 break;
         }
     }
