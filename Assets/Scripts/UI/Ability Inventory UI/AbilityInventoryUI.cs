@@ -21,6 +21,8 @@ public class AbilityInventoryUI : MonoBehaviour
     [SerializeField] GameObject mainCanvas;
     /// Reference to the details panel of the ability inventory UI, which holds the UI elements for the more details display.
     [SerializeField] GameObject detailsPanel;
+    /// Reference to confirmation panel that is shown when an ability is about to be upgraded.
+    [SerializeField] private ConfirmationPanel confirmationPanel;
 
     /// List of icons for the ability items.
     [SerializeField] Image[] abilityIcons;
@@ -99,6 +101,7 @@ public class AbilityInventoryUI : MonoBehaviour
     /// Closes the more details view.
     public void ExitDetailsPanel()
     {
+        confirmationPanel.CloseConfirmationPanel();
         detailsPanel.SetActive(false);
         
         detailsOpen = false;

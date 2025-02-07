@@ -21,8 +21,12 @@ public class ConfirmationPanel : MonoBehaviour
     /// Reference to the ability inventory UI.
     [SerializeField] AbilityInventoryUI abilityInventoryUI;
 
+    [SerializeField] TMP_Text currentSoulText;
+    [SerializeField] TMP_Text currentGodsoulText;
     [SerializeField] TMP_Text soulCostText;
     [SerializeField] TMP_Text godsoulCostText;
+    [SerializeField] TMP_Text remainingSoulText;
+    [SerializeField] TMP_Text remainingGodsoulText;
 
     /// Set references.
     void Awake()
@@ -33,6 +37,21 @@ public class ConfirmationPanel : MonoBehaviour
     public void OpenConfirmationPanel()
     {
         gameObject.SetActive(true);
+        
+        // Get the ability info for the selected ability.
+        BaseAbilityInfo abilityInfo = abilityInventory.GetAbilitySet(detailsPanel.dataForSelectedItem.abilityIndex);
+
+        // Set text for current soul count.
+        currentSoulText.SetText($"{dataManager.GetSouls()}");
+        currentGodsoulText.SetText($"{dataManager.GetGodSouls()}");
+
+        // Set cost text for next ability upgrade.
+        soulCostText.SetText($"{abilityInfo.upgradeSoulCosts[abilityInfo.abilityLevel - 1]}");
+        godsoulCostText.SetText($"{abilityInfo.upgradeGodsoulCosts[abilityInfo.abilityLevel - 1]}");
+
+        // Set text for remaining soul count.
+        remainingSoulText.SetText($"{dataManager.GetSouls() - abilityInfo.upgradeSoulCosts[abilityInfo.abilityLevel - 1]}");
+        remainingGodsoulText.SetText($"{dataManager.GetGodSouls() - abilityInfo.upgradeGodsoulCosts[abilityInfo.abilityLevel - 1]}");
     }
 
     public void CloseConfirmationPanel()
