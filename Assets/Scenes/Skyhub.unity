@@ -13171,6 +13171,7 @@ MonoBehaviour:
   confirmationPanel: {fileID: 1323580313}
   abilityInventory: {fileID: 11400000, guid: 57707ec6a7e392049ba3dfb910804b5a, type: 2}
   abilityInventoryUI: {fileID: 1044344520}
+  warningMessage: {fileID: 2709829396849940908, guid: a7b5fb540c45e134492c9e2e10b3cd77, type: 3}
   soulCostText: {fileID: 300054598}
   godsoulCostText: {fileID: 727865546}
 --- !u!1001 &1954840412
