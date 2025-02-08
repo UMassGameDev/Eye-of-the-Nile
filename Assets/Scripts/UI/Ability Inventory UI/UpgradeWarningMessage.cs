@@ -21,9 +21,9 @@ public class UpgradeWarningMessage : MonoBehaviour
     /// The duration of the last part of the warning message's animation (disappearing animation).
     protected float fallTime = 0.5f;
     /// How far the warning message raises in the first part of the animation.
-    protected float raiseDistance = 80f;
+    protected float raiseDistance = 90f;
     /// How far the warning message falls in the last part of the animation.
-    protected float fallDistance = 100f;
+    protected float fallDistance = 110f;
 
     /// The game time at which this object was instantiated.
     private float timeSpawned;
