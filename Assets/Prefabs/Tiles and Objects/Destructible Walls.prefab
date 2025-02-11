@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &575363882257089812
+--- !u!1 &1169948746905890498
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,193 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7679272836184905799}
-  - component: {fileID: 6472678450900992586}
-  - component: {fileID: 1955382744420290749}
-  - component: {fileID: 4330581325402849502}
-  m_Layer: 3
-  m_Name: Tile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7679272836184905799
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575363882257089812}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.5, y: 5.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 182515599718500580}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6472678450900992586
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575363882257089812}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 09c7db92e8492994a92391204e523c55, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1.92, y: 2.55}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!61 &1955382744420290749
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575363882257089812}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1.92, y: 2.55}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &4330581325402849502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575363882257089812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sRenderer: {fileID: 6472678450900992586}
-  animator: {fileID: 0}
-  hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
-  onFireSprite: {fileID: 0}
-  deathSfxName:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  enableDamageParticles: 1
-  disableColliderOnDeath: 1
-  disableRigidbodyOnDeath: 1
-  destroyOnDeath: 1
-  maxHealth: 0
-  soulsDroppedOnDeath: 0
-  godSoulsDroppedOnDeath: 0
-  canBeInvincible: 0
-  invincibleDuration: 3
-  canBeOnFire: 0
-  setOnFireSFX:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
-        m_MethodName: DestroyWall
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!1 &1843922834133799295
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 182515599718500580}
+  - component: {fileID: 2925475849197903833}
+  - component: {fileID: 419408975163355003}
+  - component: {fileID: 5171333126290856226}
+  - component: {fileID: 4778514939745717763}
+  - component: {fileID: 4931946120254264504}
   m_Layer: 3
   m_Name: Destructible Wall
   m_TagString: Untagged
@@ -202,28 +20,225 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &182515599718500580
+--- !u!4 &2925475849197903833
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843922834133799295}
+  m_GameObject: {fileID: 1169948746905890498}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 242177392932755715}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &419408975163355003
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169948746905890498}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 09c7db92e8492994a92391204e523c55, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.92, y: 2.55}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!61 &5171333126290856226
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169948746905890498}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1.92, y: 2.55}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &4778514939745717763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169948746905890498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sRenderer: {fileID: 419408975163355003}
+  animator: {fileID: 0}
+  hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  onFireSprite: {fileID: 0}
+  deathSfxName:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  enableDamageParticles: 1
+  disableColliderOnDeath: 1
+  disableRigidbodyOnDeath: 1
+  destroyOnDeath: 1
+  maxHealth: 0
+  soulsDroppedOnDeath: 0
+  godSoulsDroppedOnDeath: 0
+  canBeInvincible: 0
+  invincibleDuration: 3
+  canBeOnFire: 0
+  setOnFireSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4931946120254264504}
+        m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
+        m_MethodName: WallDestroyed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4931946120254264504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169948746905890498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d61a03dae2ef4da37e1d54cce69a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakParticles: {fileID: 8270966673617849106, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  destroyGroup: 1
+--- !u!1 &1745661653053215601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 242177392932755715}
+  m_Layer: 3
+  m_Name: Destructible Walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &242177392932755715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745661653053215601}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7679272836184905799}
-  - {fileID: 3219124055395532862}
-  - {fileID: 2257037409973021258}
-  - {fileID: 7862161310763109714}
-  - {fileID: 5521731392646807316}
-  - {fileID: 8027735152371498322}
+  - {fileID: 2925475849197903833}
+  - {fileID: 1140146669077521100}
+  - {fileID: 2052243707177321657}
+  - {fileID: 3389847603926391853}
+  - {fileID: 6181475392407216495}
+  - {fileID: 1005486427352317886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3090006000580447094
+--- !u!1 &4270853668254885064
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,39 +246,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7862161310763109714}
-  - component: {fileID: 6583765432137284641}
-  - component: {fileID: 3929537168138075874}
-  - component: {fileID: 3799629562789688502}
+  - component: {fileID: 2052243707177321657}
+  - component: {fileID: 6193894200016631911}
+  - component: {fileID: 1454380770808693162}
+  - component: {fileID: 49659788141472225}
+  - component: {fileID: 899270413741044441}
   m_Layer: 3
-  m_Name: Tile (3)
+  m_Name: Destructible Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7862161310763109714
+--- !u!4 &2052243707177321657
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3090006000580447094}
+  m_GameObject: {fileID: 4270853668254885064}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.5, y: 8.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 182515599718500580}
+  m_Father: {fileID: 242177392932755715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6583765432137284641
+--- !u!212 &6193894200016631911
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3090006000580447094}
+  m_GameObject: {fileID: 4270853668254885064}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -309,13 +325,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3929537168138075874
+--- !u!61 &1454380770808693162
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3090006000580447094}
+  m_GameObject: {fileID: 4270853668254885064}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -354,19 +370,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3799629562789688502
+--- !u!114 &49659788141472225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3090006000580447094}
+  m_GameObject: {fileID: 4270853668254885064}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRenderer: {fileID: 6583765432137284641}
+  sRenderer: {fileID: 6193894200016631911}
   animator: {fileID: 0}
   hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   onFireSprite: {fileID: 0}
@@ -397,9 +413,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 899270413741044441}
         m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
-        m_MethodName: DestroyWall
+        m_MethodName: WallDestroyed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -409,7 +425,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &3635857266899363625
+--- !u!114 &899270413741044441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270853668254885064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d61a03dae2ef4da37e1d54cce69a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakParticles: {fileID: 8270966673617849106, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  destroyGroup: 1
+--- !u!1 &4887686962504671455
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -417,39 +447,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5521731392646807316}
-  - component: {fileID: 2340951469737146300}
-  - component: {fileID: 3707415478516975257}
-  - component: {fileID: 7071983507518554600}
+  - component: {fileID: 3389847603926391853}
+  - component: {fileID: 7342510862416044545}
+  - component: {fileID: 6304896570719439984}
+  - component: {fileID: 8094320542513850564}
+  - component: {fileID: 8506370442110930020}
   m_Layer: 3
-  m_Name: Tile (4)
+  m_Name: Destructible Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5521731392646807316
+--- !u!4 &3389847603926391853
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3635857266899363625}
+  m_GameObject: {fileID: 4887686962504671455}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.5, y: 9.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 182515599718500580}
+  m_Father: {fileID: 242177392932755715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2340951469737146300
+--- !u!212 &7342510862416044545
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3635857266899363625}
+  m_GameObject: {fileID: 4887686962504671455}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -495,13 +526,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3707415478516975257
+--- !u!61 &6304896570719439984
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3635857266899363625}
+  m_GameObject: {fileID: 4887686962504671455}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -540,19 +571,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7071983507518554600
+--- !u!114 &8094320542513850564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3635857266899363625}
+  m_GameObject: {fileID: 4887686962504671455}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRenderer: {fileID: 2340951469737146300}
+  sRenderer: {fileID: 7342510862416044545}
   animator: {fileID: 0}
   hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   onFireSprite: {fileID: 0}
@@ -583,9 +614,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8506370442110930020}
         m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
-        m_MethodName: DestroyWall
+        m_MethodName: WallDestroyed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -595,7 +626,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &5321055984141642961
+--- !u!114 &8506370442110930020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4887686962504671455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d61a03dae2ef4da37e1d54cce69a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakParticles: {fileID: 8270966673617849106, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  destroyGroup: 1
+--- !u!1 &6469155132198986391
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -603,39 +648,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2257037409973021258}
-  - component: {fileID: 7089816785324208756}
-  - component: {fileID: 602487862461266751}
-  - component: {fileID: 967234208184031208}
+  - component: {fileID: 1005486427352317886}
+  - component: {fileID: 8186293360700163022}
+  - component: {fileID: 7156446563073503136}
+  - component: {fileID: 2578970629144808923}
+  - component: {fileID: 7571583948050033489}
   m_Layer: 3
-  m_Name: Tile (2)
+  m_Name: Destructible Wall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2257037409973021258
+--- !u!4 &1005486427352317886
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321055984141642961}
+  m_GameObject: {fileID: 6469155132198986391}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.5, y: 7.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 182515599718500580}
+  m_Father: {fileID: 242177392932755715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7089816785324208756
+--- !u!212 &8186293360700163022
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321055984141642961}
+  m_GameObject: {fileID: 6469155132198986391}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -681,13 +727,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &602487862461266751
+--- !u!61 &7156446563073503136
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321055984141642961}
+  m_GameObject: {fileID: 6469155132198986391}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -726,19 +772,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &967234208184031208
+--- !u!114 &2578970629144808923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321055984141642961}
+  m_GameObject: {fileID: 6469155132198986391}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRenderer: {fileID: 7089816785324208756}
+  sRenderer: {fileID: 8186293360700163022}
   animator: {fileID: 0}
   hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   onFireSprite: {fileID: 0}
@@ -769,9 +815,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7571583948050033489}
         m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
-        m_MethodName: DestroyWall
+        m_MethodName: WallDestroyed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -781,7 +827,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &6872065547515154568
+--- !u!114 &7571583948050033489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469155132198986391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d61a03dae2ef4da37e1d54cce69a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakParticles: {fileID: 8270966673617849106, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  destroyGroup: 1
+--- !u!1 &7068499141457838098
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -789,39 +849,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8027735152371498322}
-  - component: {fileID: 3508218612541220784}
-  - component: {fileID: 926864068793951057}
-  - component: {fileID: 8825385969126255199}
+  - component: {fileID: 1140146669077521100}
+  - component: {fileID: 8239703254647172925}
+  - component: {fileID: 5835701194032560128}
+  - component: {fileID: 1526994250198305458}
+  - component: {fileID: 1580820492039650138}
   m_Layer: 3
-  m_Name: Tile (5)
+  m_Name: Destructible Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8027735152371498322
+--- !u!4 &1140146669077521100
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6872065547515154568}
+  m_GameObject: {fileID: 7068499141457838098}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.5, y: 10.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 182515599718500580}
+  m_Father: {fileID: 242177392932755715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3508218612541220784
+--- !u!212 &8239703254647172925
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6872065547515154568}
+  m_GameObject: {fileID: 7068499141457838098}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -867,13 +928,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &926864068793951057
+--- !u!61 &5835701194032560128
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6872065547515154568}
+  m_GameObject: {fileID: 7068499141457838098}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -912,19 +973,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8825385969126255199
+--- !u!114 &1526994250198305458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6872065547515154568}
+  m_GameObject: {fileID: 7068499141457838098}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRenderer: {fileID: 3508218612541220784}
+  sRenderer: {fileID: 8239703254647172925}
   animator: {fileID: 0}
   hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   onFireSprite: {fileID: 0}
@@ -955,9 +1016,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1580820492039650138}
         m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
-        m_MethodName: DestroyWall
+        m_MethodName: WallDestroyed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -967,7 +1028,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &8065003037762342064
+--- !u!114 &1580820492039650138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7068499141457838098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d61a03dae2ef4da37e1d54cce69a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakParticles: {fileID: 8270966673617849106, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  destroyGroup: 1
+--- !u!1 &7460307447152966501
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -975,39 +1050,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3219124055395532862}
-  - component: {fileID: 6561251438794557558}
-  - component: {fileID: 7113993957508239945}
-  - component: {fileID: 4166465400211648512}
+  - component: {fileID: 6181475392407216495}
+  - component: {fileID: 9033522567000310772}
+  - component: {fileID: 2399141561454129302}
+  - component: {fileID: 7616389308155211673}
+  - component: {fileID: 1560906130937834552}
   m_Layer: 3
-  m_Name: Tile (1)
+  m_Name: Destructible Wall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3219124055395532862
+--- !u!4 &6181475392407216495
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8065003037762342064}
+  m_GameObject: {fileID: 7460307447152966501}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 106.5, y: 6.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 182515599718500580}
+  m_Father: {fileID: 242177392932755715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6561251438794557558
+--- !u!212 &9033522567000310772
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8065003037762342064}
+  m_GameObject: {fileID: 7460307447152966501}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -1053,13 +1129,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7113993957508239945
+--- !u!61 &2399141561454129302
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8065003037762342064}
+  m_GameObject: {fileID: 7460307447152966501}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -1098,19 +1174,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4166465400211648512
+--- !u!114 &7616389308155211673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8065003037762342064}
+  m_GameObject: {fileID: 7460307447152966501}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sRenderer: {fileID: 6561251438794557558}
+  sRenderer: {fileID: 9033522567000310772}
   animator: {fileID: 0}
   hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   onFireSprite: {fileID: 0}
@@ -1141,9 +1217,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1560906130937834552}
         m_TargetAssemblyTypeName: DestructibleWall, Assembly-CSharp
-        m_MethodName: DestroyWall
+        m_MethodName: WallDestroyed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1153,3 +1229,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1560906130937834552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460307447152966501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d61a03dae2ef4da37e1d54cce69a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakParticles: {fileID: 8270966673617849106, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
+  destroyGroup: 1
