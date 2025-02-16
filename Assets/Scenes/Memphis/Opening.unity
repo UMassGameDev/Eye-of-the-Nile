@@ -68142,15 +68142,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: srcWarpName
-      value: TD_Geb_1
+      value: OpeningStart
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: destWarpName
-      value: TD_Trap_2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
-      value: TestDungeon_Trap
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.y

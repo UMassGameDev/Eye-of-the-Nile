@@ -47591,16 +47591,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 199, y: 10, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 35
-      m_TileSpriteIndex: 35
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 200, y: 10, z: 0}
     second:
       serializedVersion: 2
@@ -47851,16 +47841,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 199, y: 11, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 35
-      m_TileSpriteIndex: 35
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 200, y: 11, z: 0}
     second:
       serializedVersion: 2
@@ -48102,16 +48082,6 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: 198, y: 12, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 35
-      m_TileSpriteIndex: 35
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 199, y: 12, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 35
@@ -50023,7 +49993,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 628
+  - m_RefCount: 625
     m_Data: {fileID: 11400000, guid: dbd44cf9c07b23b4db58de6d436995c6, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 55bc54f89864eb7428010ae6de0dc10e, type: 2}
@@ -50110,7 +50080,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 628
+  - m_RefCount: 625
     m_Data: {fileID: 21300000, guid: 770411c81dca07c4d987e82c611ee8f3, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1525445658, guid: 2fcf9efa37769ca459b4455327d0989b, type: 3}
@@ -50127,7 +50097,7 @@ Tilemap:
   - m_RefCount: 10
     m_Data: {fileID: -292041720, guid: 2fcf9efa37769ca459b4455327d0989b, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 3802
+  - m_RefCount: 3799
     m_Data:
       e00: 1
       e01: 0
@@ -50146,7 +50116,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 3802
+  - m_RefCount: 3799
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -51214,7 +51184,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1917272501813746359, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: -0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917272501813746359, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.125
       objectReference: {fileID: 0}
     - target: {fileID: 3177237534266103414, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_Color.a
@@ -51274,15 +51248,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: srcWarpName
-      value: Opening
+      value: Memphis_2
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: destWarpName
-      value: Geb
+      value: Memphis_3
       objectReference: {fileID: 0}
     - target: {fileID: 4940986101444858984, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: sceneToWarpTo
-      value: Geb
+      value: MemphisIndoors_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.225
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51290,7 +51268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.809
+      value: 1.131
       objectReference: {fileID: 0}
     - target: {fileID: 8632219531049447108, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: stageWarp
@@ -51385,8 +51363,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Good job setting the time to night, but the next part hasn't been added
-    yet.
+  m_text: Good job setting the time to night, the path ahead has opened.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

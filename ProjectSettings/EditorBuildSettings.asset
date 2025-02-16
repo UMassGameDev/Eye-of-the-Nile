@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Memphis/MemphisDesert_1.unity
     guid: 032fa74d6d705c84a9aca841f9138276
   - enabled: 1
+    path: Assets/Scenes/Memphis/MemphisIndoors_1.unity
+    guid: afd46107b33d1ad4d9c4b9299092d5ee
+  - enabled: 1
     path: Assets/Scenes/Memphis/Geb.unity
     guid: 1c91451b01c1f70499f5846a73480c6a
   - enabled: 1
