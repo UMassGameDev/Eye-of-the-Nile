@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0e699c8d3c13ae44b804709a27f0aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particles: {fileID: 110503137342893296, guid: 8f8e373cae6f8fd4c98be9be738bb598, type: 3}
   damageAmount: 10
   damageCount: 3
   timeBetweenDamage: 1.75

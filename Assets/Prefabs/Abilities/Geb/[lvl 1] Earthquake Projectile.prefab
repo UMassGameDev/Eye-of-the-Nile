@@ -219,7 +219,13 @@ MonoBehaviour:
   damagePlayers: 1
   damageNonPlayers: 1
   destroyOnImpact: 1
-  spawnSFX: fireball_fire
+  spawnSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   flipSprite: 0
   boulderParticles: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   earthquakeZone: {fileID: 8094381227049318314, guid: aadd2cd4231fef0448c30728e46eef3b, type: 3}
