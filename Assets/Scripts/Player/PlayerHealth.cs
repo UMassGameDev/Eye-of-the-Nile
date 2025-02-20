@@ -30,11 +30,11 @@ public class PlayerHealth : ObjectHealth
             if (PStats == null)
                 PStats = GetComponent<PlayerStatHolder>();
             if (!PStats.IsInitialized)
-                return PStats.GetValue("MaxHealth");
+                return (int)PStats.GetValue("MaxHealth");
             else
             {
                 PStats.InitializeDictionary();
-                return PStats.GetValue("MaxHealth");
+                return (int)PStats.GetValue("MaxHealth");
             }
         }
     }  // Maximum health the player can have
@@ -48,11 +48,11 @@ public class PlayerHealth : ObjectHealth
             if (PStats == null)
                 PStats = GetComponent<PlayerStatHolder>();
             if (!PStats.IsInitialized)
-                return PStats.GetValue("DamageResistance");
+                return (int)PStats.GetValue("DamageResistance");
             else
             {
                 PStats.InitializeDictionary();
-                return PStats.GetValue("DamageResistance");
+                return (int)PStats.GetValue("DamageResistance");
             }
         }
     }  // Subtracted from any damage taken from normal attacks
@@ -67,11 +67,11 @@ public class PlayerHealth : ObjectHealth
             if (PStats == null)
                 PStats = GetComponent<PlayerStatHolder>();
             if (!PStats.IsInitialized)
-                return PStats.GetValue("FireResistance");
+                return (int)PStats.GetValue("FireResistance");
             else
             {
                 PStats.InitializeDictionary();
-                return PStats.GetValue("FireResistance");
+                return (int)PStats.GetValue("FireResistance");
             }
         }
     }  // Subtracted from any damage taken from fire

@@ -19,7 +19,7 @@ public class PlayerStatHolder : MonoBehaviour
     public bool IsInitialized { get; set; } = false;
 
     /// Returns the value of the given stat.
-    public int GetValue(string statName)
+    public float GetValue(string statName)
     {
         if (playerStatDict == null)
             InitializeDictionary();

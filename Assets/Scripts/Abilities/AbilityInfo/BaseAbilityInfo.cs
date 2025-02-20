@@ -97,7 +97,6 @@ public abstract class BaseAbilityInfo : ScriptableObject
     public int damage = 0;
     ///@}
 
-    // TODO: Implement ability effects
     [Header("Ability Effect Info")]
     /** @name Ability Effect Info
     *  Each ability has a list of effects it can apply while active.
@@ -272,6 +271,12 @@ public abstract class BaseAbilityInfo : ScriptableObject
     {
         DisableEffects(abilityOwner, currentForm, effectType);
     }
+
+    /// Runs when the ability is equipped.
+    public virtual void OnEquipped(AbilityOwner abilityOwner) { }
+
+    /// Runs when the abiility is unequipped.
+    public virtual void OnUnequipped(AbilityOwner abilityOwner) { }
     ///@}
 
     /******************************

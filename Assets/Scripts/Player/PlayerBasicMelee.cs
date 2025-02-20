@@ -17,7 +17,7 @@ public class PlayerBasicMelee : MonoBehaviour
     public float attackRange = 0.5f;
     // public int attackDamage = 20;
     public float attackCooldown = 1f;
-    
+
     float cooldownTimer = 0f;
 
     void Awake()
@@ -43,7 +43,7 @@ public class PlayerBasicMelee : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, playerStats.GetValue("Damage"));
+            enemy.GetComponent<ObjectHealth>().TakeDamage(transform, (int)playerStats.GetValue("Damage"));
         }
     }
 

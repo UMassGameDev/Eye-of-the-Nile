@@ -16,11 +16,11 @@ public class PlayerAttackManager : MonoBehaviour
     PlayerStatHolder playerStats;
     /// \brief Reference to the player's's attack point. It's a point in space that's a child of the player, existing some distance in
     /// front of it. Projectiles spawn from the attack point, and melee attacks scan for enemies to damage from a certain radius around it.
-    public Transform attackPoint;
+    [SerializeField] Transform attackPoint;
     /// Objects on these layers which can be hit from the player's melee attacks.
-    public LayerMask attackableLayers;
+    [SerializeField] LayerMask attackableLayers;
     /// Reference the the player's animator.
-    public Animator animator;
+    [SerializeField] Animator animator;
 
     /// True if attacking is on cooldown, preventing another attack from being used.
     bool onCooldown = false;
@@ -31,15 +31,9 @@ public class PlayerAttackManager : MonoBehaviour
     */
     ///@{
     /// Key the user must press to activate this attack.
-    public KeyCode meleeKey = KeyCode.Mouse0;
+    [SerializeField] KeyCode meleeKey = KeyCode.Mouse0;
     /// Name of the animation to play 
-    public string meleeAnimation = "Attack";
-    /// The default distance from the attack point that enemies will be hit by the melee attack (size of attack point).
-    public float meleeRange = 0.5f;
-    /// Cooldown time for all attacks must wait after the melee attack is used.
-    public float meleeCooldown = 1f;
-    /// The default strength of the knockback the melee attack applies.
-    public float meleeKnockback = 50f;
+    [SerializeField] string meleeAnimation = "Attack";
     /// \brief The melee range that will be used for the next attack.
     /// If no range parameter is given to Melee(), this will be set to meleeRange by default.
     /// \note The reason there need to be a separate variable is because TriggerMelee() is run by the animation at the peak of the
@@ -58,11 +52,11 @@ public class PlayerAttackManager : MonoBehaviour
     */
     ///@{
     /// Key the user must press to activate this attack.
-    public KeyCode projectileKey = KeyCode.Mouse1;
+    [SerializeField] KeyCode projectileKey = KeyCode.Mouse1;
     /// Reference to the projectile this attack will instantiate.
-    public GameObject defaultProjectilePrefab;
+    [SerializeField] GameObject defaultProjectilePrefab;
     /// Cooldown time for all attacks must wait after the projectile attack is used.
-    public float ProjCooldown = 1f;
+    [SerializeField] float ProjCooldown = 1f;
     ///@}
 
     /// Set reference to the PlayerStatsHolder.
@@ -75,7 +69,7 @@ public class PlayerAttackManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(meleeKey))
-            Melee(meleeAnimation, meleeCooldown);
+            Melee(meleeAnimation, playerStats.GetValue("MeleeCooldown"));
         if (Input.GetKeyDown(projectileKey))
             ShootProjectile(defaultProjectilePrefab, ProjCooldown);
     }
@@ -91,8 +85,8 @@ public class PlayerAttackManager : MonoBehaviour
             return;
 
         animator.SetTrigger(animName);
-        curRange = meleeRange;
-        curKnockback = meleeKnockback;
+        curRange = playerStats.GetValue("MeleeRange");
+        curKnockback = playerStats.GetValue("MeleeKnockback");
         StartCoroutine(CooldownWait(cooldown));
     }
 
@@ -126,12 +120,12 @@ public class PlayerAttackManager : MonoBehaviour
         {
             /// - Deal the amount of damage dictated by the PlayerStatsHolder (if it has an ObjectHealth component),
             if (enemy.TryGetComponent<ObjectHealth>(out var objHealth))
-                objHealth.TakeDamage(transform, playerStats.GetValue("Damage"));
+                objHealth.TakeDamage(transform, (int)playerStats.GetValue("MeleeDamage"));
 
             /// - Apply knockback with curKnockback strength (if it has a KnockbackFeedback component),
             if (enemy.TryGetComponent<KnockbackFeedback>(out var kb))
                 kb.ApplyKnockback(gameObject, curKnockback);
-            
+
             /// - Trigger it's melee interaction (if it has a ObjectInteractable component).
             if (enemy.TryGetComponent<ObjectInteractable>(out var objInteractable))
                 objInteractable.triggerMelee();
@@ -149,7 +143,8 @@ public class PlayerAttackManager : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
         // if we're facing left (and this is a projectile object), flip the direction (projectile faces right by default)
-        if (transform.localScale.x > 0 && projectile.TryGetComponent<BaseProjectile>(out var basicProj)) {
+        if (transform.localScale.x > 0 && projectile.TryGetComponent<BaseProjectile>(out var basicProj))
+        {
             basicProj.FlipDirection();
         }
     }
@@ -169,7 +164,8 @@ public class PlayerAttackManager : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
         // if we're facing left (and this is a projectile object), flip the direction (projectile faces right by default)
-        if (transform.localScale.x > 0 && projectile.TryGetComponent<BaseProjectile>(out var basicProj)) {
+        if (transform.localScale.x > 0 && projectile.TryGetComponent<BaseProjectile>(out var basicProj))
+        {
             basicProj.FlipDirection();
         }
 

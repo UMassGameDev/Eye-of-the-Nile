@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9fe303a6ee86084e88535e9b4bcf0af, type: 3}
-  m_Name: DamageStatAE
+  m_Name: MeleeCooldownStatAE
   m_EditorClassIdentifier: 
   statMod:
-    _targetStat: Damage
-    _modValue: 40
+    _targetStat: MeleeCooldown
+    _modValue: 5

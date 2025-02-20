@@ -20,9 +20,9 @@ public class PlayerStat
     public string StatName { get { return _statName; } set { _statName = value; } }
     [field: SerializeField]
     /// Base value of the stat. Can be changed in the Unity Editor.
-    private int _baseValue;
+    private float _baseValue;
     /// Public version of _baseValue that can be used by scripts.
-    public int BaseValue { get { return _baseValue; } set { _baseValue = value; } }
+    public float BaseValue { get { return _baseValue; } set { _baseValue = value; } }
     /*[field: SerializeField]
     private float _maxValue;
     public float MaxValue { get { return _maxValue; } set { _maxValue = value; } }*/
@@ -31,9 +31,9 @@ public class PlayerStat
     List<StatModifier> statModifiers = new List<StatModifier>();
 
     /// Event that is triggered when a stat modifier is added to the player.
-    public static event Action<string, int> modifierAdded;
+    public static event Action<string, float> modifierAdded;
     /// Event that is triggered when a stat modifier is removed from the player.
-    public static event Action<string, int> modifierRemoved;
+    public static event Action<string, float> modifierRemoved;
 
     /// <summary>
     /// Add a stat modifier. Checks to see if the stat modifer is already applied.
@@ -69,12 +69,12 @@ public class PlayerStat
     }
 
     /// Returns the final value of this stat, based on baseValue and all active stat modifiers.
-    public int FinalValue()
+    public float FinalValue()
     {
         // float preMultSum = 0f;
-        int additiveSum = 0;
+        float additiveSum = 0;
         // float postMultSum = 0f;
-        int finalValue = BaseValue;
+        float finalValue = BaseValue;
 
         /*foreach(StatModifier statMod in statModifiers[StatModType.PreMultiplier])
         {

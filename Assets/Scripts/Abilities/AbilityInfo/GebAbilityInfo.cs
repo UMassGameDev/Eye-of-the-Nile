@@ -23,6 +23,14 @@ public class GebAbilityInfo : BaseAbilityInfo
     ///@{
     /// Reference to the projectile prefab this ability will instantiate for each level - 1 (array starts at 0).
     [SerializeField] GameObject[] earthquakeProjectilePrefab;
+    /// The amount of melee damage that should be applied for each level - 1 (array starts at 0).
+    [SerializeField] int[] meleeDamageModValues;
+    /// The amount of melee cooldown that should be applied for each level - 1 (array starts at 0).
+    [SerializeField] float[] meleeCooldownModValues;
+    /// Reference to the melee damage stat modifier this ability will apply.
+    StatModifier meleeDamageMod;
+    /// Reference to the melee cooldown stat modifier this ability will apply.
+    StatModifier meleeCooldownMod;
     ///@}
 
     [Header("Defense Ability Info")]
@@ -65,7 +73,7 @@ public class GebAbilityInfo : BaseAbilityInfo
     StatModifier kbResistanceMod;
     ///@}
 
-    /// Throws a projectile summons a small earthquake. It also changes the player's melee attack to be slower but do more damage.
+    /// Throws a projectile summons a small earthquake. It also changes the player's melee attack to be slower but do more damage using stat modifiers.
     protected override void AbilityOffense(AbilityOwner abilityOwner)
     {
         abilityOwner.OwnerTransform.GetComponent<PlayerAttackManager>().ShootProjectile(earthquakeProjectilePrefab[abilityLevel - 1]);
@@ -79,11 +87,11 @@ public class GebAbilityInfo : BaseAbilityInfo
         {
             xOffset = -wallOffset.x;
         }
-        
+
         GameObject rockWall = Instantiate(rockWallPrefab[abilityLevel - 1], new Vector2(
             abilityOwner.OwnerTransform.position.x + xOffset,
             abilityOwner.OwnerTransform.position.y + wallOffset.y), Quaternion.identity);
-        
+
         if (abilityOwner.OwnerTransform.localScale.x > 0 && rockWall.TryGetComponent<MoveInDirection>(out var moveInDirection))
         {
             moveInDirection.movementDirection.x = -moveInDirection.movementDirection.x;
@@ -94,10 +102,11 @@ public class GebAbilityInfo : BaseAbilityInfo
     protected override void AbilityUtility(AbilityOwner abilityOwner)
     {
         float xOffset = platformOffset.x;
-        if (abilityOwner.OwnerTransform.localScale.x > 0) {
+        if (abilityOwner.OwnerTransform.localScale.x > 0)
+        {
             xOffset = -platformOffset.x;
         }
-        
+
         Instantiate(rockPlatformPrefab[abilityLevel - 1], new Vector2(
             abilityOwner.OwnerTransform.position.x + xOffset,
             abilityOwner.OwnerTransform.position.y + platformOffset.y), Quaternion.identity);
@@ -137,5 +146,42 @@ public class GebAbilityInfo : BaseAbilityInfo
 
         playerStatHolder.GetStat(damageResistanceMod.TargetStat).RemoveModifier(damageResistanceMod);  // remove damage resistance modifier
         playerStatHolder.GetStat(kbResistanceMod.TargetStat).RemoveModifier(kbResistanceMod);  // remove kb resistance modifier
+    }
+
+    public override void OnEquipped(AbilityOwner abilityOwner)
+    {
+        if (currentForm == AbilityForm.Offense)
+        {
+            Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
+            PlayerStatHolder playerStatHolder = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
+
+            // set target stat strings for Stat modifiers
+            meleeDamageMod.TargetStat = "MeleeDamage";
+            meleeCooldownMod.TargetStat = "MeleeKnockback";
+
+            // set mod values for stat modifiers (if abilityLevel is within range).
+            if (abilityLevel > 0 && abilityLevel <= maxLevel)
+            {
+                meleeDamageMod.ModValue = meleeDamageModValues[abilityLevel - 1];
+                meleeCooldownMod.ModValue = meleeCooldownModValues[abilityLevel - 1];
+            }
+
+            // add stat modifiers to player
+            playerStatHolder.GetStat(meleeDamageMod.TargetStat).AddModifier(meleeDamageMod);
+            playerStatHolder.GetStat(meleeCooldownMod.TargetStat).AddModifier(meleeCooldownMod);
+        }
+    }
+
+    public override void OnUnequipped(AbilityOwner abilityOwner)
+    {
+        Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
+        PlayerStatHolder playerStatHolder = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
+
+        // set target stat strings for Stat modifiers
+        meleeDamageMod.TargetStat = "MeleeDamage";
+        meleeCooldownMod.TargetStat = "MeleeKnockback";
+
+        playerStatHolder.GetStat(meleeDamageMod.TargetStat).RemoveModifier(meleeDamageMod);
+        playerStatHolder.GetStat(meleeCooldownMod.TargetStat).RemoveModifier(meleeCooldownMod);
     }
 }

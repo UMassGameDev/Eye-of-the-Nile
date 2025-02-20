@@ -69,7 +69,8 @@ public class PlayerAbilityController : MonoBehaviour
         someAbility.AbilityUpdate -= UseAbilityUpdate;
     }
 
-    /// Attempts to change the AbilityOwner for the given key.
+    /// \brief Attempts to change the AbilityOwner for the given key.
+    /// Also runs OnEquipped(), and activates the passive ability in the last slot
     void TryChangeAbility(KeyCode key, AbilityOwner newAbility)
     {
         // Get stored ability
@@ -80,9 +81,11 @@ public class PlayerAbilityController : MonoBehaviour
         // If the stored ability is not null, unsubscribe from the stored ability
         if (currentAbility != null)
             UnsubscribeFromAbility(currentAbility);
-        
+
         SubscribeToAbility(newAbility);  // Subscribe to the new ability
         StoredAbilityOwners[key] = newAbility;  // Store the new ability in the Dictionary
+
+        newAbility.abilityInfo.OnEquipped(newAbility);
 
         if (newAbility.abilityInfo.currentForm == AbilityForm.Passive)
         {
@@ -91,12 +94,18 @@ public class PlayerAbilityController : MonoBehaviour
     }
 
     /// \brief Refreshes the AbilityOwner.abilityInfo for all slots at the defined positions to match up with the active abilities.
-    /// Also activates or disabled the passive ability in the last slot
+    /// Also runs OnEquipped() and OnUnequipped, and activates or disables the passive ability in the last slot
     void RefreshSlots(int[] slotNumbers)
     {
         foreach (int slotNum in slotNumbers)
         {
-            StoredAbilityOwners[intToKey[slotNum]].abilityInfo = activeAbilities.AbilityAt(slotNum);
+            if (StoredAbilityOwners[intToKey[slotNum]].abilityInfo != activeAbilities.AbilityAt(slotNum))
+            {
+                StoredAbilityOwners[intToKey[slotNum]].abilityInfo.OnUnequipped(StoredAbilityOwners[intToKey[slotNum]]);
+                StoredAbilityOwners[intToKey[slotNum]].abilityInfo = activeAbilities.AbilityAt(slotNum);
+                StoredAbilityOwners[intToKey[slotNum]].abilityInfo.OnEquipped(StoredAbilityOwners[intToKey[slotNum]]);
+            }
+
             if (slotNum < MAX_ABILITIES - 1)
             {
                 StoredAbilityOwners[intToKey[slotNum]].DisablePassive();
@@ -120,7 +129,7 @@ public class PlayerAbilityController : MonoBehaviour
             KeyCode.Alpha3,
             KeyCode.Alpha4
         };
-        foreach(KeyCode keyCheck in keyList)
+        foreach (KeyCode keyCheck in keyList)
         {
             AbilityInputs.Add(keyCheck, false);
         }

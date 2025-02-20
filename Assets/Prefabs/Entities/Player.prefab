@@ -492,10 +492,16 @@ MonoBehaviour:
   playerStats:
   - _statName: MaxHealth
     _baseValue: 100
-  - _statName: Damage
-    _baseValue: 20
   - _statName: Speed
     _baseValue: 1
+  - _statName: MeleeDamage
+    _baseValue: 20
+  - _statName: MeleeRange
+    _baseValue: 0.5
+  - _statName: MeleeCooldown
+    _baseValue: 0.75
+  - _statName: MeleeKnockback
+    _baseValue: 75
   - _statName: DamageResistance
     _baseValue: 0
   - _statName: FireResistance
@@ -590,9 +596,6 @@ MonoBehaviour:
   animator: {fileID: 2371901272311279201}
   meleeKey: 323
   meleeAnimation: Attack
-  meleeRange: 0.5
-  meleeCooldown: 1
-  meleeKnockback: 75
   projectileKey: 324
   defaultProjectilePrefab: {fileID: 7973579002921526092, guid: 64fca3399e251404487ccad4e6000dec, type: 3}
   ProjCooldown: 1

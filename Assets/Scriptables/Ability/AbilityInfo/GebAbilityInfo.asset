@@ -39,16 +39,16 @@ MonoBehaviour:
   godQuote: '[Geb Quote]'
   onCooldownSound:
     Guid:
-      Data1: -1183561730
-      Data2: 1272260908
-      Data3: 539864995
-      Data4: -607730509
+      Data1: -1906946980
+      Data2: 1251897365
+      Data3: 1589358737
+      Data4: 91499314
     Path: event:/Placeholder/Incorrect Buzzer
   abilityLevel: 1
   maxLevel: 5
   upgradeSoulCosts: 01000000020000000300000004000000
   upgradeGodsoulCosts: 00000000000000000000000000000000
-  currentForm: 0
+  currentForm: 3
   baseCost: 0
   duration: 0
   tickRate: 0
@@ -65,6 +65,13 @@ MonoBehaviour:
   - {fileID: 1712921479663479192, guid: e624f63023215fb49b5289f667c633e7, type: 3}
   - {fileID: 1712921479663479192, guid: 27a6974bb052ffe4694f5155a257a612, type: 3}
   - {fileID: 1712921479663479192, guid: 9c558a75a7de69a4cba9434e4e808208, type: 3}
+  meleeDamageModValues: 0f00000014000000190000001e00000028000000
+  meleeCooldownModValues:
+  - 1.6
+  - 1.5
+  - 1.4
+  - 1.3
+  - 1
   rockWallPrefab:
   - {fileID: 412478105100610930, guid: 10ad70d9c84e4824b9db5c511e9b2789, type: 3}
   - {fileID: 412478105100610930, guid: 71f7960c800502447b6a1a1a4f29a4c6, type: 3}

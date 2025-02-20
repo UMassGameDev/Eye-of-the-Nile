@@ -23,9 +23,9 @@ public class PlayerKnockbackFeedback : KnockbackFeedback
         PlayerStat.modifierAdded -= addKbResistance;
         PlayerStat.modifierRemoved -= removeKbResistance;
     }
-    
+
     /// If the given stat modifier is a knockback resistance modifier, add the modifier's value to the overall knockback resistance.
-    void addKbResistance(string modiferName, int modiferValue)
+    void addKbResistance(string modiferName, float modiferValue)
     {
         if (modiferName == "KnockbackResistance")
         {
@@ -34,7 +34,7 @@ public class PlayerKnockbackFeedback : KnockbackFeedback
     }
 
     /// If the given stat modifier is a knockback resistance modifier, remove the modifier's value to the overall knockback resistance.
-    void removeKbResistance(string modiferName, int modiferValue)
+    void removeKbResistance(string modiferName, float modiferValue)
     {
         if (modiferName == "KnockbackResistance")
         {
