@@ -21,7 +21,7 @@ public class PlayerHealth : ObjectHealth
     */
     ///@{
     /// Reference to the PlayerStatHolder itself. Holds various information that ability stat modifiers (StatsAE) can modify.
-    public PlayerStatHolder PStats { get; set; }
+    public PlayerStatHolder PStats { get; private set; }
     /// The maximum health of the player.
     public int MaxHealth
     {
@@ -78,24 +78,40 @@ public class PlayerHealth : ObjectHealth
        // negative fire resistance will give total immunity to fire damage
     ///@}
 
-    /** @name Dying and post-death
+    [Header("Dying and Post-Death")]
+    /** @name Dying and Post-Death
     *  Information related to the the transition to \ref Scenes_Anubis after the player dies, and what joke Anubis should tell.
     */
     ///@{
     /// The amount of time to wait after death before loading \ref Scenes_Anubis, in seconds.
-    public float deadFadeDelay = 1f;
+    [SerializeField] float deadFadeDelay = 1f;
     /// The amount of time given for the fade to black animation to play when loading \ref Scenes_Anubis after death, in seconds.
-    public float deadFadeLength = 1f;
+    [SerializeField] float deadFadeLength = 1f;
     /// The name of the scene to load after the player dies (\ref Scenes_Anubis).
-    public string deathSceneName = "Anubis";
+    [SerializeField] string deathSceneName = "Anubis";
     /// If currentDeathMessage is set to this, AnubisJokeTextbox will know to read from the default list of jokes.
-    public string defaultDeathMessage = "[DEFAULT]";
+    [SerializeField] string defaultDeathMessage = "[DEFAULT]";
     /// If currentDeathMessage is set to this, AnubisJokeTextbox will know to read from the fire list of jokes
     /// (as in fire related. They are fire jokes though).
-    public string fireDeathMessage = "[FIRE]";
+    [SerializeField] string fireDeathMessage = "[FIRE]";
     /// \brief The current joke for Anubis to read after the player dies.
     /// If the attacking object doesn't have a CustomDeathMessage component, this will either be set to [DEFAULT] or [FIRE].
     public string currentDeathMessage { get; private set; }
+    ///@}
+
+    [Header("Healing")]
+    /** @name Healing
+    *  The player slowly heals after taking damage. These are variables related to that.
+    */
+    ///@{
+    /// How long (in seconds) to wait after taking damage to start healing.
+    [SerializeField] float healDelay = 5f;
+    /// How many seconds should be between each health increase when healing.
+    [SerializeField] float healSpeed = 0.2f;
+    /// How much to heal the player by when healing.
+    [SerializeField] int healAmount = 1;
+    /// Reference to the coroutine responsible for healing the player over time.
+    Coroutine healingCoroutine;
     ///@}
 
     /** @name Events
@@ -113,16 +129,19 @@ public class PlayerHealth : ObjectHealth
     /// Triggers any subscribes functions when the player's custom death message changes.
     public static event Action<string> deathMessageChange;
     ///@}
+    ///
 
     /// Reference to the data manager.
     DataManager dataManager;
 
-    /// Initialize references and invincibleFlash.
+    /// Initialize references and invincibleFlash. Start/restart healing without delay.
     void Awake()
     {
         invincibleFlash = new WaitForSeconds(flashDuration);
         PStats = GetComponent<PlayerStatHolder>();
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+
+        StartHealingCoroutine(false);
     }
 
     /// Set the current health of the player to the data manager's copy of it, and invoke onPlayerHealthChange.
@@ -163,22 +182,23 @@ public class PlayerHealth : ObjectHealth
         {
             currentHealth -= damage - DamageResistance;
             animator.SetTrigger("Hurt");
-            Collider2D objectCollider = transform.GetComponent<Collider2D>();
 
             /// - Generate hurt particles (if enabled).
             if (enableDamageParticles)
             {
+                Collider2D objectCollider = transform.GetComponent<Collider2D>();
                 Transform hurtPrefab = Instantiate(hurtEffect,
                         objectCollider.bounds.center,
                         Quaternion.identity);
                 hurtPrefab.up = new Vector3(attacker.position.x - objectCollider.transform.position.x, 0f, 0f);
             }
 
-            // AudioManager.Instance.PlaySFX("player_take_damage");
-
             /// - Let any other objects subscribed to onPlayerDamage or onPlayerHealthChange know that those have happened.
             onPlayerDamage?.Invoke(currentHealth);
             onPlayerHealthChange?.Invoke(currentHealth);
+
+            /// - Stop any ongoing healing and start a new one with a delay.
+            StartHealingCoroutine();
 
             /// - If the player is at 0 health, they are dead:
             if (currentHealth <= 0)
@@ -226,11 +246,12 @@ public class PlayerHealth : ObjectHealth
             hurtPrefab.up = new Vector3(gameObject.transform.position.x - objectCollider.transform.position.x, 0f, 0f);
         }
 
-        // AudioManager.Instance.PlaySFX("player_take_damage");
-
         // Let any other objects subscribed to this event know that it has happened
         onPlayerDamage?.Invoke(currentHealth);
         onPlayerHealthChange?.Invoke(currentHealth);
+
+        /// - Stop any ongoing healing and start a new one with a delay.
+        StartHealingCoroutine();
 
         if (currentHealth <= 0)
         {
@@ -305,5 +326,36 @@ public class PlayerHealth : ObjectHealth
         /// - Let any other objects subscribed to onPlayerRespawn and onPlayerHealthChange know that these have happened.
         onPlayerRespawn?.Invoke();
         onPlayerHealthChange?.Invoke(MaxHealth);
+    }
+
+    /// Stop any ongoing healAfterDamage coroutines and start a new one.
+    void StartHealingCoroutine(bool withDelay = true)
+    {
+        if (healingCoroutine != null)
+        {
+            StopCoroutine(healingCoroutine);
+        }
+
+        if (withDelay)
+        {
+            healingCoroutine = StartCoroutine(healAfterDamage(healDelay, healSpeed, healAmount));
+        }
+        else
+        {
+            healingCoroutine = StartCoroutine(healAfterDamage(0, healSpeed, healAmount));
+        }
+    }
+
+    /// Wait delay seconds, then heal the player by amount every speed seconds. GOes until full health or coroutine is cancelled.
+    IEnumerator healAfterDamage(float delay, float speed, int amount)
+    {
+        yield return new WaitForSeconds(delay);
+
+        while (currentHealth < maxHealth)
+        {
+            currentHealth += amount;
+            yield return new WaitForSeconds(speed);
+            onPlayerHealthChange?.Invoke(currentHealth);
+        }
     }
 }

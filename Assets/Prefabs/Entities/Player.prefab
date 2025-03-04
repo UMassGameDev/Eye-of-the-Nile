@@ -556,6 +556,9 @@ MonoBehaviour:
   deathSceneName: Anubis
   defaultDeathMessage: '[DEFAULT]'
   fireDeathMessage: '[FIRE]'
+  healDelay: 5
+  healSpeed: 0.3
+  healAmount: 1
 --- !u!114 &5681915771319918555
 MonoBehaviour:
   m_ObjectHideFlags: 0
