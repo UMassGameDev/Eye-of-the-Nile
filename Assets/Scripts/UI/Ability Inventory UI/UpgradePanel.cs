@@ -29,7 +29,7 @@ public class UpgradePanel : MonoBehaviour
     /// Set references.
     void Awake()
     {
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     /// If the player has enough resources and the ability can be upgraded, open a confirmation box asking to upgrade the ability.
@@ -37,7 +37,7 @@ public class UpgradePanel : MonoBehaviour
     {
         // Get the ability info for the selected ability on the details panel.
         BaseAbilityInfo abilityInfo = abilityInventory.GetAbilitySet(detailsPanel.dataForSelectedItem.abilityIndex);
-        
+
         // Check if the ability is already at its maximum level.
         if (abilityInfo.abilityLevel < abilityInfo.maxLevel)
         {
@@ -77,7 +77,7 @@ public class UpgradePanel : MonoBehaviour
         // Spend the player's currency.
         dataManager.SubtractSouls(soulCost);
         dataManager.SubtractGodSouls(godsoulCost);
-        
+
         // Refresh the ability inventory UI to reflect the upgrade.
         abilityInventoryUI.UpdateActiveAbilities();
         abilityInventoryUI.InitializeSlots();
@@ -90,7 +90,7 @@ public class UpgradePanel : MonoBehaviour
     {
         // Get the ability info for the selected ability on the details panel.
         BaseAbilityInfo abilityInfo = abilityInventory.GetAbilitySet(detailsPanel.dataForSelectedItem.abilityIndex);
-        
+
         // If the ability is below its maximum level, display the cost.
         // If the ability is at its maximum level, display "MAX"
         if (abilityInfo.abilityLevel < abilityInfo.maxLevel)

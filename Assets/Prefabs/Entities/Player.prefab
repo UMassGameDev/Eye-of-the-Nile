@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 6090076525925026504}
   - component: {fileID: 428621585054581581}
   - component: {fileID: 4961730280285050750}
+  - component: {fileID: 7944873045716958819}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -557,7 +558,7 @@ MonoBehaviour:
   defaultDeathMessage: '[DEFAULT]'
   fireDeathMessage: '[FIRE]'
   healDelay: 5
-  healSpeed: 0.3
+  healSpeed: 0.5
   healAmount: 1
 --- !u!114 &5681915771319918555
 MonoBehaviour:
@@ -661,6 +662,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDetector: {fileID: 8262179805915091258}
+--- !u!114 &7944873045716958819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590190179035495267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056912fad8751f74486533aa1b8760c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionHotkey: 102
+  potionHealAmount: 20
+  maxPotionCount: 6
+  cooldownLength: 3
 --- !u!1 &5461568540287452229
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class SettingsMenu : MonoBehaviour
     /// Set reference to dataManager.
     void Awake()
     {
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     /// Set the value of the settings options to the data manager's copy of it when scenes are loaded.

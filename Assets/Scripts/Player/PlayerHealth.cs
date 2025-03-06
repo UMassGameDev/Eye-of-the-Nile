@@ -134,12 +134,24 @@ public class PlayerHealth : ObjectHealth
     /// Reference to the data manager.
     DataManager dataManager;
 
+    /// Subscribe to health potion used event.
+    void OnEnable()
+    {
+        PlayerItemHolder.potionUsed += HealInstant;
+    }
+
+    /// Unsubscribe from health potion used event.
+    void OnDisable()
+    {
+        PlayerItemHolder.potionUsed -= HealInstant;
+    }
+
     /// Initialize references and invincibleFlash. Start/restart healing without delay.
     void Awake()
     {
         invincibleFlash = new WaitForSeconds(flashDuration);
         PStats = GetComponent<PlayerStatHolder>();
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
 
         StartHealingCoroutine(false);
     }
@@ -262,23 +274,25 @@ public class PlayerHealth : ObjectHealth
     }
 
     /// <summary>
-    /// Instantly heals the player. Mainly used by abilities.
+    /// Instantly heals the player.
     /// </summary>
     /// <param name="healValue">Amount of health to heal the player by.</param>
     public void HealInstant(int healValue)
     {
+        // don't heal the player if their dead
         if (IsDead)
             return;
+
+        // if (currentHealth + healValue > MaxHealth) { currentHealth = MaxHealth } else { currentHealth = currentHealth + healValue }
         currentHealth = currentHealth + healValue > MaxHealth ? MaxHealth : currentHealth + healValue;
+
+        // invoke events
         onPlayerDamage?.Invoke(currentHealth);
         onPlayerHealthChange?.Invoke(currentHealth);
     }
 
     /// Returns the amount of health the player currently has.
-    public int GetHealth()
-    {
-        return currentHealth;
-    }
+    public int GetHealth() { return currentHealth; }
 
     /// \brief Checks if the player's health is above the max health, and if so, corrects it. Also invokes onPlayerHealthChange.
     /// Used to update the player's health when changed from outside the script
@@ -286,6 +300,7 @@ public class PlayerHealth : ObjectHealth
     {
         if (currentHealth > MaxHealth)
             currentHealth = MaxHealth;
+
         onPlayerHealthChange?.Invoke(currentHealth);
     }
 

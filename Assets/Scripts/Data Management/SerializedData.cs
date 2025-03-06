@@ -17,6 +17,8 @@ public class SerializedData
     ///@{
     /// Player health that should be restored when a new scene is loaded. 
     public int playerHealth { get; private set; }
+    /// The amount of health potions the player currently has.
+    public int healthPotionCount { get; private set; }
     /// Time of day that should be restored when a new scene is loaded. 0 = day, 1 = night, 2 = eclipse, and 3 = blood moon.
     public TimeOfDay currTimeOfDay { get; private set; }
     /// Current amount of souls. 
@@ -61,6 +63,7 @@ public class SerializedData
     public SerializedData(DataManager dataManager)
     {
         playerHealth = dataManager.GetPlayerHealth();
+        healthPotionCount = dataManager.GetHealthPotionCount();
         currTimeOfDay = dataManager.GetTimeOfDay();
         souls = dataManager.GetSouls();
         godSouls = dataManager.GetGodSouls();

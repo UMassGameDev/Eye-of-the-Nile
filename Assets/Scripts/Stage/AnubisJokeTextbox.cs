@@ -38,11 +38,15 @@ public class AnubisJokeTextbox : MonoBehaviour
     /// If the joke is [DEFAULT] or [FIRE], we need to choose a joke ourselves from the corresponding list.
     void UpdateTextbox()
     {
-        deathMessage = GameObject.Find("DataManager").GetComponent<DataManager>().GetAnubisDeathMessage();
+        DataManager dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
+        deathMessage = dataManager.GetAnubisDeathMessage();
 
-        if (deathMessage == "[DEFAULT]" || deathMessage == null) {
+        if (deathMessage == "[DEFAULT]" || deathMessage == null)
+        {
             deathMessage = defaultJokes[Random.Range(0, defaultJokes.Length)];
-        } else if (deathMessage == "[FIRE]") {
+        }
+        else if (deathMessage == "[FIRE]")
+        {
             deathMessage = fireDeathJokes[Random.Range(0, fireDeathJokes.Length)];
         }
 

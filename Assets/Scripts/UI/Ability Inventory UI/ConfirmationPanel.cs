@@ -31,13 +31,13 @@ public class ConfirmationPanel : MonoBehaviour
     /// Set references.
     void Awake()
     {
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     public void OpenConfirmationPanel()
     {
         gameObject.SetActive(true);
-        
+
         // Get the ability info for the selected ability.
         BaseAbilityInfo abilityInfo = abilityInventory.GetAbilitySet(detailsPanel.dataForSelectedItem.abilityIndex);
 

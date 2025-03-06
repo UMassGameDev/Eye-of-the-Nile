@@ -34,13 +34,16 @@ public class WarpObelisk : MonoBehaviour
         unactivated = transform.GetChild(0).gameObject;
         activated = transform.GetChild(1).gameObject;
         respawnPoint = transform.GetChild(2).position;
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-        stageLoader = GameObject.Find("StageLoader").GetComponent<StageLoader>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
+        stageLoader = FindObjectOfType<StageLoader>();
 
-        if (respawnPoint == dataManager.respawnPoint) {
+        if (respawnPoint == dataManager.respawnPoint)
+        {
             unactivated.SetActive(false);
             activated.SetActive(true);
-        } else {
+        }
+        else
+        {
             unactivated.SetActive(true);
             activated.SetActive(false);
         }
@@ -60,9 +63,12 @@ public class WarpObelisk : MonoBehaviour
     /// Triggered by ObjectInteractable. If the current scene is \ref Scenes_Skyhub, return to the previous scene. If not, load \ref Scenes_Skyhub.
     public void WarpToSkyhub()
     {
-        if (dataManager.GetCurrSceneName() == "Skyhub") {
+        if (dataManager.GetCurrSceneName() == "Skyhub")
+        {
             stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
-        } else {
+        }
+        else
+        {
             stageLoader.LoadNewStage("Skyhub");
         }
     }

@@ -23,7 +23,7 @@ public class DayNight_Objects : MonoBehaviour
     /// Set references.
     void Awake()
     {
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     ///

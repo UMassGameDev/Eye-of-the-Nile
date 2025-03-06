@@ -54,6 +54,8 @@ public class DataManager : MonoBehaviour
     ///@{
     /// Player health that should be restored when a new scene is loaded. 
     int playerHealth = 100;
+    /// The amount of health potions the player currently has.
+    int healthPotionCount = 0;
     /// Default time of day when the game is first loaded. 
     [SerializeField] TimeOfDay defaultTimeOfDay = TimeOfDay.Day;
     /// Time of day that should be restored when a new scene is loaded. 
@@ -122,6 +124,7 @@ public class DataManager : MonoBehaviour
         ObjectHealth.godSoulsDropped += AddGodSouls;
         CurrencyWidget.onStart += invokeEvents;
         PlayerHealth.deathMessageChange += updateAnubisDeathMessage;
+        PlayerItemHolder.potionCountChanged += updatePotionCount;
     }
 
     /// Unsubscribe from all events when this object or script is disabled.
@@ -132,6 +135,7 @@ public class DataManager : MonoBehaviour
         ObjectHealth.godSoulsDropped -= AddGodSouls;
         CurrencyWidget.onStart -= invokeEvents;
         PlayerHealth.deathMessageChange -= updateAnubisDeathMessage;
+        PlayerItemHolder.potionCountChanged -= updatePotionCount;
     }
 
     /// \brief This is where most of the functionality of the DataManager happens, since Awake() is called right as the scene loads. Here are the steps that run when Awake() is called:
@@ -220,6 +224,7 @@ public class DataManager : MonoBehaviour
         if (saveData != null)
         {
             playerHealth = saveData.playerHealth;
+            healthPotionCount = saveData.healthPotionCount;
             currTimeOfDay = saveData.currTimeOfDay;
             souls = saveData.souls;
             godSouls = saveData.godSouls;
@@ -299,6 +304,8 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    void updatePotionCount(int potionCount) { healthPotionCount = potionCount; }
+
     /// Sets the joke Anubis will tell to the given string. Subscribes to the PlayerHealth.deathMessageChange event.
     /// <param name="newDeathMessage">Joke that Anubis will tell.</param>
     void updateAnubisDeathMessage(string newDeathMessage) { anubisDeathMessage = newDeathMessage; }
@@ -353,6 +360,9 @@ public class DataManager : MonoBehaviour
 
     /// Returns the current SFX volume setting.
     public float GetSFXVolume() { return sfxVolumeSetting; }
+
+    /// Returns the current number of health potions the player has.
+    public int GetHealthPotionCount() { return healthPotionCount; }
     ///@}
 
     /******************************

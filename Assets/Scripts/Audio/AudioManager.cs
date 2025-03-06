@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     /// Basic function to play a given sound once.
