@@ -18,9 +18,11 @@ public class BoulderSpawner : MonoBehaviour
     /// Reference to the point the boulder spawns at.
     public Transform spawnPoint;
     /// Time between each boulder spawn, in seconds.
-    float spawnCooldown = 3f;
+    [SerializeField] float spawnCooldown = 3f;
     /// True if the spawner is currently spawning boulders.
     bool isSpawning = true;
+    /// Time until object despawns, in seconds. -1 to use the boulder prefab's default despawn time.
+    public float seconds = -1;
 
     /// Spawns a boulder every spawnCooldown seconds.
     IEnumerator BoulderSpawnTimer()
@@ -33,12 +35,16 @@ public class BoulderSpawner : MonoBehaviour
         
     }
 
-    /// Instantiates a boulder prefab and sets its up direction to this object's up direction.
+    /// Instantiates a boulder prefab and sets its up direction to this object's up direction. Also sets despawn time (if applicable).
     void SpawnBoulder()
     {
         Transform newBoulder = Instantiate(boulderPrefab,
             spawnPoint.position, Quaternion.identity);
         newBoulder.transform.up = transform.up;
+        if (seconds != -1)
+        {
+            newBoulder.GetComponent<DespawnTimer>().seconds = seconds;
+        }
     }
 
     /// Find the spawn point and set our reference to it.
