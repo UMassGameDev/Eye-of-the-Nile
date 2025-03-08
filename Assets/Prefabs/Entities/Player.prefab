@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVelocity: 12
-  jumpForce: 250
+  jumpForce: 200
   linearDrag: 1
   jumpHeldDuration: 0
   maxJumpDuration: 0.2
