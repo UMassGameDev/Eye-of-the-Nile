@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7919926502545129023}
   - component: {fileID: 6038099953247306253}
   - component: {fileID: 3138815962420434356}
-  - component: {fileID: 6465197716330629479}
   - component: {fileID: 6467002220597826257}
   - component: {fileID: -2592556096750146238}
+  - component: {fileID: 320253257618122147}
   m_Layer: 10
   m_Name: Breakable Pot
   m_TagString: DamagableByProjectile
@@ -70,7 +70,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.005}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -81,7 +81,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.96, y: 1.2}
+  m_Size: {x: 0.73, y: 1.085}
   m_EdgeRadius: 0
 --- !u!50 &3138815962420434356
 Rigidbody2D:
@@ -110,27 +110,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!95 &6465197716330629479
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203450695556738937}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: af6955a8cdcd56748bc0b01d4eddd7ab, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6467002220597826257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sRenderer: {fileID: 0}
-  animator: {fileID: 6465197716330629479}
+  animator: {fileID: 0}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   onFireSprite: {fileID: 0}
   deathSfxName:
@@ -157,7 +136,7 @@ MonoBehaviour:
   enableDamageParticles: 0
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   maxHealth: 20
   soulsDroppedOnDeath: 0
   godSoulsDroppedOnDeath: 0
@@ -186,6 +165,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 320253257618122147}
+        m_TargetAssemblyTypeName: SpawnPrefab, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-2592556096750146238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +190,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 9220619677216503458, guid: d78b9510a4384c64cbc041f98ffd791e, type: 3}
+--- !u!114 &320253257618122147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203450695556738937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3bfbaa06aad4114fb79c09b45de8dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 7919926502545129023, guid: 6a9f06d6f38e49644a1884b01c0af730, type: 3}
 --- !u!1 &455497805084195094
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,12 +276,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: edf7cdb6650108b4f9836ad26a0c4391, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5ad7ab82d243fd43ba68dd43fa5b098, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.28, y: 8}
+  m_Size: {x: 5.26, y: 7.79}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -293,14 +297,42 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
       propertyPath: m_Size.x
-      value: 0.96
+      value: 0.73
       objectReference: {fileID: 0}
     - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
       propertyPath: m_Size.y
-      value: 1.2
+      value: 1.085
       objectReference: {fileID: 0}
     - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
       propertyPath: m_Offset.y
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2994570719775716183, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
