@@ -190,6 +190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 9220619677216503458, guid: d78b9510a4384c64cbc041f98ffd791e, type: 3}
+  inheritScale: 0
+  inheritRotation: 0
 --- !u!114 &320253257618122147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 7919926502545129023, guid: 6a9f06d6f38e49644a1884b01c0af730, type: 3}
+  inheritScale: 1
+  inheritRotation: 1
 --- !u!1 &455497805084195094
 GameObject:
   m_ObjectHideFlags: 0
