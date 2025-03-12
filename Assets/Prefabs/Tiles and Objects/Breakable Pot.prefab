@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 7919926502545129023}
   - component: {fileID: 6038099953247306253}
   - component: {fileID: 3138815962420434356}
-  - component: {fileID: 6467002220597826257}
+  - component: {fileID: 3758181708948937606}
   - component: {fileID: -2592556096750146238}
-  - component: {fileID: 320253257618122147}
   m_Layer: 10
   m_Name: Breakable Pot
   m_TagString: DamagableByProjectile
@@ -110,7 +109,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6467002220597826257
+--- !u!114 &3758181708948937606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,12 +118,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 203450695556738937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1bdd867b77f62846b973e2766856415, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a169fc8d5707694cacbbe7814e55c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sRenderer: {fileID: 0}
   animator: {fileID: 0}
-  hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
+  hurtEffect: {fileID: 0}
   onFireSprite: {fileID: 0}
   deathSfxName:
     Guid:
@@ -142,7 +141,7 @@ MonoBehaviour:
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3
-  canBeOnFire: 0
+  canBeOnFire: 1
   setOnFireSFX:
     Guid:
       Data1: 0
@@ -165,18 +164,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 320253257618122147}
-        m_TargetAssemblyTypeName: SpawnPrefab, Assembly-CSharp
-        m_MethodName: Spawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  brokenPotPrefab: {fileID: 7919926502545129023, guid: 6a9f06d6f38e49644a1884b01c0af730, type: 3}
 --- !u!114 &-2592556096750146238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,21 +180,6 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 9220619677216503458, guid: d78b9510a4384c64cbc041f98ffd791e, type: 3}
   inheritScale: 0
   inheritRotation: 0
---- !u!114 &320253257618122147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203450695556738937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3bfbaa06aad4114fb79c09b45de8dce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 7919926502545129023, guid: 6a9f06d6f38e49644a1884b01c0af730, type: 3}
-  inheritScale: 1
-  inheritRotation: 1
 --- !u!1 &455497805084195094
 GameObject:
   m_ObjectHideFlags: 0
