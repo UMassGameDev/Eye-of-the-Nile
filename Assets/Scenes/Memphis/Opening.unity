@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 175909397530635717, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: orthographic size
-      value: 9
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 4072273548052411645, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_Name
@@ -141,11 +141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -61.625328
+      value: -61.6
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.366564
+      value: 7.4250007
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.z
@@ -68446,17 +68446,13 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1158294981}
-    - target: {fileID: 1558374092921941143, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -61.625328
+      value: -61.6
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.366564
+      value: 7.4250007
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.z
@@ -68489,14 +68485,6 @@ PrefabInstance:
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2904433999719240404, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
-      propertyPath: m_TrackedObjectOffset.x
-      value: -0.025330544
-      objectReference: {fileID: 0}
-    - target: {fileID: 2904433999719240404, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
-      propertyPath: m_TrackedObjectOffset.y
-      value: 1.416563
       objectReference: {fileID: 0}
     - target: {fileID: 6538053868771708148, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_Name
@@ -70411,10 +70399,6 @@ PrefabInstance:
     - target: {fileID: 4590190179035495267, guid: d5756dfb0ba67294b83579c3fcfb2a7a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5547159279268901696, guid: d5756dfb0ba67294b83579c3fcfb2a7a, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8131487385529561287, guid: d5756dfb0ba67294b83579c3fcfb2a7a, type: 3}
       propertyPath: m_LocalScale.x

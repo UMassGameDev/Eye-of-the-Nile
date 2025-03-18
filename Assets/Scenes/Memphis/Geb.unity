@@ -131,17 +131,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 175909397530635717, guid: 51c156a50e4176345b27827dbe614175, type: 3}
+      propertyPath: orthographic size
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4072273548052411645, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.02533
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.681688
+      value: 8.625
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24774,11 +24778,11 @@ PrefabInstance:
       objectReference: {fileID: 1158294981}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.02533
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.681688
+      value: 8.625
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24813,12 +24817,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2904433999719240404, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
-      propertyPath: m_TrackedObjectOffset.x
-      value: -0.025330544
-      objectReference: {fileID: 0}
-    - target: {fileID: 2904433999719240404, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_TrackedObjectOffset.y
-      value: 2.9732099
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6538053868771708148, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_Name
