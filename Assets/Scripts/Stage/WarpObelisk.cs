@@ -4,8 +4,8 @@ using UnityEngine;
 Warp Obelisks are interactable objects throughout levels. The ObjectInteractable script triggers its public functions.
 The player can interact with a \ref Prefabs_WarpObelisk to go to \ref Scenes_Skyhub or to set their spawnpoint.
 
-Documentation updated 9/15/2024
-\author Stephen Nuttall
+Documentation updated 3/18/2025
+\author Stephen Nuttall, Alexander Art
 */
 public class WarpObelisk : MonoBehaviour
 {
@@ -27,27 +27,34 @@ public class WarpObelisk : MonoBehaviour
     /// the warp obelisk the player used to get to there.
     public bool canSetSpawn = true;
 
+    /// True if the warp obelisk is active, false otherwise.
+    protected bool isActive = false;
+
     /// Sets references to unactivated, activated, respawnPoint, DataManager, and StageLoader.
     /// If the current spawnpoint in the DataManager is this warp obelisk's spawnpoint, set this warp obelisk to active.
+    /// isActive is updated and the visual state of the warp obelisk is set.
     void Awake()
     {
         unactivated = transform.GetChild(0).gameObject;
         activated = transform.GetChild(1).gameObject;
         respawnPoint = transform.GetChild(2).position;
-        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
-        stageLoader = FindObjectOfType<StageLoader>();
-
-        if (respawnPoint == dataManager.respawnPoint)
-        {
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        stageLoader = GameObject.Find("StageLoader").GetComponent<StageLoader>();
+        
+        // Update state of obelisk on scene load.
+        if (respawnPoint == dataManager.respawnPoint) {
+            isActive = true;
             unactivated.SetActive(false);
             activated.SetActive(true);
-        }
-        else
-        {
+        } else {
+            isActive = false;
             unactivated.SetActive(true);
             activated.SetActive(false);
         }
     }
+
+    /// Makes sure that the obelisk is in the right state in case the respawn point changes while the scene is loaded.
+    void Update() { UpdateActiveState(); }
 
     /// Triggered by ObjectInteractable. If enabled by canSetSpawn, set the DataManager's copy of spawnpoint to this spawnpoint, and activate the warp obelisk.
     public void SetSpawnpoint()
@@ -56,8 +63,7 @@ public class WarpObelisk : MonoBehaviour
             return;
 
         dataManager.UpdateRespawnPoint(respawnPoint);
-        unactivated.SetActive(false);
-        activated.SetActive(true);
+        UpdateActiveState();
     }
 
     /// Triggered by ObjectInteractable. If the current scene is \ref Scenes_Skyhub, return to the previous scene. If not, load \ref Scenes_Skyhub.
@@ -66,10 +72,33 @@ public class WarpObelisk : MonoBehaviour
         if (dataManager.GetCurrSceneName() == "Skyhub")
         {
             stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
+        } else {
+            stageLoader.LoadNewStage("Skyhub");
+        }
+    }
+
+    /// If the warp obelisk needs to change its visual state, then this will update it.
+    public void UpdateActiveState()
+    {
+        if (respawnPoint == dataManager.respawnPoint)
+        {
+            if (isActive == false)
+            {
+                unactivated.SetActive(false);
+                activated.SetActive(true);
+
+                isActive = true;
+            }
         }
         else
         {
-            stageLoader.LoadNewStage("Skyhub");
+            if (isActive == true)
+            {
+                unactivated.SetActive(true);
+                activated.SetActive(false);
+
+                isActive = false;
+            }
         }
     }
 }
