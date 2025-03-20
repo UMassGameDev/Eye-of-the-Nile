@@ -35,6 +35,18 @@ public class GebRockGolem : MonoBehaviour
         gebRoomController = GameObject.Find("Geb").GetComponent<GebRoomController>();
     }
 
+    /// Subscribes to the GebPhaseController.onGebDefeated event.
+    void OnEnable()
+    {
+        GebPhaseController.onGebDefeated += Die;
+    }
+
+    /// Unsubscribes from the GebPhaseController.onGebDefeated event.
+    void OnDisable()
+    {
+        GebPhaseController.onGebDefeated -= Die;
+    }
+
     void Start()
     {
         // Get the width of the golem.
@@ -59,12 +71,12 @@ public class GebRockGolem : MonoBehaviour
         {
             transform.position = new Vector2(maxPosX, transform.position.y);
         }
+    }
 
-        // Get rid of the golems when Geb is defeated.
-        if ((gebPhaseController.phase == GebPhase.ClosingCutscene || gebPhaseController.phase == GebPhase.Defeated) && objectHealth.currentHealth > 0)
-        {
-            objectHealth.TakeDamage(this.transform, objectHealth.currentHealth);
-        }
+    /// Activated by onGebDefeated event when Geb is defeated.
+    public void Die()
+    {
+        objectHealth.TakeDamage(this.transform, objectHealth.currentHealth);
     }
 
     /// Subtracts 1 from Geb's bossroom's rock golem count. Called by the rock golem's ObjectHealth when it dies.

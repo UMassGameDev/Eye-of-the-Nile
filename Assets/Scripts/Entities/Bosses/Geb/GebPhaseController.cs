@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /** \brief
@@ -25,6 +26,9 @@ public class GebPhaseController : MonoBehaviour
     public GebPhase phase { get; private set; } = GebPhase.Inactive;
     /// Used for checking when the health of the boss changes.
     private int previousHealth;
+
+    /// Triggers when Geb is defeated.
+    public static event Action onGebDefeated;
 
     /// Set references to Geb's health script and the Geb-specific scripts.
     void Awake()
@@ -114,6 +118,8 @@ public class GebPhaseController : MonoBehaviour
     public void TriggerGebDefeated()
     {
         phase = GebPhase.ClosingCutscene;
+
+        onGebDefeated?.Invoke();
 
         bossController.GebClosingCutsceneStarted();
         roomController.GebClosingCutsceneStarted();
