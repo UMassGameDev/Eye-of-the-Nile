@@ -19,7 +19,7 @@ public class GebPhaseController : MonoBehaviour
 
     /// The percentage that Geb's health needs to drop below for phase 2 to start.
     public float phase2Threshold = 2f/3f;
-    /// The percentage that Geb's health needs to drop below for phaes 3 to start.
+    /// The percentage that Geb's health needs to drop below for phase 3 to start.
     public float phase3Threshold = 1f/3f;
 
     /// Keep track of the current phase.
