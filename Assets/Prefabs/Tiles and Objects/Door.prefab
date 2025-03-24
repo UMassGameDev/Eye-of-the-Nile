@@ -180,6 +180,7 @@ MonoBehaviour:
   openSprite: {fileID: 21300000, guid: fedc2bd915f372045847bf2940b18a6d, type: 3}
   doorCollider: {fileID: 6518440546380295208}
   openByDefault: 0
+  doorLocked: 0
 --- !u!1 &6823113521067626139
 GameObject:
   m_ObjectHideFlags: 0
