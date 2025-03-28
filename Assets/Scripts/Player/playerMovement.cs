@@ -159,11 +159,16 @@ public class PlayerMovement : MonoBehaviour
         // Player must be coming down from previous jump before jumping again
         if (rb.velocity.y < 0f)
         {
-            // isFalling = true;
+            animator.SetBool("IsFalling", true);
         }
         else if (rb.velocity.y > 0.1f)
         {
             coyoteJumpAvailable = false; // Disable coyote time jump availability after jump (when player is moving up).
+            animator.SetBool("IsFalling", false);
+        }
+        else
+        {
+            animator.SetBool("IsFalling", false);
         }
 
         if (groundDetector.isGrounded)
@@ -171,9 +176,14 @@ public class PlayerMovement : MonoBehaviour
             airTime = 0.0f; // Reset airTime when grounded
             coyoteJumpAvailable = true; // Enable coyote time jump availability when grounded
             jumpsAvailable = maxJumpChain; // Reset jump chain availability
+            animator.SetBool("IsFalling", false);
+            animator.SetBool("IsGrounded", true);
         }
         else
+        {
             airTime += Time.deltaTime; // Airtime increases when the player is not on the ground
+            animator.SetBool("IsGrounded", false);
+        }
 
         if ((verticalInput > 0 || Input.GetKey(KeyCode.Space)) && !OnWarp && !WarpInfo.CurrentlyWarping && Time.timeScale > 0.0f)
         {
