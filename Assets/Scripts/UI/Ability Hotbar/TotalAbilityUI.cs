@@ -105,6 +105,12 @@ public class TotalAbilityUI : MonoBehaviour
         }
     }
 
+    /// Runs SetFillPercentage in CooldownVisualUI for the given slot.
+    public void UpdateSlotCooldownVisual(int slot, float fillPercentage)
+    {
+        abilitySlotsUI[slot].CurCooldownVisualUI.SetFillPercentage(fillPercentage);
+    }
+
     /// Run InitializeAllSlots() when the object is first created.
     void Start()
     {

@@ -46,6 +46,8 @@ public class AbilityOwner // : MonoBehaviour
 
     /// \brief Time until ability duration is up.
     float updateEnd = 0f;
+    /// \brief Time when ability cooldown ends.
+    public float cooldownEnd = 0f;
 
     /// <summary>
     /// When a new abilityOwner object is created in another class, this function automatically runs.
@@ -85,6 +87,8 @@ public class AbilityOwner // : MonoBehaviour
     /// </summary>
     public IEnumerator CoolingDown()
     {
+        cooldownEnd = Time.time + abilityInfo.cooldown;
+
         // Debug.Log("Cool Down");
         yield return new WaitForSeconds(abilityInfo.cooldown);
         currentState = OwnerState.ReadyToUse;

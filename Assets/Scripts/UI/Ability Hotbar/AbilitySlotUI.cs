@@ -20,6 +20,9 @@ public class AbilitySlotUI : MonoBehaviour, IDropHandler
     /// The ID number of this slot. 0 - offense slot, 1 - defense slot, 2 - utility slot, 3 - passive slot.
     public int slotID = 0;
 
+    /// Reference to the CooldownVisualUI object that is in this slot.
+    public CooldownVisualUI CurCooldownVisualUI;
+
     /// \brief Subscribes totalAbilityUI.SlotDropListener() to DroppedUIEvent.
     /// Run by the TotalAbilityUI object that governs the ability hotbar system.
     public void SubscribeToDrop(TotalAbilityUI totalAbilityUI)
@@ -79,5 +82,6 @@ public class AbilitySlotUI : MonoBehaviour, IDropHandler
     void Start()
     {
         CurAbilityImageUI = GetComponentInChildren<AbilityImageUI>();
+        CurCooldownVisualUI = GetComponentInChildren<CooldownVisualUI>();
     }
 }

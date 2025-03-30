@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,6 +15,9 @@ public class PlayerAbilityController : MonoBehaviour
     public ActiveAbilityData activeAbilities;
     /// \brief Runs the [i]th event when the [i]th ability is activated. Max size of 4 (0 - 3).
     public List<UnityEvent> abilityEvents;
+
+    /// \brief Reference to the TotalAbilityUI.
+    private TotalAbilityUI totalAbilityUI;
 
     /// \brief Maximum number of active ability slots.
     private const int MAX_ABILITIES = 4;
@@ -117,9 +121,12 @@ public class PlayerAbilityController : MonoBehaviour
         }
     }
 
-    /// Initializes AbilityInputs and keyList. Initializes StoredAbilities and adds a new AbilityOwner for each keycode.
+    /// Initializes AbilityInputs and keyList. Initializes StoredAbilities and adds a new AbilityOwner for each keycode. Also sets a reference.
     void Awake()
     {
+        // Set reference to totalAbilityUI.
+        totalAbilityUI = GameObject.Find("AbilitySlots").GetComponent<TotalAbilityUI>();
+
         // initialize AbilityInputs and keyList
         AbilityInputs = new Dictionary<KeyCode, bool>();
         keyList = new List<KeyCode>
@@ -150,6 +157,7 @@ public class PlayerAbilityController : MonoBehaviour
 
     /// \brief Check if any of the ability keybinds are pressed. If so, activate the corresponding ability.
     /// Check if a change to ActiveAbilityData was made. If so, refresh the AbilityOwners that were affected.
+    /// Update the cooldown visuals based on the remaining cooldown time.
     void Update()
     {
         // If any of the ability keybinds are pressed, activate the corresponding ability (unless it's the passive ability).
@@ -170,6 +178,14 @@ public class PlayerAbilityController : MonoBehaviour
             RefreshSlots(activeAbilities.RefreshSlots.ToArray());
             activeAbilities.RefreshSlots.Clear();
             activeAbilities.QueueRefresh = false;
+        }
+
+        // Update the cooldown visuals based on the remaining cooldown time.
+        for (int i = 0; i < MAX_ABILITIES; i++)
+        {
+            float cooldownTimeRemaining = StoredAbilityOwners[intToKey[i]].cooldownEnd - Time.time;
+            float cooldownPercentage = cooldownTimeRemaining / StoredAbilityOwners[intToKey[i]].abilityInfo.cooldown;
+            totalAbilityUI.UpdateSlotCooldownVisual(i, Math.Max(cooldownPercentage, 0f));
         }
     }
 }
