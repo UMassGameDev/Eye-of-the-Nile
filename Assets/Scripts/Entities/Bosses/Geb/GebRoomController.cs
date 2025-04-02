@@ -8,7 +8,7 @@ This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame depending on Geb's phase, one for each phase.
 
-Documentation updated 1/20/2025
+Documentation updated 4/1/2025
 \author Alexander Art
 \todo Freeze the player during the cutscenes.
 \todo Make the distribution of the falling rocks less RNG-based.
@@ -104,15 +104,18 @@ public class GebRoomController : MonoBehaviour
                 break;
         }
 
-        // If the player is past the left boundary, move them right.
-        // If the player is past the right boundary, move them left.
-        if (minPlayerPosX > player.transform.position.x)
+        if (phaseController.phase != GebPhase.Inactive)
         {
-            player.transform.position = new Vector2(minPlayerPosX, player.transform.position.y);
-        }
-        else if (maxPlayerPosX < player.transform.position.x)
-        {
-            player.transform.position = new Vector2(maxPlayerPosX, player.transform.position.y);
+            // If the player is past the left boundary, move them right.
+            // If the player is past the right boundary, move them left.
+            if (minPlayerPosX > player.transform.position.x)
+            {
+                player.transform.position = new Vector2(minPlayerPosX, player.transform.position.y);
+            }
+            else if (maxPlayerPosX < player.transform.position.x)
+            {
+                player.transform.position = new Vector2(maxPlayerPosX, player.transform.position.y);
+            }
         }
     }
 

@@ -10,7 +10,7 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 1/29/2025
+Documentation updated 4/1/2025
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
@@ -42,6 +42,10 @@ public class GebBossController : MonoBehaviour
     /// Reference to Geb's rock tornado object that Geb uses in phase 3.
     [SerializeField] protected GameObject rockTornado;
 
+    /// Default height at which Geb floats.
+    [SerializeField] protected float defaultFloatHeight = 15f;
+    /// Minimum y-position that Geb will attempt to throw rocks at.
+    [SerializeField] protected double minPlayerHeight = 5.879;
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
     protected float bossActivationRadius = 11f;
     /// The maximum number of attack actions that can happen in a row.
@@ -253,7 +257,7 @@ public class GebBossController : MonoBehaviour
         }
 
         // Floating animation.
-        transform.position = new Vector3(transform.position.x, 16f + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, defaultFloatHeight + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
     }
 
     /// Runs every frame when the opening cutscene is playing.
@@ -263,7 +267,7 @@ public class GebBossController : MonoBehaviour
         rb.simulated = false;
 
         // Floating animation.
-        transform.position = new Vector3(transform.position.x, 16f + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, defaultFloatHeight + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
     }
 
     /// <summary>
@@ -1943,7 +1947,7 @@ public class GebBossController : MonoBehaviour
         // Predict the x position of the entity if it stays at a constant velocity and under constant gravity.
         predictedPosY = currentPos.y + currentVel.y * (float)time - 0.5f * gravity * (float)Math.Pow(time, 2);
         // Limit the prediction to always stay in bounds.
-        predictedPosY = (float)Math.Max(predictedPosY, 5.879);
+        predictedPosY = (float)Math.Max(predictedPosY, minPlayerHeight);
         // Return the position.
         return new Vector2(predictedPosX, predictedPosY);
     }
