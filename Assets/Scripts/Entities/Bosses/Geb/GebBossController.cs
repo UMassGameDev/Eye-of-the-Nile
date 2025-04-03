@@ -47,7 +47,7 @@ public class GebBossController : MonoBehaviour
     /// Minimum y-position that Geb will attempt to throw rocks at.
     [SerializeField] protected double minPlayerHeight = 5.879;
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
-    protected float bossActivationRadius = 11f;
+    protected float bossActivationRadius = 13f;
     /// The maximum number of attack actions that can happen in a row.
     protected int maxAttackChain = 3;
     /// <summary>

@@ -6,7 +6,7 @@ This script handles Geb's phases.
 It keeps track of the current phase or when a cutscene is playing, and detects when a new phase should be started.
 When a new phase is started, it tells the Geb's other scripts.
 
-Documentation updated 12/31/2024
+Documentation updated 4/2/2025
 \author Alexander Art
 */
 public class GebPhaseController : MonoBehaviour
@@ -24,6 +24,8 @@ public class GebPhaseController : MonoBehaviour
 
     /// Keep track of the current phase.
     public GebPhase phase { get; private set; } = GebPhase.Inactive;
+    /// Used for keeping track of how long a phase has been active. Useful for controlling cutscenes.
+    public float phaseTime { get; private set; } = 0.0f;
     /// Used for checking when the health of the boss changes.
     private int previousHealth;
 
@@ -40,6 +42,8 @@ public class GebPhaseController : MonoBehaviour
 
     void Update()
     {
+        phaseTime += Time.deltaTime;
+
         // Runs when Geb's health changes.
         if (previousHealth != bossHealth.currentHealth)
         {
@@ -74,6 +78,7 @@ public class GebPhaseController : MonoBehaviour
     public void StartGebOpeningCutscene()
     {
         phase = GebPhase.OpeningCutscene;
+        phaseTime = 0.0f;
 
         bossController.GebOpeningCutsceneStarted();
         roomController.GebOpeningCutsceneStarted();
@@ -85,6 +90,7 @@ public class GebPhaseController : MonoBehaviour
     public void StartGebBossfight()
     {
         phase = GebPhase.Phase1;
+        phaseTime = 0.0f;
 
         bossController.GebPhase1Started();
         roomController.GebPhase1Started();
@@ -96,6 +102,7 @@ public class GebPhaseController : MonoBehaviour
     public void StartGebPhase2()
     {
         phase = GebPhase.Phase2;
+        phaseTime = 0.0f;
 
         bossController.GebPhase2Started();
         roomController.GebPhase2Started();
@@ -107,6 +114,7 @@ public class GebPhaseController : MonoBehaviour
     public void StartGebPhase3()
     {
         phase = GebPhase.Phase3;
+        phaseTime = 0.0f;
 
         bossController.GebPhase3Started();
         roomController.GebPhase3Started();
@@ -118,6 +126,7 @@ public class GebPhaseController : MonoBehaviour
     public void TriggerGebDefeated()
     {
         phase = GebPhase.ClosingCutscene;
+        phaseTime = 0.0f;
 
         onGebDefeated?.Invoke();
 
@@ -131,6 +140,7 @@ public class GebPhaseController : MonoBehaviour
     public void ClosingCutsceneEnded()
     {
         phase = GebPhase.Defeated;
+        phaseTime = 0.0f;
 
         bossController.GebDefeated();
         roomController.GebDefeated();
