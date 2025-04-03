@@ -10,7 +10,7 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 4/1/2025
+Documentation updated 4/3/2025
 \author Alexander Art
 \todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
@@ -21,6 +21,8 @@ public class GebBossController : MonoBehaviour
     protected Rigidbody2D rb;
     /// Reference to Geb's Box Collider 2D.
     protected BoxCollider2D bc;
+    /// Reference to Geb's animator.
+    [SerializeField] protected Animator animator;
     /// Reference to the bossroom's Bounds (PatrolZone), which has the left and right ends of the bossroom that Geb must stay in.
     [SerializeField] protected PatrolZone bounds;
     /// Reference to Geb's phase controller.
@@ -31,8 +33,6 @@ public class GebBossController : MonoBehaviour
     WallDetectorInfo wallDetector;
     /// Reference to the rock prefab for the rocks that Geb throws and have a chance to turn into a rock golem.
     [SerializeField] protected GameObject throwableRock;
-    /// The image to use for Geb in phase 2 once he grows legs.
-    [SerializeField] protected Sprite phase2Sprite;
     /// The hitbox that Geb uses during a charge attack to damage the player and destroy walls.
     [SerializeField] protected GameObject chargeAttackHitbox;
     /// Reference to the wall prefab for the walls that Geb summons in phase 2 and 3.
@@ -95,6 +95,7 @@ public class GebBossController : MonoBehaviour
     private GebAction currentAction;
     /// Create random number generator.
     private System.Random rng = new System.Random();
+    /// This was going to be used to simplify the code. It has not been implemented, and at this point, it might never be.
     private List<Action> phase1Actions = new List<Action> {  };
     /// The number of times in a row Geb has attacked. Negative values count how many times in a row Geb doesn't attack.
     private int attackCount;
@@ -209,8 +210,8 @@ public class GebBossController : MonoBehaviour
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = idleDuration;
         
-        // Switch Geb's sprite to the image of Geb with legs.
-        GetComponent<SpriteRenderer>().sprite = phase2Sprite;
+        // Switch Geb's animation to the one with legs.
+        animator.SetTrigger("grow legs");
         // To adjust to the size of the new image, decrease Geb's x and y scale.
         transform.localScale = new Vector3(transform.localScale.x / 1.7f, transform.localScale.y / 1.7f, transform.localScale.z);
         // Increase the size of the BoxCollider2D to roughly match the new scale.
@@ -255,9 +256,6 @@ public class GebBossController : MonoBehaviour
         {
             phaseController.StartGebOpeningCutscene();
         }
-
-        // Floating animation.
-        transform.position = new Vector3(transform.position.x, defaultFloatHeight + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
     }
 
     /// Runs every frame when the opening cutscene is playing.
@@ -265,9 +263,6 @@ public class GebBossController : MonoBehaviour
     {
         // Make Geb invincible before the bossfight starts.
         rb.simulated = false;
-
-        // Floating animation.
-        transform.position = new Vector3(transform.position.x, defaultFloatHeight + (float)Math.Sin(2f * Time.time) / 2f, transform.position.z);
     }
 
     /// <summary>
