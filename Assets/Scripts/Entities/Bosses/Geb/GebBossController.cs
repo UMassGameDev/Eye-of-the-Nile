@@ -42,8 +42,6 @@ public class GebBossController : MonoBehaviour
     /// Reference to Geb's rock tornado object that Geb uses in phase 3.
     [SerializeField] protected GameObject rockTornado;
 
-    /// Default height at which Geb floats.
-    [SerializeField] protected float defaultFloatHeight = 15f;
     /// Minimum y-position that Geb will attempt to throw rocks at.
     [SerializeField] protected double minPlayerHeight = 5.879;
     /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
