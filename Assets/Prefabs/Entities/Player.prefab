@@ -498,11 +498,11 @@ MonoBehaviour:
   - _statName: MeleeDamage
     _baseValue: 20
   - _statName: MeleeRange
-    _baseValue: 0.5
+    _baseValue: 0.6
   - _statName: MeleeCooldown
-    _baseValue: 0.75
+    _baseValue: 0.4
   - _statName: MeleeKnockback
-    _baseValue: 75
+    _baseValue: 50
   - _statName: DamageResistance
     _baseValue: 0
   - _statName: FireResistance
