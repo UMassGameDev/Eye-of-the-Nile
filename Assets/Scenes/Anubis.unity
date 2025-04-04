@@ -320,10 +320,17 @@ MonoBehaviour:
   - Why can't a bicycle stand on its own? It's two-tired.
   - I was up all night wondering where the sun went, but then it dawned on me.
   - '[Dad Joke 6]'
+  - '"hehehe, no no, I''m sure you got the POINT!"'
+  - '"wow, seems like you live life on the EDGE. well, lived..."'
+  - '"c''mon, is that all you got? I''m sure you can give it another SHOT! hehehehe"'
+  - '"i''m impressed, even I don''t know how you died. Guess the joke is on you then,
+    hehehehe"'
+  - '"once there was a man walking. he turned a corner"'
   fireDeathJokes:
   - "I\u2019m fired up about these fire puns!"
   - Things are really heating up.
   - Looks like you're just too hot to handle.
+  - '"what? are you all BURNED out? hehehehe"'
 --- !u!1001 &232466950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -332,17 +339,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 175909397530635717, guid: 51c156a50e4176345b27827dbe614175, type: 3}
+      propertyPath: orthographic size
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4072273548052411645, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.291521
+      value: -4.3749995
       objectReference: {fileID: 0}
     - target: {fileID: 4113987938267610479, guid: 51c156a50e4176345b27827dbe614175, type: 3}
       propertyPath: m_LocalPosition.z
@@ -577,11 +588,11 @@ PrefabInstance:
       objectReference: {fileID: 916480882}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.291521
+      value: -4.3749995
       objectReference: {fileID: 0}
     - target: {fileID: 2886403095497372306, guid: a44a524faad72b54bb3a0f9c7de36349, type: 3}
       propertyPath: m_LocalPosition.z
