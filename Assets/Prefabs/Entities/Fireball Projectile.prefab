@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7381285447481899837}
   - component: {fileID: 1126583391459612705}
   - component: {fileID: 972769795486432008}
+  - component: {fileID: 3856965165756218892}
   m_Layer: 0
   m_Name: Fireball Projectile
   m_TagString: Projectile
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4c21939c47015fc4a8e8e5f312e9a2c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 899bba93da344e9468096d95b120ee92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -124,14 +125,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 24.014492, y: 9.58}
+    oldSize: {x: 20.48, y: 20.48}
     newSize: {x: 24.014492, y: 9.58}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 24.014492, y: 9.58}
+  m_Size: {x: 15, y: 10}
   m_EdgeRadius: 0
 --- !u!50 &7381285447481899837
 Rigidbody2D:
@@ -198,3 +199,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDirection: {x: 12, y: 0}
+--- !u!95 &3856965165756218892
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7514528624249247598}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ddb71d63790fc2047be45ea4708a781e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

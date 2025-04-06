@@ -356,7 +356,13 @@ MonoBehaviour:
   animator: {fileID: 3032770499474564208}
   hurtEffect: {fileID: 4472704249168249050, guid: 2ec7c2ab6af007240a6b3430495c25ca, type: 3}
   onFireSprite: {fileID: 1059971365342005466}
-  deathSfxName: enemy_death
+  deathSfxName:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   enableDamageParticles: 1
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
@@ -367,6 +373,13 @@ MonoBehaviour:
   canBeInvincible: 0
   invincibleDuration: 3
   canBeOnFire: 1
+  setOnFireSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -461,6 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce08d6c199066bc44ad580e09aa8178a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxOutOfBoundsRange: 25
 --- !u!114 &7441807733248974627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4670118767244896152}
   - component: {fileID: 1059971365342005466}
+  - component: {fileID: 7300245636262264711}
   m_Layer: 0
   m_Name: On Fire
   m_TagString: Untagged
@@ -567,7 +582,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6eec63b06428e2c49b59ccfe3835ab64, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -577,6 +592,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7300245636262264711
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146406485303429131}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c778eefdc2018bd41a56e0ab69ea8990, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7361726267325863105
 GameObject:
   m_ObjectHideFlags: 0
