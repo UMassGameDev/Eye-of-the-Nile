@@ -460,10 +460,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVelocity: 12
-  jumpForce: 200
+  jumpForce: 170
   linearDrag: 1
   jumpHeldDuration: 0
-  maxJumpDuration: 0.2
+  maxJumpDuration: 0.3
   glideSpeed: -3.5
   coyoteTime: 0.5
   coyoteJumpAvailable: 0
@@ -581,6 +581,7 @@ MonoBehaviour:
   interactCooldown: 1
   longPressLength: 1
   touchedInteractables: []
+  previouslyInRange: []
 --- !u!114 &6090076525925026504
 MonoBehaviour:
   m_ObjectHideFlags: 0

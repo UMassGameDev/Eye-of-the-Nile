@@ -4,6 +4,7 @@ using UnityEngine;
 This goes on day/night shrines, which are objects that allow the player to change the time of day when interacted with (press E).
 If the player interacts with this object, it will tell the DataManager to update its record of the time of day.
 The DataManager will then trigger an event that tells TimeOfDayController to change the background image.
+This script is also used for controlling whether or not the shrine should be animated when the player gets in range.
 
 Documentation updated 4/7/2025
 \author Stephen Nuttall
