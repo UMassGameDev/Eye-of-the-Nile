@@ -34,8 +34,10 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] protected GameObject cutsceneRock;
     /// Reference to the part of the door in the scene that Geb closes off in the opening cutscene.
     [SerializeField] protected GameObject doorBlocker;
-    /// Reference to the rocks that fall from the sky during Geb's earthquake attack in phase 3.
+    /// Reference to the rocks (prefab) that fall from the sky during Geb's earthquake attack in phase 3.
     [SerializeField] protected GameObject fallingSkyRocks;
+    /// Reference to the warp obelisk that appears after Geb is defeated.
+    [SerializeField] protected GameObject warpObelisk;
 
     /// How far to zoom out the camera for Geb's bossfight.
     float fightZoom = 11f;
@@ -141,7 +143,8 @@ public class GebRoomController : MonoBehaviour
     /// Called by GebPhaseController once when phase 3 starts.
     public void GebPhase3Started() {}
     /// Called by GebPhaseController once when the closing cutscene starts.
-    public void GebClosingCutsceneStarted() {
+    public void GebClosingCutsceneStarted()
+    {
         // Hide Geb's healthbar.
         healthbar.SetHealthbarVisible(false);
 
@@ -151,6 +154,11 @@ public class GebRoomController : MonoBehaviour
         {
             Destroy(gebRock.transform.GetComponent<DamageOnTrigger>());
         }
+
+        /// Move the warp obelisk x-position halfway between Geb and the player.
+        warpObelisk.transform.position = new Vector3((transform.position.x + player.transform.position.x) / 2, warpObelisk.transform.position.y, warpObelisk.transform.position.z);
+        /// Make the warp obelisk visible and interactable.
+        warpObelisk.SetActive(true);
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated() {}
