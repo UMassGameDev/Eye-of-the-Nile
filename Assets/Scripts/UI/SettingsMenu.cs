@@ -4,8 +4,8 @@ using UnityEngine.UI;
 /** \brief
 Handles opening the settings menu and the functionality of the buttons.
 
-Documentation updated 1/27/2025
-\author Stephen Nuttall
+Documentation updated 4/12/2025
+\author Stephen Nuttall, Alexander Art
 */
 public class SettingsMenu : MonoBehaviour
 {
@@ -74,6 +74,7 @@ public class SettingsMenu : MonoBehaviour
         AudioManager.instance.VolumeChanged();
     }
 
+    // This function is not used anymore because the settings menu has only one tab.
     public void SwitchTab(string newTab)
     {
         // Find the transform of the GameObject that contains all of the different settings menu tabs
