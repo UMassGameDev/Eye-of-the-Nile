@@ -1698,7 +1698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8438639837641249804, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
       propertyPath: m_Name
-      value: Sarcophagus WASD
+      value: Osiris WASD
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22161,7 +22161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8438639837641249804, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
       propertyPath: m_Name
-      value: Sarcophagus Jump
+      value: Osiris Jump
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -68201,7 +68201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8438639837641249804, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
       propertyPath: m_Name
-      value: Sarcophagus Geb
+      value: Osiris Geb
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -68719,6 +68719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7831163479848532316, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
+    - {fileID: 2571822464565655978, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7877345092036611693, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
@@ -69408,7 +69409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8438639837641249804, guid: 8402b62fb716bf44a892e2cf3cc99477, type: 3}
       propertyPath: m_Name
-      value: Sarcophagus Double Jump
+      value: Osiris Double Jump
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
