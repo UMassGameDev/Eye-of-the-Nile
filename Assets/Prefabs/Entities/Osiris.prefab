@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 5667424348696996203}
   - component: {fileID: 2571822464565655978}
   - component: {fileID: 4897445942671525481}
+  - component: {fileID: 411086682045963314}
   m_Layer: 0
   m_Name: Osiris
   m_TagString: Untagged
@@ -226,7 +227,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 3db1e6bd645718a46a44a3da195df130, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -274,8 +275,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  opaqueDistance: 8
-  transparentDistance: 10
+  opaqueDistance: 7
+  transparentDistance: 12
 --- !u!114 &4897445942671525481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,3 +295,15 @@ MonoBehaviour:
   message: {fileID: 1494787441336643152}
   messageAnimator: {fileID: 7515654153132359782}
   detectionRange: 4
+--- !u!114 &411086682045963314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438639837641249804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11ce62011a102d4a8cb6311ea072faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

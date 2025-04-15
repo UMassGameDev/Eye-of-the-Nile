@@ -19,7 +19,7 @@ public class FadeDistantObject : MonoBehaviour
     [SerializeField] protected float opaqueDistance = 8f;
     /// The distance at which you want the object to be fully transparent.
     [SerializeField] protected float transparentDistance = 10f;
-    // The area between transparentDistance and opaqueDistance is where the object will be partially transparent.
+    // The area between transparentDistance and opaqueDistance is where the object will be partially transparent (translucent).
 
     void Awake()
     {
@@ -28,16 +28,22 @@ public class FadeDistantObject : MonoBehaviour
 
     void Update()
     {
+        // Detect the player if they are nearby.
         Collider2D player = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 0.5f, 0f),
             Math.Max(opaqueDistance, transparentDistance),
             playerLayer);
 
+        // If the player is detected...
         if (player != null)
         {
+            // Calculate the distance between the object this script is attached to and the player.
             float playerDistance = Vector2.Distance(transform.position, player.transform.position);
 
             if (opaqueDistance <= transparentDistance)
             {
+                // If the player is inside the opaque range, make the object opaque.
+                // If the player is between the opaque range and the transparent range, make the object translucent.
+                // If the player is outside the transparent range, make the object transparent.
                 if (playerDistance <= opaqueDistance)
                 {
                     spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
@@ -53,6 +59,9 @@ public class FadeDistantObject : MonoBehaviour
             }
             else if (opaqueDistance > transparentDistance)
             {
+                // If the player is inside the transparent range, make the object transparent.
+                // If the player is between the transparent range and the opaque range, make the object translucent.
+                // If the player is outside the opaque range, make the object opaque.
                 if (playerDistance <= transparentDistance)
                 {
                     spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
@@ -69,6 +78,7 @@ public class FadeDistantObject : MonoBehaviour
         }
         else // If the player is not detected, then the player is most likely out of range.
         {
+            // Set the object's transparency to what it should be when the player is far away.
             if (opaqueDistance <= transparentDistance)
             {
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
