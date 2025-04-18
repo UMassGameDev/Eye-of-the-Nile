@@ -405,7 +405,7 @@ Animator:
   m_GameObject: {fileID: 4159231174263111848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f38c6cb26ef219438bfdde5ad8d07b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7a84ab493ad901f40aa7043d9d477b66, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   patrolZone: {fileID: 3842185765103926690}
   horizontalDirection: 0
   detectionRange: 300
-  activateAttackRange: 3
+  activateAttackRange: 2
   moveVelocity: 3.565
   linearDrag: 1
   groundedRaycastLength: 1
