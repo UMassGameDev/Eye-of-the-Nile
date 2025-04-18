@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FireAbilityInfo
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: FireEx
-  overlapIcon: {fileID: 21300000, guid: 2e218950662a69b408c04b5585015083, type: 3}
+  abilityName: Fire Example
+  overlapIcon: {fileID: 21300000, guid: acc7f3d60eaf02f459ee1da44b9640ff, type: 3}
   abilityIcons:
   - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
   - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}

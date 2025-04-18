@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityID: 0
   abilityName: EXAMPLE_ABILITY_2
-  overlapIcon: {fileID: 21300000, guid: 2e218950662a69b408c04b5585015083, type: 3}
+  overlapIcon: {fileID: 21300000, guid: acc7f3d60eaf02f459ee1da44b9640ff, type: 3}
   abilityIcons:
   - {fileID: -2028293451, guid: 10781e700ce239944af77be87482ea9e, type: 3}
   - {fileID: -404328850, guid: 10781e700ce239944af77be87482ea9e, type: 3}

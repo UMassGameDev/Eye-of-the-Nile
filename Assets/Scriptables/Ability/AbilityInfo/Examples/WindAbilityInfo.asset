@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WindAbilityInfo
   m_EditorClassIdentifier: 
   abilityID: 0
-  abilityName: WindEx
-  overlapIcon: {fileID: 21300000, guid: 155b0fde73e0dca459871eed2a1d8199, type: 3}
+  abilityName: Wind Example
+  overlapIcon: {fileID: 21300000, guid: 55ada9b0227d91f4495bf53a7896ddf6, type: 3}
   abilityIcons:
   - {fileID: 21300000, guid: 65c9da273b40e514883bbdbbd7f91ca6, type: 3}
   - {fileID: 21300000, guid: 387350b9a0303e447b4d5b5ec884cb89, type: 3}
@@ -44,7 +44,7 @@ MonoBehaviour:
   maxLevel: 3
   upgradeSoulCosts: 0000000000000000
   upgradeGodsoulCosts: 0000000000000000
-  currentForm: 0
+  currentForm: 2
   baseCost: 0
   duration: 0
   tickRate: 0

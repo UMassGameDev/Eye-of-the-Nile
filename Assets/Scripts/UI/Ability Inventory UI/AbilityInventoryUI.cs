@@ -21,6 +21,8 @@ public class AbilityInventoryUI : MonoBehaviour
     [SerializeField] GameObject mainCanvas;
     /// Reference to the details panel of the ability inventory UI, which holds the UI elements for the more details display.
     [SerializeField] GameObject detailsPanel;
+    /// Reference to the scroll animation manager, which handles the animations of the scroll background.
+    [SerializeField] ScrollAnimationManager scrollAnimationManager;
     /// Reference to confirmation panel that is shown when an ability is about to be upgraded.
     [SerializeField] private ConfirmationPanel confirmationPanel;
 
@@ -43,7 +45,7 @@ public class AbilityInventoryUI : MonoBehaviour
     public static event Action abilityInventoryClosed;
     /// Invoked when the slots in the ability inventory have been initialized.
     public static event Action abilityInventorySlotInitialized;
-    
+
     /// True if the ability inventory is currently open.
     bool inventoryOpen = false;
     /// True if the ability details panel is currently open.
@@ -78,15 +80,21 @@ public class AbilityInventoryUI : MonoBehaviour
 
         inventoryPanel.SetActive(false);
         mainCanvas.SetActive(true);
-        
+
         ExitDetailsPanel();
-        
-        // unpause the game
-        Time.timeScale = 1f;
 
         inventoryOpen = false;
 
         abilityInventoryClosed?.Invoke();
+
+        // unpause the game and play scroll closing animation
+        Time.timeScale = 1f;
+        scrollAnimationManager.PlayCloseAnimation();
+    }
+
+    public void OpenInventoryAnimation()
+    {
+        scrollAnimationManager.PlayOpenAnimation();
     }
 
     /// Opens the more details view under the given ability slot.
@@ -103,7 +111,7 @@ public class AbilityInventoryUI : MonoBehaviour
     {
         confirmationPanel.CloseConfirmationPanel();
         detailsPanel.SetActive(false);
-        
+
         detailsOpen = false;
     }
 
@@ -168,7 +176,7 @@ public class AbilityInventoryUI : MonoBehaviour
         for (int i = 0; i < activeAbilitySlots.Length; i++)
         {
             // skip empty slots (null or emptyAbilityInfo)
-            if (activeAbilityData.AbilityAt(i) != null && activeAbilityData.AbilityAt(i).abilityName != emptyAbilityInfo.abilityName) 
+            if (activeAbilityData.AbilityAt(i) != null && activeAbilityData.AbilityAt(i).abilityName != emptyAbilityInfo.abilityName)
             {
                 string currAbilityName = activeAbilityData.AbilityAt(i).abilityName;
                 for (int n = 0; n < abilityInventorySlots.Length; n++)
@@ -177,13 +185,13 @@ public class AbilityInventoryUI : MonoBehaviour
                     {
                         iconData[n].MoveIcon(activeAbilitySlots[i].GetPosition());
                         activeAbilitySlots[i].slotData = abilityInventorySlots[n].slotData;
-                        
+
                         // Correct which slot the item is in if it is already active on initialization
                         iconData[n].currentSlot = activeAbilitySlots[i].GetSlotNum();
                     }
                 }
             }
-            
+
         }
     }
 
@@ -195,9 +203,12 @@ public class AbilityInventoryUI : MonoBehaviour
         {
             BaseAbilityInfo newAbilityInfo;
 
-            if (activeAbilitySlots[i].slotData == null) {
+            if (activeAbilitySlots[i].slotData == null)
+            {
                 newAbilityInfo = emptyAbilityInfo;
-            } else {
+            }
+            else
+            {
                 newAbilityInfo = abilityInventory.GetAbilitySet(activeAbilitySlots[i].slotData.abilityName);
                 if (newAbilityInfo == null || newAbilityInfo.abilityName == emptyAbilityInfo.abilityName)
                     newAbilityInfo = emptyAbilityInfo;
