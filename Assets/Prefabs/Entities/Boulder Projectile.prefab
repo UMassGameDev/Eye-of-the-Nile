@@ -79,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2fb8fc7d2d9e53949be16c0099e447b5, type: 3}
-  m_Color: {r: 0.5283019, g: 0.400923, b: 0.2511926, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 3c5b00f673752a7479de0e7f296cfe9c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -220,7 +220,13 @@ MonoBehaviour:
   damagePlayers: 0
   damageNonPlayers: 1
   destroyOnImpact: 1
-  spawnSFX: '[no functionality]'
+  spawnSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   flipSprite: 1
   boulderParticles: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   initialForce: 100
