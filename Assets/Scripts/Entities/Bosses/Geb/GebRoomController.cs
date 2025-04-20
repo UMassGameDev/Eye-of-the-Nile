@@ -38,8 +38,12 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] protected GameObject fallingSkyRocks;
     /// Reference to the defeat message that appears after Geb is defeated.
     [SerializeField] protected GameObject defeatedMessage;
+    /// Reference to the interactable zone for when the player needs to press E after Geb is defeated.
+    [SerializeField] protected GameObject interactableZone;
     /// Reference to the warp obelisk that appears after Geb is defeated.
     [SerializeField] protected GameObject warpObelisk;
+    /// Reference to the shattered version of Geb that is instantiated after Geb is defeated.
+    [SerializeField] protected GameObject shatteredGeb;
 
     /// How far to zoom out the camera for Geb's bossfight.
     float fightZoom = 11f;
@@ -156,6 +160,9 @@ public class GebRoomController : MonoBehaviour
         {
             Destroy(gebRock.transform.GetComponent<DamageOnTrigger>());
         }
+
+        // Stop spawning rock golems.
+        maxRockGolems = 0;
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated()
@@ -165,10 +172,11 @@ public class GebRoomController : MonoBehaviour
         /// Make the defeated message visible.
         defeatedMessage.SetActive(true);
 
-        /// Move the warp obelisk to Geb.
-        warpObelisk.transform.position = transform.position;
-        /// Make the warp obelisk visible and interactable.
-        //warpObelisk.SetActive(true);
+        /// Move the interactable to Geb.
+        interactableZone.transform.position = transform.position;
+        
+        /// Move the warp obelisk to Geb (y - 1.75f to bring to the ground).
+        warpObelisk.transform.position = new Vector3(transform.position.x, transform.position.y - 1.75f, transform.position.z);
     }
 
     /// Runs every frame when Geb is inactive.
@@ -315,5 +323,23 @@ public class GebRoomController : MonoBehaviour
     public void DecrementRockGolemCount()
     {
         rockGolemCount--;
+    }
+
+    /// Runs when the player interacts with the Geb interactable.
+    public void GebInteracted()
+    {
+        if (phaseController.phase == GebPhase.Defeated)
+        {
+            // Hide the defeated message and disable the interactability.
+            defeatedMessage.SetActive(false);
+            interactableZone.SetActive(false);
+
+            // Make the warp obelisk visible and interactable.
+            warpObelisk.SetActive(true);
+
+            // Shatter Geb like a pot.
+            Instantiate(shatteredGeb, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
+        }
     }
 }

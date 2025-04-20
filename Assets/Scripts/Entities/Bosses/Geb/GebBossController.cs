@@ -10,7 +10,7 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 4/19/2025
+Documentation updated 4/20/2025
 \author Alexander Art
 \todo Simplify/split up this script.
 */
@@ -80,7 +80,7 @@ public class GebBossController : MonoBehaviour
     /// (Phase 3) The amount of time that Geb will quake the ground (in seconds).
     protected float earthquakeDuration = 5f;
     /// (Phase 3) The amount of time that Geb will surround himself in a protective rock tornado (in seconds).
-    protected float tornadoDuration = 5f;
+    protected float tornadoDuration = 3f;
     /// (Phase 1, 2, and 3) The minimum horizontal distance that Geb will try to keep from the player when moving.
     protected float minPlayerDistanceX = 10f;
     /// (Phase 1, 2, and 3) The maximum horizontal distance that Geb will try to keep from the player when moving.
@@ -247,7 +247,7 @@ public class GebBossController : MonoBehaviour
     }
 
     /// Called by GebPhaseController once when the closing cutscene finishes.
-    public void GebDefeated() {}
+    public void GebDefeated() { FacePlayer(); }
 
     /// Runs every frame when Geb is inactive.
     void InactiveState()
@@ -1451,7 +1451,7 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // Move Geb up and expand the tornado near the start of the action.
-                if (currentActionTimer / currentActionDuration < .4)
+                if (currentActionTimer / currentActionDuration < .6f)
                 {
                     transform.position += new Vector3(0f, Time.deltaTime * 2.5f, 0f);
                     rockTornado.transform.localScale = new Vector3(currentActionTimer / currentActionDuration * 5f, currentActionTimer / currentActionDuration * 5f, 1f);
