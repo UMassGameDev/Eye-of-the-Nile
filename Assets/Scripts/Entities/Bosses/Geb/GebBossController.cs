@@ -10,9 +10,8 @@ This script mainly consists of:
 - 7 functions that get called every frame, one for each phase.
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 4/3/2025
+Documentation updated 4/19/2025
 \author Alexander Art
-\todo Finalize the details about Geb's bossfight (in meeting), then implement the changes.
 \todo Simplify/split up this script.
 */
 public class GebBossController : MonoBehaviour
@@ -94,7 +93,7 @@ public class GebBossController : MonoBehaviour
     /// Create random number generator.
     private System.Random rng = new System.Random();
     /// This was going to be used to simplify the code. It has not been implemented, and at this point, it might never be.
-    private List<Action> phase1Actions = new List<Action> {  };
+    private List<Action> phase1Actions = new List<Action> {};
     /// The number of times in a row Geb has attacked. Negative values count how many times in a row Geb doesn't attack.
     private int attackCount;
     /// The direction Geb moves in.
@@ -113,8 +112,10 @@ public class GebBossController : MonoBehaviour
     /// Either "LEFT" or "RIGHT", Geb will try to stay on this side of the player in phase 1 when moving.
     /// This is done by always picking targetPositionX to be on this side of the player.
     /// This also determines which direction Geb faces. Geb always moves backwards in phase 1.
-    /// </summary>    
+    /// </summary>
     private string side;
+    /// Geb's initial position when defeated (when the closing cutscene starts).
+    private Vector3 positionOnDefeat;
 
     /// Set references to the player's GameObject and Geb's Rigidbody 2D, Box Collider 2D, phase controller, and wall detector.
     void Awake()
@@ -232,6 +233,7 @@ public class GebBossController : MonoBehaviour
     {
         // If Geb's current action is interrupted when this phase starts, remember to deactivate the charge attack hitbox.
     }
+
     /// Called by GebPhaseController once when the closing cutscene starts.
     public void GebClosingCutsceneStarted()
     {
@@ -239,7 +241,11 @@ public class GebBossController : MonoBehaviour
         chargeAttackHitbox.SetActive(false);
         // Deactivate the earthquake zone hitbox in case it was active from the previous phase.
         earthquakeZone.SetActive(false);
+
+        // Update positionOnDefeat;
+        positionOnDefeat = transform.position;
     }
+
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated() {}
 
@@ -1510,7 +1516,46 @@ public class GebBossController : MonoBehaviour
     }
 
     /// Runs every frame when Geb is defeated and the closing cutscene is playing.
-    void ClosingCutsceneState() {}
+    void ClosingCutsceneState()
+    {
+        var maxSpinDuration = 1f;
+
+        var rotations = 0f;
+        if (side == "LEFT")
+            rotations = 5.25f;
+        else if (side == "RIGHT")
+            rotations = -5.25f;
+
+        // Rotate Geb.
+        if (phaseController.phaseTime < maxSpinDuration)
+        {
+            // The rotation that Geb will be set to on this frame.
+            var targetRotation = 360f * rotations * phaseController.phaseTime / maxSpinDuration;
+            // How far Geb needs to rotate this frame to match where it should be.
+            var rotationDifference = targetRotation - transform.eulerAngles.z;
+            // Update Geb's rotation.
+            transform.Rotate(0f, 0f, (float)rotationDifference);
+        }
+
+        var maxAirDuration = 1f;
+
+        var launchHeight = 10f;
+        var launchDistance = 0f;
+        if (side == "LEFT")
+            launchDistance = -5f;
+        else if (side == "RIGHT")
+            launchDistance = 5f;
+
+        // Make Geb fly backwards.
+        if (phaseController.phaseTime < maxAirDuration)
+        {
+            transform.position = new Vector3(positionOnDefeat.x + launchDistance * phaseController.phaseTime / maxAirDuration, positionOnDefeat.y + 4f * phaseController.phaseTime / maxAirDuration * launchHeight * (1f - phaseController.phaseTime / maxAirDuration), transform.position.z);
+        }
+
+        // Move Geb in bounds is if he went out of bounds.
+        MoveGebInBounds();
+    }
+
     /// Runs every frame when the closing cutscene is over.
     void DefeatedState() {}
 

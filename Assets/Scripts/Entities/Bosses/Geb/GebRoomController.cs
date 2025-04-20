@@ -36,6 +36,8 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] protected GameObject doorBlocker;
     /// Reference to the rocks (prefab) that fall from the sky during Geb's earthquake attack in phase 3.
     [SerializeField] protected GameObject fallingSkyRocks;
+    /// Reference to the defeat message that appears after Geb is defeated.
+    [SerializeField] protected GameObject defeatedMessage;
     /// Reference to the warp obelisk that appears after Geb is defeated.
     [SerializeField] protected GameObject warpObelisk;
 
@@ -154,14 +156,20 @@ public class GebRoomController : MonoBehaviour
         {
             Destroy(gebRock.transform.GetComponent<DamageOnTrigger>());
         }
-
-        /// Move the warp obelisk x-position halfway between Geb and the player.
-        warpObelisk.transform.position = new Vector3((transform.position.x + player.transform.position.x) / 2, warpObelisk.transform.position.y, warpObelisk.transform.position.z);
-        /// Make the warp obelisk visible and interactable.
-        warpObelisk.SetActive(true);
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
-    public void GebDefeated() {}
+    public void GebDefeated()
+    {
+        /// Move the defeated message to Geb.
+        defeatedMessage.transform.position = transform.position;
+        /// Make the defeated message visible.
+        defeatedMessage.SetActive(true);
+
+        /// Move the warp obelisk to Geb.
+        warpObelisk.transform.position = transform.position;
+        /// Make the warp obelisk visible and interactable.
+        //warpObelisk.SetActive(true);
+    }
 
     /// Runs every frame when Geb is inactive.
     void InactiveState() {}
