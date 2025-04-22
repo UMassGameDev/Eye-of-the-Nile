@@ -12,6 +12,8 @@ In the final version of this script, it will only be responsible for displaying 
 */
 public class TotalAbilityUI : MonoBehaviour
 {
+    /// Reference to the data manager.
+    DataManager dataManager;
     /// Reference to \ref Scriptables_ActiveAbilties, which stores all the ability info of the currently equipped abilities.
     public ActiveAbilityData equippedAbilities;
     /// Reference to \ref Prefabs_Abilities_AbilitySlotUI. One will be created for each ability type.
@@ -111,9 +113,22 @@ public class TotalAbilityUI : MonoBehaviour
         abilitySlotsUI[slot].CurCooldownVisualUI.SetFillPercentage(fillPercentage);
     }
 
-    /// Run InitializeAllSlots() when the object is first created.
+    /// Set reference to the DataManager.
+    void Awake()
+    {
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
+    }
+
+    /// Run InitializeAllSlots() when the object is first created and if the player has unlocked abilities yet.
     void Start()
     {
-        InitializeAllSlots();
+        if (dataManager.abilitiesUnlocked == true)
+        {
+            InitializeAllSlots();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -66,6 +66,8 @@ public class DataManager : MonoBehaviour
     int godSouls = 0;
     /// The joke Anubis will tell when the player dies.
     public static string anubisDeathMessage { get; private set; }
+    /// Whether the ability hotbar is unlocked yet or not.
+    public bool abilitiesUnlocked { get; private set; } = false;
     ///@}
 
     /** @name Scene Data
@@ -419,6 +421,12 @@ public class DataManager : MonoBehaviour
     {
         godSouls -= numSouls;
         newGodSoulTotal?.Invoke(godSouls);
+    }
+
+    /// Unlocks the ability hotbar. (This depends on a scene reload)
+    public void UnlockAbilities()
+    {
+        abilitiesUnlocked = true;
     }
     ///@}
 }

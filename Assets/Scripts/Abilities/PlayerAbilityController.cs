@@ -11,6 +11,8 @@ Documentation updated 8/11/2024
 \author Roy Pascual, Stephen Nuttall*/
 public class PlayerAbilityController : MonoBehaviour
 {
+    /// \brief Reference to the data manager.
+    DataManager dataManager;
     /// \brief Reference to the ActiveAbilityData object.
     public ActiveAbilityData activeAbilities;
     /// \brief Runs the [i]th event when the [i]th ability is activated. Max size of 4 (0 - 3).
@@ -124,6 +126,9 @@ public class PlayerAbilityController : MonoBehaviour
     /// Initializes AbilityInputs and keyList. Initializes StoredAbilities and adds a new AbilityOwner for each keycode. Also sets a reference.
     void Awake()
     {
+        // Set reference to dataManager.
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
+
         // Set reference to totalAbilityUI.
         totalAbilityUI = GameObject.Find("AbilitySlots").GetComponent<TotalAbilityUI>();
 
@@ -160,16 +165,20 @@ public class PlayerAbilityController : MonoBehaviour
     /// Update the cooldown visuals based on the remaining cooldown time.
     void Update()
     {
-        // If any of the ability keybinds are pressed, activate the corresponding ability (unless it's the passive ability).
-        foreach (KeyCode keyCheck in keyList)
+        // If the ability hotbar has been unlocked, check for player input to activate the abilities.
+        if (dataManager.abilitiesUnlocked == true)
         {
-            AbilityInputs[keyCheck] = Input.GetKeyDown(keyCheck);
-            if (AbilityInputs[keyCheck]  // if this key is being pressed
-                && StoredAbilityOwners[keyCheck] != null  // and if this key has a slot assigned to it
-                && StoredAbilityOwners[keyCheck].abilityInfo != null  // and if there is a stored ability in this slot
-                && StoredAbilityOwners[keyCheck].abilityInfo.currentForm != AbilityForm.Passive  // and if this ability is not the passive ability
-                && Time.timeScale > 0.0f) // and time is not frozen (in menu)
-                StoredAbilityOwners[keyCheck].ActivateAbility();  // activate the ability.
+            // If any of the ability keybinds are pressed, activate the corresponding ability (unless it's the passive ability).
+            foreach (KeyCode keyCheck in keyList)
+            {
+                AbilityInputs[keyCheck] = Input.GetKeyDown(keyCheck);
+                if (AbilityInputs[keyCheck]  // if this key is being pressed
+                    && StoredAbilityOwners[keyCheck] != null  // and if this key has a slot assigned to it
+                    && StoredAbilityOwners[keyCheck].abilityInfo != null  // and if there is a stored ability in this slot
+                    && StoredAbilityOwners[keyCheck].abilityInfo.currentForm != AbilityForm.Passive  // and if this ability is not the passive ability
+                    && Time.timeScale > 0.0f) // and time is not frozen (in menu)
+                    StoredAbilityOwners[keyCheck].ActivateAbility();  // activate the ability.
+            }
         }
         // If queueRefresh is true, a change to active abilities was made.
         // Refresh the AbilityOwners that were changed.
@@ -180,12 +189,15 @@ public class PlayerAbilityController : MonoBehaviour
             activeAbilities.QueueRefresh = false;
         }
 
-        // Update the cooldown visuals based on the remaining cooldown time.
-        for (int i = 0; i < MAX_ABILITIES; i++)
+        if (totalAbilityUI.gameObject.activeInHierarchy == true)
         {
-            float cooldownTimeRemaining = StoredAbilityOwners[intToKey[i]].cooldownEnd - Time.time;
-            float cooldownPercentage = cooldownTimeRemaining / StoredAbilityOwners[intToKey[i]].abilityInfo.cooldown;
-            totalAbilityUI.UpdateSlotCooldownVisual(i, Math.Max(cooldownPercentage, 0f));
+            // Update the cooldown visuals based on the remaining cooldown time.
+            for (int i = 0; i < MAX_ABILITIES; i++)
+            {
+                float cooldownTimeRemaining = StoredAbilityOwners[intToKey[i]].cooldownEnd - Time.time;
+                float cooldownPercentage = cooldownTimeRemaining / StoredAbilityOwners[intToKey[i]].abilityInfo.cooldown;
+                totalAbilityUI.UpdateSlotCooldownVisual(i, Math.Max(cooldownPercentage, 0f));
+            }
         }
     }
 }
