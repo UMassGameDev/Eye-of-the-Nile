@@ -68,6 +68,10 @@ public class DataManager : MonoBehaviour
     public static string anubisDeathMessage { get; private set; }
     /// Whether the ability hotbar is unlocked yet or not.
     public bool abilitiesUnlocked { get; private set; } = false;
+    /// If Ma'at has never been talked to before, the welcome message should be displayed.
+    public bool maatTalked = false;
+    /// False if the player has never exited the Skyhub before.
+    public bool skyhubExited = false;
     ///@}
 
     /** @name Scene Data
