@@ -10,8 +10,12 @@ public class SkyhubSpeechController : MonoBehaviour
 {
     /// Reference to the DataManager.
     DataManager dataManager;
-    /// Reference to the message that Ma'at says (set in inspector).
+    /// Reference to the message that Ma'at says. (These references can be set in the inspector.)
     [SerializeField] protected GameObject welcomeMessage;
+    /// Reference to the message that the warp obelisk says.
+    [SerializeField] protected GameObject returnMessage;
+    /// Reference to the ability inventory tutorial.
+    [SerializeField] protected GameObject abilityInventoryTutorial;
 
     void Awake()
     {
@@ -22,13 +26,31 @@ public class SkyhubSpeechController : MonoBehaviour
     void Start()
     {
         welcomeMessage.SetActive(!dataManager.maatTalked);
+        returnMessage.SetActive(!dataManager.skyhubExited);
     }
 
     /// Runs when Ma'at is talked to for the first time (and every time).
     public void MaatTalked()
     {
-        // Hide the Ma'at message and keep it hidden.
+        // Tutorial message pops up if this is the player's first time talking to Ma'at.
+        if (dataManager.maatTalked == false)
+        {
+            abilityInventoryTutorial.SetActive(true);
+        }
+        else
+        {
+            abilityInventoryTutorial.SetActive(false);
+        }
+
+        // Hide Ma'at message and keep it hidden.
         dataManager.maatTalked = true;
         welcomeMessage.SetActive(false);
+    }
+
+    /// Runs when the player exits the Skyhub for the first time (and every time).
+    public void SkyhubExited()
+    {
+        // Tell the DataManager that the player has exited the Skyhub.
+        dataManager.skyhubExited = true;
     }
 }

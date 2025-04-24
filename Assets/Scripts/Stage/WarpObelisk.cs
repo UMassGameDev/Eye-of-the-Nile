@@ -84,9 +84,30 @@ public class WarpObelisk : MonoBehaviour
     {
         if (dataManager.GetCurrSceneName() == "Skyhub")
         {
-            stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
+            if (dataManager.skyhubExited == true)
+            {            
+                stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
+            } else { // Special condition for the player exiting the Skyhub for the first time.
+                stageLoader.LoadNewStage("Opening");
+            }
         } else {
             stageLoader.LoadNewStage("Skyhub");
+        }
+    }
+
+    /// Triggered by ObjectInteractable. This will only warp the player to the Skyhub if it's unlocked.
+    public void ConditionalWarpToSkyhub()
+    {
+        if (dataManager.GetCurrSceneName() == "Skyhub")
+        {
+            stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
+        } else {
+            if (dataManager.skyhubUnlocked == true)
+            {
+                stageLoader.LoadNewStage("Skyhub");
+            } else {
+                Debug.Log("The player attempted to warp to the Skyhub, but it is not unlocked!");
+            }
         }
     }
 

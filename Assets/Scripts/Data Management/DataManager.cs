@@ -68,6 +68,8 @@ public class DataManager : MonoBehaviour
     public static string anubisDeathMessage { get; private set; }
     /// Whether the ability hotbar is unlocked yet or not.
     public bool abilitiesUnlocked { get; private set; } = false;
+    /// True if warp obelisks should allow the player to warp to the Skyhub. Unlocks after Geb is defeated.
+    public bool skyhubUnlocked { get; private set; } = false;
     /// If Ma'at has never been talked to before, the welcome message should be displayed.
     public bool maatTalked = false;
     /// False if the player has never exited the Skyhub before.
@@ -431,6 +433,12 @@ public class DataManager : MonoBehaviour
     public void UnlockAbilities()
     {
         abilitiesUnlocked = true;
+    }
+
+    /// Unlocks the Skyhub.
+    public void UnlockSkyhub()
+    {
+        skyhubUnlocked = true;
     }
     ///@}
 }

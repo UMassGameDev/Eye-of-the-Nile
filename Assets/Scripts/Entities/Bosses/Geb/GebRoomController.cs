@@ -163,6 +163,9 @@ public class GebRoomController : MonoBehaviour
 
         // Stop spawning rock golems.
         maxRockGolems = 0;
+
+        // Geb is defeated, so the Skyhub is unlocked.
+        GameObject.Find("DataManager").GetComponent<DataManager>().UnlockSkyhub();
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated()
