@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a69f42944025145a914656ba951b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultStartScene: ClubFair_1
+  defaultStartScene: Opening
 --- !u!1001 &811269402
 PrefabInstance:
   m_ObjectHideFlags: 0

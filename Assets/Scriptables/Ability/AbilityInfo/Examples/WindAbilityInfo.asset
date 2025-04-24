@@ -35,11 +35,11 @@ MonoBehaviour:
   godQuote: '"It''s gonna be a windy day today. idk I couldn''t think of a good line"'
   onCooldownSound:
     Guid:
-      Data1: -1183561730
-      Data2: 1272260908
-      Data3: 539864995
-      Data4: -607730509
-    Path: event:/Placeholder/Incorrect Buzzer
+      Data1: 1947592111
+      Data2: 1149112487
+      Data3: -1501183080
+      Data4: -473065900
+    Path: event:/SFX/Error
   abilityLevel: 3
   maxLevel: 3
   upgradeSoulCosts: 0000000000000000

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{efb16c62-8889-4b6c-895e-91949a5fb0a6}">
+		<property name="assetPath">
+			<value>SFX/Set on Fire.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0070416666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{0a737247-c0a2-45d4-af6d-ce8aee794363}</destination>
+		</relationship>
+	</object>
+</objects>

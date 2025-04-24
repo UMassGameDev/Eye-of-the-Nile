@@ -127,11 +127,11 @@ MonoBehaviour:
   onFireSprite: {fileID: 0}
   deathSfxName:
     Guid:
-      Data1: 410597573
-      Data2: 1184055245
-      Data3: -1399810942
-      Data4: 1656602030
-    Path: event:/Placeholder/Class Break
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   enableDamageParticles: 0
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1

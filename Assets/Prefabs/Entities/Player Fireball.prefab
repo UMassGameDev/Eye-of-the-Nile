@@ -180,11 +180,11 @@ MonoBehaviour:
   destroyOnImpact: 1
   spawnSFX:
     Guid:
-      Data1: -147284341
-      Data2: 1219878612
-      Data3: -1300101749
-      Data4: -2134200244
-    Path: event:/Placeholder/Firecharge
+      Data1: 1922247114
+      Data2: 1097808762
+      Data3: 894226310
+      Data4: 2043956566
+    Path: event:/SFX/Set on Fire
   flipSprite: 1
 --- !u!114 &972769795486432008
 MonoBehaviour:

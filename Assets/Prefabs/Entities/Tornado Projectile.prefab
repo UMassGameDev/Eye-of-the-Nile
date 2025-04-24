@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 8236663649348585776}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.92, y: 16, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 3, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a5c2c71e778a85145951a2d182e8856f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 55ada9b0227d91f4495bf53a7896ddf6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,14 +123,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.71, y: 7.46}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 4.71, y: 7.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.71, y: 7.46}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &6322523300403418490
 MonoBehaviour:
@@ -151,11 +151,11 @@ MonoBehaviour:
   destroyOnImpact: 1
   spawnSFX:
     Guid:
-      Data1: -2019518918
-      Data2: 1196107283
-      Data3: 309894331
-      Data4: -1734768986
-    Path: event:/Placeholder/Blow
+      Data1: 1586887395
+      Data2: 1302833980
+      Data3: 1691091850
+      Data4: 353690153
+    Path: event:/SFX/Blow
   flipSprite: 0
   despawnTime: 0.75
 --- !u!114 &6902916195475658819

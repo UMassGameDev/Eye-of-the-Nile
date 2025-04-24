@@ -127,11 +127,11 @@ MonoBehaviour:
   destroyOnImpact: 1
   spawnSFX:
     Guid:
-      Data1: -147284341
-      Data2: 1219878612
-      Data3: -1300101749
-      Data4: -2134200244
-    Path: event:/Placeholder/Firecharge
+      Data1: 473586552
+      Data2: 1107094050
+      Data3: -284572246
+      Data4: 1412742001
+    Path: event:/SFX/Pop
   flipSprite: 1
 --- !u!114 &4590224011516093467
 MonoBehaviour:
@@ -241,7 +241,8 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 7e406b58d7ac65741bda2270e9c1acbf, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: 7e406b58d7ac65741bda2270e9c1acbf, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

@@ -25,11 +25,11 @@ MonoBehaviour:
   godQuote: 
   onCooldownSound:
     Guid:
-      Data1: -1906946980
-      Data2: 1251897365
-      Data3: 1589358737
-      Data4: 91499314
-    Path: event:/Placeholder/Incorrect Buzzer
+      Data1: 1947592111
+      Data2: 1149112487
+      Data3: -1501183080
+      Data4: -473065900
+    Path: event:/SFX/Error
   abilityLevel: 0
   maxLevel: 3
   upgradeSoulCosts: 0000000000000000

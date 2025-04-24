@@ -116,11 +116,11 @@ MonoBehaviour:
   destroyOnImpact: 1
   spawnSFX:
     Guid:
-      Data1: 209310569
-      Data2: 1088671883
-      Data3: -272918610
-      Data4: -2113318389
-    Path: event:/Placeholder/Gunshot
+      Data1: 473586552
+      Data2: 1107094050
+      Data3: -284572246
+      Data4: 1412742001
+    Path: event:/SFX/Pop
   flipSprite: 1
   initialXForce: 60
   initialYForce: 30
