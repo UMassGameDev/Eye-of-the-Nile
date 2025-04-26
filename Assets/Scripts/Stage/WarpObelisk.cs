@@ -84,13 +84,16 @@ public class WarpObelisk : MonoBehaviour
     {
         if (dataManager.GetCurrSceneName() == "Skyhub")
         {
-            if (dataManager.skyhubExited == true)
+            if (dataManager.skyhubLeadsToOpening == false)
             {            
-                stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
-            } else { // Special condition for the player exiting the Skyhub for the first time.
+                WarpInfo.WarpName = "RESPAWN";
+                stageLoader.LoadNewStage("RESPAWN");
+            } else {
+                WarpInfo.WarpName = null;
                 stageLoader.LoadNewStage("Opening");
             }
         } else {
+            WarpInfo.WarpName = "NONE";
             stageLoader.LoadNewStage("Skyhub");
         }
     }
@@ -100,10 +103,20 @@ public class WarpObelisk : MonoBehaviour
     {
         if (dataManager.GetCurrSceneName() == "Skyhub")
         {
-            stageLoader.LoadNewStage(dataManager.GetPrevSceneName());
+            if (dataManager.skyhubLeadsToOpening == false)
+            {            
+                WarpInfo.WarpName = "RESPAWN";
+                stageLoader.LoadNewStage("RESPAWN");
+            } else {
+                dataManager.UnsetSkyhubToOpening();
+
+                WarpInfo.WarpName = null;
+                stageLoader.LoadNewStage("Opening");
+            }
         } else {
             if (dataManager.skyhubUnlocked == true)
             {
+                WarpInfo.WarpName = "NONE";
                 stageLoader.LoadNewStage("Skyhub");
             } else {
                 Debug.Log("The player attempted to warp to the Skyhub, but it is not unlocked!");

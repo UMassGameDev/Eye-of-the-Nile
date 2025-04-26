@@ -10656,13 +10656,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 315305525}
+    - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
       propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1139497077}
+      objectReference: {fileID: 315305525}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
       propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 315305525}
+      objectReference: {fileID: 1697083039}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
       propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -10672,20 +10676,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
-      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SkyhubExited
+      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UnlockAbilities
       objectReference: {fileID: 0}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
-      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: UnlockSkyhub
       objectReference: {fileID: 0}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: WarpToSkyhub
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+      propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DataManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
       propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: SkyhubSpeechController, Assembly-CSharp
+      value: DataManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
       propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: DataManager, Assembly-CSharp
+      value: WarpObelisk, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1242716216152021652, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
       propertyPath: InvokeOnLongPress.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -13860,6 +13872,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 048a6e8d437937b429b8faad70a5c85e, type: 3}
+--- !u!114 &1697083039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4329869798546762031, guid: 35c6856ce2decd84b876531dde1d1eb6, type: 3}
+  m_PrefabInstance: {fileID: 1069168046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad8b1f5f83e81749a9f20fdfe821b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1698142894
 PrefabInstance:
   m_ObjectHideFlags: 0

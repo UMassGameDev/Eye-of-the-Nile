@@ -7,7 +7,7 @@ Documentation updated 2/3/2025
 */
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] string defaultStartScene = "ClubFair_1";
+    [SerializeField] string defaultStartScene = "Opening";
 
     DataManager dataManager;
     StageLoader stageLoader;

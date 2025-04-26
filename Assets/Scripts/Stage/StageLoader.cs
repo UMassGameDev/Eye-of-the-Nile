@@ -16,6 +16,8 @@ public class StageLoader : MonoBehaviour
     public Dictionary<string, StageWarp> StageWarps { get; set; }
     /// Reference to the animator responsible for the fate-to-black animation we want to play when loading a new scene.
     public Animator fadeAnimator;
+    /// Reference to the DataManager.
+    DataManager dataManager;
 
     /// Populate the dictionary with every StageWarp in the scene and their names.
     void InitializeWarps()
@@ -75,6 +77,9 @@ public class StageLoader : MonoBehaviour
     void Awake()
     {
         InitializeWarps();
+
+        // Set reference to dataManager.
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     /// 
@@ -101,6 +106,12 @@ public class StageLoader : MonoBehaviour
             // Then it uses the position of the entry point of that warp to spawn the player
             GameObject player = GameObject.Find("Player");
             player.transform.position = StageWarps[WarpInfo.WarpName].EntryPos;
+        }
+
+        // The player being reset to the opening scene is supposed to be a one time thing, so this line ensures that.
+        if (dataManager.GetCurrSceneName() != "Skyhub")
+        {
+            dataManager.UnsetSkyhubToOpening();
         }
     }
 }
