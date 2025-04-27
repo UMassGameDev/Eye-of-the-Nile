@@ -21,16 +21,16 @@ public class AnubisJokeTextbox : MonoBehaviour
 
     string deathMessage;
 
-    /// Wait a second before displaying the joke. This allows Awake() in the DataManager to run its course first, so the correct data is used.
+    /// Wait 1/100th of a second before displaying the joke. This allows Awake() in the DataManager to run its course first, so the correct data is used.
     void Awake()
     {
         StartCoroutine(Delay());
     }
 
-    /// Waits a second, then updates the textbox.
+    /// Waits 0.01 seconds, then updates the textbox.
     IEnumerator Delay()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.01f);
         UpdateTextbox();
     }
 

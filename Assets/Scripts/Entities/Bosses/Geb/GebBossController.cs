@@ -437,7 +437,8 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // TEMPORARY Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                if (Time.timeScale != 0)
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
 
                 // Before currentActionTimer is greater than currentActionDuration,
                 // this time should be used for Geb to prepare a rock (grabbing rock off back animation and throwing animation).
@@ -709,7 +710,8 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // TEMPORARY Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                if (Time.timeScale != 0)
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
 
                 // Before currentActionTimer is greater than currentActionDuration,
                 // this time should be used for Geb to prepare a rock (grabbing rock off back animation and throwing animation).
@@ -760,7 +762,8 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // TEMPORARY Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                if (Time.timeScale != 0)
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
                 
                 // Once the duration of the wall summon is over, start a different action.
                 if (currentActionTimer > currentActionDuration)
@@ -813,7 +816,8 @@ public class GebBossController : MonoBehaviour
                 if (currentActionTimer / currentActionDuration < windUpPercentage)
                 {
                     // TEMPORARY Wiggle animation.
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                    if (Time.timeScale != 0)
+                        transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
                 }
                 else
                 {
@@ -1180,7 +1184,8 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // TEMPORARY Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                if (Time.timeScale != 0)
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
 
                 // Before currentActionTimer is greater than currentActionDuration,
                 // this time should be used for Geb to prepare a rock (grabbing rock off back animation and throwing animation).
@@ -1231,7 +1236,8 @@ public class GebBossController : MonoBehaviour
                 horizontalDirection = 0f;
 
                 // TEMPORARY Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                if (Time.timeScale != 0)
+                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
                 
                 // Once the duration of the wall summon is over, start a different action.
                 if (currentActionTimer > currentActionDuration)
@@ -1296,7 +1302,8 @@ public class GebBossController : MonoBehaviour
                 if (currentActionTimer / currentActionDuration < windUpPercentage)
                 {
                     // TEMPORARY Wiggle animation.
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
+                    if (Time.timeScale != 0)
+                        transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
                 }
                 else
                 {
@@ -1454,7 +1461,7 @@ public class GebBossController : MonoBehaviour
                 if (currentActionTimer / currentActionDuration < .6f)
                 {
                     transform.position += new Vector3(0f, Time.deltaTime * 2.5f, 0f);
-                    rockTornado.transform.localScale = new Vector3(currentActionTimer / currentActionDuration * 5f, currentActionTimer / currentActionDuration * 5f, 1f);
+                    rockTornado.transform.localScale = new Vector3(currentActionTimer / currentActionDuration * 3f, currentActionTimer / currentActionDuration * 3f, 1f);
                 }
 
                 // Geb wiggle animation.

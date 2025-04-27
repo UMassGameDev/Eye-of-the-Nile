@@ -368,7 +368,7 @@ MonoBehaviour:
   disableRigidbodyOnDeath: 1
   destroyOnDeath: 0
   maxHealth: 125
-  soulsDroppedOnDeath: 3
+  soulsDroppedOnDeath: 1
   godSoulsDroppedOnDeath: 0
   canBeInvincible: 0
   invincibleDuration: 3

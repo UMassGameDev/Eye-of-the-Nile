@@ -13,6 +13,8 @@ public class ProtectiveWall : MonoBehaviour
 {
     /// Reference to the wall debris prefab for the debris that falls when the wall breaks.
     [SerializeField] protected GameObject wallDebris;
+    /// Reference to Geb's phase controller.
+    protected GebPhaseController gebPhaseController;
 
     /// The amount of time that the spawning animation lasts.
     protected float spawnDuration = 1f;
@@ -21,6 +23,11 @@ public class ProtectiveWall : MonoBehaviour
     private System.Random rng = new System.Random();
     /// Keeps track of when this object was started. Used for calculating how long it has been around.
     private float startTime = 0f;
+
+    void Awake()
+    {
+        gebPhaseController = GameObject.Find("Geb").GetComponent<GebPhaseController>();
+    }
 
     void Start()
     {
@@ -44,6 +51,11 @@ public class ProtectiveWall : MonoBehaviour
         {
             Rigidbody2D debris = Instantiate(wallDebris, transform.position + new Vector3((float)rng.NextDouble()*4f-2f, y, 0f), transform.rotation).GetComponent<Rigidbody2D>();
             debris.velocity = new Vector2((float)rng.NextDouble()*4f-2f, (float)rng.NextDouble());
+            // Disable damage if Geb is defeated.
+            if (gebPhaseController.phase == GebPhase.ClosingCutscene || gebPhaseController.phase == GebPhase.Defeated)
+            {
+                Destroy(debris.transform.GetComponent<DamageOnTrigger>());
+            }
         }
 
         // Get rid of the wall object.

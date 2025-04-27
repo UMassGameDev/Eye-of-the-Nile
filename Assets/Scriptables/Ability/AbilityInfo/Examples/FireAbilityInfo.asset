@@ -32,7 +32,7 @@ MonoBehaviour:
   - Grants you temporary immunity to fire damage
   - Grants you a permanent reduction in the amount of fire damage you take.
   godQuote: '"I''m not actually in the game, I just already made fire abilities and
-    didn''t know who to give them to"'
+    didn''t know who to give them to."'
   onCooldownSound:
     Guid:
       Data1: 1947592111
@@ -40,9 +40,9 @@ MonoBehaviour:
       Data3: -1501183080
       Data4: -473065900
     Path: event:/SFX/Error
-  abilityLevel: 3
+  abilityLevel: 1
   maxLevel: 3
-  upgradeSoulCosts: 0000000000000000
+  upgradeSoulCosts: 0100000002000000
   upgradeGodsoulCosts: 0000000000000000
   currentForm: 0
   baseCost: 0

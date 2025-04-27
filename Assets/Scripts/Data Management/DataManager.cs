@@ -72,6 +72,8 @@ public class DataManager : MonoBehaviour
     public bool skyhubUnlocked { get; private set; } = false;
     /// If Ma'at has never been talked to before, the welcome message should be displayed.
     public bool maatTalked = false;
+    /// If the player has ever exited the Skyhub.
+    public bool skyhubExited = false;
     /// Set to true and the Skyhub will spawn the player back at the Opening scene.
     public bool skyhubLeadsToOpening { get; private set; } = false;
     ///@}

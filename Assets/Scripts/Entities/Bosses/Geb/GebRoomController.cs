@@ -44,6 +44,8 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] protected GameObject warpObelisk;
     /// Reference to the shattered version of Geb that is instantiated after Geb is defeated.
     [SerializeField] protected GameObject shatteredGeb;
+    /// Reference to the DataManager.
+    DataManager dataManager;
 
     /// How far to zoom out the camera for Geb's bossfight.
     float fightZoom = 11f;
@@ -76,6 +78,7 @@ public class GebRoomController : MonoBehaviour
         phaseController = GetComponent<GebPhaseController>();
         bossController = GetComponent<GebBossController>();
         framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
     }
 
     /// Access the current zoom to set defaultZoom variable. Also calculate the minimum and maximum x position for the player.
@@ -165,7 +168,7 @@ public class GebRoomController : MonoBehaviour
         maxRockGolems = 0;
 
         // Geb is defeated, so the Skyhub is unlocked.
-        GameObject.Find("DataManager").GetComponent<DataManager>().UnlockSkyhub();
+        dataManager.UnlockSkyhub();
     }
     /// Called by GebPhaseController once when the closing cutscene finishes.
     public void GebDefeated()
@@ -178,8 +181,8 @@ public class GebRoomController : MonoBehaviour
         /// Move the interactable to Geb.
         interactableZone.transform.position = transform.position;
         
-        /// Move the warp obelisk to Geb (y - 1.75f to bring to the ground).
-        warpObelisk.transform.position = new Vector3(transform.position.x, transform.position.y - 1.75f, transform.position.z);
+        /// Move the warp obelisk to Geb (y = -50.03f to bring to the ground).
+        warpObelisk.transform.position = new Vector3(transform.position.x, -50.03f, transform.position.z);
     }
 
     /// Runs every frame when Geb is inactive.
@@ -344,5 +347,12 @@ public class GebRoomController : MonoBehaviour
             Instantiate(shatteredGeb, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
+    }
+
+    /// Needed for Geb's obelisk to interact with the DataManager without it getting unassigned randomly.
+    public void GebWarpObelisk()
+    {
+        dataManager.UnlockAbilities();
+        dataManager.SetSkyhubToOpening();
     }
 }

@@ -36,7 +36,7 @@ MonoBehaviour:
   - Your body becomes rock hard and most enemies and hazards will do less damage
     to you. Additionally, you will take less knockback from anything that strikes
     you.
-  godQuote: '[Geb Quote]'
+  godQuote: '"Me rock, life good."'
   onCooldownSound:
     Guid:
       Data1: 1947592111
@@ -46,8 +46,8 @@ MonoBehaviour:
     Path: event:/SFX/Error
   abilityLevel: 1
   maxLevel: 5
-  upgradeSoulCosts: 01000000020000000300000004000000
-  upgradeGodsoulCosts: 00000000000000000000000000000000
+  upgradeSoulCosts: 050000000a0000000000000000000000
+  upgradeGodsoulCosts: 00000000000000000100000002000000
   currentForm: 3
   baseCost: 0
   duration: 0

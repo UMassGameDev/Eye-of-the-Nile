@@ -26,7 +26,7 @@ public class SkyhubSpeechController : MonoBehaviour
     void Start()
     {
         welcomeMessage.SetActive(!dataManager.maatTalked);
-        returnMessage.SetActive(dataManager.skyhubLeadsToOpening);
+        returnMessage.SetActive(!dataManager.skyhubExited);
     }
 
     /// Runs when Ma'at is talked to for the first time (and every time).
@@ -45,5 +45,11 @@ public class SkyhubSpeechController : MonoBehaviour
         // Hide Ma'at message and keep it hidden.
         dataManager.maatTalked = true;
         welcomeMessage.SetActive(false);
+    }
+
+    /// Runs when the Skyhub is exited for the first time (and every time).
+    public void SkyhubExited()
+    {
+        dataManager.skyhubExited = true;
     }
 }
