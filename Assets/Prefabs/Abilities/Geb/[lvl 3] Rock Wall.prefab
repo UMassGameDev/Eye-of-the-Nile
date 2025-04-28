@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,14 +124,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.92, y: 2.55}
+    oldSize: {x: 1.8, y: 3.2}
     newSize: {x: 1.92, y: 2.55}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.92, y: 2.55}
+  m_Size: {x: 1.4, y: 3.2}
   m_EdgeRadius: 0
 --- !u!114 &-5783346187311777277
 MonoBehaviour:
@@ -149,7 +149,13 @@ MonoBehaviour:
   animator: {fileID: 0}
   hurtEffect: {fileID: 5711446587731603874, guid: e4ddc552f5d713746975d9dab66794f2, type: 3}
   onFireSprite: {fileID: 0}
-  deathSfxName: 
+  deathSfxName:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   enableDamageParticles: 1
   disableColliderOnDeath: 1
   disableRigidbodyOnDeath: 1
@@ -160,6 +166,13 @@ MonoBehaviour:
   canBeInvincible: 0
   invincibleDuration: 3
   canBeOnFire: 0
+  setOnFireSFX:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

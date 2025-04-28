@@ -119,11 +119,11 @@ public class PlayerAttackManager : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             /// - Deal the amount of damage dictated by the PlayerStatsHolder (if it has an ObjectHealth component),
-            if (enemy.TryGetComponent<ObjectHealth>(out var objHealth))
+            if (enemy.TryGetComponent<ObjectHealth>(out var objHealth) && objHealth.gameObject.name != "Player")
                 objHealth.TakeDamage(transform, (int)playerStats.GetValue("MeleeDamage"));
 
             /// - Apply knockback with curKnockback strength (if it has a KnockbackFeedback component),
-            if (enemy.TryGetComponent<KnockbackFeedback>(out var kb))
+            if (enemy.TryGetComponent<KnockbackFeedback>(out var kb) && kb.gameObject.name != "Player")
                 kb.ApplyKnockback(gameObject, curKnockback);
 
             /// - Trigger it's melee interaction (if it has a ObjectInteractable component).
