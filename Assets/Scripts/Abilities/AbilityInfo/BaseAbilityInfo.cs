@@ -237,6 +237,9 @@ public abstract class BaseAbilityInfo : ScriptableObject
     /// Runs the ability function of the given form.
     public virtual void AbilityActivate(AbilityOwner abilityOwner)
     {
+        if (FindObjectOfType<DataManager>().abilitiesUnlocked == false)
+            return;
+
         switch (currentForm)
         {
             case AbilityForm.Offense:
@@ -254,7 +257,6 @@ public abstract class BaseAbilityInfo : ScriptableObject
             default:
                 break;
         }
-        // endTime = Time.time + duration;
     }
 
     /// Disables the passive ability if the 

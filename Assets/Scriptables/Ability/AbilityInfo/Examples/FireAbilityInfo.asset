@@ -31,8 +31,7 @@ MonoBehaviour:
     on fire.
   - Grants you temporary immunity to fire damage
   - Grants you a permanent reduction in the amount of fire damage you take.
-  godQuote: '"I''m not actually in the game, I just already made fire abilities and
-    didn''t know who to give them to."'
+  godQuote: '"This is an example ability set"'
   onCooldownSound:
     Guid:
       Data1: 1947592111

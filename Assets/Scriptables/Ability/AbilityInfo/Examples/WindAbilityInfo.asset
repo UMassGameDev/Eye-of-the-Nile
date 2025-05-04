@@ -32,7 +32,7 @@ MonoBehaviour:
   - Jump very high into the sky, regardless if you would normally be able to jump.
   - Permanently allows the player to jump up to three times in a row (instead of
     two).
-  godQuote: '"It''s gonna be a windy day today. idk I couldn''t think of a good line"'
+  godQuote: '"This is an example ability set"'
   onCooldownSound:
     Guid:
       Data1: 1947592111
@@ -44,7 +44,7 @@ MonoBehaviour:
   maxLevel: 3
   upgradeSoulCosts: 0100000002000000
   upgradeGodsoulCosts: 0000000000000000
-  currentForm: 1
+  currentForm: 2
   baseCost: 0
   duration: 0
   tickRate: 0

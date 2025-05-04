@@ -69,6 +69,11 @@ public class SerializedData
     public float sfxVolumeSetting { get; private set; }
     ///@}
 
+    public string abilityName_1 { get; private set; }
+    public string abilityName_2 { get; private set; }
+    public string abilityName_3 { get; private set; }
+    public string abilityName_4 { get; private set; }
+
     /// Constructor. Sets all variables to the values in the DataManager.
     public SerializedData(DataManager dataManager)
     {
@@ -94,5 +99,10 @@ public class SerializedData
         masterVolumeSetting = dataManager.GetMasterVolume();
         musicVolumeSetting = dataManager.GetMusicVolume();
         sfxVolumeSetting = dataManager.GetSFXVolume();
+
+        abilityName_1 = dataManager.activeAbilityData.AbilityAt(0).abilityName;
+        abilityName_2 = dataManager.activeAbilityData.AbilityAt(1).abilityName;
+        abilityName_3 = dataManager.activeAbilityData.AbilityAt(2).abilityName;
+        abilityName_4 = dataManager.activeAbilityData.AbilityAt(3).abilityName;
     }
 }

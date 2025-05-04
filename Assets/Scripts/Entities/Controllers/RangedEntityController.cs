@@ -29,7 +29,6 @@ public class RangedEntityController : BaseEntityController
     /// \note The attack animation for the Seth Follower fires the arrow immediately, so just calling ActivateAttack() immediately is ok.
     protected override void TriggerAttack()
     {
-        print("Attack!");
         animator.SetTrigger("Attack");
         ActivateAttack();
     }

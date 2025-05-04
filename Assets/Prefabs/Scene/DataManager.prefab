@@ -44,10 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4721d0774c015a489c3f97f7c5eb189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeAbilityData: {fileID: 11400000, guid: 9b7528f8fc0463c4cadb3c6c5218d40c, type: 2}
+  abilityInventory: {fileID: 11400000, guid: 57707ec6a7e392049ba3dfb910804b5a, type: 2}
   saveFileName: save.EyeOfTheNile
   autosaveEnabled: 1
   autosaveFrequency: 3
   defaultTimeOfDay: 0
+  maatTalked: 0
+  skyhubExited: 0
   masterVolumeSetting: 1
   musicVolumeSetting: 1
   sfxVolumeSetting: 1

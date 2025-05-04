@@ -118,6 +118,10 @@ public class GebAbilityInfo : BaseAbilityInfo
         Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
         PlayerStatHolder playerStatHolder = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
 
+        // null check stat modifiers
+        damageResistanceMod ??= new StatModifier(0);
+        kbResistanceMod ??= new StatModifier(0);
+
         // set target stat strings for Stat modifiers
         damageResistanceMod.TargetStat = "DamageResistance";
         kbResistanceMod.TargetStat = "KnockbackResistance";
@@ -140,6 +144,10 @@ public class GebAbilityInfo : BaseAbilityInfo
         Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
         PlayerStatHolder playerStatHolder = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
 
+        // null check stat modifiers
+        damageResistanceMod ??= new StatModifier(0);
+        kbResistanceMod ??= new StatModifier(0);
+
         // set target stat strings for Stat modifiers
         damageResistanceMod.TargetStat = "DamageResistance";
         kbResistanceMod.TargetStat = "KnockbackResistance";
@@ -154,6 +162,10 @@ public class GebAbilityInfo : BaseAbilityInfo
         {
             Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
             PlayerStatHolder playerStatHolder = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
+
+            // null check stat modifiers
+            meleeDamageMod ??= new StatModifier(0);
+            meleeCooldownMod ??= new StatModifier(0);
 
             // set target stat strings for Stat modifiers
             meleeDamageMod.TargetStat = "MeleeDamage";
@@ -176,6 +188,10 @@ public class GebAbilityInfo : BaseAbilityInfo
     {
         Transform ownerTransform = abilityOwner.OwnerTransform;  // get owner transform
         PlayerStatHolder playerStatHolder = ownerTransform.GetComponent<PlayerStatHolder>();  // get player stats
+
+        // null check stat modifiers
+        meleeDamageMod ??= new StatModifier(0);
+        meleeCooldownMod ??= new StatModifier(0);
 
         // set target stat strings for Stat modifiers
         meleeDamageMod.TargetStat = "MeleeDamage";

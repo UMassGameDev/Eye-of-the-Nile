@@ -31,7 +31,7 @@ MonoBehaviour:
   - Summons a temporary platform directly beneath you.
   - Decreases the amount of non-fire damage you take by 10. If the damage is less
     than 10, none will be dealt.
-  godQuote: '"Rock Smash"'
+  godQuote: '"This is an example ability set"'
   onCooldownSound:
     Guid:
       Data1: 1947592111

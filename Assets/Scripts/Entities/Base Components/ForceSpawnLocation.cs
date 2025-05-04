@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /** \brief
@@ -13,6 +15,13 @@ public class ForceSpawnLocation : MonoBehaviour
 
     void Start()
     {
+        transform.position = spawnLocation;
+        StartCoroutine(setLocation());
+    }
+
+    IEnumerator setLocation()
+    {
+        yield return new WaitForNextFrameUnit();
         transform.position = spawnLocation;
     }
 }

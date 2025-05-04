@@ -24,6 +24,10 @@ public class DataManager : MonoBehaviour
     ///@{
     /// To make the object persistent, it needs a reference to itself. 
     public static DataManager Instance;
+    /// Reference to the ActiveAbilityData object.
+    public ActiveAbilityData activeAbilityData;
+    /// Reference to the AbilityInventory object.
+    public AbilityInventory abilityInventory;
     /// Reference to the TimeOfDayController. Used to update the time of day after a scene reload. 
     TimeOfDayController ToDController;
     /// Reference to the player itself. Used to set the initial respawn point to the player’s position. 
@@ -254,6 +258,14 @@ public class DataManager : MonoBehaviour
             masterVolumeSetting = saveData.masterVolumeSetting;
             musicVolumeSetting = saveData.musicVolumeSetting;
             sfxVolumeSetting = saveData.sfxVolumeSetting;
+
+            if (activeAbilityData != null)
+            {
+                activeAbilityData.SetAbilityAt(0, abilityInventory.GetAbilitySet(saveData.abilityName_1));
+                activeAbilityData.SetAbilityAt(1, abilityInventory.GetAbilitySet(saveData.abilityName_2));
+                activeAbilityData.SetAbilityAt(2, abilityInventory.GetAbilitySet(saveData.abilityName_3));
+                activeAbilityData.SetAbilityAt(3, abilityInventory.GetAbilitySet(saveData.abilityName_4));
+            }
 
             noSaveFileFound = false;
         }
