@@ -65,6 +65,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// Stops the currently playing music.
+    public void StopMusic()
+    {
+        currentMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
     /// Updates the volume each audio bus plays at.
     public void VolumeChanged()
     {

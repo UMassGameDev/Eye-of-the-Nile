@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Cinemachine;
+using FMODUnity;
 
 /** \brief
 This script is a work in progress. It will control most of Geb's bossroom (trigger zone, doors, cutscenes, healthbar visibility).
@@ -8,7 +9,7 @@ This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame depending on Geb's phase, one for each phase.
 
-Documentation updated 4/1/2025
+Documentation updated 5/3/2025
 \author Alexander Art
 \todo Freeze the player during the cutscenes.
 \todo Make the distribution of the falling rocks less RNG-based.
@@ -24,12 +25,18 @@ public class GebRoomController : MonoBehaviour
     [SerializeField] protected BossHealthbarHUD healthbar;
     /// Reference to Geb's PatrolZone (Bounds), the left end and right end of Geb's bossroom that the rock golems will move around in.
     [SerializeField] public PatrolZone bounds;
+    /// Reference to Geb's animator (used for animating the rock throw in the cutscene).
+    [SerializeField] protected Animator animator;
     /// Reference to Geb's phase controller.
     protected GebPhaseController phaseController;
     /// Reference to Geb's boss controller.
     protected GebBossController bossController;
     /// Reference to the player object.
     protected GameObject player;
+    /// Reference to Geb's boss music.
+    [SerializeField] EventReference bossMusic;
+    /// Reference to the desert scene music.
+    [SerializeField] EventReference sceneMusic;
     /// Reference to the rock (prefab) that Geb throws during the opening cutscene.
     [SerializeField] protected GameObject cutsceneRock;
     /// Reference to the part of the door in the scene that Geb closes off in the opening cutscene.
@@ -48,7 +55,7 @@ public class GebRoomController : MonoBehaviour
     DataManager dataManager;
 
     /// How far to zoom out the camera for Geb's bossfight.
-    float fightZoom = 11f;
+    float fightZoom = 12f;
     /// How often a rock will fall from the sky during Geb's earthquake attack.
     float fallingRockSpawnPeriod = 0.075f;
 
@@ -68,6 +75,8 @@ public class GebRoomController : MonoBehaviour
     private float maxPlayerPosX;
     /// Reference to the rock that is spawned during the opening cutscene.
     private GameObject summonedRock;
+    /// Used for making sure that Geb's rock throw animation is only triggered once during the opening cutscene.
+    private bool rockAnimated = false;
     /// Used for making sure only one rock is spawned during the opening cutscene.
     private bool rockSummoned = false;
 
@@ -142,6 +151,9 @@ public class GebRoomController : MonoBehaviour
 
     /// Called by GebPhaseController once when the opening cutscene starts.
     public void GebOpeningCutsceneStarted() {
+        // Begin the boss music.
+        AudioManager.instance.PlayMusic(bossMusic);
+
         // Set Geb's healthbar to empty so the fill animation can be played.
         healthbar.SetHealthbarPercentage(0f);
     }
@@ -154,6 +166,9 @@ public class GebRoomController : MonoBehaviour
     /// Called by GebPhaseController once when the closing cutscene starts.
     public void GebClosingCutsceneStarted()
     {
+        // Return to scene music.
+        AudioManager.instance.PlayMusic(sceneMusic);
+
         // Hide Geb's healthbar.
         healthbar.SetHealthbarVisible(false);
 
@@ -197,26 +212,32 @@ public class GebRoomController : MonoBehaviour
             framingTransposer.m_TrackedObjectOffset = new Vector3(deltaX * phaseController.phaseTime / 2f, 1.4f * (1f - phaseController.phaseTime / 2f) + deltaY * phaseController.phaseTime / 2f, 0f);
         }
 
-        if (2f < phaseController.phaseTime && phaseController.phaseTime < 3f)
+        if (!rockAnimated && 2f < phaseController.phaseTime && phaseController.phaseTime < 3f)
         {
-            // TEMPORARY Wiggle animation.
-            transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * phaseController.phaseTime / 2f, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * phaseController.phaseTime / 2f, transform.position.z);
+            // Trigger the animation.
+            animator.SetTrigger("flying throw rock");
+
+            rockAnimated = true;
         }
 
         if (!rockSummoned && phaseController.phaseTime > 3f)
         {
-            // Summon rock and get its Rigidbody2D component.
-            summonedRock = Instantiate(cutsceneRock, transform.position, transform.rotation);
+            // Geb's hand position
+            Vector3 gebHandPos = new Vector3(transform.position.x, transform.position.y + 4.5f, transform.position.z);
 
-            // The speed and angle the rock should be thrown at in order to reach the door.
+            // Summon rock and get its Rigidbody2D component.
+            summonedRock = Instantiate(cutsceneRock, gebHandPos, transform.rotation);
+
+            // The initial velocity the rock should be thrown at in order to reach the door.
             // Get the rock's gravity.
             float rockAccelerationY = Math.Abs(Physics2D.gravity.y * summonedRock.GetComponent<Rigidbody2D>().gravityScale);
-            // Get door's relative position to Geb.
-            float deltaX = doorBlocker.transform.position.x - transform.position.x;
-            float deltaY = doorBlocker.transform.position.y - transform.position.y;
+            // Get door's relative position to Geb's hand.
+            float deltaX = doorBlocker.transform.position.x - gebHandPos.x;
+            float deltaY = doorBlocker.transform.position.y - gebHandPos.y;
             // Velocity to throw the rock at.
             Vector2 initialVelocity = bossController.GetMinInitialThrowVelocity(deltaX, deltaY, rockAccelerationY);
 
+            // Set the velocity.
             summonedRock.GetComponent<Rigidbody2D>().velocity = initialVelocity;
 
             rockSummoned = true;
@@ -231,7 +252,14 @@ public class GebRoomController : MonoBehaviour
             float doorDeltaX = doorBlocker.transform.position.x - player.transform.position.x;
             float doorDeltaY = doorBlocker.transform.position.y - player.transform.position.y;
             float doorPercentage = (phaseController.phaseTime - 3f) * 2f;
-            framingTransposer.m_TrackedObjectOffset = new Vector3((gebDeltaX * gebPercentage + doorDeltaX * doorPercentage) / 2f, (gebDeltaY * gebPercentage + doorDeltaY * doorPercentage) / 2f, 0f);
+            if (phaseController.phaseTime < 3.5f) // First half go up a bit extra
+            {
+                framingTransposer.m_TrackedObjectOffset = new Vector3((gebDeltaX * gebPercentage + doorDeltaX * doorPercentage) / 2f, (gebDeltaY * gebPercentage + doorDeltaY * doorPercentage) / 2f + 10f, 0f);
+            }
+            else
+            {
+                framingTransposer.m_TrackedObjectOffset = new Vector3((gebDeltaX * gebPercentage + doorDeltaX * doorPercentage) / 2f, (gebDeltaY * gebPercentage + doorDeltaY * doorPercentage) / 2f, 0f);
+            }
         }
 
         // Block the door when the thrown rock crashes into it.

@@ -53,7 +53,7 @@ public class GebEarthquakeZone : MonoBehaviour
             // Instantiate the particle effect and get the instance's shape module at the same time.
             ParticleSystem.ShapeModule particleInstance = Instantiate(particleEffect, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().shape;
             // Make the particles get larger as the earthquake action progresses (matches the earthquake zone).
-            particleInstance.scale = new Vector3(initialParticleEffectSizeX * gebBossController.GetCurrentActionPercentage() / 25f * maxEarthquakeSize, particleInstance.scale.y, particleInstance.scale.z);
+            particleInstance.scale = new Vector3(initialParticleEffectSizeX * gebBossController.GetCurrentActionPercentage() / 15f * maxEarthquakeSize, particleInstance.scale.y, particleInstance.scale.z);
         }
 
         damageTimer += Time.deltaTime;

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 /** \brief
-This script is a work in progress. It will control Geb's movement and will trigger Geb's attacks.
+This script controls Geb's movement and will triggers Geb's attacks.
 This script mainly consists of:
 - 6 functions that get called only once when Geb enters a new phase, one for each phase (except for the first one).
 - 7 functions that get called every frame, one for each phase.
 - Other functions to initiate attacks/assist with actions.
 
-Documentation updated 4/20/2025
+Documentation updated 5/3/2025
 \author Alexander Art
 \todo Simplify/split up this script.
 */
@@ -43,7 +43,7 @@ public class GebBossController : MonoBehaviour
 
     /// Minimum y-position that Geb will attempt to throw rocks at.
     [SerializeField] protected double minPlayerHeight = 5.879;
-    /// (Possibly temporary) radius around the boss that the player must be within for the bossfight to start.
+    /// Radius around the boss that the player must be within for the bossfight to start.
     protected float bossActivationRadius = 13f;
     /// The maximum number of attack actions that can happen in a row.
     protected int maxAttackChain = 3;
@@ -63,7 +63,7 @@ public class GebBossController : MonoBehaviour
     /// (Phase 1) The speed at which Geb moves horizontally.
     protected float flySpeedX = 15f;
     /// (Phase 2 and 3) The speed at which Geb moves horizontally.
-    protected float walkSpeedX = 10f;
+    protected float walkSpeedX = 5f;
     /// (Phase 1, 2, and 3) Each time Geb stops moving (Idle), this is the duration it will last (in seconds).
     protected float idleDuration = 1f;
     /// (Phase 1, 2, and 3) The duration of the rock throw animation before the rock entity is spawned (in seconds).
@@ -74,9 +74,9 @@ public class GebBossController : MonoBehaviour
     protected float chargeDuration = 3f;
     /// <summary>
     /// (Phase 2 and 3) The percentage of the charge attack and earthquake durations that Geb will spend animated
-    /// before the hitbox activates fully (in seconds).
+    /// before the hitbox activates fully.
     /// </summary>
-    protected float windUpPercentage = 1f/3f;
+    protected float windUpPercentage = 4f/9f;
     /// (Phase 3) The amount of time that Geb will quake the ground (in seconds).
     protected float earthquakeDuration = 5f;
     /// (Phase 3) The amount of time that Geb will surround himself in a protective rock tornado (in seconds).
@@ -86,14 +86,12 @@ public class GebBossController : MonoBehaviour
     /// (Phase 1, 2, and 3) The maximum horizontal distance that Geb will try to keep from the player when moving.
     protected float maxPlayerDistanceX = 20f;
     /// (Phase 2 and 3) The speed at which Geb moves during the charge attack.
-    protected float chargeSpeed = 20f;
+    protected float chargeSpeed = 18f;
 
     /// The current action that Geb is taking.
     private GebAction currentAction;
     /// Create random number generator.
     private System.Random rng = new System.Random();
-    /// This was going to be used to simplify the code. It has not been implemented, and at this point, it might never be.
-    private List<Action> phase1Actions = new List<Action> {};
     /// The number of times in a row Geb has attacked. Negative values count how many times in a row Geb doesn't attack.
     private int attackCount;
     /// The direction Geb moves in.
@@ -212,16 +210,16 @@ public class GebBossController : MonoBehaviour
         // Switch Geb's animation to the one with legs.
         animator.SetTrigger("grow legs");
         // To adjust to the size of the new image, decrease Geb's x and y scale.
-        transform.localScale = new Vector3(transform.localScale.x / 1.7f, transform.localScale.y / 1.7f, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         // Increase the size of the BoxCollider2D to roughly match the new scale.
-        bc.size = new Vector2(bc.size.x * 1.9f, bc.size.y * 1.9f);
+        bc.size = new Vector2(bc.size.x * 1.1f, bc.size.y * 1.25f);
         // Increase the size and offset of the charge attack hitbox to match the new BoxCollider2D.
-        BoxCollider2D cahbc = chargeAttackHitbox.GetComponent<BoxCollider2D>();
-        cahbc.size = new Vector2(cahbc.size.x * 1.9f, cahbc.size.y * 1.9f);
-        cahbc.offset = new Vector2(cahbc.offset.x * 1.9f, cahbc.offset.y * 1.9f);
+        //BoxCollider2D cahbc = chargeAttackHitbox.GetComponent<BoxCollider2D>();
+        //cahbc.size = new Vector2(cahbc.size.x * 1.9f, cahbc.size.y * 1.9f);
+        //cahbc.offset = new Vector2(cahbc.offset.x * 1.9f, cahbc.offset.y * 1.9f);
         // Increase the size and offset of the wall detector to match the new BoxCollider2D.
         BoxCollider2D wdbc = wallDetector.transform.GetComponent<BoxCollider2D>();
-        wdbc.size = new Vector2(wdbc.size.x * 1.9f, wdbc.size.y * 1.9f);
+        wdbc.size = new Vector2(wdbc.size.x * 1.5f, wdbc.size.y * 1.9f);
         wdbc.offset = new Vector2(wdbc.offset.x * 1.9f, wdbc.offset.y * 1.9f);
         
         // Flip Geb to face the player.
@@ -244,6 +242,9 @@ public class GebBossController : MonoBehaviour
 
         // Update positionOnDefeat;
         positionOnDefeat = transform.position;
+
+        // Geb is defeated. Good job, Horus!
+        animator.SetTrigger("defeated");
     }
 
     /// Called by GebPhaseController once when the closing cutscene finishes.
@@ -291,8 +292,7 @@ public class GebBossController : MonoBehaviour
     ///             - Otherwise, start a different action.
     ///     - RockThrowAttack:
     ///         - Don't move.
-    ///         - Wait for the (missing) rock throwing animation to finish.
-    ///             - There is currently a temporary animation for this attack where Geb wiggles.
+    ///         - Wait for the rock throwing animation to finish.
     ///         - Once the animation finishes:
     ///             - Instantiate and launch a rock projectile.
     ///             - Start a new action, either idle or throw another rock projectile.
@@ -436,10 +436,6 @@ public class GebBossController : MonoBehaviour
                 // Geb is not moving.
                 horizontalDirection = 0f;
 
-                // TEMPORARY Wiggle animation.
-                if (Time.timeScale != 0)
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-
                 // Before currentActionTimer is greater than currentActionDuration,
                 // this time should be used for Geb to prepare a rock (grabbing rock off back animation and throwing animation).
                 // Once Geb is done doing that, summon and launch the rock. Then, start a new action.
@@ -450,7 +446,7 @@ public class GebBossController : MonoBehaviour
                     FacePlayer();
 
                     // Summon and launch a rock from Geb's position, aiming towards the player.
-                    ThrowRock();
+                    //ThrowRock(); // Called by the animation.
 
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
@@ -519,8 +515,7 @@ public class GebBossController : MonoBehaviour
     ///             - Otherwise, start a different action.
     ///     - RockThrowAttack:
     ///         - Don't move.
-    ///         - Wait for the (missing) rock throwing animation to finish.
-    ///             - There is currently a temporary animation for this attack where Geb wiggles.
+    ///         - Wait for the rock throwing animation to finish.
     ///         - Once the animation finishes:
     ///             - Instantiate and launch a rock projectile.
     ///             - Start a new action, either idle or throw another rock projectile.
@@ -709,10 +704,6 @@ public class GebBossController : MonoBehaviour
                 // Geb is not moving.
                 horizontalDirection = 0f;
 
-                // TEMPORARY Wiggle animation.
-                if (Time.timeScale != 0)
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-
                 // Before currentActionTimer is greater than currentActionDuration,
                 // this time should be used for Geb to prepare a rock (grabbing rock off back animation and throwing animation).
                 // Once Geb is done doing that, summon and launch the rock. Then, start a new action.
@@ -723,7 +714,7 @@ public class GebBossController : MonoBehaviour
                     FacePlayer();
 
                     // Summon and launch a rock from Geb's position, aiming towards the player.
-                    ThrowRock();
+                    //ThrowRock(); // Called by the animation.
 
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
@@ -760,11 +751,7 @@ public class GebBossController : MonoBehaviour
             case GebAction.WallSummon:
                 // Geb is not moving.
                 horizontalDirection = 0f;
-
-                // TEMPORARY Wiggle animation.
-                if (Time.timeScale != 0)
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-                
+    
                 // Once the duration of the wall summon is over, start a different action.
                 if (currentActionTimer > currentActionDuration)
                 {
@@ -813,13 +800,7 @@ public class GebBossController : MonoBehaviour
             case GebAction.ChargeAttack:
                 // If the attack is not yet windUpPercentage% of the way done, play a wind up animation instead of attacking.
                 // Otherwise, update Geb's x velocity and activate the hitbox. (horizontalDirection is determined before the attack starts.)
-                if (currentActionTimer / currentActionDuration < windUpPercentage)
-                {
-                    // TEMPORARY Wiggle animation.
-                    if (Time.timeScale != 0)
-                        transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-                }
-                else
+                if (currentActionTimer / currentActionDuration >= windUpPercentage)
                 {
                     // Update Geb's x velocity.
                     rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
@@ -929,8 +910,7 @@ public class GebBossController : MonoBehaviour
     ///             - Otherwise, start a different action.
     ///     - RockThrowAttack:
     ///         - Don't move.
-    ///         - Wait for the (missing) rock throwing animation to finish.
-    ///             - There is currently a temporary animation for this attack where Geb wiggles.
+    ///         - Wait for the rock throwing animation to finish.
     ///         - Once the animation finishes:
     ///             - Instantiate and launch a rock projectile.
     ///             - Start a new action, either idle or throw another rock projectile.
@@ -1183,10 +1163,6 @@ public class GebBossController : MonoBehaviour
                 // Geb is not moving.
                 horizontalDirection = 0f;
 
-                // TEMPORARY Wiggle animation.
-                if (Time.timeScale != 0)
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-
                 // Before currentActionTimer is greater than currentActionDuration,
                 // this time should be used for Geb to prepare a rock (grabbing rock off back animation and throwing animation).
                 // Once Geb is done doing that, summon and launch the rock. Then, start a new action.
@@ -1197,7 +1173,7 @@ public class GebBossController : MonoBehaviour
                     FacePlayer();
 
                     // Summon and launch a rock from Geb's position, aiming towards the player.
-                    ThrowRock();
+                    //ThrowRock(); // Called by the animation.
 
                     // A new action is going to be started, so currentActionTimer can be reset.
                     currentActionTimer = 0.0f;
@@ -1235,10 +1211,6 @@ public class GebBossController : MonoBehaviour
                 // Geb is not moving.
                 horizontalDirection = 0f;
 
-                // TEMPORARY Wiggle animation.
-                if (Time.timeScale != 0)
-                    transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-                
                 // Once the duration of the wall summon is over, start a different action.
                 if (currentActionTimer > currentActionDuration)
                 {
@@ -1299,13 +1271,7 @@ public class GebBossController : MonoBehaviour
             case GebAction.ChargeAttack:
                 // If the attack is not yet windUpPercentage% of the way done, play a wind up animation instead of attacking.
                 // Otherwise, update Geb's x velocity and activate the hitbox. (horizontalDirection is determined before the attack starts.)
-                if (currentActionTimer / currentActionDuration < windUpPercentage)
-                {
-                    // TEMPORARY Wiggle animation.
-                    if (Time.timeScale != 0)
-                        transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 50f * currentActionTimer / currentActionDuration, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-                }
-                else
+                if (currentActionTimer / currentActionDuration >= windUpPercentage)
                 {
                     // Update Geb's x velocity.
                     rb.velocity = new Vector2(horizontalDirection * chargeSpeed, rb.velocity.y);
@@ -1384,9 +1350,6 @@ public class GebBossController : MonoBehaviour
                 // Geb is not moving.
                 horizontalDirection = 0f;
 
-                // Wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 25f, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-
                 // Wait until the attack is windUpPercentage% of the way done before activating the earthquake zone hitbox.
                 if (currentActionTimer / currentActionDuration >= windUpPercentage)
                 {
@@ -1463,15 +1426,6 @@ public class GebBossController : MonoBehaviour
                     transform.position += new Vector3(0f, Time.deltaTime * 2.5f, 0f);
                     rockTornado.transform.localScale = new Vector3(currentActionTimer / currentActionDuration * 3f, currentActionTimer / currentActionDuration * 3f, 1f);
                 }
-
-                // Geb wiggle animation.
-                transform.position = new Vector3(transform.position.x + (float)Math.Cos(50f * Time.time) / 25f, transform.position.y + (float)Math.Sin(50f * Time.time) / 100f * currentActionTimer / currentActionDuration, transform.position.z);
-
-                // TEMPORARY Tornado "spin" animation.
-                if (currentActionTimer / currentActionDuration % 0.4f > 0.2f)
-                    rockTornado.transform.localScale = new Vector3(Math.Abs(rockTornado.transform.localScale.x), rockTornado.transform.localScale.y, rockTornado.transform.localScale.z);
-                else
-                    rockTornado.transform.localScale = new Vector3(-Math.Abs(rockTornado.transform.localScale.x), rockTornado.transform.localScale.y, rockTornado.transform.localScale.z);
 
                 // If the player is more than 3 units of behind Geb, then Geb will change side (and face the player).
                 if (player.transform.position.x - 3 < transform.position.x || player.transform.position.x + 3 > transform.position.x)
@@ -1617,6 +1571,8 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.RockThrowAttack;
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = throwDuration;
+        // Trigger the animation.
+        animator.SetTrigger("flying throw rock");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1633,6 +1589,8 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.Idle;
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = idleDuration;
+        // Trigger the animation.
+        animator.SetTrigger("leg idle");
         // Update attackCount.
         if (attackCount > 0)
             attackCount = -1;
@@ -1651,6 +1609,8 @@ public class GebBossController : MonoBehaviour
 
         // Start moving action.
         StartMoving();
+        // Trigger the animation.
+        animator.SetTrigger("walk");
         // Update attackCount.
         if (attackCount > 0)
             attackCount = -1;
@@ -1667,6 +1627,8 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.RockThrowAttack;
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = throwDuration;
+        // Trigger the animation.
+        animator.SetTrigger("leg throw rock");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1679,6 +1641,8 @@ public class GebBossController : MonoBehaviour
     {
         // Summon a wall.
         StartWallSummon();
+        // Trigger the animation.
+        animator.SetTrigger("roar");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1691,6 +1655,8 @@ public class GebBossController : MonoBehaviour
     {
         // Start charge attack.
         StartChargeAttack();
+        // Trigger the animation.
+        animator.SetTrigger("charge buildup");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1717,6 +1683,8 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.Idle;
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = idleDuration;
+        // Trigger the animation.
+        animator.SetTrigger("leg idle");
     }
 
     /// Used to initiate the Moving action in phase 3.
@@ -1730,6 +1698,8 @@ public class GebBossController : MonoBehaviour
 
         // Start moving action.
         StartMoving();
+        // Trigger the animation.
+        animator.SetTrigger("walk");
         // Update attackCount.
         if (attackCount > 0)
             attackCount = -1;
@@ -1746,6 +1716,8 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.RockThrowAttack;
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = throwDuration;
+        // Trigger the animation.
+        animator.SetTrigger("leg throw rock");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1758,6 +1730,8 @@ public class GebBossController : MonoBehaviour
     {
         // Summon a wall.
         StartWallSummon();
+        // Trigger the animation.
+        animator.SetTrigger("roar");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1770,6 +1744,8 @@ public class GebBossController : MonoBehaviour
     {
         // Start charge attack.
         StartChargeAttack();
+        // Trigger the animation.
+        animator.SetTrigger("charge buildup");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1784,6 +1760,8 @@ public class GebBossController : MonoBehaviour
         currentAction = GebAction.Earthquake;
         // Make sure that the action lasts for the appropriate amount of time.
         currentActionDuration = earthquakeDuration;
+        // Trigger the animation.
+        animator.SetTrigger("quake");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1796,6 +1774,8 @@ public class GebBossController : MonoBehaviour
     {
         // Create rock tornado.
         StartRockTornado();
+        // Use the idle animation (tornado handled separately).
+        animator.SetTrigger("leg idle");
         // Update attackCount.
         if (attackCount < 0)
             attackCount = 1;
@@ -1901,15 +1881,24 @@ public class GebBossController : MonoBehaviour
     /// </summary>
     private void ThrowRock()
     {
+        // The opening cutscene thrown rock is handled separately.
+        if (phaseController.phase == GebPhase.OpeningCutscene)
+        {
+            return;
+        }
+
+        // Geb's hand position
+        Vector3 gebHandPos = new Vector3(transform.position.x, transform.position.y + 4.5f, transform.position.z);
+
         // Summon rock and get its Rigidbody2D component.
-        Rigidbody2D rock = Instantiate(throwableRock, transform.position, transform.rotation).GetComponent<Rigidbody2D>();
+        Rigidbody2D rock = Instantiate(throwableRock, gebHandPos, transform.rotation).GetComponent<Rigidbody2D>();
 
         // The speed and angle the rock should be thrown at in order to hit the player if they don't move.
         // Get the rock's gravity.
         float rockAccelerationY = Math.Abs(Physics2D.gravity.y * rock.gravityScale);
-        // Get player's relative position to Geb.
-        float deltaX = player.transform.position.x - transform.position.x;
-        float deltaY = player.transform.position.y - transform.position.y;
+        // Get player's relative position to Geb's hand.
+        float deltaX = player.transform.position.x - gebHandPos.x;
+        float deltaY = player.transform.position.y - gebHandPos.y;
         // Velocity to throw the rock at.
         Vector2 initialVelocity = GetMinInitialThrowVelocity(deltaX, deltaY, rockAccelerationY);
 
@@ -2028,7 +2017,7 @@ public class GebBossController : MonoBehaviour
     }
 
     /// <summary>
-    /// Used in phase 2 to set Geb's current action to ChargeAttack and pick a direction to move in.
+    /// Used in phase 2 and 3 to set Geb's current action to ChargeAttack and pick a direction to move in.
     /// This function gets called by the phase-specific action-starting functions. Use those functions instead.
     /// </summary>
     private void StartChargeAttack()
