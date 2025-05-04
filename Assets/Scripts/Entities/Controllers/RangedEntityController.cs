@@ -19,51 +19,49 @@ public class RangedEntityController : BaseEntityController
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(attackPoint.position.x, attackPoint.position.y), Quaternion.identity);
 
         // if we're facing left, flip the direction (projectile faces right by default)
-        if (transform.localScale.x > 0) {
+        if (transform.localScale.x > 0)
+        {
             projectile.GetComponent<BaseProjectile>().FlipDirection();
         }
     }
 
-    /// Runs ActivateAttack.
-    /// \note Because there's no ranged attack animation, this function just manually runs ActivateAttack for now.
+    /// Plays the attack animation and runs ActivateAttack().
+    /// \note The attack animation for the Seth Follower fires the arrow immediately, so just calling ActivateAttack() immediately is ok.
     protected override void TriggerAttack()
     {
-        // Here, the attack animation would play if there was one
-        // Because there's not, we'll just trigger the attack manually for now
-
-        // animator.SetBool("IsAttacking", true);
+        print("Attack!");
+        animator.SetTrigger("Attack");
         ActivateAttack();
     }
-    
+
     /// Modified from the base version so entity flips direction if target moves behind it
-    /// \todo Make 1.4 offest a variable rather than hard coded.
+    /// \todo Make entityCenter offest a variable rather than hard coded.
     protected override void CloseAttackState()
     {
-        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
+        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, entityCenter, 0f),
             activateAttackRange,
             enemyLayers);
 
         hostileInCloseRange = hitObject != null;
 
-        // I use an offset of 1.4 to make it closer to upper body height
         if (hostileInCloseRange)
         {
-            Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
+            Debug.DrawRay(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.right * activateAttackRange,
                 Color.cyan);
 
-            Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
+            Debug.DrawRay(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.left * activateAttackRange,
                 Color.cyan);
 
             RaycastHit2D enemyFrontRay, enemyBackRay;
 
-            enemyFrontRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
+            enemyFrontRay = Physics2D.Raycast(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.right,
                 activateAttackRange,
                 enemyLayers);
 
-            enemyBackRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
+            enemyBackRay = Physics2D.Raycast(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.left,
                 activateAttackRange,
                 enemyLayers);

@@ -43,6 +43,7 @@ public abstract class BaseEntityController : MonoBehaviour
     [SerializeField] protected float detectionRange = 6f;
     /// How close the entity must be to an enemy to attack it.
     [SerializeField] protected float activateAttackRange = 3f;
+    [SerializeField] protected float entityCenter = 1.4f;
     /// True if the entity has detected an enemy.
     protected bool hostileDetected = false;
     /// True if the entity is close enough to an enemy to attack it.
@@ -164,8 +165,8 @@ public abstract class BaseEntityController : MonoBehaviour
 
         rb.velocity = new Vector2((moveVelocity + speedModifier) * horizontalDirection * Convert.ToInt32(canWalk), rb.velocity.y);
 
-        // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
-        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
+        // The offset (0, entityCenter, 0) moves the circle up to the center of the sprite
+        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, entityCenter, 0f),
             detectionRange,
             enemyLayers);
 
@@ -196,13 +197,13 @@ public abstract class BaseEntityController : MonoBehaviour
     /// \pre The entity has detected an enemy in its detection range.
     protected virtual void ChaseState()
     {
-        // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
-        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
+        // The offset (0, entityCenter, 0) moves the circle up to the center of the sprite
+        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, entityCenter, 0f),
             detectionRange,
             enemyLayers);
 
         hostileDetected = hitObject != null;
-        hostileInCloseRange = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
+        hostileInCloseRange = Physics2D.OverlapCircle(transform.position + new Vector3(0f, entityCenter, 0f),
             activateAttackRange,
             enemyLayers) != null;
 
@@ -275,34 +276,32 @@ public abstract class BaseEntityController : MonoBehaviour
     ///     - Otherwise, don't change state. Allow CloseAttack state to continue.
     /// </summary>
     /// \pre The entity is close enough to an enemy to attack it.
-    /// \todo Make 1.4 offest a variable rather than hard coded.
     protected virtual void CloseAttackState()
     {
-        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, 1.3f, 0f),
+        Collider2D hitObject = Physics2D.OverlapCircle(transform.position + new Vector3(0f, entityCenter, 0f),
             activateAttackRange,
             enemyLayers);
 
         hostileInCloseRange = hitObject != null;
 
-        // I use an offset of 1.4 to make it closer to upper body height
         if (hostileInCloseRange)
         {
-            Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
+            Debug.DrawRay(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.right * activateAttackRange,
                 Color.cyan);
 
-            Debug.DrawRay(transform.position + new Vector3(0f, 1.4f, 0f),
+            Debug.DrawRay(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.left * activateAttackRange,
                 Color.cyan);
 
             RaycastHit2D enemyFrontRay, enemyBackRay;
 
-            enemyFrontRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
+            enemyFrontRay = Physics2D.Raycast(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.right,
                 activateAttackRange,
                 enemyLayers);
 
-            enemyBackRay = Physics2D.Raycast(transform.position + new Vector3(0f, 1.4f, 0f),
+            enemyBackRay = Physics2D.Raycast(transform.position + new Vector3(0f, entityCenter, 0f),
                 Vector2.left,
                 activateAttackRange,
                 enemyLayers);
@@ -350,18 +349,17 @@ public abstract class BaseEntityController : MonoBehaviour
     /// \brief Displays radiuses of the detection and attack circles in the Unity Editor, specifically the scene view.
     /// This allows developers to see how far away an entity can see an enemy and how far way they will attack the enemy.
     /// \important Must be commented out or removed to export the game. Otherwise, Unity will throw compiler errors.
-    /// \todo Make 1.3 offest a variable rather than hard coded.
     private void OnDrawGizmosSelected()
     {
         // Purely for debugging purposes
         // This displays the radius of the detection circle
         // And the radius of the attack circle
-        // The offset (0, 1.3, 0) moves the circle up to the center of the sprite
+        // The offset (0, entityCenter, 0) moves the circle up to the center of the sprite
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), detectionRange);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, entityCenter, 0f), detectionRange);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.3f, 0f), activateAttackRange);
-            
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, entityCenter, 0f), activateAttackRange);
+
     }
 
     /// Set references to rigidbody, animator, object health, and GroundDetector.
@@ -384,7 +382,7 @@ public abstract class BaseEntityController : MonoBehaviour
         if (speedModifier < -moveVelocity)
             speedModifier = -moveVelocity;
     }
-    
+
     /// <summary>
     /// Temporarily speeds up or slows down the entity's movement speed. A negative value for speedChange will slow down the entity.
     /// </summary>
@@ -402,10 +400,15 @@ public abstract class BaseEntityController : MonoBehaviour
         speedModifier += speedChange;
         if (moveVelocity + speedModifier < 0)
             speedModifier = 0;
-            
+
         yield return new WaitForSeconds(duration);
         speedModifier -= speedChange;
     }
 
+    /// Can be optionaly run by ObjectHealth.onDeath
+    public void DestroyOnDeath()
+    {
+        Destroy(gameObject);
+    }
 }
 

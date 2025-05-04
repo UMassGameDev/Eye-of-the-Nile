@@ -16,6 +16,8 @@ public class RockGolemController : MeleeEntityController
 {
     /// The rock golem does not chase objects on these layers, but will attack them if they are in their way of chasing.
     [SerializeField] protected LayerMask attackLayers;
+    /// Particles the golem will spawn when it dies.
+    public Transform boulderParticles;
 
     /// Similar to base.ChaseState except for attackLayers also detected.
     protected override void ChaseState()
@@ -118,7 +120,7 @@ public class RockGolemController : MeleeEntityController
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, attackLayers);
 
         foreach (Collider2D hitObject in hitObjects)
-        {   
+        {
             // If the object is a player, apply damage and knockback.
             // If the object is not a player, apply damage to the object's health.
             if (hitObject.tag == "Player")
@@ -133,5 +135,13 @@ public class RockGolemController : MeleeEntityController
                     health.TakeDamage(transform, attackDamage);
             }
         }
+    }
+
+    public void SpawnParticlesOnDeath()
+    {
+        Instantiate(boulderParticles,
+            gameObject.transform.position,
+            Quaternion.identity);
+        Destroy(gameObject);
     }
 }

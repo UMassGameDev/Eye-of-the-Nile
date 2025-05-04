@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 342579770141289240}
   - component: {fileID: 8336332265919656113}
   m_Layer: 0
-  m_Name: Seth Follower
+  m_Name: Deprecated Seth Follower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3390454474114176491}
   m_Layer: 0
-  m_Name: Ranged BadGuy Patrol
+  m_Name: Seth Follower Patrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6016984401380294491
 Transform:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 732792733718289420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.675, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.78, y: 0.0015}
+  m_Size: {x: 0.78, y: 0.005}
   m_EdgeRadius: 0
 --- !u!114 &8820098136807152886
 MonoBehaviour:
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 810580329863801679}
   - component: {fileID: 1677358739452177729}
   m_Layer: 7
-  m_Name: Ranged Bad Guy
+  m_Name: Seth Follower
   m_TagString: DamagableByProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 317b8365a4649ab459f6cb58ec8f9f18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1d40e9e2f38776459c8e4a5f295336e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -280,11 +280,11 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.65}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.5, y: 1.5}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5003663, y: 1.5003663}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 358435564850521452}
-  attackDamage: 30
+  attackDamage: 15
   attackCooldown: 2
   enemyLayers:
     serializedVersion: 2
@@ -336,6 +336,7 @@ MonoBehaviour:
   horizontalDirection: 0
   detectionRange: 9
   activateAttackRange: 7
+  entityCenter: 0
   moveVelocity: 6
   linearDrag: 1
   groundedRaycastLength: 1.8
@@ -383,7 +384,19 @@ MonoBehaviour:
     Path: event:/SFX/Set on Fire
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7090342042800124806}
+        m_TargetAssemblyTypeName: RangedEntityController, Assembly-CSharp
+        m_MethodName: DestroyOnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1677358739452177729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 2148725425994582993}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -639,7 +652,7 @@ Transform:
   m_GameObject: {fileID: 2980631694232550348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.81, y: 0.52, z: 0}
+  m_LocalPosition: {x: -0.81, y: 0.095, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,7 +716,7 @@ Transform:
   m_GameObject: {fileID: 7719725174420980365}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0626, y: 0.0626, z: 0.1252}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -800,7 +813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1798922734301698096, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
       propertyPath: m_Offset.y
-      value: 0.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2994570719775716183, guid: f9757d6512328d14fb6ecbc2eac359bb, type: 3}
       propertyPath: m_Name

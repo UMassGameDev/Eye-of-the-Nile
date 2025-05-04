@@ -552,7 +552,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  deadFadeDelay: 1
+  deadFadeDelay: 2
   deadFadeLength: 1
   deathSceneName: Anubis
   defaultDeathMessage: '[DEFAULT]'

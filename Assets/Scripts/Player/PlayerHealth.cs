@@ -308,6 +308,7 @@ public class PlayerHealth : ObjectHealth
     /// Runs an animation, disables collision, physics, and player movement, and starts a corountine for AfterDeath().
     protected override void Die()
     {
+        animator.SetTrigger("Died");
         animator.SetBool("IsDead", true);
         AudioManager.instance.PlaySFX(deathSfxName);
 
