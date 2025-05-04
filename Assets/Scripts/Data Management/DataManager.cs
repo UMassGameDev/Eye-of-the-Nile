@@ -238,6 +238,11 @@ public class DataManager : MonoBehaviour
             currTimeOfDay = saveData.currTimeOfDay;
             souls = saveData.souls;
             godSouls = saveData.godSouls;
+            abilitiesUnlocked = saveData.abilitiesUnlocked;
+            skyhubUnlocked = saveData.skyhubUnlocked;
+            maatTalked = saveData.maatTalked;
+            skyhubExited = saveData.skyhubExited;
+            skyhubLeadsToOpening = saveData.skyhubLeadsToOpening;
 
             currSceneIndex = saveData.currSceneIndex;
             currSceneName = saveData.currSceneName;

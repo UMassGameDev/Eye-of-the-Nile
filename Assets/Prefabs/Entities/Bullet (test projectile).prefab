@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 8366819583817702406}
-  damage: 30
+  damage: 15
   damagePlayers: 1
   damageNonPlayers: 0
   destroyOnImpact: 1

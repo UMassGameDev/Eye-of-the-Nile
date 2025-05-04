@@ -18,6 +18,8 @@ public class StageLoader : MonoBehaviour
     public Animator fadeAnimator;
     /// Reference to the DataManager.
     DataManager dataManager;
+    /// Reference to the ActiveAbilityData object.
+    public ActiveAbilityData activeAbilities;
 
     /// Populate the dictionary with every StageWarp in the scene and their names.
     void InitializeWarps()
@@ -51,6 +53,8 @@ public class StageLoader : MonoBehaviour
     /// Then, it runs a coroutine for TransitionToNewStage().
     public void LoadNewStage(string newStageName)
     {
+        activeAbilities.VerifyAbilityForms();
+
         if (WarpInfo.CurrentlyWarping == true)
             return;
 

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeAnimator: {fileID: 2203019778230854135}
+  activeAbilities: {fileID: 11400000, guid: 9b7528f8fc0463c4cadb3c6c5218d40c, type: 2}
 --- !u!1 &3761701568817166294
 GameObject:
   m_ObjectHideFlags: 0

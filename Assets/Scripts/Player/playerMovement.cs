@@ -233,6 +233,8 @@ public class PlayerMovement : MonoBehaviour
             jumpHeldDuration = 0.0f; // The jump ends when the jump button is no longer pressed (or when the player is warping).
             animator.SetBool("IsGliding", false);
         }
+
+        animator.SetFloat("verticalMovement", rb.velocity.y);
     }
 
     /// Makes the player jump by canceling current velocity, adding upwards force, and setting isFalling to false.

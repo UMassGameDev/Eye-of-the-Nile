@@ -25,6 +25,16 @@ public class SerializedData
     public int souls { get; private set; }
     /// Current amount of god souls. 
     public int godSouls { get; private set; }
+    /// Whether the ability hotbar is unlocked yet or not.
+    public bool abilitiesUnlocked { get; private set; }
+    /// True if warp obelisks should allow the player to warp to the Skyhub. Unlocks after Geb is defeated.
+    public bool skyhubUnlocked { get; private set; }
+    /// If Ma'at has never been talked to before, the welcome message should be displayed.
+    public bool maatTalked { get; private set; }
+    /// If the player has ever exited the Skyhub.
+    public bool skyhubExited { get; private set; }
+    /// Set to true and the Skyhub will spawn the player back at the Opening scene.
+    public bool skyhubLeadsToOpening { get; private set; }
     ///@}
 
     /** @name Scene Data
@@ -67,6 +77,11 @@ public class SerializedData
         currTimeOfDay = dataManager.GetTimeOfDay();
         souls = dataManager.GetSouls();
         godSouls = dataManager.GetGodSouls();
+        abilitiesUnlocked = dataManager.abilitiesUnlocked;
+        skyhubUnlocked = dataManager.skyhubUnlocked;
+        maatTalked = dataManager.maatTalked;
+        skyhubExited = dataManager.skyhubExited;
+        skyhubLeadsToOpening = dataManager.skyhubLeadsToOpening;
 
         currSceneIndex = dataManager.GetCurrSceneIndex();
         currSceneName = dataManager.GetCurrSceneName();

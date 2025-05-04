@@ -37,6 +37,21 @@ public class ActiveAbilityData : ScriptableObject
     /// \note Might replace with an event someday.
     public List<int> RefreshSlots { get; set; } = new List<int>();
 
+    public void VerifyAbilityForms()
+    {
+        if (offenseSlot != null)
+            offenseSlot.currentForm = AbilityForm.Offense;
+
+        if (defenseSlot != null)
+            defenseSlot.currentForm = AbilityForm.Defense;
+
+        if (utilitySlot != null)
+            utilitySlot.currentForm = AbilityForm.Utility;
+
+        if (passiveSlot != null)
+            passiveSlot.currentForm = AbilityForm.Passive;
+    }
+
     /// <summary>
     /// returns the ability info at the given slot number.
     /// </summary>
