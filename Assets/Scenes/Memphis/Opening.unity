@@ -70085,6 +70085,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1180400791949935716, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1488595279024163374, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_Name
       value: StageWarp Direct
@@ -72598,7 +72602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7159401013687432541, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.22
+      value: -3.89
       objectReference: {fileID: 0}
     - target: {fileID: 8632219531049447108, guid: 0aec20d3caba70947b9226444ffa7195, type: 3}
       propertyPath: stageWarp
