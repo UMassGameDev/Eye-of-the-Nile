@@ -1,0 +1,15 @@
+[Eye of the Nile](https://itch.io/game/edit/3532408) is a 2D platformer set in a cartoon version of ancient Egypt, inspired by similar metroidvania type games. Seth, the god of chaos, has cast a mind control curse on several other gods, and it's up to his brother Horus to stop him. Fight enemies, solve puzzles, and defeat each boss to lift their curse!
+
+This version of the game is intended to be a demo version of the original, far larger concept we had planned. [You can read about that here](https://docs.google.com/document/d/11t10SskIkxHcFOvsnJHaeeMQuIM5M7cjp78eWNINZHs/edit?tab=t.0#heading=h.56f7xjlbvygl)! Because of that, we weren't able to include all the art made for the game, so we made an art book! [View our art book here](https://docs.google.com/presentation/d/107SRpFMBvZ3OWa06G-lAMvLzMzeWe5vN2M50ZGhkSDw/edit?slide=id.p#slide=id.p), [view the PDF version here](https://drive.google.com/file/d/1c-OCCvgfBx7J0xdO7kBAppNP6RLJnMWs/view?usp=sharing), or download all the assets from the zip archive on [our itch.io page](https://itch.io/game/edit/3532408).
+
+This project is open source! View our repository here and [view our documentation page here](https://umassgamedev.github.io/Eye-of-the-Nile/).
+
+Check our GitHub repository contributors for credit to our programmers, and check the art book for credit to our artists, musicians, and sound designers! Contact us at umassgamedevclub@gmail.com.
+
+Screenshots:
+![Screenshot 1](https://media.discordapp.net/attachments/1279545631622299680/1369345362061557882/itch_screenshot_1.png?ex=681b85bf&is=681a343f&hm=3988da949b386959b63dafd36652a5c923c995b43e114a76d2cde0442cc924b1&=&format=webp&quality=lossless&width=1526&height=856)
+![Screenshot 2](https://media.discordapp.net/attachments/1279545631622299680/1369345362510217306/itch_screenshot_2.png?ex=681b85bf&is=681a343f&hm=89b0cadfe79747d33c17d503e4aff9f5b274174b038feb322ebeee963ac2e3eb&=&format=webp&quality=lossless&width=1521&height=856)
+![Screenshot 3](https://media.discordapp.net/attachments/1279545631622299680/1369345363990937782/itch_screenshot_5.png?ex=681b85bf&is=681a343f&hm=e5ce795c50ec61b04fadd1e67084c8ab36221b8574a23ac92edfb749e3744377&=&format=webp&quality=lossless&width=1521&height=856)
+![Screenshot 4](https://media.discordapp.net/attachments/1279545631622299680/1369345363072385166/itch_screenshot_3.png?ex=681b85bf&is=681a343f&hm=42e525529c791caa9e895db27d96a2e421be56d5f1b8c818019ecc34eaeb36dd&=&format=webp&quality=lossless&width=1521&height=856)
+![Screenshot 5](https://media.discordapp.net/attachments/1279545631622299680/1369345363592482888/itch_screenshot_4.png?ex=681b85bf&is=681a343f&hm=a8be5cb9c3ebbe4dfe3d4e3c9dd4f6dbe9d1e2e87d4b89b9efb617a290f3cd4b&=&format=webp&quality=lossless&width=1521&height=856)
+![Screenshot 5](https://media.discordapp.net/attachments/1279545631622299680/1369345361621028904/itch_screenshot_6.png?ex=681b85bf&is=681a343f&hm=c92d005c4465bae26e626bb72527c1784c0c811fb2e8dfd30b95e8107f1fbdc4&=&format=webp&quality=lossless&width=1521&height=856)
