@@ -49,7 +49,7 @@ MonoBehaviour:
   duration: 0
   tickRate: 0
   chargeUp: 0
-  cooldown: 5
+  cooldown: 8
   damage: 0
   offenseEffects: []
   defenseEffects: []

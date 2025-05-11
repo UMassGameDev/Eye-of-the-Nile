@@ -35,8 +35,10 @@ public class InteractProgressBar : MonoBehaviour
     void UpdateProgressBar(float progress)
     {
         if (Input.GetKey(KeyCode.E))
+        {
             //Debug.Log(progress);
-            
+        }
+
         if (progress >= (1 - minDisplayProgress) || progress <= 0 || progress >= 1) {
             progressbar.SetActive(false);
             progressbarUnderside.SetActive(false);

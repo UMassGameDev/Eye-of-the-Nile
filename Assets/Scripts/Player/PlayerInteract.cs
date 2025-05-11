@@ -18,6 +18,8 @@ public class PlayerInteract : MonoBehaviour
     public Transform attackPoint;
     /// List of layers that the player can interact with objects on.
     public LayerMask interactableLayers;
+    /// Reference to the DataManager. Used for checking if the Skyhub is unlocked.
+    DataManager dataManager;
 
     /// Distance from the attack point an object can be to allow interaction.
     public float interactRange = 0.5f;
@@ -43,6 +45,12 @@ public class PlayerInteract : MonoBehaviour
 
     /// An event that reports the current progress on a long press interaction. Used for InteractProgressBar
     public static event Action<float> interactProgress;
+
+    /// Set reference to dataManager.
+    void Awake()
+    {
+        dataManager = DataManager.Instance != null ? DataManager.Instance : FindObjectOfType<DataManager>();
+    }
 
     /// <summary>
     /// Get all interactables currently overlapping with the player's hitbox (OnTriggerEnter() and OnTriggerExit())
@@ -142,8 +150,8 @@ public class PlayerInteract : MonoBehaviour
         {
             foreach (Collider2D interactable in allInRange)
             {
-                // If object has any long press interaction events, allow the long press timer and cooldown to start
-                if (interactable.GetComponent<ObjectInteractable>().InvokeOnLongPress.GetPersistentEventCount() != 0)
+                // If object has any long press interaction events, allow the long press timer and cooldown to start unless it is a conditional warp to Skyhub and the Skyhub is not unlocked
+                if (interactable.GetComponent<ObjectInteractable>().InvokeOnLongPress.GetPersistentEventCount() != 0 && (interactable.GetComponent<ObjectInteractable>().InvokeOnLongPress.GetPersistentMethodName(0) == "ConditionalWarpToSkyhub" && dataManager.skyhubUnlocked == false) == false)
                 {
                     if (!longPressInteractionActive)
                     {
